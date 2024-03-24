@@ -111,7 +111,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <td><?php echo $dados_hist_form['data_registro']; ?></td>
                             <td><?php echo $dados_hist_form['situacao_concessao']; ?></td>
                             <td>
-                                <form action="/Suas-Tech/concessao/views/editar_conc" method="post" style="display:inline;">
+                                <form action="/TechSUAS/views/concessao/editar_conc" method="post" style="display:inline;">
                                     <input type="hidden" name="id_concessao" value="<?php echo $dados_hist_form['id_hist']; ?>">
                                     <button type="submit">Editar</button>
                                 </form>
@@ -178,7 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 <td><?php echo $dados_hist_form['data_registro']; ?></td>
                                 <td><?php echo $dados_hist_form['situacao_concessao']; ?></td>
                                 <td>
-                                    <form action="/Suas-Tech/concessao/views/editar_conc" method="post" style="display:inline;">
+                                    <form action="/TechSUAS/views/concessao/editar_conc" method="post" style="display:inline;">
                                         <input type="hidden" name="id_concessao" value="<?php echo $dados_hist_form['id_hist']; ?>">
                                         <button type="submit">Editar</button>
                                     </form>
