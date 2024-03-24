@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_user/dados_usuario.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
 ?>
 <!DOCTYPE html>
@@ -9,15 +9,15 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TechSUAS - Concessão</title>
-    <link rel="stylesheet" href="../css/style_cadpess.css">
+    <title>Cadastrar Responsável - TechSUAS</title>
+    <link rel="stylesheet" href="/TechSUAS/css/concessao/style_cadpess.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="website icon" type="png" href="/Suas-Tech/img/cadunico/logo.png">
+    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/Suas-Tech/concessao/js/script.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="/TechSUAS/js/concessao.js"></script>
     <script>
         function validarCPF(cpf) {
             cpf = cpf.replace(/[^\d]+/g, '');
@@ -70,7 +70,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_
 <body>
     <div class="img">
         <h1 class="titulo-com-imagem">
-            <img src="../img/h1-cad_user.svg" alt="Titulocomimagem">
+            <img src="/TechSUAS/img/concessao/h1-cad_user.svg" alt="Titulocomimagem">
         </h1>
     </div>
     <div class="container">
@@ -80,7 +80,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_
                     <label>CPF: </label>
                     <input class="inpu" type="text" name="cpf" id="cpf" placeholder="Digite o CPF do RESPONSÁVEL:" maxlength="14" required>
                     <button type="submit" id="btn_salvar">SALVAR</button>
-                    <a href="/Suas-Tech/controller/back.php">
+                    <a href="/TechSUAS/config/back">
                         <i class="fas fa-arrow-left"></i> Voltar ao menu
                     </a>
                 </div>
@@ -122,7 +122,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_
                                 text: 'Já existe um cadastro com esse CPF.',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = "/Suas-Tech/concessao/index.php"
+                                    window.location.href = "/TechSUAS/views/concessao/index"
                                 }
                             })
                         </script>
@@ -198,7 +198,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_
                                 text: 'Dados salvos com sucesso!',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = "/Suas-Tech/concessao/index.php"
+                                    window.location.href = "/TechSUAS/views/concessao/index"
                                 }
                             })
                         </script>
@@ -213,7 +213,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_
         </div>
         <div class="cadastro">
             <h3>CADASTRO MANUAL</h3>
-            <form method="POST" action="/Suas-Tech/concessao/controller/processo_concessao.php">
+            <form method="POST" action="/TechSUAS/controller/concessao/processo_concessao">
                 <table border='1'>
                     <tr class="resultado">
                         <td class="resultado" colspan="2">NOME COMPLETO:</td>
