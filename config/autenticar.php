@@ -12,10 +12,6 @@
 require_once "conexao.php";
 session_start();
 
-if (empty($_POST['usuario']) || empty($_POST['senha'])) {
-    header("location:/TechSUAS/index");
-}
-
 $usuario = $_POST['usuario'];
 $senha_login = $_POST['senha'];
 
