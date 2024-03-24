@@ -167,24 +167,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </tr>
                         <?php
 
-            while ($dados_hist_form = $form_query->fetch_assoc()) {
-                ?>
-                            <tr>
-                                <td><?php echo $dados_hist_form['num_form'] . '/' . $dados_hist_form['ano_form']; ?></td>
-                                <td><?php echo $dados_hist_form['nome_benef']; ?></td>
-                                <td><?php echo $dados_hist_form['nome_item']; ?></td>
-                                <td><?php echo 'R$ ' . $dados_hist_form['valor_total']; ?></td>
-                                <td><?php echo $dados_hist_form['mes_pag']; ?></td>
-                                <td><?php echo $dados_hist_form['data_registro']; ?></td>
-                                <td><?php echo $dados_hist_form['situacao_concessao']; ?></td>
-                                <td>
-                                    <form action="/TechSUAS/views/concessao/editar_conc" method="post" style="display:inline;">
-                                        <input type="hidden" name="id_concessao" value="<?php echo $dados_hist_form['id_hist']; ?>">
-                                        <button type="submit">Editar</button>
-                                    </form>
-                                </td>
-                            </tr>
-                <?php
+while ($dados_hist_form = $form_query->fetch_assoc()) {
+    ?>
+        <tr>
+            <td><?php echo $dados_hist_form['num_form'] . '/' . $dados_hist_form['ano_form']; ?></td>
+            <td><?php echo $dados_hist_form['nome_benef']; ?></td>
+            <td><?php echo $dados_hist_form['nome_item']; ?></td>
+            <td><?php echo 'R$ ' . $dados_hist_form['valor_total']; ?></td>
+            <td><?php echo $dados_hist_form['mes_pag']; ?></td>
+            <td><?php echo $dados_hist_form['data_registro']; ?></td>
+            <td><?php echo $dados_hist_form['situacao_concessao']; ?></td>
+            <td>
+                <form action="/TechSUAS/views/concessao/editar_conc" method="post" style="display:inline;">
+                    <input type="hidden" name="id_concessao" value="<?php echo $dados_hist_form['id_hist']; ?>">
+                    <button type="submit">Editar</button>
+                </form>
+            </td>
+        </tr>
+    <?php
 }
         }
     }
