@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
-    background-image: url(../img/fundo-ddv.svg);
+    background-image: url(../../img/geral/background-suporte.svg);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;

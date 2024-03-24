@@ -7,17 +7,17 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="/Suas-Tech/cadunico/css/login.css">
-    <link rel="shortcut icon" href="/Suas-Tech/cadunico/img/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/TechSUAS/css/geral/login.css">
+    <link rel="shortcut icon" href="/TechSUAS/img/geral/logo.png" type="image/x-icon">
     <link rel="icon" href="" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
 </head>
 
 <body>
     <div class="login-form">
-        <form action="/Suas-Tech/config/autenticar.php" method="post">
+        <form action="/TechSUAS/config/autenticar.php" method="post">
             <div class="logo">
-                <img src="/Suas-Tech/cadunico/img/logo1.png" alt="TECHSUAS">
+                <img src="/TechSUAS/img/geral/logo1.png" alt="TECHSUAS">
             </div>
             <h2 class="text-center">
                 Acessar Sistema

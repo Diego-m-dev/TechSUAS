@@ -13,7 +13,7 @@ require_once "conexao.php";
 session_start();
 
 if (empty($_POST['usuario']) || empty($_POST['senha'])) {
-    header("location:../index");
+    header("location:/TechSUAS/index");
 }
 
 $usuario = $_POST['usuario'];
@@ -78,7 +78,7 @@ if ($dados && password_verify($senha_login, $dados['senha'])) {
             confirmButtonText: 'OK',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "/Suas-Tech/index";
+                    window.location.href = "/TechSUAS/index";
                 }
             });
         </script>
@@ -96,7 +96,7 @@ if ($dados && password_verify($senha_login, $dados['senha'])) {
     confirmButtonText: 'OK',
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "/Suas-Tech/index";
+            window.location.href = "/TechSUAS/index";
         }
     });
 </script>
@@ -112,7 +112,7 @@ if ($dados && password_verify($senha_login, $dados['senha'])) {
     confirmButtonText: 'OK',
     }).then((result) => {
         if (result.isConfirmed) {
-            window.location.href = "/Suas-Tech/index.php";
+            window.location.href = "/TechSUAS/index.php";
         }
     });
 </script>
