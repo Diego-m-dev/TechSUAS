@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-//include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/cadunico/controller/acesso_user/dados_usuario.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 ?>
 
 <!DOCTYPE html>
