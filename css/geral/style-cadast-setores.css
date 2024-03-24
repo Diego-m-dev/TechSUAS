@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-*{
+
+* {
     margin-top: 0px;
 }
+
 body {
     background-image: url(/TechSUAS/img/geral/background-suporte.svg);
     background-size: cover;
@@ -9,8 +11,9 @@ body {
     background-attachment: fixed;
     overflow: auto;
     font-family: "Inter", sans-serif;
+    height: auto;
     font-weight: bold;
-    text-transform: uppercase;
+    text-transform: uppercase;  
 }
 
 img {
@@ -19,16 +22,47 @@ img {
     max-height: 120px
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     background-color: #ffffff;
-    padding: 15px;
+    padding: 20px 15px 15px 15px;
     border-radius: 10px;
-    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+    color: #13294b;
 }
+
+.bloco {
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: space-between;
+    align-content: space-between;
+    padding-top: 20px;
+}
+.blocob{
+    padding-top: 20px;
+    padding-right: 20px;
+}
+.btns{
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row;
+}
+.bloco1{
+    padding-right: 10px;
+}
+.blocott{
+    display: flex;
+    justify-content: space-between;
+    line-height: 2.5;
+    
+}
+.inpu{
+    width: 300px;
+}
+
 button,
 a {
     font-size: 14px;
@@ -40,35 +74,23 @@ a {
     color: white;
     cursor: pointer;
 }
+
 button:hover,
-a:hover{
+a:hover {
     background-color: #3b82f6;
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
-}   
-a{
+}
+
+a {
     text-decoration: none;
     text-transform: none;
 }
-.btns{
-    padding-top: 20px;
-}
-.tipodeacesso,.setor,.email{
-    font-size: 16px;
-    padding-top: 30px;
-    color: #13294b;
-}
-.nome{
-    font-size: 14px;
-    color: #13294b;
-    text-transform: uppercase;
-    width: auto;
 
+.btn {
+    padding-top: 25px;
 }
-.nome::placeholder {
-    font-size: 13px;
-    text-transform: none;
-}
+
 input,
 select,
 option {
@@ -80,4 +102,3 @@ option {
     padding: 1px 2px;
     border-style: outset;
 }
-

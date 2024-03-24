@@ -74,7 +74,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                         </div>
                         <div class="bloco2">
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='setores';">
+                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/geral/setores';">
                                                 <span class="material-symbols-outlined">
                                                         domain_add
                                                 </span>
