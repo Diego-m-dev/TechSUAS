@@ -34,7 +34,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                                         </a>
                                 </div>
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='/Suas-Tech/concessao/index';">
+                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/index';">
                                                 Concessão
                                         </a>
                                 </div>
