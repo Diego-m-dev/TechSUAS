@@ -82,7 +82,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                                         </a>
                                 </div>
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='/Suas-Tech/cadunico/painel-adm/cadastro_user';">
+                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/geral/cadastro_user';">
                                                 <span class="material-symbols-outlined">
                                                         person_add
                                                 </span>
@@ -90,7 +90,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                                         </a>
                                 </div>
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='/Suas-Tech/suas/views/atualizar_tabela';">
+                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/geral/atualizar_tabela';">
                                                 <span class="material-symbols-outlined">
                                                         library_add
                                                 </span>

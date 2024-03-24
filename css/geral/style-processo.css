@@ -1,0 +1,25 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+*{
+    margin-top: 0px;
+}
+body {
+    background-image: url(/TechSUAS/img/cadunico/background_cad.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    font-family: "Inter", sans-serif;
+}
+h1{
+    color: #13294b;
+    padding: 30px 0px;
+    text-align: center;
+    background-color: #ffffff;
+    margin: 20px ;
+    border-radius: 10px;
+
+}
+
+.linha{
+    border: 1px solid #13294b;
+}
