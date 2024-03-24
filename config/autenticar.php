@@ -45,7 +45,7 @@ if ($dados && password_verify($senha_login, $dados['senha'])) {
     }
     // Redirecione com base no nível de acesso
     if ($_SESSION['nivel_usuario'] == 'suport') {
-        header("location:../acesso_suporte/index");
+        header("location:/TechSUAS/suporte/index");
         exit();
     } elseif ($setor_ == "CRAS - ANTONIO MATIAS") {
         header("Location: ../cras/views/menu-cras-am");
