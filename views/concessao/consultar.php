@@ -153,19 +153,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $dados_form = "SELECT * FROM concessao_historico WHERE num_form LIKE '$form'";
             $form_query = $conn->query($dados_form) or die("ERRO ao consultar!" . $conn - error);
 
-            ?>
-                    <table width="650px" border="1">
-                        <tr>
-                            <th>Nº DO FORMULÁRIO</th>
-                            <th>NOME BENEFICIÁRIO</th>
-                            <th>CONCESSÃO</th>
-                            <th>VALOR</th>
-                            <th>MÊS DE PAGAMENTO</th>
-                            <th>REGISTRO</th>
-                            <th>SITUAÇÃO</th>
-                            <th>AÇÃO</th>
-                        </tr>
-                        <?php
+?>
+    <table width="650px" border="1">
+        <tr>
+            <th>Nº DO FORMULÁRIO</th>
+            <th>NOME BENEFICIÁRIO</th>
+            <th>CONCESSÃO</th>
+            <th>VALOR</th>
+            <th>MÊS DE PAGAMENTO</th>
+            <th>REGISTRO</th>
+            <th>SITUAÇÃO</th>
+            <th>AÇÃO</th>
+        </tr>
+<?php
 
 while ($dados_hist_form = $form_query->fetch_assoc()) {
     ?>
