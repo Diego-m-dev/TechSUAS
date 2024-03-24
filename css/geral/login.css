@@ -5,7 +5,7 @@ body{
 	background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-	background-image: url(../../acesso_suporte/img/fundo-ddv.svg);
+	background-image: url(/TechSUAS/img/geral/background-suporte.svg);
 }
 
 .login-form{
