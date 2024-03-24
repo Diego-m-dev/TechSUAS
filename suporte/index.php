@@ -24,7 +24,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                 <div class="menu">
                         <div class="bloco1">
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='/Suas-Tech/cadunico/views/atendimento/views/index';">
+                                        <a class="menu-button" onclick="location.href='#';">
                                                 Sistema de Atendimento
                                         </a>
                                 </div>
