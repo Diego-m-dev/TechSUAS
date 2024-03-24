@@ -110,7 +110,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                                         <a title="Sair" href='/TechSUAS/config/logout.php' ;>
                                                 <span title="Sair" class="material-symbols-outlined">logout</span>
                                         </a>
-                                        <a title="Alterar Usuário" href='/TechSUAS/controller/conta.php' ;>
+                                        <a title="Alterar Usuário" href='/TechSUAS/controller/suporte/conta.php' ;>
                                                 <span class="material-symbols-outlined">manage_accounts</span>
                                         </a>
                                 </div>
