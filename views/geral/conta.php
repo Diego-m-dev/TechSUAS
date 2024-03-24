@@ -96,7 +96,7 @@ echo "Data de Nascimento: " . $dtNasc . "<br>"; ?>
 
         <button type="submit">Salvar Alterações</button>
         
-        <a href="/TechSUAS/controller/back.php">
+        <a href="/TechSUAS/config/back.php">
         <i class="fas fa-arrow-left"></i> Voltar ao menu
         </a>
     </form>
