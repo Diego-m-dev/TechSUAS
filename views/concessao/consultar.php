@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         confirmButtonText: 'OK',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "/TechSUAS/views/concessao/editar";
+                            window.location.href = "/TechSUAS/views/concessao/consultar";
                         }
                     });
                 </script>
@@ -136,7 +136,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             confirmButtonText: 'OK',
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "/TechSUAS/views/concessao/editar";
+                                window.location.href = "/TechSUAS/views/concessao/consultar";
                             }
                         });
                     </script>
