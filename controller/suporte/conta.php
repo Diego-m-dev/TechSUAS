@@ -12,7 +12,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/TechSUAS/css/suporte/style-alt-user.css">
-    <link rel="website icon" type="image/png" href="../img/logo.png">
+    <link rel="website icon" type="image/png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <title>Sala do Usuário</title>
@@ -30,7 +30,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
         </h1>
     </div>
 <div class="tudo">
-    <form method="post" action="../../cadunico/controller/acesso_user/salva_alteracao.php">
+    <form method="post" action="/TechSUAS/controller/cadunico/salva_alteracao.php">
         <div id="nomeVisual">
             Nome completo: <?php echo $nome; ?>
             <button type="button" onclick="iniciarEdicao('nome')">Editar</button> <br>
@@ -96,7 +96,7 @@ echo "Data de Nascimento: " . $dtNasc . "<br>"; ?>
 
         <button type="submit">Salvar Alterações</button>
         
-        <a href="/Suas-Tech/controller/back.php">
+        <a href="/TechSUAS/controller/back.php">
         <i class="fas fa-arrow-left"></i> Voltar ao menu
         </a>
     </form>
@@ -104,8 +104,7 @@ echo "Data de Nascimento: " . $dtNasc . "<br>"; ?>
 
 </div>
     
-        <script src='../../cadunico/js/personalise.js'></script>
-        <script src='../../controller/back.js'></script>
+        <script src='/TechSUAS/js/personalise.js'></script>
 </body>
 
 </html>
