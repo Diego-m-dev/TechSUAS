@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/conexao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -107,10 +107,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
                                         Settings
                                 </span>
                                 <div class="drop-content">
-                                        <a title="Sair" href='/Suas-Tech/config/logout.php' ;>
+                                        <a title="Sair" href='/TechSUAS/config/logout.php' ;>
                                                 <span title="Sair" class="material-symbols-outlined">logout</span>
                                         </a>
-                                        <a title="Alterar Usuário" href='controller/conta.php' ;>
+                                        <a title="Alterar Usuário" href='/TechSUAS/controller/conta.php' ;>
                                                 <span class="material-symbols-outlined">manage_accounts</span>
                                         </a>
                                 </div>
