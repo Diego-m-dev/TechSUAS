@@ -1,0 +1,116 @@
+body{
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+    height: auto;
+	background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+	background-image: url(../../acesso_suporte/img/fundo-ddv.svg);
+}
+
+.login-form{
+	width:350px;
+	margin:0 auto;
+	padding:100px 0 30px;
+}
+
+
+.login-form form{
+	color:#ffffff;
+	border-radius:2px;
+	margin-bottom:15px;
+	font-size:13px;
+	background:#13294b;
+	padding:30px;
+	position:relative;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+	border-radius: 5px;
+}
+
+.login-form .logo{
+	position:absolute;
+	margin:0 auto;
+	left:0;
+	right:0;
+	width:115px;
+	height:115px;
+	top:-50px;
+}
+
+.login-form .logo img{
+	width:100%;
+	border-radius:50%;
+	background-color: #ffffff;
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.login-form h2{
+	font-size:18px;
+	margin:45px 0 25px;
+}
+
+.form-control{
+	min-height:40px;
+	background:#fff;
+	box-shadow:none !important;
+	border-color:#e3e3e3;
+}
+
+
+.form-control:focus{
+	border-color:#4073ac;
+}
+
+.form-control, .btn{
+	border-radius:2px;
+}
+
+.login-form .btn{
+	font-size:16px;
+	
+	background:#4073ac;
+	border:none;
+	margin-bottom:20px;
+}
+
+
+.login-form .btn:hover, .login-form .btn:focus{
+	background:#426286;
+	outline: none !important;
+	
+}
+
+.login-form input[type="checkbox"]{
+	margin-top:2px;
+	}
+
+
+
+.login-form form a{
+	color:#7a7a7a;
+	text-decoration:none;
+	
+}
+
+.login-form form a:hover{
+	
+	text-decoration:underline;
+}
+.rodape {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	background-color: #13294b;
+	padding: 10px;
+	text-align: center;
+	font-size: 15px;
+	color: #ffffff;
+}
+input{
+	background-color: #ffffff;
+	color:#ffffff; 
+}
+.input-group-text {
+	cursor: pointer;
+	opacity: 80%;
+}

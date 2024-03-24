@@ -1,0 +1,223 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    background-image: url(../img/fundo-ddv.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+    font-family: "Inter", sans-serif;
+    height: auto;
+}
+
+* {
+    margin-top: 0px;
+}
+
+img {
+    display: flex;
+    width: 100%;
+    max-height: 120px;
+}
+
+
+
+.apelido {
+    display: flex;
+    justify-content: flex-end;
+
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    align-content: flex-start;
+    height: 100%;
+    padding-top: 30px;
+}
+
+.btn span {
+    padding-right: 4px;
+}
+
+.bloco1,.bloco2{
+    display: flex;
+    flex-direction:row;
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: space-between;
+    justify-content: space-between;
+}
+
+.btn {
+    border-radius: 30px;
+    padding: 40px;
+}
+
+nav {
+    display: flex;
+    flex-direction: row;
+}
+
+nav span {
+    padding-right: 4px;
+}
+
+.menu-button {
+    all: unset;
+    width: auto;
+    height: 25px;
+    padding-top: 10px;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    position: relative;
+    color: #f0f0f0;
+    cursor: pointer;
+    z-index: 1;
+    padding: 10px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    
+}
+
+.menu-button::after,
+.menu-button::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: -99999;
+    transition: all .4s;
+}
+
+.menu-button::before {
+    transform: translate(0%, 0%);
+    width: 100%;
+    height: 100%;
+    background: #13294b;
+    border-radius: 10px;
+    
+}
+
+.menu-button::after {
+    transform: translate(10px, 10px);
+    width: 35px;
+    height: 35px;
+    background: #ffffff15;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 50px;
+}
+
+.menu-button::before {
+    transform: translate(5%, 20%);
+    width: 110%;
+    height: 110%;
+}
+
+.menu-button:hover::after {
+    border-radius: 10px;
+    transform: translate(0, 0);
+    width: 100%;
+    height: 100%;
+}
+
+.menu-button:active::after {
+    transition: 0s;
+    transform: translate(0, 5%);
+}
+
+.logout:hover {
+    background-color: #3b82f6;
+    transform: scale(1.05);
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+/*footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+footer img {
+    display: flex;
+    width: 100%;
+    max-height: 120px
+}*/
+
+button[name="drop"] {
+    border: none;
+    cursor: pointer;
+    background-color: #13294b;
+    padding: 5px;
+    color: white;
+    position: relative;
+    border-radius: 5px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.drop-content {
+    display: none;
+    background-color: #13294b;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+}
+
+.drop-content a {
+    color: #ffffff;
+    padding: 10px;
+    text-decoration: none;
+    display: block;
+}
+
+.menu-drop:hover .drop-content {
+    display: flex;
+    align-items: center;
+}
+
+.menu-drop:hover button[name="drop"] {
+    background-color: #13294b;
+}
+
+.drop-content a:hover {
+    background-color: #13294b;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+.drop-content {
+    display: none;
+    flex-direction: row;
+    background-color: #3b82f6;
+    font-size: 8px;
+    position: absolute;
+    left: 32px;
+    bottom: 0px;
+    top: 0px;
+    border-radius: 5px;
+}
+
+.menu-drop {
+    position: relative;
+}
+
+.drop-all {
+    position: fixed;
+    bottom: 15px;
+    opacity: 80%;
+}
