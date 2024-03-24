@@ -86,9 +86,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                             var outraAcao = window.confirm('Deseja realizar outro cadastro?')
 
                             if (outraAcao) {
-                                window.location.href = "/Suas-Tech/concessao/views/cadastro_item.php"
+                                window.location.href = "/TechSUAS/views/concessao/cadastro_item"
                             } else {
-                                window.location.href = "/Suas-Tech/concessao/index.php"
+                                window.location.href = "/TechSUAS/views/concessao/index"
                             }
 
                         }
