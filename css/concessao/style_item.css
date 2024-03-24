@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    background-image: url(../img/fundo_conc.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    font-family: "Inter", sans-serif;
+    height: auto;
+    text-transform:capitalize;
+}
+
+* {
+    margin-top: 0px;
+    text-transform:capitalize;
+}
+
+img {
+    justify-content: center;
+    width: 100%;
+    max-height: 120px
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: space-between;
+    align-content: space-between;
+    padding: 10px;
+    line-height: 2.6;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+table{
+    line-height: 2;
+    border-radius: 10px;
+}
+tr,
+td,
+table,
+th{
+    border-radius: 5px;
+    color: #13294b;
+}
+
+table input{
+    opacity: 20%;
+    height: 30px;
+    width: 100%;
+    color: #13294b;
+}
+table{
+    width: 100%;
+}
+input,
+select,
+option,
+label,
+span {
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #ffffff;
+    color: #13294b;
+    border-radius: 5px;
+    padding: 1px 2px;
+
+}
+
+button,
+a {
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+}
+button:hover,
+a:hover{
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}   
+a{
+    text-decoration: none;
+    text-transform: none;
+}
+.inpu {
+    width: 250px;
+}
+.inpu1{
+    width: 400px;
+}
+.btn{
+    padding-top: 20px;
+}
+.back{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    align-content: flex-end;
+}
+p,
+label{
+    color: #13294b;
+    text-transform: capitalize;
+}
+
+.check{
+    text-align: center;
+}
+
+/* Estilizando o checkbox */
+.urg input[type="checkbox"] {
+    display: none;
+    border-style: none;
+}
+
+/* Estilizando o contêiner */
+
+
+/* Estilizando o visual do checkbox */
+.urg .checkmark {
+    display: inline-block;
+    width: 16px;
+    /* Tamanho do checkbox */
+    height: 16px;
+    /* Tamanho do checkbox */
+    border-radius: 50%;
+    /* Deixa o checkbox redondo */
+    border: 2px solid #13294b;
+    /* Borda do checkbox */
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* Altera o visual quando marcado */
+.urg input[type="checkbox"]:checked+.checkmark::after {
+    content: "X";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: red;
+}
