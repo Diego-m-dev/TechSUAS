@@ -14,7 +14,9 @@ $sql_ed_conc = $pdo->prepare("SELECT * FROM concessao_historico WHERE id_hist = 
 $sql_ed_conc->execute(array(':id_hist' => $_POST['id_concessao']));
 
 if ($sql_ed_conc->rowCount() > 0) {
-    $conc = $sql_ed_conc->fetch(PDO::FETCH_ASSOC);
+    $conc = $sql_ed_conc->fetch(PDO::FETCH_ASSOC); 
+
+
     ?>
     <!DOCTYPE html>
     <html lang="pt-br">
@@ -35,6 +37,24 @@ if ($sql_ed_conc->rowCount() > 0) {
     </head>
 
     <body>
+<?php
+    if ($conc['situacao_concessao'] == "CANCELADA") {
+?>
+        <script>
+        Swal.fire({
+            icon: "info",
+            html:`<h1>ATENÇÃO</h1>
+            <p>Concessão CANCELADA não é possível modificação.</p>`,
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/TechSUAS/views/concessao/consultar"
+            }
+        })
+    </script>
+<?php
+    }
+?>
 <div id="conteiner_hide">
         <div class="img">
             <h1 class="titulo-com-imagem">
