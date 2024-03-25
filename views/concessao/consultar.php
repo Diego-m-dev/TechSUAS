@@ -26,6 +26,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';?
         </h1>
     </div>
     <div class="container">
+        <div id="parte_dos_simbolos">
         <div>
             <select name="tipo_busca" id="tipo_busca" style="text-align: center;">
                 <option value="cpf">CPF</option>
@@ -49,6 +50,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';?
                 <a href = "/TechSUAS/config/back"><i class="fas fa-arrow-left"></i> Voltar ao menu</a>
             </form>
         </div>
+</div>
 
         <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
