@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&family=Roboto:wght@300;400;500&display=swap');
+
+body {
+  background-image: url(/TechSUAS/img/cadunico/background_cad.svg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: hidden;
+  font-family: "Inter", sans-serif;
+  height: auto;
+}
+
+* {
+  margin-top: 0px;
+}
+
+.titulo-com-imagem {
+  display: flex;
+  width: 100%;
+  max-height: 120px
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  align-content: space-between;
+  padding-top: 0px;
+}
+.menu{
+  position: fixed;
+  bottom: 50%;
+  left: 40px;
+  transform: translateY(50%);
+}
+
+.apelido {
+  position: fixed;
+  top: 100px;
+  right: 30px;
+  border-radius: 5PX;
+  color: #13294b;
+}
+
+.menu-button {
+  background-color: #13294b;
+  color: #fff;
+  border-radius: 10px;
+  padding: 8px 18px;
+  margin: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+  font-size: 20px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-button i {
+  margin-right: 10px;
+}
+
+.menu-button:hover,
+.logout:hover {
+  background-color: #3b82f6;
+  transform: scale(1.05);
+}
+
+.tudo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.calendario {
+  position: fixed;
+  bottom: 50%;
+  right: 40px;
+  transform: translateY(50%);
+  max-width: 600px;
+  max-height: 800px;
+  border-radius: 10px;
+  border: 0px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.calend {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-right: 40px;
+}
+
+button[name="drop"] {
+  border: none;
+  cursor: pointer;
+  background-color: #13294b;
+  padding: 5px;
+  color: white;
+  position: relative;
+  border-radius: 5px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.drop-content {
+  display: none;
+  background-color: #13294b;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.drop-content a {
+  color: #ffffff;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+
+.menu-drop:hover .drop-content {
+  display: flex;
+  align-items: center;
+}
+
+.menu-drop:hover button[name="drop"] {
+  background-color: #13294b
+}
+
+.drop-content a:hover {
+  background-color: #13294b;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.drop-content {
+  display: none;
+  flex-direction: row;
+  background-color: #13294b63;
+  font-size: 8px;
+  position: absolute;
+  left: 32px;
+  bottom: 0px;
+  top: 0px;
+  border-radius: 5px;
+}
+
+.menu-drop {
+  position: relative;
+}
+
+.drop-all {
+  position: fixed;
+  bottom: 22px;
+  left: 24px;
+}
+
+h3 {
+  display: flex;
+  white-space: nowrap;
+  font-size: 15px;
+  border-radius: 5px;
+  color: #13294b;
+  text-align: center;
+  padding: 1px;
+  padding-left: 10px;
+  box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+a {
+  text-decoration: none;
+}
+footer {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: auto;
+}
+
+footer img {
+  position: fixed;
+  width: 100%;
+  max-height: 120px;
+  text-align: center;
+  right: 0;
+  bottom: 0;
+}

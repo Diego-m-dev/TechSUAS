@@ -29,7 +29,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                                         </a>
                                 </div>
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='../cadunico/painel-adm/adm-view';">
+                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/index';">
                                                 Cadastro único
                                         </a>
                                 </div>
