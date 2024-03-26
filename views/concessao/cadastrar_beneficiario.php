@@ -93,7 +93,7 @@ $timestamp = date('d/m/Y H:i');
     </div>
     <?php
 
-    if (!isset($_POST['beneficio'])) {
+if (!isset($_POST['beneficio'])) {
     } else {
         $cpf_resp = $_POST['cpf_resp'];
         $data_atual = date('Y');
@@ -140,43 +140,43 @@ $timestamp = date('d/m/Y H:i');
                 $smtp_conc->bind_param("ssssssssssssss", $dados_resp['id_concessao'], $num_form, $data_atual, $cpf_resp, $_POST['beneficio'], $_POST['cpf_beneficio'], $_POST['rg_beneficio'], $_POST['te_beneficio'], $_POST['endereco_resp'], $_POST['renda_media'], $hoje_, $_POST['parentesco'], $nome, $situation);
 
                 if ($smtp_conc->execute()) {
-    ?>
-                    <script>
-                        setTimeout(function() {
-                            Swal.fire({
-                                icon: "success",
-                                html: `<h1>SALVO</h1>
-                        <p>Dados salvos com sucesso!</p>`,
-                                confirmButtonText: 'OK',
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "/TechSUAS/views/concessao/consultar"
-                                }
-                            })
-                        }, 3000)
-                    </script>
-            <?php
+?>
+    <script>
+        setTimeout(function() {
+            Swal.fire({
+                icon: "success",
+                html: `<h1>SALVO</h1>
+        <p>Dados salvos com sucesso!</p>`,
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/TechSUAS/views/concessao/consultar"
+                }
+            })
+        }, 3000)
+    </script>
+<?php
                 }
 
             }
-        } else {
-            ?>
-            <script>
-                Swal.fire({
-                    icon: "error",
-                    html: `<h1>ERRO</h1>
-                        <p>Erro no salvamento, contacte o suporte.</p>`,
-                    confirmButtonText: 'OK',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "/Suas-Tech/concessao/index"
-                    }
-                })
-            </script>
-    <?php
-        }
+    } else {
+?>
+    <script>
+        Swal.fire({
+            icon: "error",
+            html: `<h1>ERRO</h1>
+                <p>Erro no salvamento, contacte o suporte.</p>`,
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/Suas-Tech/concessao/index"
+            }
+        })
+    </script>
+<?php
     }
-    ?>
+}
+?>
     <script>
         $(document).ready(function() {
             $("#renda_media").mask('#.##0,00', {
