@@ -1,0 +1,119 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+select {
+    width: auto;
+    /* Define a largura para automática */
+}
+
+/* Seu estilo adicional aqui */
+
+#form-container {
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px 20px 20px 20px;
+    /* Adicione um fundo branco semitransparente ao formulário */
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+
+#title {
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#subtitle {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+select,
+input,
+textarea {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+textarea {
+    height: 100px;
+}
+
+#right-align {
+    text-align: right;
+}
+
+.signature-line {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#justified-text {
+    text-align: justify;
+    margin-top: 20px;
+}
+
+.justified-text,
+#right-align,
+.signature-line,
+p {
+    display: none;
+}
+
+@media print {
+    button{
+        display: none;
+    }
+    #form-container{
+        padding: 100px 20px 20px 20px;
+    }
+    body {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        margin: 0;
+        /* Define margem zero para a impressão */
+    }
+
+    body::after {
+        content: none !important;
+        /* Oculta o conteúdo após o corpo do documento */
+    }
+
+    @page {
+        size: auto;
+        /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
+        margin: 3mm 0mm 0mm 0mm;
+        /* Define margens da página */
+    }
+
+    .justified-text,
+    #right-align,
+    .signature-line,
+    p {
+        display: block;
+    }
+    #right-align {
+        text-align: right;
+    }
+}
