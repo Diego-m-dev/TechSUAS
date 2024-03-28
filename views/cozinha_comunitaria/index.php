@@ -43,7 +43,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                     </a>
                 </div>    
                 <div class="pagina3">
-                        <a class="menu-button" onclick="location.href='views/estoque.php';">
+                        <a class="menu-button" onclick="location.href='/TechSUAS/views/cozinha_comunitaria/estoque';">
                         <span class="material-symbols-outlined">
                             inventory
                         </span>
