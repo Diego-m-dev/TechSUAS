@@ -29,12 +29,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                                         </a>
                                 </div>
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/index';">
+                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/';">
                                                 Cadastro único
                                         </a>
                                 </div>
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/index';">
+                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/';">
                                                 Concessão
                                         </a>
                                 </div>
@@ -44,7 +44,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                                         </a>
                                 </div>
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='../cozinha_comunitaria/menu';">
+                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/cozinha_comunitaria';">
                                                 Cozinha Comunitária
                                         </a>
                                 </div>
