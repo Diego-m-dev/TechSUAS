@@ -1,0 +1,111 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+}
+
+    *{
+    margin: 0;
+    padding: 0;
+    }
+select {
+    width: auto;
+    /* Define a largura para automática */
+}
+
+/* Seu estilo adicional aqui */
+
+#form-container {
+    width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    /* Adicione um fundo branco semitransparente ao formulário */
+}
+
+#title {
+    font-size: 26px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#subtitle {
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 10px;
+}
+
+#form {
+    margin-top: 20px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+select,
+input,
+textarea {
+    width: 100%;
+    padding: 500px;
+    margin-top: 5px;
+
+}
+
+#right-align {
+    font-size: 20px;
+    text-align: right;
+}
+
+.signature-line {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#justified-text {
+    text-align: justify;
+    font-size: 16px;
+    text-indent: 500px;
+    margin-top: 20px;
+}
+.conteudo{
+    display:block;
+    padding: 0px 5px 0px 30px;
+}
+@media print {
+    button{
+        display: none;
+    }
+    #form-container{
+        padding: 100px 20px 20px 20px;
+    }
+    body {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        margin: 0;
+        /* Define margem zero para a impressão */
+    }
+
+    body::after {
+        content: none !important;
+        /* Oculta o conteúdo após o corpo do documento */
+    }
+
+    @page {
+        size: auto;
+        /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
+        margin: 3mm 0mm 0mm 0mm;
+        /* Define margens da página */
+    }
+
+}
