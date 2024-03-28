@@ -46,7 +46,7 @@ ini_set('display_errors', 1);
             ?>
         </div>
         <div class="back">
-            <a href="/Suas-Tech/controller/back.php">
+            <a href="/TechSUAS/config/back">
                 <i class="fas fa-arrow-left"></i> Voltar ao menu
             </a>
         </div>
@@ -143,7 +143,6 @@ ini_set('display_errors', 1);
 
     </div>
     </form>
-    <script src='../../controller/back.js'></script>
     </div>
     </div>
 </body>
