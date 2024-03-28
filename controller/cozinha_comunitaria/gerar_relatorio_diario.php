@@ -19,7 +19,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
 ob_end_clean();
-// Inclua a biblioteca FPDF
+// Inclue a biblioteca FPDF
 require('../../pdf_combo/fpdf.php');
 
 $sql = 'SELECT nis_benef, nome, cpf_benef, data_de_entrega, encaminhado_cras, qtd_pessoa, qtd_marmita, marm_entregue FROM fluxo_diario_coz';
