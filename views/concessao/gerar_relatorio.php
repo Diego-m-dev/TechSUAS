@@ -62,6 +62,9 @@ $data9 = $data1 - 1;
 if (!isset($_POST['ano_select'])){
 } else {
 
+    ob_end_clean();
+    require('../../pdf_combo/fpdf.php');
+
     $mes_pago = $_POST['mes_pg'];
     $ano_select = $_POST['ano_select'];
 
@@ -80,7 +83,7 @@ if (!isset($_POST['ano_select'])){
     
     }
 ?>
-<button type="button" id="  ">NOVA CONSULTA</button>
+<button type="button" id="btn_new_consulta">NOVA CONSULTA</button>
 <button type="button" id="btn_immprimir">IMPRIMIR</button>
 <?php
 }
