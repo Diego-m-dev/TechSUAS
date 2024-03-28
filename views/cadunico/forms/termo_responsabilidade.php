@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 ?>
 
 
@@ -9,10 +9,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
     <title>Termo de Responsabilidade</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYCAD</title>
-    <link rel="stylesheet" href="../../css/formularios/tr.css">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/tr.css">
     <script src="../../js/bd_tr.js"></script>
-    <link rel="website icon" type="png" href="../../img/logo.png">
+    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
 </head>
 <body>
     <br>
