@@ -33,7 +33,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
       <div class="menu">
         <nav>
           <div class="formularios">
-            <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/forms/menuformulario.php';">
+            <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/forms/menuformulario';">
               <span class="material-symbols-outlined">
                 forms_add_on
               </span>
@@ -42,7 +42,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
           </div>
 
           <div class="parecer">
-            <a class="menu-button" onclick="location.href='../views/visit/visitas';">
+            <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/visitas/visitas';">
               <span class="material-symbols-outlined">
                 location_away
               </span>
