@@ -1,0 +1,66 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+  background-image: url("/TechSUAS/img/cadunico/background_cad");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: auto;
+  font-family: "Inter", sans-serif;
+}
+
+* {
+  margin-top: 0px;
+}
+
+img {
+  display: flex;
+  width: 100%;
+  max-height: 120px
+}
+
+.container {
+  display: flex;
+  flex-direction:row;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  padding-top: 50px;
+
+}
+
+
+.menu-button,a {
+  text-decoration: none;
+  background-color: #13294b;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 20px;
+  margin: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 20px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-button:hover,a:hover {
+  background-color: #3b82f6;
+  transform: scale(1.05);
+}
+
+
+@media screen and (max-width: 800px) {
+  .menu-button {
+    font-size: 13px;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .menu-button {
+    font-size: 30px;
+  }
+}

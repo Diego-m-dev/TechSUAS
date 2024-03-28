@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -7,9 +7,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechSUAS - Visitas</title>
-    <link rel="stylesheet" href="../../css/visitas.css">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_visitas.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="website icon" type="png" href="../../img/logo.png">
+    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
@@ -17,13 +17,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
     <nav>
       <div class="img">
         <h1 class="titulo-com-imagem">
-          <img src="../../img/h1-vistas.svg" alt="Titulocomimagem">
+          <img src="/TechSUAS/img/cadunico/visitas/h1-visitas.svg" alt="Titulocomimagem">
         </h1>
       </div>
       <div class="container">
         <div class="btns">
           <div class="buscarvisitas">
-            <button class="menu-button" onclick="location.href='buscarvisita.php';">
+            <button class="menu-button" onclick="location.href='buscarvisita';">
               <span class="material-symbols-outlined">
                 manage_search
               </span>
@@ -49,7 +49,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
           </div>
 
           <div class="voltar">
-            <a href="/Suas-Tech/controller/back.php" class="menu-button">
+            <a href="/TechSUAS/config/back.php" class="menu-button">
               <span class="fas fa-arrow-left">
               </span>
               Voltar ao menu
@@ -122,6 +122,5 @@ $numero_parecer = $totalRegistros;
     }
     });
     </script>
-    <script src='../../../controller/back.js'></script>
   </body>
 </html>
