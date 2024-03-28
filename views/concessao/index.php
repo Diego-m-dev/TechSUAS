@@ -83,11 +83,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
         </div>
 
         </div>
-<<<<<<< HEAD
         <footer><img src="/TechSUAS/img/geral/footer-adm.svg" alt=""></footer>
-=======
         <footer><img src="../suas/views/adm/img/footer.svg" alt=""></footer>
->>>>>>> 16a04a58fa2e1acf31f5b2d829d46ba6fdcd544a
         <div class="drop-all">
             <div class="menu-drop">
                 <button class="logout" type="button" name="drop">

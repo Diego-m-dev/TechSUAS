@@ -59,22 +59,38 @@ $data9 = $data1 - 1;
         <button type="submit">GERAR</button>
 </form>
 <?php
-if (!isset($_POST['mes_pg'])){
+if (!isset($_POST['ano_select'])){
 } else {
+
     $mes_pago = $_POST['mes_pg'];
     $ano_select = $_POST['ano_select'];
 
-    $stmt_gera_relatorio = $pdo->prepare("SELECT * FROM concessao_historico WHERE ano_form = :ano_form AND mes_pag LIKE :mes_pag");
-    $stmt_gera_relatorio->bindParam(':ano_form', $ano_select, ':mes_pag', $mes_pago, PDO::PARAM_STR);
+    $stmt_gera_relatorio = $pdo->prepare("SELECT * FROM concessao_historico WHERE ano_form = :ano_form");
+    $stmt_gera_relatorio->bindParam(':ano_form', $ano_select, PDO::PARAM_STR);
     $stmt_gera_relatorio->execute();
 
-    if ($stmt_gera_relatorio->rowCount() > 0) {
-        $dados_historico = $stmt_gera_relatorio->fetch(PDO::FETCH_ASSOC);
+    ?>
 
-        
+    <?php
+
+    if ($stmt_gera_relatorio->rowCount() > 0) {
+        while ($dados_hist = $stmt_gera_relatorio->fetch(PDO::FETCH_ASSOC)) {
+            echo $dados_hist['nome_benef'] . '<br>';
+        }
     
     }
+?>
+<button type="button" id="  ">NOVA CONSULTA</button>
+<button type="button" id="btn_immprimir">IMPRIMIR</button>
+<?php
 }
 ?>
+<script>
+$(document).ready(function () {
+    $('#btn_new_consulta').click(function () {
+        window.location.href = 'TechSUAS/views/concessao/gerar_relatorio'
+    })
+})
+</script>
 </body>
 </html>
