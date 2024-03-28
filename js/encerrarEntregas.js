@@ -21,7 +21,7 @@ $(document).ready(function () {
     var horaEsconderBotoes = localStorage.getItem('horaEsconderBotoes');
     if (horaEsconderBotoes) {
         var tempoPassado = new Date().getTime() - parseInt(horaEsconderBotoes);
-        var horasParaEsconder = 8;
+        var horasParaEsconder = 8 * 60 * 60 * 1000;
 
         // Se o tempo passado for menor que o tempo para esconder os botões, mantenha-os escondidos
         if (tempoPassado < horasParaEsconder) {
