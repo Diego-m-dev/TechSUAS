@@ -1,0 +1,102 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    margin: 2;
+    padding: 0;
+    text-align: justify;
+    width: 80%;
+}
+
+.container {
+    width: 90%;
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%);
+    padding-top: 100px;
+}
+
+.center1 {
+    text-align: center;
+}
+
+.center {
+    text-align: center;
+}
+
+.right {
+    text-align: right;
+}
+
+.editable-field {
+    border: none;
+    background-color: transparent;
+}
+
+.paragraph1 {
+    margin-bottom: 20px;
+}
+
+.topic {
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.impr {
+    margin-left: 90%;
+    margin-top: 10px;
+}
+
+th,
+td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+}
+
+.topic,
+.center,
+.right,
+.paragraph1 {
+    display: none;
+}
+
+@media print {
+    button {
+        display: none;
+    }
+
+    body {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        margin: 0;
+        /* Define margem zero para a impressão */
+    }
+
+    body::after {
+        content: none !important;
+        /* Oculta o conteúdo após o corpo do documento */
+    }
+
+    @page {
+        size: auto;
+        /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
+        margin: 3mm 0mm 0mm 0mm;
+        /* Define margens da página */
+    }
+    
+    .topic,
+    .center,
+    .right,
+    .paragraph1 {
+        display:block;
+    }
+    label,
+    input{
+        display: none;
+    }
+}

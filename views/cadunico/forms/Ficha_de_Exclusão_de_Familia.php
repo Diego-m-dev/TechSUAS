@@ -7,7 +7,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 <html>
 <head>
 <title>Ficha de exclusão de família</title>
-<link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png" >
+<link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
 <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_fami.css">
   
 </head>

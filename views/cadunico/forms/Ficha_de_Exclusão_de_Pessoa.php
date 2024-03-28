@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 ?>
 
 
@@ -7,82 +7,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
 <html>
 <head>
 <title>Ficha de exclusão de pessoa</title>
-<link rel="website icon" type="png" href="../../img/logo.png">
-  <style>
-    
-    body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-image: url('../../img/marca.png'); /* Substitua 'timbre.png' pelo nome da sua imagem de timbre */
-    background-repeat: no-repeat;
-    background-size: contain; /* Ajuste o tamanho da imagem para caber na página */
-    background-position: center center; /* Posicione a imagem no centro da página */
-    background-color: #ffffff; /* Cor de fundo branca */
-  }
-  /* Seu estilo adicional aqui */
-      
-    #form-container {
-      width: 600px;
-      margin: 0 auto;
-      padding: 20px;
-      background-color: rgba(255, 255, 255, 0.9); /* Adicione um fundo branco semitransparente ao formulário */
-    }
-    
-    #form-container {
-      width: 600px;
-      margin: 0 auto;
-      background-color: rgba(255, 255, 255, 0.9); /* Adiciona um fundo branco semitransparente ao formulário */
-      padding: 20px;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-    }
-    #form-container {
-      width: 600px;
-      margin: 0 auto;
-    }
-    #title {
-      font-size: 26px;
-      font-weight: bold;
-      text-align: center;
-    }
-    #subtitle {
-      font-size: 16px;
-      font-weight: bold;
-      text-align: center;
-      margin-top: 10px;
-    }
-    #form {
-      margin-top: 20px;
-    }
-    label {
-      display: block;
-      margin-top: 10px;
-      font-weight: bold;
-    }
-    select, input, textarea {
-      width: 100%;
-      padding: 5px;
-      margin-top: 5px;
-    }
-    textarea {
-      height: 100px;
-    }
-    #right-align {
-      text-align: right;
-    }
-    .signature-line {
-      margin-top: 20px;
-      text-align: center;
-    }
-    #justified-text {
-      text-align: justify;
-      margin-top: 20px;
-    }
-  </style>
+<link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+<link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_pesso.css">
 </head>
 <body>
 
@@ -117,6 +43,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
 
       <label for="parecer">PARECER TECNICO:</label>
       <textarea id="parecer" name="parecer"></textarea>
+      <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
 
       <div id="right-align">São Bento do Una - PE, <span id="dataExclusao2"></span>.</div>
 
@@ -130,7 +57,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
       <p>Caso o RF não saiba assinar, o entrevistador registra a expressão "A ROGO" e, a seguir, o nome do RF. (A ROGO é a expressão jurídica utilizada para indicar que a identificação, substituindo a assinatura, foi delegada a outra pessoa).</p>
     </div>
   </div>
-  <script>
+<script>
+    function imprimirPagina() {
+    window.print();
+    }
     const currentDate = new Date();
     const options = { day: '2-digit', month: 'long', year: 'numeric' };
     document.getElementById('dataExclusao').value = currentDate.toLocaleDateString('pt-BR', options);
