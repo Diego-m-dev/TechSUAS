@@ -1,32 +1,44 @@
 body {
-    text-align: justify;
-    font-size: 20px;
+    font-family: Arial, sans-serif;
+    font-size: 18px;
 }
+
+.container {
+    margin: 0 auto;
+    /* Centraliza horizontalmente */
+    width: 80%;
+}
+
 .right {
     text-align: right;
 }
+
 .center {
     text-align: center;
 }
+
 .paragraph {
     margin-bottom: 20px;
 }
+
 .topic {
     margin-bottom: 20px;
 }
+
 .editable-field {
     border: none;
     background-color: transparent;
     width: auto;
 }
 
+.right,
+.ass {
+    display: none;
+}
+
 @media print {
     button {
         display: none;
-    }
-
-    #form-container {
-        padding: 80px 20px 20px 20px;
     }
 
     body {
@@ -49,10 +61,24 @@ body {
         /* Define margens da página */
     }
 
-    #subtitle,
-    #right-align,
-    #justified-text,
-    .signature-line {
+    .center {
+        /* Centraliza todos os elementos para impressão */
+        text-align: center !important;
+    }
+
+    .container {
+        padding-top: 100px;
+        width: 90%;
+        /* ou a largura desejada */
+        margin: 0 auto;
+        /* Centraliza horizontalmente */
+    }
+    label,
+    input{
+        display: none;
+    }
+    .right,
+    .ass {
         display: block;
     }
 }

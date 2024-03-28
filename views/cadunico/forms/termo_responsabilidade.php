@@ -14,14 +14,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
 </head>
 <body>
-    <br>
-    <br>
+    <div class="container">
     <h1 class="center">ANEXO II - TERMO DE RESPONSABILIDADE</h1>
     <form id="declarationForm">
                 <label for="cpfInput">CPF:</label>
                 <input type="text" id="cpfInput" name="cpfInput" placeholder="Digite o CPF">
+                <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
                 <br>
-                <p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field" contenteditable="true"></span></span>, CPF: <span id="cpf"></span>, NIS: <span id="nis"></span>, declaro, sob as penas da lei, que moro sem nenhuma outra pessoa da minha família no domicílio de endereço: <span id="enderecoContainer"><span id="endereco" class="editable-field" contenteditable="true"></span></span>, indicado no Cadastro Único.</p>
+                <p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field" contenteditable="true"></span></span>, CPF: <span id="cpf" class="editable-field" contenteditable="true"></span>, NIS: <span id="nis"></span>, declaro, sob as penas da lei, que moro sem nenhuma outra pessoa da minha família no domicílio de endereço: <span id="enderecoContainer"><span id="endereco" class="editable-field" contenteditable="true"></span></span>, indicado no Cadastro Único.</p>
                 <p class="paragraph">Declaro ter clareza de que:</p>
             <ul>
             <li class="topic">É crime de falsidade ideológica, de acordo com o art. 299 do Código Penal, deixar de declarar informações ou prestar informações falsas para o Cadastro Único, com o objetivo de participar ou de se manter no Programa Bolsa Família ou em qualquer outro programa social.</li>
@@ -31,11 +31,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </ul>
         <div class="right">São Bento do Una - PE, <span id="data"></span>.</div>
         <br>
-        <p class="center">______________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</p>
+        <p class="center ass">______________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</p>
     </form>
     
     <script>
-
+    function imprimirPagina() {
+    window.print();
+    }
         const currentDate = new Date();
         const formattedDate = `${currentDate.getDate()} de ${getMonthName(currentDate.getMonth())} de ${currentDate.getFullYear()}`;
         document.getElementById('data').textContent = formattedDate;
@@ -83,5 +85,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
 
         </script>
+    </div>
     </body>
 </html>
