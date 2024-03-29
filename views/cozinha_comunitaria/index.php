@@ -10,7 +10,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     <link rel="stylesheet" href="/TechSUAS/css/cozinha_comunitaria/style-menu.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <title>TechSUAS - Cozinha Comunitária</title>
+    <title>Cozinha Comunitária - TechSUAS</title>
 </head>
 <body>
     <div class="img">
