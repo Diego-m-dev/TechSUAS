@@ -34,7 +34,7 @@ if ($resultado->num_rows > 0) {
 
     // Adicione um título
     $pdf->SetFont('Arial', 'B', 16);
-    $pdf->Cell(0, 10, 'RELATÓRIO DIÁRIO', 0, 1, 'C');
+    $pdf->Cell(0, 10, utf8_decode('RELATÓRIO DIÁRIO'), 0, 1, 'C');
 
     // Adicione uma linha em branco
     $pdf->Ln(10);

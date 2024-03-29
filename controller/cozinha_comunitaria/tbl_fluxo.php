@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
 // Execute a query para somar os valores da coluna
 $sql_soma = "SELECT SUM(qtd_marmita) as soma_total FROM fluxo_diario_coz";
