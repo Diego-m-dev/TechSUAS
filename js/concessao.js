@@ -5,12 +5,11 @@ document.addEventListener("DOMContentLoaded", function () {
     cpfInput.mask('000.000.000-00')
     //Aplica máscara para o telefone
     telefoneInput.mask('(00) 0.0000-0000')
-});
-
+})
 
 $(document).ready(function() {
     $('#btn_imprimir').click(function() {
-        var idHist = $(this).attr('name');
+        var idHist = $(this).attr('name')
 
         $.ajax({
             type: 'POST',
@@ -59,10 +58,10 @@ $(document).ready(function() {
                 // Lida com erros, se houver
                 console.error("AJAX Request Failed: " + textStatus, errorThrown)
             }
-        });
+        })
         $('#css_link').attr('href', '../css/style_impr_form.css')
-    });
-});
+    })
+})
 /*
 
 */
