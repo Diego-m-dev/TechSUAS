@@ -39,7 +39,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                                         </a>
                                 </div>
                                 <div class="btn">
-                                        <a class="menu-button" onclick="location.href='../suas/views/adm/menu_adm';">
+                                        <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/';">
                                                 Administrativo
                                         </a>
                                 </div>
