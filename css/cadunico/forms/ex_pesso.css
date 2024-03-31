@@ -37,7 +37,9 @@ body {
 #form {
     margin-top: 10px;
 }
-
+.titulo{
+    display: none;
+}
 label {
     display: block;
     margin-top: 10px;
@@ -111,5 +113,17 @@ textarea {
     #justified-text,
     .signature-line {
         display: block;
+    }
+    .titulo {
+        font-size: 10px;
+        position: fixed; /* Posicionamento fixo */
+        top: 30px; /* Posição no topo */
+        right: 20px; /* Distância da direita */
+        transform: translateY(50%); /* Ajuste para o centro vertical */
+        display: block; /* Garante que seja exibido como bloco */
+        white-space: nowrap; /* Impede que o texto quebre a linha */
+    }
+    .tech {
+        padding-right: 5px;
     }
 }

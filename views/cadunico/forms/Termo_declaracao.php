@@ -15,6 +15,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 </head>
 
 <body>
+    <div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único</span><span id="dataHora"></span>
+        </div>
+    </div>
     <div class="container">
         <h1 class="center1">ANEXO I MODELO DE TERMO DE DECLARAÇÃO</h1>
         <form id="declarationForm">
@@ -22,8 +27,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             <input type="text" id="nisInput" placeholder="Digite o NIS">
             <button type="button" id="buscarNISBtn">Buscar</button>
             <br>
-            <p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field"
-                        contenteditable="true"></span></span>, NIS: <span id="nis"></span>, CPF: <span id="cpf"></span>,
+            <p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field" contenteditable="true"></span></span>, NIS: <span id="nis"></span>, CPF: <span id="cpf"></span>,
                 declaro, sob as penas da lei, que todas as pessoas listadas abaixo moram no meu domicílio e possuem o
                 seguinte rendimento total detalhado para cada pessoa, incluindo remuneração de doação, de trabalho ou de
                 outras fontes:</p>
@@ -63,40 +67,68 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </form>
 
         <script>
-        const nisInput = document.getElementById("nisInput");
-        const nomeContainer = document.getElementById("nomeContainer");
-        const nomeSpan = document.getElementById("nome");
-        const nisSpan = document.getElementById("nis");
-        const cpfSpan = document.getElementById("cpf");
-        const nisTabelaInput = document.getElementById("nisTabelaInput");
-        const adicionarTabelaBtn = document.getElementById("adicionarTabelaBtn");
-        const componentesTable = document.getElementById("componentesTable");
-        const tbody = componentesTable.querySelector("tbody");
-        const dataSpan = document.getElementById("data");
+function formatarNumero(numero) {
+    return numero < 10 ? '0' + numero : numero;
+}
 
-        document.getElementById("buscarNISBtn").addEventListener("click", function() {
-            const nis = nisInput.value;
-            if (dataList[nis]) {
-                nomeSpan.textContent = dataList[nis].nomeRf;
-                nisSpan.textContent = nis;
-                cpfSpan.textContent = dataList[nis].cpfRf;
-            } else {
-                nomeSpan.textContent = '';
-                nisSpan.textContent = nis;
-                cpfSpan.textContent = '';
-            }
-        });
+// Função para obter a data e hora atual e exibir na página
+function mostrarDataHoraAtual() {
+    let dataAtual = new Date();
 
-        adicionarTabelaBtn.addEventListener("click", function() {
-            const nisTabela = nisTabelaInput.value;
-            const dadosPessoa = dataList[nisTabela];
-            const nome = dadosPessoa ? dadosPessoa.nomeRf : "";
-            const dataNascimento = dadosPessoa ? dadosPessoa.dataNsc : "";
-            const ocupacao = prompt("Informe a ocupação:");
-            const rendaMensal = prompt("Informe a renda bruta mensal:");
+    let dia = formatarNumero(dataAtual.getDate());
+    let mes = formatarNumero(dataAtual.getMonth() + 1);
+    let ano = dataAtual.getFullYear();
 
-            const row = document.createElement("tr");
-            row.innerHTML = `
+    let horas = formatarNumero(dataAtual.getHours());
+    let minutos = formatarNumero(dataAtual.getMinutes());
+    let segundos = formatarNumero(dataAtual.getSeconds());
+
+    let dataHoraFormatada = `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+
+    document.getElementById('dataHora').textContent = " - " + dataHoraFormatada;
+}
+
+// Chamando a função para exibir a data e hora atual quando a página carrega
+window.onload = function() {
+    mostrarDataHoraAtual();
+    // Atualizar a cada segundo
+    setInterval(mostrarDataHoraAtual, 1000);
+};
+
+            const nisInput = document.getElementById("nisInput");
+            const nomeContainer = document.getElementById("nomeContainer");
+            const nomeSpan = document.getElementById("nome");
+            const nisSpan = document.getElementById("nis");
+            const cpfSpan = document.getElementById("cpf");
+            const nisTabelaInput = document.getElementById("nisTabelaInput");
+            const adicionarTabelaBtn = document.getElementById("adicionarTabelaBtn");
+            const componentesTable = document.getElementById("componentesTable");
+            const tbody = componentesTable.querySelector("tbody");
+            const dataSpan = document.getElementById("data");
+
+            document.getElementById("buscarNISBtn").addEventListener("click", function() {
+                const nis = nisInput.value;
+                if (dataList[nis]) {
+                    nomeSpan.textContent = dataList[nis].nomeRf;
+                    nisSpan.textContent = nis;
+                    cpfSpan.textContent = dataList[nis].cpfRf;
+                } else {
+                    nomeSpan.textContent = '';
+                    nisSpan.textContent = nis;
+                    cpfSpan.textContent = '';
+                }
+            });
+
+            adicionarTabelaBtn.addEventListener("click", function() {
+                const nisTabela = nisTabelaInput.value;
+                const dadosPessoa = dataList[nisTabela];
+                const nome = dadosPessoa ? dadosPessoa.nomeRf : "";
+                const dataNascimento = dadosPessoa ? dadosPessoa.dataNsc : "";
+                const ocupacao = prompt("Informe a ocupação:");
+                const rendaMensal = prompt("Informe a renda bruta mensal:");
+
+                const row = document.createElement("tr");
+                row.innerHTML = `
                     <td>${nome}</td>
                     <td>${dataNascimento}</td>
                     <td>${ocupacao}</td>
@@ -104,22 +136,22 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                     <td><button class="removerBtn" type="button">Remover</button></td>
                 `;
 
-            tbody.appendChild(row);
-            nisTabelaInput.value = "";
-        });
+                tbody.appendChild(row);
+                nisTabelaInput.value = "";
+            });
 
-        tbody.addEventListener("click", function(event) {
-            if (event.target.classList.contains("removerBtn")) {
-                event.target.parentElement.parentElement.remove();
+            tbody.addEventListener("click", function(event) {
+                if (event.target.classList.contains("removerBtn")) {
+                    event.target.parentElement.parentElement.remove();
+                }
+            });
+
+            const currentDate = new Date().toLocaleDateString("pt-BR");
+            dataSpan.textContent = currentDate;
+
+            function imprimirPagina() {
+                window.print();
             }
-        });
-
-        const currentDate = new Date().toLocaleDateString("pt-BR");
-        dataSpan.textContent = currentDate;
-        
-        function imprimirPagina() {
-    window.print();
-}
         </script>
     </div>
 </body>
