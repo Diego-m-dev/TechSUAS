@@ -1,0 +1,219 @@
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+    body {
+        background-image: url(/TechSUAS/img/concessao/fundo_conc.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        overflow: auto;
+        font-family: "Inter", sans-serif;
+        height: auto;
+    }
+
+    * {
+        margin-top: 0px;
+    }
+
+    img {
+        justify-content: center;
+        width: 100%;
+        max-height: 120px
+    }
+
+    .btns {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: 8px 28px;
+    }
+
+    .tudo {
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        background-color: #ffffff;
+    }
+
+    .container1 {
+        padding: 10px;
+        line-height: 2.6;
+        box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+        background-color: #ffffff;
+        border-radius: 10px;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        /* Centraliza os elementos horizontalmente */
+        justify-content: center;
+        /* Centraliza os elementos verticalmente */
+
+        padding: 10px;
+        line-height: 2.6;
+        margin: auto;
+        /* Adiciona margem automática para centralizar na página */
+    }
+
+    h3 {
+        color: #13294b;
+        text-align: center;
+        padding-top: 10px;
+    }
+
+    table {
+        line-height: 2;
+        border-radius: 10px;
+    }
+
+    tr,
+    td,
+    table,
+    th {
+        border-radius: 5px;
+        color: #13294b;
+    }
+
+    td {
+        text-align: center;
+    }
+
+    table input {
+        height: 30px;
+        width: 100%;
+        color: #13294b;
+    }
+
+    table {
+        width: 100%;
+    }
+
+    input,
+    select,
+    option,
+    label,
+    span {
+        font-size: 14px;
+        font-weight: 700;
+        background-color: #ffffff;
+        color: #13294b;
+        border-radius: 5px;
+        padding: 1px 2px;
+        border-style: outset;
+    }
+
+    button,
+    a {
+        font-size: 12px;
+        border-radius: 5px;
+        padding: 5px 25px;
+        border: none;
+        font-weight: 500;
+        background-color: #13294b;
+        color: white;
+        cursor: pointer;
+    }
+
+    button:hover,
+    a:hover {
+        background-color: #3b82f6;
+        box-shadow: 0 0 0 1px #3b83f65f;
+        color: #fff;
+    }
+
+    a {
+        text-decoration: none;
+        text-transform: none;
+    }
+
+    .back {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: flex-end;
+        align-content: flex-end;
+    }
+
+    p,
+    label {
+        color: #13294b;
+        text-transform: capitalize;
+    }
+
+    .num_conc {
+        font-size: large;
+        font-weight: 500;
+    }
+
+    .list {
+        display: flex;
+        flex-wrap: wrap;
+        /* Permite que os elementos se movam para a próxima linha conforme necessário */
+        justify-content: space-between;
+        margin: 0;
+        padding: 0;
+        color: #13294b;
+    }
+
+    .list>div {
+        width: calc(50% - 10px);
+        /* Define a largura das divs para ocupar metade do espaço, com um espaço entre elas */
+        margin-bottom: 10px;
+        /* Adiciona um espaço entre as divs */
+    }
+
+    @media print {
+        button {
+            display: none;
+        }
+
+        body {
+            background-image: url(/TechSUAS/img/concessao/timbre.svg);
+            /* Define o tamanho e a repetição da imagem de fundo */
+            background-size: 210mm 297mm;
+            /* Tamanho da folha A4 em milímetros */
+            box-shadow: none;
+        }
+
+        .tudo {
+            background-color: transparent;
+            box-shadow: none;
+        }
+        tr,
+        td,
+        table,
+        th {
+            border-radius: 0px;
+        }
+
+        .titulo-com-imagem,
+        td.marc,
+        .marc,
+        .container1,
+        .btns {
+            display: none;
+        }
+
+        table {
+            width: 95%;
+            border-radius: 0;
+            page-break-before: always;
+            margin: 60px;
+        }
+
+        h3 {
+            padding-top: 100px;
+        }
+
+        .num_conc {
+            margin-bottom: 30px;
+            width: 90%;
+        }
+
+        @page {
+            size: auto;
+            /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
+            margin: 0mm 0mm 0mm 0mm;
+           /* Define margens da página */
+        }
+    }
