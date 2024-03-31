@@ -1,97 +1,97 @@
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-    body {
-        background-image: url(/TechSUAS/img/concessao/timbre.svg);
-        background-size: cover;
-        background-repeat: no-repeat;
-        margin: 0px;
-        font-size: 12px;
+body {
+    background-image: url(../img/timbre.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 0px;
+    font-size: 12px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    padding-top: 120px;
+    width: 90%;
+    padding-left: 30px;
+}
+
+.titulo {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+    padding-right: 15px;
+}
+
+.tech {
+    padding-right: 5px;
+
+}
+
+.form {
+    align-self: flex-start;
+    padding-left: 30px;
+    font-size: 14px;
+
+}
+
+table {
+    font-size: 12px;
+    text-align: center;
+    width: 90%;
+}
+
+p {
+    line-height: 1.2;
+}
+
+input {
+    width: 100%;
+}
+
+.cab0 {
+    line-height: 0;
+}
+
+.cab1 {
+    text-align: justify;
+    font-size: 14px;
+    width: 90%;
+    text-indent: 1cm;
+    line-height: 0;
+}
+
+.cab2 {
+    text-align: center;
+    line-height: 1.5;
+    padding-top: 5px;
+}
+
+.cab {
+    text-align: right;
+    padding-top: 10px;
+}
+
+.sbu {
+    align-self: flex-end;
+    padding-right: 30px;
+}
+
+@page {
+    size: auto;
+    /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
+    margin: 5;
+    /* opcional: define margens da página */
+}
+
+@media print {
+    body::after {
+        content: none !important;
+        /* Oculta o conteúdo após o corpo do documento */
     }
-
-    .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        align-content: center;
-        padding-top: 120px;
-        width: 90%;
-        padding-left: 30px;
-    }
-
-    .titulo {
-        display: flex;
-        flex-direction: row;
-        justify-content: flex-end;
-        align-items: center;
-        align-content: center;
-        padding-right: 15px;
-    }
-
-    .tech {
-        padding-right: 5px;
-
-    }
-
-    .form {
-        align-self: flex-start;
-        padding-left: 30px;
-        font-size: 14px;
-
-    }
-
-    table {
-        font-size: 12px;
-        text-align: center;
-        width: 90%;
-    }
-
-    p {
-        line-height: 1.2;
-    }
-
-    input {
-        width: 100%;
-    }
-
-    .cab0 {
-        line-height: 0;
-    }
-
-    .cab1 {
-        text-align: justify;
-        font-size: 14px;
-        width: 90%;
-        text-indent: 1cm;
-        line-height: 0;
-    }
-
-    .cab2 {
-        text-align: center;
-        line-height: 1.5;
-        padding-top: 5px;
-    }
-
-    .cab {
-        text-align: right;
-        padding-top: 10px;
-    }
-
-    .sbu {
-        align-self: flex-end;
-        padding-right: 30px;
-    }
-
-    @page {
-        size: auto;
-        /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
-        margin: 5;
-        /* opcional: define margens da página */
-    }
-
-    @media print {
-        body::after {
-            content: none !important;
-            /* Oculta o conteúdo após o corpo do documento */
-        }
-    }
+}

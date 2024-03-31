@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_user/dados_usuario.php';
 
 $data_atual = date('Y');
 $qtd_conc = "SELECT COUNT(*) as total_registros FROM concessao_historico WHERE ano_form = $data_atual";
@@ -18,13 +18,14 @@ $num_form = $result['total_registros'] + 1;
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerar Formulário Concessão</title>
+    <title>TechSUAS - Concessão</title>
+    <link rel="stylesheet" href="#">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="website icon" type="png" href="/Suas-Tech/img/geral/logo.png">
-    <link rel="stylesheet" href="/TechSUAS/css/concessao/style_impr_form.css">
+    <link rel="website icon" type="png" href="/Suas-Tech/cadunico/img/logo.png">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="../css/style_impr_form.css">
 
 </head>
 
@@ -69,9 +70,9 @@ if (isset($_POST['cpf'])) {
                         var outraAcao = window.confirm('Deseja cadastrar o RESPONSÁVEL?')
 
                         if (outraAcao) {
-                            window.location.href = '/TechSUAS/views/concessao/cadastro_pessoa'
+                            window.location.href = '/Suas-Tech/concessao/views/cadastro_pessoa.php'
                         } else {
-                            window.location.href = '/TechSUAS/views/concessao/gerar_form'
+                            window.location.href = '/Suas-Tech/concessao/views/gerar_form.php'
                         }
                     }
                 })
@@ -247,7 +248,7 @@ if (isset($_POST['cpf'])) {
                     confirmButtonText: 'OK',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "/TechSUAS/views/concessao/gerar_form"
+                        window.location.href = "/Suas-Tech/concessao/views/gerar_form.php"
                     }
                 })
             }, 3000)
@@ -263,7 +264,7 @@ if (isset($_POST['cpf'])) {
                             confirmButtonText: 'OK',
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "/TechSUAS/views/concessao/gerar_form"
+                                window.location.href = "/Suas-Tech/concessao/views/gerar_form.php"
                             }
                         })
                     </script>
@@ -272,7 +273,7 @@ if (isset($_POST['cpf'])) {
     } elseif ($sql_query_resp->rowCount() > 0 && $sql_query_benef->rowCount() == 0) {
         ?>
                 <script>
-                    window.location.href = '/TechSUAS/views/concessao/cadastrar_beneficiario'
+                    window.location.href = '/Suas-Tech/concessao/views/cadastrar_beneficiario.php'
                 </script>
         <?php
 }

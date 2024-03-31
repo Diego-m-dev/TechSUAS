@@ -27,6 +27,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
             <img src="/TechSUAS/img/concessao/h1-gerar_relatorio.svg" alt="Titulocomimagem">
         </h1>
     </div>
+    <div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Concessão</span><span id="dataHora"></span>
+            
+        </div>
+    </div>
 <div class="tudo">
 <div class="container1">
         <div id="somaCaracteristicas"></div>
@@ -252,6 +258,33 @@ $(document).ready(function() {
     });
 });
 
+function formatarNumero(numero) {
+    return numero < 10 ? '0' + numero : numero;
+}
+
+// Função para obter a data e hora atual e exibir na página
+function mostrarDataHoraAtual() {
+    let dataAtual = new Date();
+
+    let dia = formatarNumero(dataAtual.getDate());
+    let mes = formatarNumero(dataAtual.getMonth() + 1);
+    let ano = dataAtual.getFullYear();
+
+    let horas = formatarNumero(dataAtual.getHours());
+    let minutos = formatarNumero(dataAtual.getMinutes());
+    let segundos = formatarNumero(dataAtual.getSeconds());
+
+    let dataHoraFormatada = `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+
+    document.getElementById('dataHora').textContent = " - " + dataHoraFormatada;
+}
+
+// Chamando a função para exibir a data e hora atual quando a página carrega
+window.onload = function() {
+    mostrarDataHoraAtual();
+    // Atualizar a cada segundo
+    setInterval(mostrarDataHoraAtual, 1000);
+};
 
 </script>
 </div>
