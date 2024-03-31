@@ -67,7 +67,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                 <div class="btns">
                     <button type="submit" name="btn_contrato">Salvar Empresa</button>
                     <button type="button" onclick="window.location.href ='/TechSUAS/views/administrativo/cadastro_contrato';">Cadastrar Contratos</button>
-                    <button type="button" class="back" onclick="window.location.href ='/TechSUAS/views/administrativo/';">
+                    <button type="button" class="back" onclick="window.location.href ='/TechSUAS/config/back';">
                         <i class="fas fa-arrow-left"></i>
                         Voltar ao menu
                     </button>
