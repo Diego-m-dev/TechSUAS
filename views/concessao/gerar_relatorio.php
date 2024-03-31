@@ -169,7 +169,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
 </div>
         <div class="btns">
-            <button class="btns" type="button" id="btn_new_consulta">NOVA CONSULTA</button>
             <button class="btns" type="button" id="btn_immprimir">IMPRIMIR</button>
         </div>
 <?php
