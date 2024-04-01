@@ -12,6 +12,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
   
 </head>
 <body>
+<div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único</span><span id="dataHora"></span>
+            
+        </div>
+    </div>
     <div class="container" id="form-container">
     <div id="title">ANEXO III - FICHA DE EXCLUSÃO DE FAMÍLIA</div>
     <form id="form">
@@ -49,6 +55,34 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     </div>
   </div>
   <script>
+
+function formatarNumero(numero) {
+    return numero < 10 ? '0' + numero : numero;
+}
+
+// Função para obter a data e hora atual e exibir na página
+function mostrarDataHoraAtual() {
+    let dataAtual = new Date();
+
+    let dia = formatarNumero(dataAtual.getDate());
+    let mes = formatarNumero(dataAtual.getMonth() + 1);
+    let ano = dataAtual.getFullYear();
+
+    let horas = formatarNumero(dataAtual.getHours());
+    let minutos = formatarNumero(dataAtual.getMinutes());
+    let segundos = formatarNumero(dataAtual.getSeconds());
+
+    let dataHoraFormatada = `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
+
+    document.getElementById('dataHora').textContent = " - " + dataHoraFormatada;
+}
+
+// Chamando a função para exibir a data e hora atual quando a página carrega
+window.onload = function() {
+    mostrarDataHoraAtual();
+    // Atualizar a cada segundo
+    setInterval(mostrarDataHoraAtual, 1000);
+};
     function imprimirPagina() {
     window.print();
     }

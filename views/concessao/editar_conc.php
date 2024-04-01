@@ -1,7 +1,7 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_user/dados_usuario.php';
 $data_atual = date('Y');
 $qtd_conc = "SELECT COUNT(*) as total_registros FROM concessao_historico WHERE ano_form = $data_atual";
 
@@ -14,9 +14,7 @@ $sql_ed_conc = $pdo->prepare("SELECT * FROM concessao_historico WHERE id_hist = 
 $sql_ed_conc->execute(array(':id_hist' => $_POST['id_concessao']));
 
 if ($sql_ed_conc->rowCount() > 0) {
-    $conc = $sql_ed_conc->fetch(PDO::FETCH_ASSOC); 
-
-
+    $conc = $sql_ed_conc->fetch(PDO::FETCH_ASSOC);
     ?>
     <!DOCTYPE html>
     <html lang="pt-br">
@@ -25,40 +23,22 @@ if ($sql_ed_conc->rowCount() > 0) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link id="css_link" rel="stylesheet" href="/TechSUAS/css/concessao/style_consultar.css">
-        <link rel="website icon" type="image/png" href="/TechSUAS/img/geral/logo.png">
+        <link id="css_link" rel="stylesheet" href="../css/style_consultar.css">
+        <link rel="website icon" type="image/png" href="/Suas-Tech/cadunico/img/logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <title>Editar Concessão - TechSUAS</title>
+        <title>TechSUAS Concessão</title>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="/TechSUAS/js/concessao/concessao.js"></script>
+        <script src="/Suas-Tech/concessao/js/script.js"></script>
 
     </head>
 
     <body>
-<?php
-    if ($conc['situacao_concessao'] == "CANCELADA") {
-?>
-        <script>
-        Swal.fire({
-            icon: "info",
-            html:`<h1>ATENÇÃO</h1>
-            <p>Concessão CANCELADA não é possível modificação.</p>`,
-            confirmButtonText: 'OK',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/TechSUAS/views/concessao/consultar"
-            }
-        })
-    </script>
-<?php
-    }
-?>
 <div id="conteiner_hide">
         <div class="img">
             <h1 class="titulo-com-imagem">
-                <img src="/TechSUAS/img/concessao/h1-consulta" alt="Titulocomimagem">
+                <img src="../img/h1-consulta.svg" alt="Titulocomimagem">
             </h1>
         </div>
         <div class="container">
@@ -102,7 +82,7 @@ echo 'Nº: ' . $conc['num_form'] . '/' . $conc['ano_form'] . '<br>';
                 </table>
 
             </div>
-            <form method="POST" action="/TechSUAS/controller/concessao/salva_alt_conc" class="editar_info" style="display: none">
+            <form method="POST" action="/Suas-Tech/concessao/controller/salva_alt_conc" class="editar_info" style="display: none">
                 <!--Tabela inicialmente oculta-->
                 <input name="id_hist" value="<?php echo $conc['id_hist']; ?>" style="display: none">
                 <label>PAGO:</label>
@@ -172,7 +152,7 @@ $consultaSetores = $conn->query("SELECT caracteristica FROM concessao_itens");
             <div class="btn">
                 <button type="button" id="btn_editar">EDITAR</button>
                 <button type="button" id="btn_imprimir" name="<?php echo $conc['id_hist']; ?>">IMPRIMIR</button>
-                <a href="/TechSUAS/config/back">
+                <a href="/Suas-Tech/controller/back.php">
                     <i class="fas fa-arrow-left"></i> Voltar ao menu
                 </a>
             </div>
@@ -244,7 +224,14 @@ $(document).ready(function() {
 </script>
 
 <div id="conteiner_show" style="display: none;">
-
+<div class="titulo">
+        <div class="tech">
+            <p>TechSUAS-Concessão</p>
+        </div>
+            <div
+            id="dataHora">
+        </div>
+    </div>
     <div class="container">
         <div class="cab0" style="text-align: center;">
             <h2>CONCESSÃO DE BENEFÍCIO EVENTUAL</h2>

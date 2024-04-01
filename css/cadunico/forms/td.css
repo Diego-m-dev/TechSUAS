@@ -6,7 +6,9 @@ body {
     text-align: justify;
     width: 80%;
 }
-
+.titulo{
+    display: none;
+}
 .container {
     width: 90%;
     position: fixed;
@@ -98,5 +100,17 @@ td {
     label,
     input{
         display: none;
+    }
+    .titulo {
+        font-size: 10px;
+        position: fixed; /* Posicionamento fixo */
+        top: 30px; /* Posição no topo */
+        right: 20px; /* Distância da direita */
+        transform: translateY(50%); /* Ajuste para o centro vertical */
+        display: block; /* Garante que seja exibido como bloco */
+        white-space: nowrap; /* Impede que o texto quebre a linha */
+    }
+    .tech {
+        padding-right: 5px;
     }
 }
