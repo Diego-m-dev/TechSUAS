@@ -73,6 +73,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $stmt_busca = $pdo->prepare("SELECT * FROM contrato_empresa WHERE cnpj = :cnpj");
         $stmt_busca->execute(array(':cnpj' => $cnpj_contrato));
 
+                // Verifica se a empesa já existe no banco de dados
+                $verifica_contrato = $conn->prepare("SELECT num_contrato FROM contrato_tbl WHERE num_contrato = ?");
+                $verifica_contrato->bind_param("s", $_POST['num_contrato']);
+                $verifica_contrato->execute();
+                $verifica_contrato->store_result();
+        
+                if ($verifica_contrato->num_rows > 0) {
+        ?>
+                    <script>
+                        Swal.fire({
+                        icon: "info",
+                        title: "JÁ EXISTE",
+                        text: "Contrato já cadastrado.",
+                        confirmButtonText: 'OK',
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = "/TechSUAS/views/administrativo/cadastro_contrato";
+                            }
+                        })
+                    </script>
+        <?php
+                    exit();
+                }
+
+
+
         if ($stmt_busca->rowCount() > 0) {
 // Pessoa encontrada
             $dados_emp_busca = $stmt_busca->fetch(PDO::FETCH_ASSOC);
@@ -149,6 +175,8 @@ exit();
 <?php
 exit();
         }
+
+        
 // Pega os arrays do formulário
         $num_item = $_POST['num_item'];
         $nome_produto = $_POST['nome_produto'];
