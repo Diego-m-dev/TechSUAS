@@ -74,43 +74,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                 </div>
             </form>
         </div>
-        <div id='form_itens' style='display: none'>
-            <form action="/Suas-Tech/suas/controller/salvar_contrato.php" method="POST">
-                <!-- Tabela de Itens -->
-                <label>Informe o número contrato:</label>
-                <input type=text name="num_contrato" placeholder="Os itens pertence a qual contrato?">
-                <table width="500px" border="1" id="tabelaItens">
-                    <tr>
-                        <th colspan="5">TABELA ITENS</th>
-                    </tr>
-                    <tr>
-                        <th>Código do Item</th>
-                        <th>Nome</th>
-                        <th>Quantidade</th>
-                        <th>Valor Unitário</th>
-                        <th>Valor Total</th>
-                    </tr>
-                    <tr>
-                        <td><input type="text" name="num_item[]"></td>
-                        <td><input type="text" name="nome_produto[]"></td>
-                        <td><input type="text" name="quantidade[]" class="quantidade"></td>
-                        <td><input type="text" name="valor_unitario[]" class="valor-unitario"></td>
-                        <td><input type="text" name="valor_total[]" class="valor-total" readonly></td>
-                    </tr>
-                </table>
-
-                <!-- Botões -->
-                <button type="button" onclick="adicionarLinha()">Adicionar Linha</button>
-                <button type="submit" name="btn_itens">Salvar Itens</button>
-            </form>
-            <div id="voltar1" class="back">
-                <button type="button" onclick="window.location.href ='/TechSUAS/views/administrativo/';">
-                    <i class="fas fa-arrow-left"></i>
-                    Voltar ao menu
-                </button>
-            </div>
-        </div>
-
     </div>
     <script src="/TechSUAS/js/script_contrato.js"></script>
     <script>
