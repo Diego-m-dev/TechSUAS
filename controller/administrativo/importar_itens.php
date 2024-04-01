@@ -51,7 +51,7 @@ if ($arquivo['type'] == 'text/csv') {
         $import_data = $pdo->prepare($query);
         $import_data->bindValue(':id_contrato', ($id_contrato));
         $import_data->bindValue(':cod_produto', ($linha[0] ?? "NULL"));
-        $import_data->bindValue(':nome_produto', ($linha[1] ?? "NULL"));
+        $import_data->bindValue(':nome_produto', ($linha[1] ?? "NULL"), PDO::PARAM_STR);
         $import_data->bindValue(':marca', ($linha[2] ?? "NULL"));
         $import_data->bindValue(':quantidade', ($linha[3] ?? "NULL"));
         $import_data->bindValue(':und_medida', ($linha[4] ?? "NULL"));
