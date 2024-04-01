@@ -27,7 +27,8 @@
         justify-content: space-between;
         padding: 8px 28px;
     }
-    .titulo{
+
+    .titulo {
         display: none;
     }
 
@@ -96,7 +97,7 @@
     input,
     select,
     option,
-    label{
+    label {
         font-size: 14px;
         font-weight: 700;
         background-color: #ffffff;
@@ -147,6 +148,7 @@
     .num_conc {
         font-size: large;
         font-weight: 500;
+        text-transform: none;
     }
 
     .list {
@@ -167,69 +169,107 @@
     }
 
     @media print {
-        button {
-            display: none;
+        @page :first {
+            margin: 0px;
         }
-
+        head {
+            display: none !important;
+        }
+    
         body {
+            margin: 0px; /* Margem zero na primeira página */
+            padding: 30px 0px; /* Espaçamento nas páginas subsequentes */
             background-image: url(/TechSUAS/img/concessao/timbre.svg);
             /* Define o tamanho e a repetição da imagem de fundo */
             background-size: 210mm 297mm;
             /* Tamanho da folha A4 em milímetros */
-            box-shadow: none;
+            color: black;
         }
-
+    
+        tr,
+        td,
+        table,
+        th,
+        p,
+        h3,
+        label,
+        div {
+            color: black; /* Define a cor do texto como preto */
+        }
+    
+        button {
+            display: none; /* Oculta botões na impressão */
+        }
+    
         .tudo {
             background-color: transparent;
             box-shadow: none;
         }
+    
         tr,
         td,
         table,
         th {
             border-radius: 0px;
         }
-
+    
         .titulo-com-imagem,
-        td.marc,
-        .marc,
         .container1,
         .btns {
             display: none;
         }
-
+    
         table {
             width: 95%;
             border-radius: 0;
             page-break-before: always;
             margin: 60px;
         }
-
+    
         h3 {
             padding-top: 100px;
         }
-
+    
         .num_conc {
             margin-bottom: 30px;
             width: 90%;
         }
-
-        @page {
-            size: auto;
-            /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
-            margin: 0mm 0mm 0mm 0mm;
-           /* Define margens da página */
-        }
-        .titulo {
+    
+        .titulo:first {
+            display: none;
             font-size: 10px;
-            position: fixed; /* Posicionamento fixo */
-            top: 30px; /* Posição no topo */
-            right: 20px; /* Distância da direita */
-            transform: translateY(50%); /* Ajuste para o centro vertical */
-            display: block; /* Garante que seja exibido como bloco */
-            white-space: nowrap; /* Impede que o texto quebre a linha */
+            position: fixed;
+            /* Posicionamento fixo */
+            top: 30px;
+            /* Posição no topo */
+            right: 20px;
+            /* Distância da direita */
+            transform: translateY(50%);
+            /* Ajuste para o centro vertical */
+            /* Garante que seja exibido como bloco */
+            white-space: nowrap;
+            /* Impede que o texto quebre a linha */
         }
+    
+        .titulo {
+            display: block;
+            font-size: 10px;
+            position: absolute;
+            /* Posicionamento fixo */
+            top: 30px;
+            /* Posição no topo */
+            right: 20px;
+            /* Distância da direita */
+            transform: translateY(50%);
+        }
+    
         .tech {
             padding-right: 5px;
         }
+    
+        body::after {
+            content: none !important;
+            /* Oculta o conteúdo após o corpo do documento */
+        }
     }
+    

@@ -10,7 +10,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerar Relatório Concessão</title>
+    <title>Relatório de Concessões</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="/TechSUAS/css/concessao/style_gerar_relatorio.css">
@@ -21,7 +21,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     <script src="/TechSUAS/js/concessao.js"></script>
 </head>
 
-<body>
+<body onload="addFirstPageClass()">
     <div class="img">
         <h1 class="titulo-com-imagem">
             <img src="/TechSUAS/img/concessao/h1-gerar_relatorio.svg" alt="Titulocomimagem">
@@ -153,7 +153,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                         <th>NOME PESSOA</th>
                         <th>CONCEDIDO</th>
                         <th>VALOR</th>
-                        <th class="marc">MARCAÇÃO</th>
                     </tr>
                 </thead>
 
@@ -164,7 +163,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                                 echo "<td>" . $row['nome_benef'] . "</td>";
                                 echo "<td>" . $row['nome_item'] . "</td>";
                                 echo "<td>" . $row['valor_total'] . "</td>";
-                                echo '<td><input type="checkbox" class="marc"></td>';
                                 echo "</tbody>";
                             }
                 ?>
@@ -200,7 +198,8 @@ $(document).ready(function() {
         $('body').css({
             'background-image': 'url(/TechSUAS/img/concessao/timbre.svg)',
             'background-size': '210mm 297mm',
-            'box-shadow': 'none'
+            'box-shadow': 'none',
+            'color':'black',
         });
         $('.tudo').css({
             'background-color': 'transparent',
@@ -208,10 +207,10 @@ $(document).ready(function() {
         });
         $('.titulo-com-imagem, td.marc, .marc, .container1, .btns').hide();
         $('table').css({
-            'width': '95%',
+            'width': '100%',
             'border-radius': '0',
             'page-break-before': 'always',
-            'margin': '60px'
+            'margin-top': '60px'
         });
         $('h3').css('padding-top', '100px');
         $('.num_conc').css({
@@ -220,7 +219,7 @@ $(document).ready(function() {
         });
 
         // Define as margens da página
-        var style = $('<style>@page { size: auto; margin: 0mm 0mm 0mm 0mm; }</style>');
+        var style = $('<style>@page { size: auto;}</style>');
         $('head').append(style);
 
         // Imprime a página
@@ -285,6 +284,8 @@ window.onload = function() {
     // Atualizar a cada segundo
     setInterval(mostrarDataHoraAtual, 1000);
 };
+
+
 
 </script>
 </div>
