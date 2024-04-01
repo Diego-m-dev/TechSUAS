@@ -285,7 +285,9 @@ window.onload = function() {
     setInterval(mostrarDataHoraAtual, 1000);
 };
 
-
+function addFirstPageClass() {
+    document.body.classList.add('first-page');
+}
 
 </script>
 </div>
