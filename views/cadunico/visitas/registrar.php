@@ -21,14 +21,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         <img src="/TechSUAS/img/cadunico/visitas/visitash1.svg">
     </h1>
     <div class="container">
-        <form method="post" action="../../controller/parecer/processo.php">
+        <form method="post" action="/TechSUAS/controller/cadunico/parecer/processo.php">
             <div class="codfamiliar">
                 <label>CÓDIGO FAMILIAR: </label>
                 <input type="text" name="codigo_familiar" placeholder="Digite o CÓDIGO FAMILIAR." required>
             </div>
             <div class="nomerf">
                 <label for="nome">NOME RF: </label>
-                <input type="text" name="nomerf" placeholder="Digite o nome do RF." required>
+                <input type="text" name="nomerf" class="inpu" placeholder="Digite o nome do RF." required>
             </div>
             <div class="data">
                 <label>DATA DA VISITA: </label>
