@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+*{
+    margin-top: 0;
+}
+body {
+    background-image: url(/TechSUAS/img/cadunico/background_cad.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    font-family: "Inter", sans-serif;
+    display: flex;
+    flex-direction: column;
+}
+
+img {
+    display: flex;
+    width: 100%;
+    height: 50%;
+    max-height: 120px
+}
+
+.container {
+    display: flex;
+    justify-content:flex-start;
+    flex-direction: column;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+.desligamento,.encaminhamento{
+    padding-top: 10px;
+    color: #13294b;
+}
+.decprefeitura{
+    color: #13294b;
+}
+.linha{
+    border: 1px solid #13294b;
+}
+.lin1{
+    padding-top: 15px;
+}
+textarea{
+    width: 350px;
+    height: auto;
+    border-radius: 5px;
+    position: relative;
+    top: 13px;
+}
+button,a {
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+}
+button:hover,a:hover{
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}
+select,
+input{
+    font-size: 16px;
+    border-radius: 4px;
+}
+
