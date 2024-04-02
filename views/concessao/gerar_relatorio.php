@@ -30,21 +30,32 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     <div class="titulo">
         <div class="tech">
             <span>TechSUAS-Concessão</span><span id="dataHora"></span>
-            
+
         </div>
     </div>
 <div class="tudo">
 <div class="container1">
+    <?php
+$sql_ano = "SELECT DISTINCT ano_form FROM concessao_historico ORDER BY ano_form DESC";
+$result_sql_ano = $conn->query($sql_ano);
+$anos = [];
+while ($d = $result_sql_ano->fetch_assoc()) {
+    $anos[] = $d['ano_form'];
+}
+?>
         <div id="somaCaracteristicas"></div>
 
         <form method="POST" id="filtroForm">
             <label for="ano">Ano:</label>
             <select name="ano" id="ano" required>
                 <option value="" disabled selected hidden>Selecione</option>
-                <option value="2023">2023</option>
-                <option value="2024">2024</option>
-                <option value="2025">2025</option>
+<?php
+foreach ($anos as $ano) {
+    echo "<option value='$ano'>$ano</option>";
+}
+?>
             </select>
+
             <label for="mes_pg">Mês de Pagamento</label>
             <select name="mes_pg" id="mes_pg" required>
                 <option value="" disabled selected hidden>Selecione</option>
@@ -63,88 +74,89 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
             </select>
             <button type="submit">BUSCAR</button>
         </form>
-        
+
 </div>
 
         <?php
-        if (!isset($_POST['ano'])) {
-        } else {
-        ?>
+if (!isset($_POST['ano'])) {
+} else {
+    ?>
         <div class="container">
             <h3>RELATÓRIO DE CONCESSÃO DE BENEFÍCIOS EVENTUAIS</h3>
                 <?php
-                $mes_pago = $_POST['mes_pg'];
+$mes_pago = $_POST['mes_pg'];
 
-                $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago'";
-                $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
+    if ($nome == "MICHELLE AGNES GOMES CAVALCANTE") {
 
-                if ($resultado_quantidade_itens_mes->num_rows > 0) {
-                    $row = $resultado_quantidade_itens_mes->fetch_assoc();
-                    $total_itens_mes = $row['mes_pag'];
-                } else {
-                    $total_itens_mes = "Nenhum resultado encontrado para o mês de $mes_escolhido.";
-                }
+    $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago'";
+    $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
 
-                $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago'";
-                $result_soma_total_mes = $conn->query($soma_total_mes);
-                $valor_total_mes = [];
+    if ($resultado_quantidade_itens_mes->num_rows > 0) {
+        $row = $resultado_quantidade_itens_mes->fetch_assoc();
+        $total_itens_mes = $row['mes_pag'];
+    } else {
+        $total_itens_mes = "Nenhum resultado encontrado para o mês de $mes_escolhido.";
+    }
 
-                while ($c = $result_soma_total_mes->fetch_assoc()) {
-                    $valor_total_mes[] = $c['soma_total_mes'];
-                }
+    $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago'";
+    $result_soma_total_mes = $conn->query($soma_total_mes);
+    $valor_total_mes = [];
 
-                $sql_soma_valor_total = "SELECT SUM(valor_total) AS soma_total, nome_item AS nome_item, situacao_concessao AS situacao_concessao FROM concessao_historico
+    while ($c = $result_soma_total_mes->fetch_assoc()) {
+        $valor_total_mes[] = $c['soma_total_mes'];
+    }
+
+    $sql_soma_valor_total = "SELECT SUM(valor_total) AS soma_total, nome_item AS nome_item, situacao_concessao AS situacao_concessao FROM concessao_historico
     WHERE mes_pag = '$mes_pago'
     GROUP BY nome_item
     ORDER BY nome_item ASC";
-                $resultado_valor_total = $conn->query($sql_soma_valor_total);
+    $resultado_valor_total = $conn->query($sql_soma_valor_total);
 
-                $valor_total = [];
-                $categoria = [];
-                $situacao = [];
+    $valor_total = [];
+    $categoria = [];
+    $situacao = [];
 
-                while ($a = $resultado_valor_total->fetch_assoc()) {
-                    $valor_total[] = $a['soma_total'];
-                    $categoria[] = $a['nome_item'];
-                    $situacao[] = $a['situacao_concessao'];
-                }
+    while ($a = $resultado_valor_total->fetch_assoc()) {
+        $valor_total[] = $a['soma_total'];
+        $categoria[] = $a['nome_item'];
+        $situacao[] = $a['situacao_concessao'];
+    }
 
-                ?>
+    ?>
                 <P class="num_conc">No mês de <?php echo $mes_pago; ?> foram realizadas <?php echo $total_itens_mes; ?> concessões, com um valor total de
                     <?php
-                    foreach ($valor_total_mes as $total_concessao_mes) {
-                        $valor_formatado_mes = number_format($total_concessao_mes, 2, ',', '.');
-                        echo 'R$ ' . $valor_formatado_mes;
-                    }
-                    ?>.
+foreach ($valor_total_mes as $total_concessao_mes) {
+        $valor_formatado_mes = number_format($total_concessao_mes, 2, ',', '.');
+        echo 'R$ ' . $valor_formatado_mes;
+    }
+    ?>.
                 </P>
                 <ul>
                     <?php
 
-                    echo '<div class="list">';
-                    foreach ($categoria as $index => $subcat) {
-                        $valor_formatado = number_format($valor_total[$index], 2, ',', '.');
-                        echo '<div>•' . $subcat . ' - R$ ' . $valor_formatado . '</div>';
-                    }
-                    echo '</div>';
+    echo '<div class="list">';
+    foreach ($categoria as $index => $subcat) {
+        $valor_formatado = number_format($valor_total[$index], 2, ',', '.');
+        echo '<div>•' . $subcat . ' - R$ ' . $valor_formatado . '</div>';
+    }
+    echo '</div>';
 
+    $sql_mes = $conn->real_escape_string($_POST['mes_pg']);
+    $sql_ano = $conn->real_escape_string($_POST['ano']);
+    $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? ORDER BY nome_benef ASC";
 
-                    $sql_mes = $conn->real_escape_string($_POST['mes_pg']);
-                    $sql_ano = $conn->real_escape_string($_POST['ano']);
-                    $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? ORDER BY nome_benef ASC";
+    if ($stmt_dados = $conn->prepare($sql_dados)) {
+        $stmt_dados->bind_param("ss", $sql_mes, $sql_ano);
+        $stmt_dados->execute();
 
-                    if ($stmt_dados = $conn->prepare($sql_dados)) {
-                        $stmt_dados->bind_param("ss", $sql_mes, $sql_ano);
-                        $stmt_dados->execute();
+        if ($stmt_dados->errno) {
+            die("ERRO ao consultar: " . $stmt_dados->error);
+        } else {
+            // Manipule os resultados aqui
+            $result = $stmt_dados->get_result();
+            // Faça algo com os resultados
 
-                        if ($stmt_dados->errno) {
-                            die("ERRO ao consultar: " . $stmt_dados->error);
-                        } else {
-                            // Manipule os resultados aqui
-                            $result = $stmt_dados->get_result();
-                            // Faça algo com os resultados
-
-                    ?>
+            ?>
             </ul>
             <table id="tabelaConcessoes" border="1">
                 <thead>
@@ -157,18 +169,19 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                 </thead>
 
                 <?php
-                            while ($row = $result->fetch_assoc()) {
-                                echo "<tbody>";
-                                echo "<td>" . $row['num_form'] . "/" . $row['ano_form'] . "</td>";
-                                echo "<td>" . $row['nome_benef'] . "</td>";
-                                echo "<td>" . $row['nome_item'] . "</td>";
-                                echo "<td>" . $row['valor_total'] . "</td>";
-                                echo "</tbody>";
-                            }
-                ?>
+while ($row = $result->fetch_assoc()) {
+                $valor_formatado1 = number_format($row['valor_total'], 2, ',', '.');
+                echo "<tbody>";
+                echo "<td>" . $row['num_form'] . "/" . $row['ano_form'] . "</td>";
+                echo "<td>" . $row['nome_benef'] . "</td>";
+                echo "<td>" . $row['nome_item'] . "</td>";
+                echo "<td> R$ " . $valor_formatado1 . "</td>";
+                echo "</tbody>";
+            }
+            ?>
             </table>
         <?php
-                        }
+}
         ?>
 
 </div>
@@ -176,12 +189,15 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
             <button class="btns" type="button" id="btn_immprimir">IMPRIMIR</button>
         </div>
 <?php
-                        $stmt_dados->close();
-                    } else {
-                        // Tratamento de erro se a preparação da consulta falhar
-                        die("ERRO ao preparar a consulta: " . $conn->error);
-                    }
-                }
+$stmt_dados->close();
+        } else {
+        // Tratamento de erro se a preparação da consulta falhar
+        die("ERRO ao preparar a consulta: " . $conn->error);
+        }
+    } else {
+
+    }
+}
 ?>
 
 <script>
@@ -190,7 +206,7 @@ $(document).ready(function() {
         // Oculta o botão de imprimir e outros elementos que não devem aparecer na impressão
         $(this).hide();
         $('#filtroForm, #btn_new_consulta').hide();
-        
+
         // Rola a página para o topo
         window.scrollTo({ top: 0 });
 
@@ -249,7 +265,7 @@ $(document).ready(function() {
             'width': ''
         });
         style.remove();
-        
+
         // Redireciona após um pequeno atraso
         setTimeout(function() {
             window.location.href = '/TechSUAS/views/concessao/gerar_relatorio';
