@@ -60,7 +60,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
           </div>
 
           <div class="folha">
-            <a class="menu-button" onclick="location.href='../views/declar/declaracao';">
+            <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/declaracoes/declaracao';">
               <span class="material-symbols-outlined">
                 quick_reference_all
               </span>

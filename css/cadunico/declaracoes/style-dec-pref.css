@@ -1,0 +1,70 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+
+.container,
+#form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    
+}
+.signature-line{
+    padding-top: 300px;
+}
+#form{
+    text-align: center;
+}
+#title {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 140px;
+    width: 80%;
+}
+
+#right-align {
+    font-size: 18px;
+    text-align: right;
+    width: 80%;
+}
+
+.signature-line {
+    width: 80%;
+    margin-top: 18px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#justified-text {
+    text-align: justify;
+    font-size: 18px;
+    text-indent: 50px;
+    margin-top: 20px;
+    width: 80%;
+    padding-top: 100px;
+}
+
+
+
+@media print {
+    body::after {
+        content: none !important;
+        /* Oculta o conteúdo após o corpo do documento */
+    }
+
+    @page {
+        size: auto;
+        /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
+        margin: 0;
+        /* opcional: define margens da página */
+    }
+}

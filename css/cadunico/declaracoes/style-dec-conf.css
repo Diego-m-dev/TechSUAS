@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+body {
+    background-image: url(/TechSUAS/img/cadunico/background_cad.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    font-family: "Inter", sans-serif;
+    height: auto;
+    padding-left: 10px;
+}
+input {
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+}
+input:hover{
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}
+h1{
+    text-align: center;
+    color: #13294b;
+    background-color: #ffffff;
+    border-radius: 7px;
+}
+h3{
+    font-weight: bold; 
+    color: #13294b;
+    font-size: 20px;
+}
+form{
+    font-size: 16px;
+    padding: 10px;
+    line-height: 50px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    color: #13294b;
+    font-weight: bold;
+}
+
