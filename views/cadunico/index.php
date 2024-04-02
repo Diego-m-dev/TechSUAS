@@ -51,7 +51,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
           </div>
 
           <div class="visitas">
-            <a class="menu-button" onclick="location.href='../controller/folha_pagamento/folha';">
+            <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/folha/folha';">
               <span class="material-symbols-outlined">
                 request_quote
               </span>
