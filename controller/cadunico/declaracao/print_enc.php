@@ -26,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Imprimir encaminhamento</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <link rel="website icon" type="png" href="../../img/logo.png">
+    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     </head>
 <body>
 <div class="justified-text">
@@ -40,8 +40,8 @@ echo $_GET['conteudo'];
 
 <script>
     setTimeout(function(){
-        history.go(-2);
-    }, 3000);
+        history.go(-1);
+    }, 2000);
 
     window.onload = function() {
         window.print();

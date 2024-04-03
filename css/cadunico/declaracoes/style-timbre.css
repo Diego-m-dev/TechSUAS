@@ -1,0 +1,23 @@
+body {
+    background-image: url(/TechSUAS/img/cadunico/timbre_cad);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding-left: 50px;
+    padding-top: 50px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+@page {
+    size: auto;
+    /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
+    margin: 0;
+    /* opcional: define margens da página */
+}
+
+@media print {
+    body::after {
+        content: none !important;
+        /* Oculta o conteúdo após o corpo do documento */
+        display: none !important;
+    }
+}

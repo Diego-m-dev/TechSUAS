@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../css/style-timbre.css">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/declaracoes/style-timbre.css">
+    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <title>Encaminhamento</title>
 </head>
 <body>
@@ -11,8 +12,8 @@
         <?php
 
         // Inclui o arquivo "conexao.php" que deve conter a configuração da conexão com o banco de dados
-        include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/conexao.php';
-        include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_user/dados_usuario.php';
+        include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+        include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
         $usuario = $dados['nome'];
         $cargo = $dados['cargo'];
