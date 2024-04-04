@@ -13,7 +13,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/Suas-Tech/concessao/controller/print_conc.php',
+            url: '/TechSUAS/controller/concessao/print_conc.php',
             data: { id_hist: idHist },
             dataType: 'json', // Espera uma resposta JSON do servidor
             success: function (response) {
