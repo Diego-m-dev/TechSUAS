@@ -86,6 +86,7 @@ if (!isset($_POST['ano'])) {
                 <?php
 $mes_pago = $_POST['mes_pg'];
 
+    if ($nome == "MICHELLE AGNES GOMES CAVALCANTE") {
 
     $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago'";
     $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
@@ -106,7 +107,7 @@ $mes_pago = $_POST['mes_pg'];
     }
 
     $sql_soma_valor_total = "SELECT SUM(valor_total) AS soma_total, nome_item AS nome_item, situacao_concessao AS situacao_concessao FROM concessao_historico
-    WHERE mes_pag = '$mes_pago'
+    WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE'
     GROUP BY nome_item
     ORDER BY nome_item ASC";
     $resultado_valor_total = $conn->query($sql_soma_valor_total);
@@ -136,13 +137,13 @@ foreach ($valor_total_mes as $total_concessao_mes) {
     echo '<div class="list">';
     foreach ($categoria as $index => $subcat) {
         $valor_formatado = number_format($valor_total[$index], 2, ',', '.');
-        echo '<div>•' . $subcat . ' - R$ ' . $valor_formatado . '</div>';
+        echo '<div>•<input type="checkbox">' . $subcat . ' - R$ ' . $valor_formatado . '</div>';
     }
     echo '</div>';
 
     $sql_mes = $conn->real_escape_string($_POST['mes_pg']);
     $sql_ano = $conn->real_escape_string($_POST['ano']);
-    $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? ORDER BY nome_benef ASC";
+    $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? AND nome_item != 'ATAÚDE' ORDER BY nome_item ASC, nome_benef ASC";
 
     if ($stmt_dados = $conn->prepare($sql_dados)) {
         $stmt_dados->bind_param("ss", $sql_mes, $sql_ano);
@@ -193,7 +194,9 @@ $stmt_dados->close();
         // Tratamento de erro se a preparação da consulta falhar
         die("ERRO ao preparar a consulta: " . $conn->error);
         }
+    } else {
 
+    }
 }
 ?>
 
