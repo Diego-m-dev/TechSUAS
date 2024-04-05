@@ -86,7 +86,6 @@ if (!isset($_POST['ano'])) {
                 <?php
 $mes_pago = $_POST['mes_pg'];
 
-    if ($nome == "MICHELLE AGNES GOMES CAVALCANTE") {
 
     $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago'";
     $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
@@ -194,9 +193,7 @@ $stmt_dados->close();
         // Tratamento de erro se a preparação da consulta falhar
         die("ERRO ao preparar a consulta: " . $conn->error);
         }
-    } else {
 
-    }
 }
 ?>
 

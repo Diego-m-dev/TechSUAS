@@ -23,7 +23,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     <!--INICIO DA DECLARAÇÃO PARA PREFEITURA-->
     <div class="container">
         <div class="decprefeitura">
-            <form method="post" action="declaracao_conferir.php">
+            <form method="post" action="declaracao_conferir">
                 <h2>Declaração Para Contratação</h2>
                 <select name="buscar_dados" required>
                     <option value="cpf_dec">CPF:</option>
@@ -38,7 +38,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </div>
             <!--INICIO DA DECLARAÇÃO PARA ENCAMINHAMENTO-->
         <div class="encaminhamento">
-            <form method="post" action="../../controller/declaracao/encaminhamento.php">
+            <form method="post" action="/TechSUAS/controller/cadunico/declaracao/encaminhamento">
                 <h2>Encaminhamento</h2>
                 <select name="buscar_dados" required>
                     <option value="cpf_dec">CPF:</option>
