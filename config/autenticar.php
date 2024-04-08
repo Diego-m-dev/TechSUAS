@@ -40,7 +40,7 @@ if ($dados && password_verify($senha_login, $dados['senha'])) {
         }
 
     if ($setor_ == "CRIANÇA FELIZ"){
-        header("location:../suas/peixe/logado/form");
+        //header("location:../suas/peixe/logado/form");
         exit();
     }
     // Redirecione com base no nível de acesso
