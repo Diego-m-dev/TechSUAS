@@ -31,6 +31,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
         $situacao = $_POST['situacao'];
         $id_hist = $_POST['id_hist'];
 
+        $valor_unitario = str_replace(',', '.', $valor_unitario);
+        $valor_total = str_replace(',', '.', $valor_total);
+
         $smtp = $conn->prepare("UPDATE concessao_historico SET nome_item=?, qtd_item=?, valor_uni=?, valor_total=?, mes_pag=?, pg_data=?, situacao_concessao=? WHERE id_hist=?");
         $smtp->bind_param("ssssssss", $itens_conc, $quantidade, $valor_unitario, $valor_total, $mes_pg, $dt_pg, $situacao, $id_hist);
         if ($smtp->execute()) {
