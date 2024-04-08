@@ -15,7 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';?
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/TechSUAS/js/concessao/concessao.js"></script>
+    <script src="/TechSUAS/js/concessao.js"></script>
 
 </head>
 
@@ -103,23 +103,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <?php
 
             while ($dados_hist_form = $form_query->fetch_assoc()) {
-                ?>
-                        <tr>
-                            <td><?php echo $dados_hist_form['num_form'] . '/' . $dados_hist_form['ano_form']; ?></td>
-                            <td><?php echo $dados_hist_form['nome_benef']; ?></td>
-                            <td><?php echo $dados_hist_form['nome_item']; ?></td>
-                            <td><?php echo 'R$ ' . $dados_hist_form['valor_total']; ?></td>
-                            <td><?php echo $dados_hist_form['mes_pag']; ?></td>
-                            <td><?php echo $dados_hist_form['data_registro']; ?></td>
-                            <td><?php echo $dados_hist_form['situacao_concessao']; ?></td>
-                            <td>
-                                <form action="/TechSUAS/views/concessao/editar_conc" method="post" style="display:inline;">
-                                    <input type="hidden" name="id_concessao" value="<?php echo $dados_hist_form['id_hist']; ?>">
-                                    <button type="submit">Editar</button>
-                                </form>
-                            </td>
-                        </tr>
-            <?php
+?>
+                <tr>
+                    <td><?php echo $dados_hist_form['num_form'] . '/' . $dados_hist_form['ano_form']; ?></td>
+                    <td><?php echo $dados_hist_form['nome_benef']; ?></td>
+                    <td><?php echo $dados_hist_form['nome_item']; ?></td>
+                    <td><?php echo 'R$ ' . $dados_hist_form['valor_total']; ?></td>
+                    <td><?php echo $dados_hist_form['mes_pag']; ?></td>
+                    <td><?php echo $dados_hist_form['data_registro']; ?></td>
+                    <td><?php echo $dados_hist_form['situacao_concessao']; ?></td>
+                    <td>
+                        <form action="/TechSUAS/views/concessao/editar_conc" method="post" style="display:inline;">
+                            <input type="hidden" name="id_concessao" value="<?php echo $dados_hist_form['id_hist']; ?>">
+                            <button type="submit">Editar</button>
+                        </form>
+                    </td>
+                </tr>
+<?php
 }
         }
     } else {
@@ -196,15 +196,15 @@ while ($dados_hist_form = $form_query->fetch_assoc()) {
 </body>
 <script>
     document.getElementById("tipo_busca").addEventListener("change", function() {
-        var tipoSelecionado = this.value;
+        var tipoSelecionado = this.value
         if (tipoSelecionado === "cpf") {
-            document.getElementById("cpf_inpu").style.display = "block";
-            document.getElementById("num_form_inpu").style.display = "none";
+            document.getElementById("cpf_inpu").style.display = "block"
+            document.getElementById("num_form_inpu").style.display = "none"
         } else if (tipoSelecionado === "num_form") {
-            document.getElementById("cpf_inpu").style.display = "none";
-            document.getElementById("num_form_inpu").style.display = "block";
+            document.getElementById("cpf_inpu").style.display = "none"
+            document.getElementById("num_form_inpu").style.display = "block"
         }
-    });
+    })
 </script>
 
 
