@@ -35,18 +35,3 @@ if ($sql->rowCount() > 0) {
 }
 
 ?>
-<!--Inclua as variáveis PHP no script JavaScript-->
-<script>
-    var id_user = <?php echo json_encode($id_user); ?>
-    var nome = <?php echo json_encode($nome); ?>
-    var apelido = <?php echo json_encode($apelido); ?>
-    var cpf = <?php echo json_encode($cpf); ?>
-    var setor = <?php echo json_encode($setor); ?>
-    var func = <?php echo json_encode($func); ?>
-    var dtNasc = <?php echo json_encode($dtNasc); ?>
-    var telefone = <?php echo json_encode($telefone); ?>
-    var email = <?php echo json_encode($email); ?>
-    var cargo = <?php echo json_encode($cargo); ?>
-    var idcargo = <?php echo json_encode($idcargo); ?>
-    var nivel = <?php echo json_encode($nivel); ?>
-</script>
