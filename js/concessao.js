@@ -7,6 +7,18 @@ document.addEventListener("DOMContentLoaded", function () {
     telefoneInput.mask('(00) 0.0000-0000')
 })
 
+document.getElementById("tipo_busca").addEventListener("change", function() {
+    var tipoSelecionado = this.value
+    if (tipoSelecionado === "cpf") {
+        document.getElementById("cpf_inpu").style.display = "block"
+        document.getElementById("num_form_inpu").style.display = "none"
+    } else if (tipoSelecionado === "num_form") {
+        document.getElementById("cpf_inpu").style.display = "none"
+        document.getElementById("num_form_inpu").style.display = "block"
+    }
+})
+
+
 $(document).ready(function() {
     $('#btn_imprimir').click(function() {
         var idHist = $(this).attr('name')
