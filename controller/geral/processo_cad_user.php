@@ -12,6 +12,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
+include '/TechSUAS/controller/geral/secret.php';
 
 // Inicializa a mensagem como vazia
 $mensagem = '';
@@ -19,7 +20,7 @@ $mensagem = '';
 // Verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $tpacesso = $_POST['nivel'];
-    $senha_hashed = password_hash("@senha123", PASSWORD_DEFAULT);
+    $senha_hashed = password_hash($mddrRfc1nkKKKdsad56, PASSWORD_DEFAULT);
     $user_name = $_POST['nome_user'];
     $user_maiusc = strtoupper($user_name);
     $setor = $_POST['setor'];
