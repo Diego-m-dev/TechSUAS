@@ -63,7 +63,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                 <label>NIS:</label>
                 <input type="text" name="nis_dec" placeholder="Digite aqui:" required>
                 <button type="submit">BUSCAR</button>
-                <a href="/Suas-Tech/controller/back.php">
+                <a href="/TechSUAS/config/back.php">
                     <i class="fas fa-arrow-left"></i> Voltar ao menu
                 </a>
             </form>
