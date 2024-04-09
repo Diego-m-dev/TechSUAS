@@ -195,16 +195,6 @@ while ($dados_hist_form = $form_query->fetch_assoc()) {
     </div>
 </body>
 <script>
-    document.getElementById("tipo_busca").addEventListener("change", function() {
-        var tipoSelecionado = this.value
-        if (tipoSelecionado === "cpf") {
-            document.getElementById("cpf_inpu").style.display = "block"
-            document.getElementById("num_form_inpu").style.display = "none"
-        } else if (tipoSelecionado === "num_form") {
-            document.getElementById("cpf_inpu").style.display = "none"
-            document.getElementById("num_form_inpu").style.display = "block"
-        }
-    })
 </script>
 
 
