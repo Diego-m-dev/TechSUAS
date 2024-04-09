@@ -75,14 +75,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
               </span>
               Atendimento
             </a>
+<!--
             <div class="peixe">
-              <a class="menu-button" target="_blank" href='/Suas-Tech/suas/peixe/logado/form'>
+              <a class="menu-button" target="_blank" href='/TechSUAS/views/cadunico/area_gestao'>
                 <span class="material-symbols-outlined">
                   set_meal
                 </span>
-                Cadastro Peixe
+                Area do Gestor
               </a>
             </div>
+-->
           </div>
           <nav>
       </div>
