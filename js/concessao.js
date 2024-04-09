@@ -7,18 +7,6 @@ document.addEventListener("DOMContentLoaded", function () {
     telefoneInput.mask('(00) 0.0000-0000')
 })
 
-document.getElementById("tipo_busca").addEventListener("change", function() {
-    var tipoSelecionado = this.value
-    if (tipoSelecionado === "cpf") {
-        document.getElementById("cpf_inpu").style.display = "block"
-        document.getElementById("num_form_inpu").style.display = "none"
-    } else if (tipoSelecionado === "num_form") {
-        document.getElementById("cpf_inpu").style.display = "none"
-        document.getElementById("num_form_inpu").style.display = "block"
-    }
-})
-
-
 $(document).ready(function() {
     $('#btn_imprimir').click(function() {
         var idHist = $(this).attr('name')
@@ -57,10 +45,11 @@ $(document).ready(function() {
                     $('#valor_uni').text(response.valor_uni)
                     $('#valor_total').text(response.valor_total)
                     $('#local_data').text('São Bento do Una - PE ____ de _____________ de ' + response.local_data)
+                    
                     window.print()
 
                     setTimeout(function() {
-                        window.location.href = '/Suas-Tech/concessao/index'
+                        window.location.href = '/TechSUAS/views/concessao/'
                     }, 300)
                 } else {
                     console.error(response.error)
@@ -71,7 +60,7 @@ $(document).ready(function() {
                 console.error("AJAX Request Failed: " + textStatus, errorThrown)
             }
         })
-        $('#css_link').attr('href', '../css/style_impr_form.css')
+        $('#css_link').attr('href', '/TechSUAS/css/concessao/style_impr_form.css')
     })
 })
 /*
@@ -79,13 +68,13 @@ $(document).ready(function() {
 */
 document.addEventListener('DOMContentLoaded', function () {
     // Obtém todos os campos de entrada de texto
-    var camposTexto = document.querySelectorAll('input[type="text"]');
+    var camposTexto = document.querySelectorAll('input[type="text"]')
 
     // Adiciona um ouvinte de eventos de entrada a cada campo de texto
     camposTexto.forEach(function (campo) {
         campo.addEventListener('input', function () {
             // Converte o valor do campo para maiúsculas
-            this.value = this.value.toUpperCase();
-        });
-    });
-});
+            this.value = this.value.toUpperCase()
+        })
+    })
+})
