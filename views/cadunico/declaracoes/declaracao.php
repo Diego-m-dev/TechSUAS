@@ -58,7 +58,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </div>
         <!--INICIO DA DECLARAÇÃO PARA DESLIGAMENTO VOLUNTÁRIO-->
         <div class="desligamento">
-            <form method="post" action="../../controller/declaracao/desligamento_voluntario.php">
+            <form method="post" action="/TechSUAS/controller/cadunico/declaracao/desligamento_voluntario">
                 <h2>Declaração Desligamento Voluntário</h2>
                 <label>NIS:</label>
                 <input type="text" name="nis_dec" placeholder="Digite aqui:" required>
