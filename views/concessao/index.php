@@ -1,6 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -19,6 +20,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 </head>
 
 <body>
+
+    <?php
+    if ($setor != "CONCESSÃO" && $setor != "ADMINISTRATIVO" && $setor != "SUPORTE") {
+        echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR ESSA TELA.";
+        exit();
+    }
+    ?>
 
     <div class="img">
         <h1 class="titulo-com-imagem">
@@ -77,9 +85,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
             </div>
             <div class="mural">
         <h4><span class="material-symbols-outlined">campaign</span>Mural de Avisos</h4>
-<?php
 
-?>
         </div>
 
         </div>
@@ -99,7 +105,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                         </a>
                         <?php
 if ($nivel == 'suport') {
-    ?> <a title="Suporte" href='/TechSUAS/suporte/index' ;>
+    ?> <a title="Suporte" href='/TechSUAS/suporte/' ;>
                                 <span class="material-symbols-outlined">rule_settings</span>
                             </a> <?php
 exit();
