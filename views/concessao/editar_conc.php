@@ -1,7 +1,7 @@
 <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/Suas-Tech/cadunico/controller/acesso_user/dados_usuario.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 $data_atual = date('Y');
 $qtd_conc = "SELECT COUNT(*) as total_registros FROM concessao_historico WHERE ano_form = $data_atual";
 
@@ -23,22 +23,21 @@ if ($sql_ed_conc->rowCount() > 0) {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link id="css_link" rel="stylesheet" href="../css/style_consultar.css">
-        <link rel="website icon" type="image/png" href="/Suas-Tech/cadunico/img/logo.png">
+        <link id="css_link" rel="stylesheet" href="/TechSUAS/css/concessao/style_consultar.css">
+        <link rel="website icon" type="image/png" href="/TechSUAS/img/geral/logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <title>TechSUAS Concessão</title>
+        <title>Concessão Consulta</title>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-        <script src="/Suas-Tech/concessao/js/script.js"></script>
-
+        <script src="/TechSUAS/js/concessao.js"></script>
     </head>
 
     <body>
 <div id="conteiner_hide">
         <div class="img">
             <h1 class="titulo-com-imagem">
-                <img src="../img/h1-consulta.svg" alt="Titulocomimagem">
+                <img src="/TechSUAS/img/concessao/h1-consulta.svg" alt="Titulocomimagem">
             </h1>
         </div>
         <div class="container">
@@ -82,7 +81,7 @@ echo 'Nº: ' . $conc['num_form'] . '/' . $conc['ano_form'] . '<br>';
                 </table>
 
             </div>
-            <form method="POST" action="/Suas-Tech/concessao/controller/salva_alt_conc" class="editar_info" style="display: none">
+            <form method="POST" action="/TechSUAS/controller/concessao/salva_alt_conc" class="editar_info" style="display: none">
                 <!--Tabela inicialmente oculta-->
                 <input name="id_hist" value="<?php echo $conc['id_hist']; ?>" style="display: none">
                 <label>PAGO:</label>
@@ -152,7 +151,7 @@ $consultaSetores = $conn->query("SELECT caracteristica FROM concessao_itens");
             <div class="btn">
                 <button type="button" id="btn_editar">EDITAR</button>
                 <button type="button" id="btn_imprimir" name="<?php echo $conc['id_hist']; ?>">IMPRIMIR</button>
-                <a href="/Suas-Tech/controller/back.php">
+                <a href="/TechSUAS/config/back">
                     <i class="fas fa-arrow-left"></i> Voltar ao menu
                 </a>
             </div>
@@ -320,7 +319,7 @@ $(document).ready(function() {
     </table><br>
     
     <div class="sbu" style="text-align: right;">
-        <p id="local_data"> </p>
+        <p id="local_data"></p>
     </div>
 
 
