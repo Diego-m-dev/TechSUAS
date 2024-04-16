@@ -26,6 +26,7 @@ body {
     align-items: center;
     align-content: center;
     padding-right: 15px;
+    padding-top: 15px;
 }
 
 .tech {
@@ -85,13 +86,13 @@ input {
 @page {
     size: auto;
     /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
-    margin: 5;
+    margin: 0;
     /* opcional: define margens da página */
 }
 
 @media print {
     body::after {
         content: none !important;
-        /* Oculta o conteúdo após o corpo do documento */
+        display: none !important;
     }
 }
