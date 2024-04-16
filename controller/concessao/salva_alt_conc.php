@@ -82,6 +82,10 @@
                             <p>TechSUAS-Concessão</p>
                         </div>
                         <div id="dataHora">
+                            <?php
+                            $datinha = new DateTime();
+                            echo $datinha->format('d/m/Y H:i:s');
+                            ?>
                         </div>
                     </div>
                     <div class="container">
@@ -185,7 +189,7 @@
                     </div>
                     </div>
 
-                    <!--<script>
+                    <script>
                         window.print()
                         setTimeout(function() {
                             Swal.fire({
@@ -199,7 +203,7 @@
                                 }
                             })
                         }, 1500);
-                    </script>-->
+                    </script>
     <?php
                 }
 
@@ -211,39 +215,7 @@
         $smtp->close();
     }
     ?>
-    <script>
-        // Função para formatar um número com dois dígitos
-function formatarNumero(numero) {
-    return numero < 10 ? '0' + numero : numero;
-}
-
-// Função para obter a data e hora atual e exibir na página
-function mostrarDataHoraAtual() {
-    let dataAtual = new Date();
-
-    let dia = formatarNumero(dataAtual.getDate());
-    let mes = formatarNumero(dataAtual.getMonth() + 1);
-    let ano = dataAtual.getFullYear();
-
-    let horas = formatarNumero(dataAtual.getHours());
-    let minutos = formatarNumero(dataAtual.getMinutes());
-    let segundos = formatarNumero(dataAtual.getSeconds());
-
-    let dataHoraFormatada = `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
-
-    document.getElementById('dataHora').textContent = " - " + dataHoraFormatada;
-}
-
-// Chamando a função para exibir a data e hora atual quando a página carrega
-$(documento).ready( function() {
-    mostrarDataHoraAtual()
-    // Atualizar a cada segund
-    setInterval(mostrarDataHoraAtual, 1000)
-    console.log("dataHoraFormatada")
-    $("#dataHora").text("dataHoraFormatada")
-})
-
-    </script>
+    
 </body>
 
 </html>
