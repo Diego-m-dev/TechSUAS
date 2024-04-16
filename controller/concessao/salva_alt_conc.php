@@ -20,6 +20,7 @@
     <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
+    
 
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dt_pg = $_POST['dt_pg'];
@@ -184,7 +185,7 @@
                     </div>
                     </div>
 
-                    <script>
+                    <!--<script>
                         window.print()
                         setTimeout(function() {
                             Swal.fire({
@@ -194,11 +195,11 @@
                                 confirmButtonText: 'OK',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = "/TechSUAS/views/concessao/consultar"
+                                    window.location.href = "/TechSUAS/views/concessao/consultar.php"
                                 }
                             })
                         }, 1500);
-                    </script>
+                    </script>-->
     <?php
                 }
 
@@ -234,11 +235,13 @@ function mostrarDataHoraAtual() {
 }
 
 // Chamando a função para exibir a data e hora atual quando a página carrega
-window.onload = function() {
-    mostrarDataHoraAtual();
-    // Atualizar a cada segundo
-    setInterval(mostrarDataHoraAtual, 1000);
-};
+$(documento).ready( function() {
+    mostrarDataHoraAtual()
+    // Atualizar a cada segund
+    setInterval(mostrarDataHoraAtual, 1000)
+    console.log("dataHoraFormatada")
+    $("#dataHora").text("dataHoraFormatada")
+})
 
     </script>
 </body>
