@@ -40,6 +40,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
         $_SESSION['nivel_usuario'] = $dados['nivel'];
         $_SESSION['apelido'] = $dados['apelido'];
         $_SESSION['setor'] = $dados['setor'];
+        
 
         if ($dados['acesso'] == 1) {
             header("location:/TechSUAS/views/geral/primeiro_acesso");
