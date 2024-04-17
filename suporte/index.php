@@ -1,6 +1,9 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+if ($_SESSION['setor'] != "SUPORTE") {
+        echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR AQUI!";
+        exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -10,7 +13,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/TechSUAS/css/suporte/style-suporte.css">
         <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
         <title>TechSUAS - Suporte - DDV</title>
 </head>
 

@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.php';
 
 ?>
 
@@ -21,13 +21,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
 <body>
 
-    <?php
-    if ($setor != "CONCESSÃO" && $setor != "ADMINISTRATIVO" && $setor != "SUPORTE") {
-        echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR ESSA TELA.";
-        exit();
-    }
-    ?>
-
     <div class="img">
         <h1 class="titulo-com-imagem">
             <img src="/TechSUAS/img/concessao/h1-concessao.svg" alt="Titulocomimagem">
@@ -35,7 +28,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     </div>
         <div class="apelido">
             <h3>Bem-vindo (a)
-                <?php echo $apelido; ?>.
+                <?php echo $_SESSION['apelido']; ?>.
             </h3>
         </div>
         <div class="container">
@@ -104,7 +97,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                             <span class="material-symbols-outlined">manage_accounts</span>
                         </a>
                         <?php
-if ($nivel == 'suport') {
+if ($_SESSION['nivel_usuario'] == 'suport') {
     ?> <a title="Suporte" href='/TechSUAS/suporte/' ;>
                                 <span class="material-symbols-outlined">rule_settings</span>
                             </a> <?php

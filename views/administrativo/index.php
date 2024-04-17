@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_administrativo.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -13,6 +13,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     <title>Administrativo</title>
 </head>
 <body>
+
 <div class="img">
         <h1 class="titulo-com-imagem">
             <img class="titulo-com-imagem" src="/TechSUAS/img/administrativo/h1-adm.svg" alt="Titulocomimagem">
@@ -20,7 +21,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 </div>
 <div class="apelido">    
         <h3>Bem-vindo (a)
-            <?php echo $apelido; ?>.
+            <?php echo $_SESSION['apelido']; ?>.
         </h3> 
     </div> 
         <div class="container">
@@ -42,7 +43,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                     </a>
                 </div>
                 <div class="btn">
-                    <a class="menu-button" id="cadastrar_contrato" onclick="window.location.href='/Suas-Tech/suas/views/adm/contratos'">
+                    <a class="menu-button" id="cadastrar_contrato" onclick="window.location.href='/TechSUAS/views/administrativo/contratos'">
                         <span class="material-symbols-outlined">
                         contract
                         </span>
@@ -68,15 +69,15 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                         Settings
                     </span>
                     <div class="drop-content">
-                        <a title="Sair" href='../../../config/logout.php' ;>
+                        <a title="Sair" href='/TechSUAS/config/logout' ;>
                             <span title="Sair" class="material-symbols-outlined">logout</span>
                         </a>
                         <a title="Alterar Usuário" href='../../../cras/views/conta.php' ;>
                             <span class="material-symbols-outlined">manage_accounts</span>
                         </a>
                         <?php
-if ($nivel == 'suport') {
-    ?> <a title="Suporte" href='/Suas-Tech/acesso_suporte/index.php' ;>
+if ($_SESSION['nivel_usuario'] == 'suport') {
+    ?> <a title="Suporte" href='/TechSUAS/suporte/' ;>
                                 <span class="material-symbols-outlined">rule_settings</span>
                             </a> <?php
 exit();

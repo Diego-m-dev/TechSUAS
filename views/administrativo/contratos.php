@@ -8,21 +8,21 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/Suas-Tech/img/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="css/style_cad_cont.css">
+    <link rel="shortcut icon" href="/TechSUAS/img/geral/logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="/TechSUAS/css/administrativo/style_cad_cont.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
-    <script src="../../js/script_contrato.js"></script>
-    <title>TechSUAS - Consultar Contrato</title>
+    <script src="/TechSUAS/js/script_contrato.js"></script>
+    <title>Contratos</title>
 </head>
 
 <body>
     <div class="img">
         <h1 class="titulo-com-imagem">
-            <img class="titulo-com-imagem" src="../adm/img/consul_cont.svg" alt="Titulocomimagem">
+            <img class="titulo-com-imagem" src="/TechSUAS/img/administrativo/consul_cont.svg" alt="Titulocomimagem">
         </h1>
     </div>
     <div class="container">
@@ -37,7 +37,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
 
                 <button id="btn_busca">Buscar</button>
-                <button type="button" class="back" onclick="window.location.href ='/Suas-Tech/suas/views/adm/menu_adm';">
+                <button type="button" class="back" onclick="window.location.href ='/TechSUAS/views/administrativo/';">
                     <i class="fas fa-arrow-left"></i>
                     Voltar ao menu
                 </button>
@@ -53,7 +53,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                 // Obtém o valor do parâmetro 'buscar' e evita injeção de SQL
                 $contrato = $conn->real_escape_string($_GET['buscar']);
                 // Consulta o banco de dados com base no contrato informado
-                $valor_contrato = "SELECT * FROM tabela_contrato WHERE num_contrato LIKE '$contrato' OR nome_empresa LIKE '$contrato' OR cnpj LIKE '$contrato'";
+                $valor_contrato = "SELECT * FROM contrato_tbl WHERE num_contrato LIKE '$contrato'";
                 $contrato_query = $conn->query($valor_contrato) or die("ERRO ao consultar!" . $conn - error);
 
                 // Verifica se nenhum contrato foi encontrado
@@ -67,7 +67,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                             confirmButtonText: 'OK',
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "/Suas-Tech/suas/views/adm/contratos";
+                                window.location.href = "/TechSUAS/views/administrativo/contratos";
                             }
                         });
                     </script>
@@ -77,15 +77,26 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                     $dados_contrato = $contrato_query->fetch_assoc();
                     $id_contrato = $dados_contrato['id_contrato'];
                     $dataVigencia = $dados_contrato['vigencia'];
-                            $dataObj2 = new DateTime($dataVigencia);
-                            $data_formatada2 = $dataObj2->format('d/m/Y');
+                    $id_emp = $dados_contrato['id_empresa'];
+
+                    $empresa = "SELECT * FROM contrato_empresa WHERE id_empresa LIKE '$id_emp'";
+                    $empresa_query = $conn->query($empresa) or die("ERRO ao consultar!" . $conn - error);
+                    
+                    if ($empresa_query->num_rows > 0) {
+                        $dados_empresa = $empresa_query->fetch_assoc();
+                        $nome_empresa = $dados_empresa['nome'];
+                        $razao_empresa = $dados_empresa['razao'];
+                        $cnpj_empresa = $dados_empresa['cnpj'];
+                        $contato_empresa = $dados_empresa['contato'];
+                    }
+
                     echo '<div class="resultado">';
-                    echo '<div class="empresa">Empresa: ' . $dados_contrato['nome_empresa'] . '</div>';
-                    echo '<div class="razao_social">Razão Social: ' . $dados_contrato['razao_social'] . '</div>';
-                    echo '<div class="cnpj">CNPJ: ' . $dados_contrato['cnpj'] . '</div>';
-                    echo '<div class="contato">Contato: ' . $dados_contrato['num_contato'] . '</div>';
+                    echo '<div class="empresa">Empresa: ' . $nome_empresa . '</div>';
+                    echo '<div class="razao_social">Razão Social: ' . $razao_empresa . '</div>';
+                    echo '<div class="cnpj">CNPJ: ' . $cnpj_empresa . '</div>';
+                    echo '<div class="contato">Contato: ' . $contato_empresa . '</div>';
                     echo '<div class="numero_contrato">Número: ' . $dados_contrato['num_contrato'] . '</div>';
-                    echo '<div class="#">Data de Vigência: ' . $data_formatada2. '</div>';
+                    echo '<div class="#">Data de Vigência: ' . $dataVigencia. '</div>';
 
                     ?>
                         <button type="button" id="btn_pedido_itens">FAZER PEDIDO</button>
@@ -96,7 +107,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
                     // consulta itens relacionados ao contrato
                     $itens = $conn->real_escape_string($id_contrato);
-                    $valor_itens = "SELECT * FROM tabela_itens WHERE id_contrato LIKE '$itens'";
+                    $valor_itens = "SELECT * FROM contrato_itens WHERE id_contrato LIKE '$itens'";
                     $itens_query = $conn->query($valor_itens) or die("ERRO ao consultar!" . $conn - error);
 
                     // Verifica se existem itens relacionados ao contrato
@@ -108,7 +119,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                     ?>
                         <!-- Formulário para editar prazo -->
                         <div id="form_ed_data">
-                            <form method="POST" action="/Suas-Tech/suas/controller/editar_prazo">
+                            <form method="POST" action="/TechSUAS/controller/editar_prazo">
                                 <label>Nova data</label>
                                 <input type="date" name="data_alt">
                                 <label>Apotilamento</label>
@@ -132,12 +143,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                             while ($dados_itens = $itens_query->fetch_assoc()) {
                             ?>
                                 <tr>
-                                    <td><?php echo $dados_itens['num_item']; ?></td>
+                                    <td><?php echo $dados_itens['cod_produto']; ?></td>
                                     <td><?php echo $dados_itens['nome_produto']; ?></td>
                                     <td><?php echo $dados_itens['quantidade']; ?></td>
                                     <td><?php
                                         // Formata o valor unitário
-                                        $vlr_uni = $dados_itens['valor_unitario'];
+                                        $vlr_uni = $dados_itens['valor_uni'];
                                         $vlr_uni = str_replace(',', '.', str_replace('.', '', $vlr_uni));
                                         $vlr_uni_formatado = 'R$ ' . number_format((float) $vlr_uni / 100, 2, ',', '.');
                                         echo $vlr_uni_formatado; ?></td>

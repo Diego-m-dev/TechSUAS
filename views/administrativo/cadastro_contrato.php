@@ -132,10 +132,10 @@ $ano_atual = date('Y');
             $('#valor_contrato').mask('000.000.000.000.000,00', {
                 reverse: true
             })
-            $('.valor-unitario').mask('#,00',{
+            $('.valor-unitario').mask('#.00',{
                 reverse: true
             })
-        });
+        })
     </script>
 
 

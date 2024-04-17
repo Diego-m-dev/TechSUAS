@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 ?>
 
 
@@ -17,12 +17,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 </head>
 
 <body>
-<?php
-if ($setor != "CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL" && $setor != "SUPORTE") {
-  echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR ESSA TELA.";
-  exit();
-}
-?>
   <div class="img">
     <h1 class="titulo-com-imagem">
       <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/h1-menu.svg" alt="Titulocomimagem">
@@ -30,7 +24,7 @@ if ($setor != "CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL" && $setor != "
   </div>
   <div class="apelido">
     <h3>Bem-vindo (a)
-      <?php echo $apelido; ?>.
+      <?php echo $_SESSION['apelido']; ?>.
     </h3>
   </div>
   <div class="tudo">
@@ -115,8 +109,8 @@ if ($setor != "CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL" && $setor != "
             <span class="material-symbols-outlined">manage_accounts</span>
           </a>
           <?php
-          if ($nivel == 'suport') {
-          ?> <a title="Suporte" href='/TechSUAS/config/back.php' ;>
+          if ($_SESSION['nivel_usuario'] == 'suport') {
+          ?> <a title="Suporte" href='/TechSUAS/config/back' ;>
               <span class="material-symbols-outlined">rule_settings</span>
             </a> <?php
                   exit();
