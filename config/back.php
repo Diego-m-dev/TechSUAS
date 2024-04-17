@@ -1,58 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/style_index_cad">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+</head>
+<body>
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+// Inclui o arquivo de configuração da sessão
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
+// Verifica o setor do usuário logado e redireciona para a página correspondente
+if ($_SESSION['setor'] === 'SUPORTE') {
 
-if(!isset($_SESSION )){
-    session_start();
+    // Redireciona para a página de suporte
+    echo '<script>window.location.href = "/TechSUAS/suporte/"</script>';
+
+} else if ($_SESSION['setor'] == 'CADASTRO ÚNICO - SECRETARIA DE ASSISTÊNCIA SOCIAL') {
+
+    // Redireciona para a página do Cadastro Único
+    echo '<script>window.location.href = "/TechSUAS/views/cadunico/"</script>';
+
+} else if ($_SESSION['setor'] == 'COZINHA COMUNITARIA - MARIA NEUMA DA SILVA') {
+
+    // Redireciona para a página da Cozinha Comunitária
+    echo '<script>window.location.href = "/TechSUAS/views/cozinha_comunitaria/"</script>';
+
+} elseif ($_SESSION['setor'] == 'CONCESSÃO') {
+
+    // Redireciona para a página de Concessão
+    echo '<script>window.location.href = "/TechSUAS/concessao/"</script>';
+
+} elseif ($_SESSION['setor'] == 'ADMINISTRATIVO - SECRETÁRIA DE ASSISTÊNCIA SOCIAL') {
+
+    // Redireciona para a página Administrativa
+    echo '<script>window.location.href = "/TechSUAS/views/administrativo/"</script>';
+
+} elseif ($_SESSION['setor'] == 'ADMINISTRATIVO E CONCESSÃO') {
+
+    // Exibe uma mensagem de perfil com permissão para dois setores e oferece opções de redirecionamento
+    ?>
+        <script>
+            // Exibe um pop-up com as opções de redirecionamento
+            Swal.fire({
+                html:`
+                <h2>PERFIL PERMISSIONADO PARA DOIS SETORES</h2>
+                <div class="visitas">
+                    <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/';">
+                        CONCESSÃO
+                    </a>
+                </div>
+
+                <div class="folha">
+                    <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/';">
+                        ADMINISTRATIVO
+                    </a>
+                </div>
+                `,
+            })
+        </script>
+    <?php
 }
-
-$user_name = $_SESSION['user_usuario'];
-
-$sql = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :user_usuario");
-$sql->execute(array(':user_usuario' => $user_name));
-
-if ($sql->rowCount() > 0) {
-
-    $dados = $sql->fetch(PDO::FETCH_ASSOC);
-    $id_user = $dados['id'];
-    $nome = $dados['nome'];
-    $apelido = $dados['apelido'];
-    $cpf = $dados['cpf'];
-    $setor = $dados['setor'];
-    $funcao = $dados['funcao'];
-    if ($funcao == 1){
-        $func = "Coordenação";
-    }elseif($funcao == 2){
-        $func = "Tecnico";
-    }else{
-        $func = null;
-    }
-    $dtNasc = $dados['dt_nasc'];
-    $telefone = $dados['telefone'];
-    $email = $dados['email'];
-    $cargo = $dados['cargo'];
-    $idcargo = $dados['id_cargo'];
-    $nivel = $dados['nivel'];
-}
-
-
-if ($setor === 'CRAS - ANTONIO MATIAS') {
-    echo '<script>window.location.href = "/Suas-Tech/cras/views/menu-cras-am"</script>';
-} else if ($setor === 'SUPORTE') {
-    echo '<script>window.location.href = "/TechSUAS/suporte/index"</script>';
-} else if ($setor === 'CREAS - GILDO SOARES') {
-    echo '<script>window.location.href = "/Suas-Tech/creas/views/menu-creas"</script>';
-} else if ($setor == 'CADASTRO ÚNICO - SECRETARIS DE ASSISTÊNCIA SOCIAL' && $nivel == 'admin') {
-    echo '<script>window.location.href = "/Suas-Tech/cadunico/painel-adm/adm-view"</script>';
-} else if ($setor == 'CADASTRO ÚNICO - SECRETARIS DE ASSISTÊNCIA SOCIAL' && $nivel == 'usuario') {
-    echo '<script>window.location.href = "/Suas-Tech/cadunico/painel-usuario/user-painel"</script>';
-} else if ($setor == 'COZINHA COMUNITARIA - MARIA NEUMA DA SILVA') {
-    echo '<script>window.location.href = "/Suas-Tech/cozinha_comunitaria/menu"</script>';
-} elseif ($setor == 'CRAS - SANTO AFONSO') {
-    echo '<script>window.location.href = "/Suas-Tech/cras/views/menu-cras-st"</script>';
-} elseif ($setor == 'CONCESSÃO') {
-    echo '<script>window.location.href = "/Suas-Tech/concessao/index"</script>';
-} elseif ($setor == 'ADMINISTRATIVO') {
-    echo '<script>window.location.href = "/Suas-Tech/suas/views/adm/menu_adm"</script>';
-}
+?>
+</body>
+</html>
