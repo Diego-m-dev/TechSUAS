@@ -5,7 +5,7 @@ if(!isset($_SESSION )){
     session_start();
 }
     $data_hoje = date('d/m/Y H:i');
-$user_name = $_SESSION['user_usuario'];
+    $user_name = $_SESSION['user_usuario'];
 
 $sql = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :user_usuario");
 $sql->execute(array(':user_usuario' => $user_name));
@@ -14,6 +14,7 @@ if ($sql->rowCount() > 0) {
 
     $dados = $sql->fetch(PDO::FETCH_ASSOC);
     $id_user = $dados['id'];
+    $usu = $dados['usuario'];
     $nome = $dados['nome'];
     $apelido = $dados['apelido'];
     $cpf = $dados['cpf'];
