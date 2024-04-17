@@ -1,5 +1,4 @@
 <?php
-require "../controller/geral/secret.php";
 
 session_set_cookie_params(['httponly' => true]);
 
