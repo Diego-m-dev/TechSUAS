@@ -99,8 +99,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
                         <?php
 if ($_SESSION['nivel_usuario'] == 'suport') {
     ?> <a title="Suporte" href='/TechSUAS/suporte/' ;>
-                                <span class="material-symbols-outlined">rule_settings</span>
-                            </a> <?php
+        <span class="material-symbols-outlined">rule_settings</span>
+    </a> <?php
 exit();
 }
 ?>
