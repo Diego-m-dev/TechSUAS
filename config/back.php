@@ -61,6 +61,10 @@ if ($_SESSION['setor'] === 'SUPORTE') {
                     </a>
                 </div>
                 `,
+            }).then((result) => {
+                if(result.isConfirmed) {
+                    window.location.href = "/TechSUAS/config/logout.php"
+                }
             })
         </script>
     <?php
