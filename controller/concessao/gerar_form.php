@@ -249,7 +249,7 @@ if (isset($_POST['cpf'])) {
                     confirmButtonText: 'OK',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "/Suas-Tech/concessao/views/gerar_form.php"
+                        window.location.href = "/TechSUAS/views/concessao/gerar_form"
                     }
                 })
             }, 3000)
@@ -265,7 +265,7 @@ if (isset($_POST['cpf'])) {
                             confirmButtonText: 'OK',
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                window.location.href = "/Suas-Tech/concessao/views/gerar_form.php"
+                                window.location.href = "/TechSUAS/views/concessao/gerar_form"
                             }
                         })
                     </script>
@@ -274,7 +274,7 @@ if (isset($_POST['cpf'])) {
     } elseif ($sql_query_resp->rowCount() > 0 && $sql_query_benef->rowCount() == 0) {
         ?>
                 <script>
-                    window.location.href = '/Suas-Tech/concessao/views/cadastrar_beneficiario.php'
+                    window.location.href = '/TecSUASh/views/concessao/cadastrar_beneficiario'
                 </script>
         <?php
 }
