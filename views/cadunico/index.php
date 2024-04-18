@@ -67,7 +67,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </a>
           </div>
           <div class="folha">
-            <a class="menu-button" onclick="location.href='#';">
+            <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/links';">
               <span class="material-symbols-outlined">
                 link
               </span>
