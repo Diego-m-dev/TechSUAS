@@ -20,17 +20,13 @@
 
             setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
 
-            require_once "../../../config/conexao.php";
-
+            include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+            include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declaracao/create_moth.php';
             //data criada com formato 'DD de mmmm de YYYY'
-            $timestampptbr = time();
-            $data_formatada_at = strftime('%d de %B de %Y', $timestampptbr);
-
+            $data_formatada_at = $dia_atual . " de " . $mes_formatado . " de ". $ano_atual;
             //receber os dados do formulário
             $dados_post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
             if (isset($_POST['btn-ip1'])) {
-
-                session_start();
 
                 if (isset($_SESSION['dados_conferidos'])) {
 
@@ -83,7 +79,6 @@
                 </script>
                 <?php
             } elseif (isset($_POST['btn-ip2'])) {
-                session_start();
 
                 if (isset($_SESSION['dados_conferidos'])) {
 
