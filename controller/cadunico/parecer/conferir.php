@@ -28,7 +28,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     //formantando a data para um modelo dia mes (nome) e ano para português
     $timestampptbr = time();
 
-    $data_formatada_at = strftime('%d de %B de %Y', $timestampptbr);
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declaracao/create_moth.php';
+    //data criada com formato 'DD de mmmm de YYYY'
+    $data_formatada_at = $dia_atual . " de " . $mes_formatado . " de ". $ano_atual;
 
     // Consulta SQL para contar os registros
     $sqlr = "SELECT COUNT(*) as total_registros FROM historico_parecer_visita";

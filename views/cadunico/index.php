@@ -81,16 +81,21 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
               </span>
               Atendimento
             </a>
-
+-->
+<?php
+if ($_SESSION['funcao'] == 1){
+  ?>
             <div class="peixe">
               <a class="menu-button" target="_blank" href='/TechSUAS/views/cadunico/area_gestao'>
                 <span class="material-symbols-outlined">
-                  set_meal
+                  person
                 </span>
                 Area do Gestor
               </a>
             </div>
--->
+<?php
+}
+?>
           </div>
           <nav>
       </div>
