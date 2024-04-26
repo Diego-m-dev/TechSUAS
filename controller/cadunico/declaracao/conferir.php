@@ -1,8 +1,7 @@
 <?php
 //inicia a sessão
-
 // Inclui o arquivo "conexao.php" que deve conter a configuração da conexão com o banco de dados
-require_once '../../../config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 ini_set('memory_limit', '256M');
 
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
@@ -100,7 +99,7 @@ if (isset($_POST['buscar_dados']) && !empty($_POST['buscar_dados'])) {
 
             $dadosf = $sqli->fetch(PDO::FETCH_ASSOC);
 
-            $benef1 = $dadosf['pacto'];
+            //$benef1 = $dadosf['pacto'];
         }
     } elseif ($opcao == "nis_dec") {
         $nis_dec = $_POST['valorescolhido'];
