@@ -2,5 +2,6 @@
 session_start();
 session_destroy();
 
-header("Location: /TechSUAS/")
+header("Location: /TechSUAS/");
+exit();
 ?>
