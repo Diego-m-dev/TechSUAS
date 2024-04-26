@@ -20,7 +20,7 @@ if ($_SESSION['setor'] === 'SUPORTE') {
     // Redireciona para a página de suporte
     echo '<script>window.location.href = "/TechSUAS/suporte/"</script>';
 
-} else if ($_SESSION['setor'] == 'CADASTRO ÚNICO - SECRETARIA DE ASSISTÊNCIA SOCIAL') {
+} else if ($_SESSION['setor'] == 'CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL') {
 
     // Redireciona para a página do Cadastro Único
     echo '<script>window.location.href = "/TechSUAS/views/cadunico/"</script>';
