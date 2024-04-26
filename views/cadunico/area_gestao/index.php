@@ -21,21 +21,34 @@ ini_set('max_execution_time', 300);
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
     <title>Área Gestor</title>
 </head>
-<body>
-    <h1>AREA DO GESTOR</h1>
-        <form method="post">
-            <label for="">NOME:</label>
-            <input type="text" name="nome_pessoa"/>
-            <label for="">Código Familiar</label>
-            <input type="text" name="codigo_familia">
-            <button type="submit" name="btn_filtro">Buscar</button>
-        </form>
-    <?php
 
-if (!isset($_POST['btn_filtro'])) {
+<body>
+
+    <h1>AREA DO GESTOR</h1>
+    <button type="button" id="btn_benef">Consultar Benefício</button>
+    <button type="button" id="btn_familia">Consultar Famílias</button>
+
+    <!--Formulário para filtrar informações do cadastro-->
+    <form method="post" id="simples">
+        <label for="">NOME:</label>
+        <input type="text" name="nome_pessoa"/>
+        <label for="">Código Familiar</label>
+        <input type="text" name="codigo_familia">
+        <button type="submit" name="btn_filtro_familia">Buscar</button>
+    </form>
+
+<!--Formulário para filtrar informações do beneficiário-->
+    <form action="" method="post" id="beneficio">
+        <label for="">NIS:</label>
+        <input type="text" name="nis_benef"/>
+        <button type="submit" name="btn_filtro_benef">Buscar</button>
+    </form>
+<?php
+
+if (!isset($_POST['btn_filtro_familia'])) {
 
 } else {
-    if ($_POST['nome_pessoa']){
+    if ($_POST['nome_pessoa']) {
         $filtro = $conn->real_escape_string($_POST['nome_pessoa']);
     } elseif ($_POST['codigo_familia']) {
         $filtro = $conn->real_escape_string($_POST['codigo_familia']);
@@ -47,7 +60,7 @@ if (!isset($_POST['btn_filtro'])) {
     $dados_filtro = $result->fetch_all(MYSQLI_ASSOC); // Obter todas as linhas como uma matriz associativa
 
     foreach ($dados_filtro as $dados) {
-        echo $dados['cod_parentesco_rf_pessoa']. ' - ' . $dados['cod_familiar_fam'] . " " . $dados['nom_pessoa'] . " - " . $dados['num_nis_pessoa_atual'] ."<br>";
+        echo $dados['cod_parentesco_rf_pessoa'] . ' - ' . $dados['cod_familiar_fam'] . " " . $dados['nom_pessoa'] . " - " . $dados['num_nis_pessoa_atual'] . "<br>";
     }
 }
 ?>
