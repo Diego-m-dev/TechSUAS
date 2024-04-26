@@ -242,8 +242,6 @@
                     $gender = $_POST['gender'];
                     $nome_mae_dec = $_POST['nome_mae_dec'];
 
-                    session_start();
-
                     if (isset($_SESSION['dados_conferidos_s'])) {
 
                         $dados_conferidos = $_SESSION['dados_conferidos_s'];
