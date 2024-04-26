@@ -11,7 +11,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cadastro Único</title>
-  <link rel="stylesheet" href="/TechSUAS/css/cadunico/style_index_cad">
+  <link rel="stylesheet" href="/TechSUAS/css/cadunico/style_index_cad.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
 </head>
@@ -86,7 +86,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 if ($_SESSION['funcao'] == 1){
   ?>
             <div class="peixe">
-              <a class="menu-button" target="_blank" href='/TechSUAS/views/cadunico/area_gestao'>
+              <a class="menu-button" target="_blank" href='/TechSUAS/views/cadunico/area_gestao/index'>
                 <span class="material-symbols-outlined">
                   person
                 </span>
@@ -114,10 +114,10 @@ if ($_SESSION['funcao'] == 1){
           Settings
         </span>
         <div class="drop-content">
-          <a title="Sair" href='/TechSUAS/config/logout.php' ;>
+          <a title="Sair" href='/TechSUAS/config/logout' ;>
             <span title="Sair" class="material-symbols-outlined">logout</span>
           </a>
-          <a title="Alterar Usuário" href='/TechSUAS/views/geral/conta.php' ;>
+          <a title="Alterar Usuário" href='/TechSUAS/views/geral/conta' ;>
             <span class="material-symbols-outlined">manage_accounts</span>
           </a>
           <?php
