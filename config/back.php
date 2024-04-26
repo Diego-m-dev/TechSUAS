@@ -33,7 +33,7 @@ if ($_SESSION['setor'] === 'SUPORTE') {
 } elseif ($_SESSION['setor'] == 'CONCESSÃO') {
 
     // Redireciona para a página de Concessão
-    echo '<script>window.location.href = "/TechSUAS/concessao/"</script>';
+    echo '<script>window.location.href = "/TechSUAS/views/concessao/"</script>';
 
 } elseif ($_SESSION['setor'] == 'ADMINISTRATIVO - SECRETÁRIA DE ASSISTÊNCIA SOCIAL') {
 
@@ -63,7 +63,7 @@ if ($_SESSION['setor'] === 'SUPORTE') {
                 `,
             }).then((result) => {
                 if(result.isConfirmed) {
-                    window.location.href = "/TechSUAS/config/logout.php"
+                    window.location.href = "/TechSUAS/config/logout"
                 }
             })
         </script>
