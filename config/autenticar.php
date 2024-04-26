@@ -52,14 +52,16 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
             header("location:/TechSUAS/suporte/");
             exit();
         } elseif ($_SESSION['nivel_usuario'] == 'admin') {
-            if ($_SESSION['setor'] == "CADASTRO ÚNICO - SECRETARIS DE ASSISTÊNCIA SOCIAL") {
+            if ($_SESSION['setor'] == "CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL") {
                 header("location:/TechSUAS/views/cadunico/");
             } elseif ($_SESSION['setor'] == "SUPORTE") {
                 header("location:/TechSUAS/suporte/");
             }
             exit();
         } elseif ($_SESSION['nivel_usuario'] == 'usuario') {
-            if ($_SESSION['setor'] == "CONCESSÃO") {
+            if ($_SESSION['setor'] == "CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL") {
+                header("location:/TechSUAS/views/cadunico/");
+            } elseif ($_SESSION['setor'] == "CONCESSÃO") {
                 header("location:/TechSUAS/views/concessao/");
             } elseif ($_SESSION['setor'] == 'ADMINISTRATIVO E CONCESSÃO') {
                 ?>
@@ -81,7 +83,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
         `,
             }).then((result) => {
                 if(result.isConfirmed) {
-                    window.location.href = "/TechSUAS/config/logout.php";
+                    window.location.href = "/TechSUAS/config/logout";
                 }
             })
         </script>
