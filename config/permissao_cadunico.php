@@ -1,5 +1,5 @@
 <?php
-if ($_SESSION['setor'] != "ADMINISTRATIVO - SECRETÁRIA DE ASSISTENCIA SOCIAL" && $_SESSION['setor'] != "SUPORTE") {
+if ($_SESSION['setor'] != "CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL" && $_SESSION['setor'] != "SUPORTE") {
     echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR ESSA TELA.";
     exit();
 }
