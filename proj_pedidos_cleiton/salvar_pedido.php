@@ -8,9 +8,10 @@ $quantidade = $_POST['quantidade'];
 $data = date('Y-m-d H:i:s');
 
 // Insere os dados na tabela de pedidos
-$sql = "INSERT INTO pedidos (data, tipo, local, quantidade) VALUES ('$data', '$tipo', '$local', '$quantidade')";
+$sql_pedido_agua = "INSERT INTO pedidos (data, tipo, local, quantidade) VALUES ('$data', '$tipo', '$local', '$quantidade')";
 
-if ($conn->query($sql) === TRUE) {
+if ($conn->query($sql_pedido_agua) === TRUE) {
+    $sql_pedido_agua->execute();
     echo "Pedido salvo com sucesso!";
     
     // Envio para o WhatsApp
