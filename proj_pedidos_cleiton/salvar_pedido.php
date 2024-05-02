@@ -8,10 +8,19 @@ $quantidade = $_POST['quantidade'];
 $data = date('Y-m-d H:i:s');
 
 // Insere os dados na tabela de pedidos
-$sql_pedido_agua = "INSERT INTO pedidos (data, tipo, local, quantidade) VALUES ('$data', '$tipo', '$local', '$quantidade')";
+$sql_pedido_agua = $pdo->prepare("INSERT INTO pedidos (data, tipo, local, quantidade) VALUES (:data, :tipo, :local, :quantidade)");
 
-if ($conn->query($sql_pedido_agua) === TRUE) {
-    $sql_pedido_agua->execute();
+// Vinculando valores aos parâmetros
+$sql_pedido_agua->bindParam(':data', $data);
+$sql_pedido_agua->bindParam(':tipo', $tipo);
+$sql_pedido_agua->bindParam(':local', $local);
+$sql_pedido_agua->bindParam(':quantidade', $quantidade);
+
+// Executando a consulta
+//$sql_pedido_agua->execute();
+
+if ($sql_pedido_agua->execute()) {
+
     echo "Pedido salvo com sucesso!";
     
     // Envio para o WhatsApp
