@@ -214,7 +214,7 @@ $(document).ready(function() {
         });
 
         // Define o valor formatado no campo
-        $(".valor-total").val(formattedTotal);
+        $(".valor-total").val(total);
     }
         // Anexa a função aos eventos de alteração de entrada
         $(".quantidade, .valor-unitario").on("input", calcularTotal);
