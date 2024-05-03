@@ -31,6 +31,8 @@ body {
     border: none;
     background-color: transparent;
     width: auto;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .right,
