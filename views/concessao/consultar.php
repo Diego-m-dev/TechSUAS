@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         if (result.isConfirmed) {
                             window.location.href = "/TechSUAS/views/concessao/consultar";
                         }
-                    });
+                    })
                 </script>
             <?php
 } else {
