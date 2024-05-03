@@ -37,21 +37,21 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
                 var valorUnitario = parseFloat($(".valor-unitario").val().replace(",", ".")) || 0;
 
                 // Calcula o total e formata como moeda brasileira
-                var total = quantidade * valorUnitario;
+                var total = quantidade * valorUnitario
 
 
                 // Formata o total como string
                 var formattedTotal = total.toLocaleString('pt-BR', {
                     minimumFractionDigits: 2,
                     maximumFractionDigits: 2
-                });
+                })
 
                 // Define o valor formatado no campo
-                $(".valor-total").val(formattedTotal);
+                $(".valor-total").val(total)
             }
             // Anexa a função aos eventos de alteração de entrada
-            $(".quantidade, .valor-unitario").on("input", calcularTotal);
-        });
+            $(".quantidade, .valor-unitario").on("input", calcularTotal)
+        })
     </script>
 </head>
 
