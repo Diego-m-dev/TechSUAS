@@ -91,7 +91,7 @@ $mes_pago = $_POST['mes_pg'];
 
     if ($nome == "MICHELLE AGNES GOMES CAVALCANTE") {
 
-    $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago'AND nome_item != 'ATAÚDE'";
+    $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA'  AND situacao_concessao != 'PAGO'";
     $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
 
     if ($resultado_quantidade_itens_mes->num_rows > 0) {
@@ -101,7 +101,7 @@ $mes_pago = $_POST['mes_pg'];
         $total_itens_mes = "Nenhum resultado encontrado para o mês de $mes_escolhido.";
     }
 
-    $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE'";
+    $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA' AND situacao_concessao != 'PAGO'";
     $result_soma_total_mes = $conn->query($soma_total_mes);
     $valor_total_mes = [];
 
@@ -110,7 +110,7 @@ $mes_pago = $_POST['mes_pg'];
     }
 
     $sql_soma_valor_total = "SELECT SUM(valor_total) AS soma_total, nome_item AS nome_item, situacao_concessao AS situacao_concessao FROM concessao_historico
-    WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE'
+    WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE'  AND situacao_concessao != 'CANCELADA' AND situacao_concessao != 'PAGO'
     GROUP BY nome_item
     ORDER BY nome_item ASC";
     $resultado_valor_total = $conn->query($sql_soma_valor_total);
@@ -146,7 +146,7 @@ foreach ($valor_total_mes as $total_concessao_mes) {
 
     $sql_mes = $conn->real_escape_string($_POST['mes_pg']);
     $sql_ano = $conn->real_escape_string($_POST['ano']);
-    $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? AND nome_item != 'ATAÚDE' ORDER BY nome_item ASC, nome_benef ASC";
+    $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA'  AND situacao_concessao != 'PAGO' ORDER BY nome_item ASC, nome_benef ASC";
 
     if ($stmt_dados = $conn->prepare($sql_dados)) {
         $stmt_dados->bind_param("ss", $sql_mes, $sql_ano);
@@ -205,7 +205,7 @@ $stmt_dados->close();
 
         -->
         <?php
-        $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item = 'ATAÚDE'";
+        $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item = 'ATAÚDE' AND situacao_concessao != 'CANCELADA'";
         $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
     
         if ($resultado_quantidade_itens_mes->num_rows > 0) {
@@ -215,7 +215,7 @@ $stmt_dados->close();
             $total_itens_mes = "Nenhum resultado encontrado para o mês de $mes_escolhido.";
         }
     
-        $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item = 'ATAÚDE'";
+        $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item = 'ATAÚDE' AND situacao_concessao != 'CANCELADA'";
         $result_soma_total_mes = $conn->query($soma_total_mes);
         $valor_total_mes = [];
     
