@@ -40,7 +40,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
       <i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Pessoa
     </a>
 
-    <a href="/TechSUAS/config/back.php">
+    <a href="/TechSUAS/config/back">
       <i class="fas fa-arrow-left"></i> Voltar ao menu
     </a>
   </nav>  
