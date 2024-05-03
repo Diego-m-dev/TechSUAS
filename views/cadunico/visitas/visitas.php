@@ -31,7 +31,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             </button>
           </div>
           <div class="visitas_n">
-            <button class="menu-button" onclick="location.href='visitas_para_fazer.php';">
+            <button class="menu-button" onclick="location.href='visitas_para_fazer';">
               <span class="material-symbols-outlined">
                 person_search
               </span>
@@ -40,7 +40,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
           </div>
 
           <div class="parecer">
-            <button class="menu-button" onclick="location.href='registrar.php';">
+            <button class="menu-button" onclick="location.href='registrar';">
               <span class="material-symbols-outlined">
                 forum
               </span>
@@ -49,7 +49,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
           </div>
 
           <div class="voltar">
-            <a href="/TechSUAS/config/back.php" class="menu-button">
+            <a href="/TechSUAS/config/back" class="menu-button">
               <span class="fas fa-arrow-left">
               </span>
               Voltar ao menu
@@ -87,13 +87,14 @@ $row = $result->fetch(PDO::FETCH_ASSOC);
 $totalRegistros = $row['total_visitas'];
 $numero_parecer = $totalRegistros;
 
-//$sql = "SELECT * FROM tbl_tudo WHERE dat_atual_fam LIKE '%$sql_ano%'";
+  //$sql = "SELECT * FROM tbl_tudo WHERE dat_atual_fam LIKE '%$sql_ano%'";
 ?>
-    <script>
+<script>
+try {
     // Dados para o gráfico de pizza
     var anos = <?php echo json_encode($anos); ?>;
     var quantidades = <?php echo json_encode($quantidades); ?>;
-    var volaroe = <?php echo $totalRegistros; ?>;
+    var volaroe = <?php echo json_encode($totalRegistros); ?>;
 
     // Adiciona volaroe às quantidades
     quantidades.push(volaroe);
@@ -106,21 +107,24 @@ $numero_parecer = $totalRegistros;
             labels: anos.concat([volaroe]),
             datasets: [{
                 data: quantidades,
-                backgroundColor: ['#13294b', '#065f33', '#8b0000', '#cd5c5c', '#008080', '#2e8b57', '#00ff00', '#ff9900']
-            }]
+                backgroundColor: ['#13294b', '#065f33', '#8b0000', '#cd5c5c', '#008080', '#2e8b57', '#00ff00', '#ff9900'],
+            }],
         },
         options: {
-        responsive: true,
-        legend: {
-            display: true, // Exibe a legenda
-            position: 'bottom', // Posição da legenda (pode ser 'top', 'bottom', 'left', 'right')
-            labels: {
-                fontColor: 'black', // Cor do texto da legenda
-                fontSize: 12 // Tamanho do texto da legenda
-            }
-        }
-    }
+            responsive: true,
+            legend: {
+                display: true, // Exibe a legenda
+                position: 'bottom', // Posição da legenda (pode ser 'top', 'bottom', 'left', 'right')
+                labels: {
+                    fontColor: 'black', // Cor do texto da legenda
+                    fontSize: 12, // Tamanho do texto da legenda
+                },
+            },
+        },
     });
-    </script>
+} catch (error) {
+    console.error("Erro ao criar o gráfico:", error);
+}
+</script>
   </body>
 </html>
