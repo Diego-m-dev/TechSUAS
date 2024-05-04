@@ -1,10 +1,16 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
+$cpf_declar = $_POST['cpf_declar'];
+
+$sql_declar = $pdo->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_declar");
+$sql_declar->bindParam(':cpf_declar', $cpf_declar, PDO::PARAM_STR);
+$sql_declar->execute();
 ?>
 
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -21,13 +27,91 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </div>
     </div>
     <div class="container">
-        <h1 class="center1">ANEXO I MODELO DE TERMO DE DECLARAÇÃO</h1>
+        <h1 class="center1">ANEXO I TERMO DE DECLARAÇÃO</h1>
+
+    <?php
+if ($sql_declar->rowCount() > 0) {
+    $dados_declar = $sql_declar->fetch(PDO::FETCH_ASSOC);
+
+    //formata cpf
+    $cpf_formatado = sprintf('%011s', $cpf_declar);
+    $cpf_formatado = substr($cpf_formatado, 0, 3) . '.' . substr($cpf_formatado, 3, 3) . '.' . substr($cpf_formatado, 6, 3) . '-' . substr($cpf_formatado, 9, 2);
+
+    ?>
+                    <p class="paragraph">Eu, <span class="editable-field"><?php echo $dados_declar['nom_pessoa']; ?></span>, NIS: <span class="editable-field"><?php echo $dados_declar['num_nis_pessoa_atual']; ?></span>, CPF: <span class="editable-field"><?php echo $cpf_formatado; ?></span>,
+                declaro, sob as penas da lei, que todas as pessoas listadas abaixo moram no meu domicílio e possuem o
+                seguinte rendimento total detalhado para cada pessoa, incluindo remuneração de doação, de trabalho ou de
+                outras fontes:</p>
+            <p class="paragraph"><strong>RELAÇÃO DOS COMPONENTES DA UNIDADE FAMILIAR MORADORES DO DOMICÍLIO:</strong></p>
+            <?php
+$cod_familia = $dados_declar['cod_familiar_fam'];
+
+    $sql_membros_familia = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam = ? ORDER BY cod_parentesco_rf_pessoa ASC";
+    $stmt = $conn->prepare($sql_membros_familia);
+    $stmt->bind_param('s', $cod_familia);
+    $stmt->execute();
+    $resultado_valor_total = $stmt->get_result();
+
+    ?>
+            <table id="componentesTable">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Data de Nascimento</th>
+                        <th>Ocupação</th>
+                        <th>Renda Bruta Mensal</th>
+                    </tr>
+                </thead>
+                <tbody>
+<?php
+while ($membros = $resultado_valor_total->fetch_assoc()) {
+
+        //formatando data de nascimento
+        $data_nascimento = $membros['dta_nasc_pessoa'];
+        $dataNasc_formatando = new DateTime($data_nascimento);
+        $data_formatada = $dataNasc_formatando->format('d/m/Y');
+
+        ?>
+        <tr>
+            <td><span id="nome" class="editable-field" contenteditable="true"><?php echo $membros['nom_pessoa']; ?></span></td>
+            <td><span id="nome" class="editable-field" contenteditable="true"><?php echo $data_formatada; ?></span></td>
+            <td><span id="nome" class="editable-field" contenteditable="true"></span></td>
+            <td>R$ <span id="nome" class="editable-field" contenteditable="true">,00</span></td>
+        </tr>
+        <?php
+}
+    ?>
+                </tbody>
+
+            </table>
+            <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
+            <button class="impr" onclick="voltarAoMenu()">Voltar</button>
+            <p class="paragraph1">Declaro ter clareza de que:</p>
+            <ul>
+                <li class="topic">É ilegal deixar de declarar informações ou prestar informações falsas para o Cadastro
+                    Único, com o objetivo de participar ou de se manter no Programa Bolsa Família ou em qualquer outro
+                    programa social.</li>
+                <li class="topic">As famílias que fraudam o Programa Bolsa Família terão o benefício cancelado e responderão
+                    processo administrativo instaurado para devolução dos valores recebidos indevidamente, além de responder
+                    penal e civilmente pelas fraudes cometidas.</li>
+                <li class="topic">A qualquer tempo poderei receber visita domiciliar de servidor do município, para avaliar
+                    se a situação socioeconômica da minha família está de acordo com as informações prestadas ao Cadastro
+                    Único. Assumo o compromisso de atualizar o cadastro sempre que ocorrer alguma mudança nas informações de
+                    minha família, como endereço, renda e trabalho, nascimento ou óbito, entre outras.</li>
+            </ul>
+            <p class="right">São Bento do Una - PE, <span id="data"></span>.</p>
+            <p class="center">______________________________________________________________<br>Assinatura do Responsável
+                pela Unidade Familiar</p>
+
+        <?php
+} else {
+    ?>
         <form id="declarationForm">
             <label for="nisInput">NIS:</label>
             <input type="text" id="nisInput" placeholder="Digite o NIS">
             <button type="button" id="buscarNISBtn">Buscar</button>
             <br>
-            <p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field" contenteditable="true"></span></span>, NIS: <span id="nis"></span>, CPF: <span id="cpf"></span>,
+            <p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field" contenteditable="true"></span>, NIS: <span id="nis"></span>, CPF: <span id="cpf"></span>,
                 declaro, sob as penas da lei, que todas as pessoas listadas abaixo moram no meu domicílio e possuem o
                 seguinte rendimento total detalhado para cada pessoa, incluindo remuneração de doação, de trabalho ou de
                 outras fontes:</p>
@@ -48,6 +132,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                 <tbody></tbody>
             </table>
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
+            <button class="impr" onclick="voltarAoMenu()">Voltar</button>
             <p class="paragraph1">Declaro ter clareza de que:</p>
             <ul>
                 <li class="topic">É ilegal deixar de declarar informações ou prestar informações falsas para o Cadastro
@@ -61,11 +146,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                     Único. Assumo o compromisso de atualizar o cadastro sempre que ocorrer alguma mudança nas informações de
                     minha família, como endereço, renda e trabalho, nascimento ou óbito, entre outras.</li>
             </ul>
-            <p class="right">São Bento do Una - PE, <span id="data"></span>.</p>
+            <p class="right">São Bento do Una - PE, <?php echo $data_formatada; ?>.</p>
             <p class="center">______________________________________________________________<br>Assinatura do Responsável
                 pela Unidade Familiar</p>
         </form>
-
+<?php
+}
+?>
         <script>
 function formatarNumero(numero) {
     return numero < 10 ? '0' + numero : numero;
@@ -142,17 +229,16 @@ window.onload = function() {
 
             tbody.addEventListener("click", function(event) {
                 if (event.target.classList.contains("removerBtn")) {
-                    event.target.parentElement.parentElement.remove();
+                    event.target.parentElement.parentElement.remove()
                 }
-            });
+            })
 
-            const currentDate = new Date().toLocaleDateString("pt-BR");
+            const currentDate = new Date().toLocaleDateString("pt-BR")
             dataSpan.textContent = currentDate;
 
-            function imprimirPagina() {
-                window.print();
-            }
         </script>
+        <script src="/TechSUAS/js/cadastro_unico.js"></script>
+
     </div>
 </body>
 
