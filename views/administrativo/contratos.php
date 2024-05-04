@@ -192,7 +192,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
                 })
             </script>
         </div>
-        <a href="../../controller/tbl_contrato">Visualizar todos os contratos</a>
+        <a href="/TechSUAS/controller/administrativo/tbl_contrato">Visualizar todos os contratos</a>
     </div>
 </body>
 
