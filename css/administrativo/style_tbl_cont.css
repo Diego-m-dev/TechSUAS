@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    background-image: url(../img/fundo_adm.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    font-family: "Inter", sans-serif;
+    height: auto;
+}
+
+* {
+    margin-top: 0px;
+}
+
+img {
+    justify-content: center;
+    width: 100%;
+    max-height: 120px
+}
+
+.container {
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+table{
+    width: 100%;
+    color: #13294b;
+    border-radius: 10px;
+    text-align: center;
+}
+tr,
+th,
+td{
+    border-radius: 5px;
+    color: #13294b;
+}
+input,
+select,
+option,
+label{
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #ffffff;
+    color: #13294b;
+    border-radius: 5px;
+    padding: 1px 2px;
+    border-style: outset;
+}
+#btn_busca{
+    margin-left: 20px;
+}
+.resultado{ 
+    padding: 5px;
+}
+button,
+a {
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+}
+button:hover,
+a:hover{
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}   
+a{
+    text-decoration: none;
+    text-transform: none;
+}
+.btn{
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: flex-end;
+    align-content: flex-end;
+    padding: 10px;
+}
