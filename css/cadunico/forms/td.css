@@ -32,6 +32,8 @@ body {
 .editable-field {
     border: none;
     background-color: transparent;
+    text-transform: uppercase;
+    font-weight: bold;
 }
 
 .paragraph1 {
