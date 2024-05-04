@@ -15,7 +15,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </head>
 <body>
   <header>
@@ -28,7 +27,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
       <i class="fas fa-home icon"></i> Termo de Declaração de Residência
     </a>
 
-    <a href="Termo_declaracao" target="_blank">
+    <a type="button" id="btn_dec_renda">
       <i class="fas fa-file-invoice-dollar icon"></i> Termo de Declaração de Renda
     </a>
 
@@ -44,28 +43,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
       <i class="fas fa-arrow-left"></i> Voltar ao menu
     </a>
   </nav>  
-<script>
-$('#btn_residencia').click(function () {
-    Swal.fire({
-        title: "INFORME O CPF",
-        html: `
-      <form method="POST" action="termo_responsabilidade" id="form_residencia">
-        <label> CPF:
-          <input type="text" name="cpf_residencia"/>
-        </label>
-      </form>
-        `,
-        showCancelButton: true,
-        confirmButtonText: 'Enviar',
-        cancelButtonText: 'Cancelar'
-      }).then((result) => {
-    if (result.isConfirmed) {
-      const form = document.getElementById("form_residencia")
-      form.submit()
-    }
-  })
-})
-</script>
-<script src="/TechSUAS/js/cpfvalid.js"></script>
+  <script src="/TechSUAS/js/cadastro_unico.js"></script>
+  <script src="/TechSUAS/js/cpfvalid.js"></script>
 </body>
 </html>
