@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
-    background-image: url(../img/fundo_conc.svg);
+    background-image: url(/TechSUAS/img/concessao/fundo_conc.svg);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
