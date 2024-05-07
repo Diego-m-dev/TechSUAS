@@ -23,7 +23,7 @@ $sql_declar->execute();
 <body>
     <div class="titulo">
         <div class="tech">
-            <span>TechSUAS-Cadastro Único</span><span id="dataHora"></span>
+            <span>TechSUAS-Cadastro Único</span> - <?php echo $data_cabecalho; ?>
         </div>
     </div>
     <div class="container">
@@ -69,12 +69,12 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
         //formatando data de nascimento
         $data_nascimento = $membros['dta_nasc_pessoa'];
         $dataNasc_formatando = new DateTime($data_nascimento);
-        $data_formatada = $dataNasc_formatando->format('d/m/Y');
+        $dataNasc_formatada = $dataNasc_formatando->format('d/m/Y');
 
         ?>
         <tr>
             <td><span id="nome" class="editable-field" contenteditable="true"><?php echo $membros['nom_pessoa']; ?></span></td>
-            <td><span id="nome" class="editable-field" contenteditable="true"><?php echo $data_formatada; ?></span></td>
+            <td><span id="nome" class="editable-field" contenteditable="true"><?php echo $dataNasc_formatada; ?></span></td>
             <td><span id="nome" class="editable-field" contenteditable="true"></span></td>
             <td>R$ <span id="nome" class="editable-field" contenteditable="true">,00</span></td>
         </tr>
@@ -99,7 +99,7 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
                     Único. Assumo o compromisso de atualizar o cadastro sempre que ocorrer alguma mudança nas informações de
                     minha família, como endereço, renda e trabalho, nascimento ou óbito, entre outras.</li>
             </ul>
-            <p class="right">São Bento do Una - PE, <span id="data"></span>.</p>
+            <p class="right">São Bento do Una - PE, <?php echo $data_formatada; ?>.</p>
             <p class="center">______________________________________________________________<br>Assinatura do Responsável
                 pela Unidade Familiar</p>
 
