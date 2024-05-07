@@ -58,6 +58,49 @@ $(document).ready(function () {
         })
     })
 
+    $('#btn_fc_familia').click(function () {
+        Swal.fire({
+            title: "FICHA DE EXCLUSÃO DE FAMILIA",
+            html: `
+            <h4>INFORME O NIS</h4>
+            <form method="POST" action="Ficha_de_Exclusão_de_familia" id="form_fc_pessoa">
+                <label> CPF:
+                    <input type="text" name="nis_exc_pessoa"/>
+                </label>
+            </form>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Enviar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.getElementById("form_fc_pessoa")
+                form.submit()
+            }
+        })
+    })
+
+    $('#btn_fc_pessoa').click(function () {
+        Swal.fire({
+            title: "FICHA DE EXCLUSÃO DE PESSOA",
+            html: `
+            <h4>INFORME O NIS</h4>
+            <form method="POST" action="Ficha_de_Exclusão_de_Pessoa" id="form_fc_pessoa">
+                <label> CPF:
+                    <input type="text" name="nis_exc_pessoa"/>
+                </label>
+            </form>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Enviar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.getElementById("form_fc_pessoa")
+                form.submit()
+            }
+        })
+    })
 })
 
 
