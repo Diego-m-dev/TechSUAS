@@ -76,7 +76,7 @@ $sql_declar->execute();
       <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
       <button class="impr" onclick="voltarAoMenu()">Voltar</button>
 
-      <div id="right-align">São Bento do Una - PE, <span id="dataExclusao2"></span>.</div>
+      <div id="right-align">São Bento do Una - PE, <?php echo $data_formatada; ?>.</div>
 
       <div class="signature-line">_______________________________________________________<br>Assinatura do Responsável pela Unidade Familiar (RUF) (exceto no caso 3)</div>
       <div class="signature-line">_______________________________________________________<br>Assinatura do entrevistador</div>
