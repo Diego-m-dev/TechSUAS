@@ -26,7 +26,8 @@ img {
     align-items: stretch;
     justify-content: space-between;
     align-content: space-between;
-    padding: 10px;
+    padding: 0px 5px 10px 10px;
+    margin:0px;
 }
 
 footer {
@@ -61,7 +62,7 @@ footer img {
     background-color: rgb(255, 255, 255, 0.9);
     box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.3);
     width: 50%;
-    height: 300px;
+    height: 250px;
 }
 
 h4 {
@@ -123,8 +124,8 @@ nav span {
     color: #fff;
     text-align: center;
     border-radius: 10px;
-    padding: 10px 20Px;
-    margin: 15px;
+    padding: 10px 25Px;
+    margin: 12px;
     cursor: pointer;
     transition: 0.3s;
     font-size: 20px;
