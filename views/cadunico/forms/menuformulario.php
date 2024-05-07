@@ -31,11 +31,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
       <i class="fas fa-file-invoice-dollar icon"></i> Termo de Declaração de Renda
     </a>
 
-    <a href="Ficha_de_Exclusão_de_Familia" target="_blank">
+    <a type="button" id="btn_fc_familia">
       <i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Familia
     </a>
 
-    <a href="Ficha_de_Exclusão_de_Pessoa" target="_blank">
+    <a type="button" id="btn_fc_pessoa">
       <i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Pessoa
     </a>
 
