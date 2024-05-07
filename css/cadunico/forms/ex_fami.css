@@ -4,6 +4,12 @@ body {
     padding: 0;
 }
 
+#parecer {
+    text-transform: uppercase;
+    font-weight: bold;
+    text-align: justify;
+}
+
 select {
     width: auto;
     /* Define a largura para automática */
