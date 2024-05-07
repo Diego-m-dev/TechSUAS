@@ -23,7 +23,7 @@ $sql_reside->execute();
 <body>
     <div class="titulo">
         <div class="tech">
-            <span>TechSUAS-Cadastro Único</span><span id="dataHora"></span>
+            <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
         </div>
     </div>
     <div class="container">
