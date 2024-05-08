@@ -17,7 +17,10 @@ $sql_declar->execute();
 <title>Ficha de exclusão de família</title>
 <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
 <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_fami.css">
-  
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
 <div class="titulo">
@@ -81,6 +84,26 @@ $sql_declar->execute();
     </div>
   </div>
   <?php
+    } else {
+      ?>
+      <script>
+          Swal.fire({
+              icon: "error",
+              title: "NIS NÃO ENCONTRADO",
+              html: `
+              Esse NIS <b>'<?php echo $nis_from; ?>' </b>não foi encontrado!
+              <h5>ATENÇÃO</h5>
+              Certifique se que os numeros estão corretos ou consulte no CadÚnico se o Cadastro está ativo.
+              `,
+              confirmButtonText: 'OK',
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  window.location.href = "/TechSUAS/views/cadunico/forms/menuformulario"
+              }
+          })
+      </script>
+      <?php
+  
     }
   ?>
   <script>

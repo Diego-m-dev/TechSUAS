@@ -53,13 +53,14 @@ $cod_familia = $dados_declar['cod_familiar_fam'];
     $resultado_valor_total = $stmt->get_result();
 
     ?>
-            <table id="componentesTable">
+            <table id="tabela_membros" width="500px" border="1">
                 <thead>
                     <tr>
                         <th>Nome</th>
                         <th>Data de Nascimento</th>
                         <th>Ocupação</th>
                         <th>Renda Bruta Mensal</th>
+                        <th class="impr">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -77,6 +78,9 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
             <td><span id="nome" class="editable-field" contenteditable="true"><?php echo $dataNasc_formatada; ?></span></td>
             <td><span id="nome" class="editable-field" contenteditable="true"></span></td>
             <td>R$ <span id="nome" class="editable-field" contenteditable="true">,00</span></td>
+            <td class="impr">
+                <button onclick="removerLinha(this)">X</button>
+            </td>
         </tr>
         <?php
 }
@@ -84,8 +88,10 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
                 </tbody>
 
             </table>
+            <button onclick="adicionarLinha()">Adicionar Linha</button>
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
             <button class="impr" onclick="voltarAoMenu()">Voltar</button>
+
             <p class="paragraph1">Declaro ter clareza de que:</p>
             <ul>
                 <li class="topic">É ilegal deixar de declarar informações ou prestar informações falsas para o Cadastro
@@ -106,33 +112,55 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
         <?php
 } else {
     ?>
-        <form id="declarationForm">
-            <label for="nisInput">NIS:</label>
-            <input type="text" id="nisInput" placeholder="Digite o NIS">
-            <button type="button" id="buscarNISBtn">Buscar</button>
-            <br>
-            <p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field" contenteditable="true"></span>, NIS: <span id="nis"></span>, CPF: <span id="cpf"></span>,
+
+<p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field" contenteditable="true"></span>, NIS: <span id="nis" class="editable-field" contenteditable="true"></span>, CPF: <span id="cpf" class="editable-field" contenteditable="true"></span>,
                 declaro, sob as penas da lei, que todas as pessoas listadas abaixo moram no meu domicílio e possuem o
                 seguinte rendimento total detalhado para cada pessoa, incluindo remuneração de doação, de trabalho ou de
                 outras fontes:</p>
             <p class="paragraph"><strong>RELAÇÃO DOS COMPONENTES DA UNIDADE FAMILIAR MORADORES DO DOMICÍLIO:</strong></p>
-            <label for="nisTabelaInput">NIS:</label>
-            <input type="text" id="nisTabelaInput" placeholder="Digite o NIS">
-            <button type="button" id="adicionarTabelaBtn">Adicionar à Tabela</button>
-            <table id="componentesTable">
+            <table id="tabela_membros" width="500px" border="1">
                 <thead>
                     <tr>
                         <th>Nome</th>
                         <th>Data de Nascimento</th>
                         <th>Ocupação</th>
                         <th>Renda Bruta Mensal</th>
-                        <th></th>
+                        <th class="impr">Ação</th>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody>
+                    <tr>
+                        <td>
+                            <span id="nomeContainer">
+                                <span id="nome" class="editable-field" contenteditable="true"></span>
+                            </span>
+                        </td>
+                        <td>
+                            <span id="nomeContainer">
+                                <span id="nome" class="editable-field" contenteditable="true"></span>
+                            </span>
+                        </td>
+                        <td>
+                            <span id="nomeContainer">
+                                <span id="nome" class="editable-field" contenteditable="true"></span>
+                            </span>
+                        </td>
+                        <td>
+                            <span id="nomeContainer">
+                                <span id="nome" class="editable-field" contenteditable="true"></span>
+                            </span>
+                        </td>
+                        <td class="impr">
+                            <input type="checkbox" name="acao" id="acao"><input type="button" id="btn_exc_linha"/>
+                        </td>
+
+                    </tr>
+                </tbody>
             </table>
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
             <button class="impr" onclick="voltarAoMenu()">Voltar</button>
+            <button type="button" onclick="adicionarLinha()">Adicionar Linha</button>
+
             <p class="paragraph1">Declaro ter clareza de que:</p>
             <ul>
                 <li class="topic">É ilegal deixar de declarar informações ou prestar informações falsas para o Cadastro

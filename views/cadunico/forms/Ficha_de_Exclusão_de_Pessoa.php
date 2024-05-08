@@ -8,7 +8,6 @@ $nis_from = $_POST['nis_exc_pessoa'];
 $sql_declar = $pdo->prepare("SELECT * FROM tbl_tudo WHERE num_nis_pessoa_atual = :nis_exc_pessoa");
 $sql_declar->bindParam(':nis_exc_pessoa', $nis_from, PDO::PARAM_STR);
 $sql_declar->execute();
-
 ?>
 
 
@@ -18,6 +17,9 @@ $sql_declar->execute();
 <title>Ficha de exclusão de pessoa</title>
 <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
 <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_pesso.css">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <div class="titulo">
@@ -41,7 +43,6 @@ $sql_declar->execute();
 
       if ($resultado_rf->num_rows > 0) {
         $row = $resultado_rf->fetch_assoc();
-
         $nis_rf = $row['num_nis_pessoa_atual'];
         $nis_responsavel_formatado = substr_replace(str_pad($nis_rf, 11, "0", STR_PAD_LEFT), '-', 10, 0);
     }
@@ -88,11 +89,31 @@ $sql_declar->execute();
     </div>
   </div>
   <?php
+  } else {
+    ?>
+    <script>
+        Swal.fire({
+            icon: "error",
+            title: "NIS NÃO ENCONTRADO",
+            html: `
+            <p>Esse NIS <b>'<?php echo $nis_from; ?>' </b>não foi encontrado!</p>
+            <h5>ATENÇÃO</h5>
+            <p>Certifique se que os numeros estão corretos ou consulte no CadÚnico se o Cadastro está ativo.</p>
+            `,
+            confirmButtonText: 'OK',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/TechSUAS/views/cadunico/forms/menuformulario"
+            }
+        })
+    </script>
+    <?php
+
   }
   ?>
 <script>
   function formatarNumero(numero) {
-    return numero < 10 ? '0' + numero : numero;
+    return numero < 10 ? '0' + numero : numero
 }
 
 // Função para obter a data e hora atual e exibir na página

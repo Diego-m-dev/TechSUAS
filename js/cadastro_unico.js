@@ -64,7 +64,7 @@ $(document).ready(function () {
             html: `
             <h4>INFORME O NIS</h4>
             <form method="POST" action="Ficha_de_Exclusão_de_familia" id="form_fc_pessoa">
-                <label> CPF:
+                <label> NIS:
                     <input type="text" name="nis_exc_pessoa"/>
                 </label>
             </form>
@@ -86,7 +86,7 @@ $(document).ready(function () {
             html: `
             <h4>INFORME O NIS</h4>
             <form method="POST" action="Ficha_de_Exclusão_de_Pessoa" id="form_fc_pessoa">
-                <label> CPF:
+                <label> NIS:
                     <input type="text" name="nis_exc_pessoa"/>
                 </label>
             </form>
@@ -110,4 +110,29 @@ function voltarAoMenu() {
 
 function imprimirPagina() {
     window.print()
+}
+
+function adicionarLinha() {
+    var tabela = document.getElementById("tabela_membros");
+    var novaLinha = tabela.insertRow(); // Adiciona uma nova linha ao final
+
+    // Cria células para a nova linha
+    var celula1 = novaLinha.insertCell(0);
+    var celula2 = novaLinha.insertCell(1);
+    var celula3 = novaLinha.insertCell(2);
+    var celula4 = novaLinha.insertCell(3);
+    var celula5 = novaLinha.insertCell(4);
+
+    // Adiciona conteúdo às células
+    celula1.innerHTML = '<span class="editable-field" contenteditable="true"></span>';
+    celula2.innerHTML = '<span class="editable-field" contenteditable="true"></span>';
+    celula3.innerHTML = '<span class="editable-field" contenteditable="true"></span>';
+    celula4.innerHTML = 'R$ <span class="editable-field" contenteditable="true">,00</span>';
+    celula5.innerHTML = '<button onclick="removerLinha(this)">X</button>';
+}
+
+function removerLinha(botao) {
+    var linha = botao.parentNode.parentNode; // Encontra a linha do botão
+    var tabela = linha.parentNode; // Encontra a tabela
+    tabela.removeChild(linha); // Remove a linha
 }
