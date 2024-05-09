@@ -145,14 +145,14 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
                                 <span id="nome" class="editable-field" contenteditable="true"></span>
                             </span>
                         </td>
-                        <td>
+                        <td>R$ 
                             <span id="nomeContainer">
-                                <span id="nome" class="editable-field" contenteditable="true"></span>
+                                <span id="nome" class="editable-field" contenteditable="true">,00</span>
                             </span>
                         </td>
                         <td class="impr">
-                            <input type="checkbox" name="acao" id="acao"><input type="button" id="btn_exc_linha"/>
-                        </td>
+                            <button onclick="removerLinha(this)">X</button>
+                        </td>   
 
                     </tr>
                 </tbody>
