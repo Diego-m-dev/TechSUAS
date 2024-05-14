@@ -53,7 +53,12 @@ body {
     padding-top: 100px;
 }
 
-
+#cord{
+    font-size: 18px;
+}
+#mat{
+    font-size: 16px;
+}
 
 @media print {
     body::after {

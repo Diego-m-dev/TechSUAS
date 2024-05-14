@@ -58,7 +58,7 @@
                         <div id="right-align">São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</div>
 
                         <div class="signature-line">___________________________________________________________<br>DIEGO EMMANUEL
-                            CADETE<br><span style="font-size:14px">Coord. Cadastro Único e Prog. Bolsa Família</span><br><span style="font-size:4px">Mat.: 108026</span></div><br>
+                            CADETE<br><span id="cord">Coord. Cadastro Único e Prog. Bolsa Família</span><br><span id="mat">Mat.: 108026</span></div><br>
 
                     </div>
                 <?php
@@ -109,7 +109,7 @@
                         <div id="right-align">São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</div>
 
                         <div class="signature-line">___________________________________________________________<br>DIEGO EMMANUEL
-                            CADETE<br><span style="font-size:14px">Coord. Cadastro Único e Prog. Bolsa Família</span><br><span style="font-size:16px">Mat.: 108026</span></div><br>
+                              CADETE<br><span id="cord">Coord. Cadastro Único e Prog. Bolsa Família</span><br><span id="mat">Mat.: 108026</span></div><br>
                     </div>
                 <?php
                 } else {
@@ -160,7 +160,7 @@
                         <div id="right-align">São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</div>
 
                         <div class="signature-line">___________________________________________________________<br>DIEGO EMMANUEL
-                            CADETE<br><span style="font-size:14px">Coord. Cadastro Único e Prog. Bolsa Família</span><br><span style="font-size:16px">Mat.: 108026</span></div><br>
+                            CADETE<br><span id="cord">Coord. Cadastro Único e Prog. Bolsa Família</span><br><span id="mat">Mat.: 108026</span></div><br>
 
                     </div>
                 <?php
@@ -212,8 +212,8 @@
                         <div id="right-align">São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</div>
 
                         <div class="signature-line">___________________________________________________________DIEGO EMMANUEL
-                            CADETE<span style="font-size:14px">Coord. Cadastro Único e Prog. Bolsa Família</span><span style="font-size:16px">Mat.: 108026</span></div>
-                        <div class="signature-line"></div>
+                            CADETE<br><span id="cord">Coord. Cadastro Único e Prog. Bolsa Família</span><br><span id="mat">Mat.: 108026</span></div><br>
+                        </div>
 
                     </div>
                 <?php
@@ -275,7 +275,7 @@
                         <div id="right-align">São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</div>
 
                         <div class="signature-line">___________________________________________________________<br>DIEGO EMMANUEL
-                            CADETE<br><span style="font-size:14px">Coord. Cadastro Único e Prog. Bolsa Família</span><br><span style="font-size:16px">Mat.: 108026</span></div><br>
+                            CADETE<br><span id="cord">Coord. Cadastro Único e Prog. Bolsa Família</span><br><span id="mat">Mat.: 108026</span></div><br>
 
                 </div>
                 <script>
