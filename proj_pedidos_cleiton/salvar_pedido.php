@@ -24,7 +24,7 @@ if ($sql_pedido_agua->execute()) {
     echo "Pedido salvo com sucesso!";
     
     // Envio para o WhatsApp
-    $mensagem = "⚠ Novo pedido ⚠\nTipo: $tipo\nLocal: $local\nQuantidade: $quantidade\nObrigado!🤝";
+    $mensagem = "⚠️ Novo pedido ⚠️\nTipo: $tipo\nLocal: $local\nQuantidade: $quantidade\nObrigado!🤝";
 
     $numeroWhatsapp = "+5581999840989"; // Substitua pelo número do WhatsApp da empresa
     $mensagemEncoded = urlencode($mensagem);

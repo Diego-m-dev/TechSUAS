@@ -30,6 +30,7 @@
                 <label for="local">Local:</label>
                 <select id="local" name="local" required><!-- Adicionando o atributo required -->
                     <option value="">Selecione o local</option><!-- Opção padrão vazia -->
+                    <option value="CASA DE APOIO (APÓS 16H)">CASA DE APOIO</option>
                     <option value="SEDE ASSISTÊNCIA SOCIAL">SEDE ASSISTÊNCIA SOCIAL</option>
                     <option value="CRAS ANTONIO MATIAS">CRAS ANTONIO MATIAS</option>
                     <option value="CRAS SANTO AFONSO">CRAS SANTO AFONSO</option>
