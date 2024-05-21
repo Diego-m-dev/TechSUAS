@@ -22,8 +22,8 @@ ini_set('memory_limit', '256M');
             <img src="/TechSUAS/img/cadunico/folha/h1-folha.svg" alt="Titulocomimagem">
         </h1>
     </div>
-    <div class="container">    
-        <div class="busca">    
+    <div class="container">
+        <div class="busca">
             <form action="">
                 <input name="cod_fam" class="busca2" placeholder="Digite o NIS ou NOME do beneficiário." type="text" required>
                 <button type="submit">Buscar</button>
@@ -31,12 +31,12 @@ ini_set('memory_limit', '256M');
                 <i class="fas fa-arrow-left"></i> Voltar ao menu
             </a>
             </form>
-        </div>    
+        </div>
         <table width="650px" border="1">
         
             <tr class="titulo" >
                 
-                <th class="cabecalho">CÓDIGO FAMILIAR</th>    
+                <th class="cabecalho">CÓDIGO FAMILIAR</th>
                 <th class="cabecalho">NOME</th>
                 <th class="cabecalho">NIS</th>
                 <th class="cabecalho">BENEFÍCIO</th>
