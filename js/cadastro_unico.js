@@ -1,13 +1,22 @@
 $(document).ready(function () {
     $('#simples').hide()
     $('#beneficio').hide()
+    $('#entrevistadores').hide()
+
     $('#btn_familia').click(function () {
         $('#simples').show()
         $('#beneficio').hide()
+        $('#entrevistadores').hide()
     })
     $('#btn_benef').click(function () {
         $('#beneficio').show()
         $('#simples').hide()
+        $('#entrevistadores').hide()
+    })
+    $('#btn_entrevistadores').click(function () {
+        $('#beneficio').hide()
+        $('#simples').hide()
+        $('#entrevistadores').show()
     })
 
 
@@ -16,22 +25,57 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#btn_residencia').click(function () {
         Swal.fire({
-            title: "TERMO DE RESPONSABILIDADE",
-            html: `
-            <h4>INFORME O CPF</h4>
-            <form method="POST" action="termo_responsabilidade" id="form_residencia">
-                <label> CPF:
-                    <input type="text" name="cpf_residencia"/>
-                </label>
-            </form>
-            `,
+            title: "Selecione a Opção",
             showCancelButton: true,
-            confirmButtonText: 'Enviar',
+            showDenyButton: true,
+            confirmButtonText: 'Unipessoal',
+            denyButtonText: 'Família',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                const form = document.getElementById("form_residencia")
-                form.submit()
+                // Se Unipessoal for selecionado
+                Swal.fire({
+                    title: "TERMO DE RESPONSABILIDADE",
+                    html: `
+                    <h6>para unipessoal</h6>
+                    <h4>INFORME O CPF</h4>
+                    <form method="POST" action="termo_responsabilidade_uni.php" id="form_residencia_uni">
+                        <label> CPF:
+                            <input type="text" name="cpf_residencia"/>
+                        </label>
+                    </form>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Enviar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const form = document.getElementById("form_residencia_uni")
+                        form.submit()
+                    }
+                })
+            } else if (result.isDenied) {
+                // Se Família for selecionado
+                Swal.fire({
+                    title: "TERMO DE RESPONSABILIDADE",
+                    html: `
+                    <h6>para famílias com duas pessoas ou mais</h6>
+                    <h4>INFORME O CPF</h4>
+                    <form method="POST" action="termo_responsabilidade.php" id="form_residencia_familia">
+                        <label> CPF:
+                            <input type="text" name="cpf_residencia"/>
+                        </label>
+                    </form>
+                    `,
+                    showCancelButton: true,
+                    confirmButtonText: 'Enviar',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const form = document.getElementById("form_residencia_familia")
+                        form.submit()
+                    }
+                })
             }
         })
     })
@@ -105,7 +149,7 @@ $(document).ready(function () {
 
 
 function voltarAoMenu() {
-    window.location.href = '/TechSUAS/config/back'
+    window.history.back()
 }
 
 function imprimirPagina() {
