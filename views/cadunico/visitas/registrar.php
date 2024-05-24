@@ -26,19 +26,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                 <label>CÓDIGO FAMILIAR: </label>
                 <input type="text" name="codigo_familiar" placeholder="Digite o CÓDIGO FAMILIAR." required>
             </div>
-            <div class="nomerf">
-                <label for="nome">NOME RF: </label>
-                <input type="text" name="nomerf" class="inpu" placeholder="Digite o nome do RF." required>
-            </div>
             <div class="data">
                 <label>DATA DA VISITA: </label>
                 <input type="date" id="data_visita" name="data_visita" required>
             </div>
             <div class="cxacao">
-                <label>AÇÃO DA VISITA: </label>
+                <label>AÇÃO DA VISITA:
                 <select name="acao_visita" required>
                     <option value="" disabled selected hidden>Selecione a ação da visita.</option>
-                    <option value="1">LOCALIZADO</option>
+                    <option value="1">ATUALIZAÇÃO REALIZADA</option>
+                    <option value="5">ATUALIZAÇÃO NÃO REALIZADA</option>
                     <option value="2">NÃO LOCALIZADO</option>
                     <option value="3">FALECIMENTO DO RESPONSÁVEL FAMILIAR</option>
                     <option value="4">A FAMÍLIA RECUSOU ATUALIZAR</option>
@@ -57,9 +54,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                 <i class="fas fa-arrow-left"></i> Voltar
             </a>
             </div>
-
         </form>
+
     </div>
 </body>
-
 </html>
