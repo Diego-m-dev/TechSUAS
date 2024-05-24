@@ -28,7 +28,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             <input type="text" name="codfam" class="busca2" placeholder="Digite aqui..." required>
 
             <button type="submit">Buscar</button>
-            <a href="visitas.php"><i class="fas fa-arrow-left"></i>Voltar</a>
+            <a href="visitas"><i class="fas fa-arrow-left"></i>Voltar</a>
     </div>
     <div class="linha"></div>
     </form>
