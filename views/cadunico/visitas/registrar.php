@@ -10,9 +10,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" type="text/css" href="/TechSUAS/css/cadunico/visitas/style-registrar.css">
-    <link rel="website icon type="png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="/TechSUAS/js/cadastro_unico.js"></script>
     <title>Registrar visitas</title>
 </head>
 
@@ -21,10 +28,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         <img src="/TechSUAS/img/cadunico/visitas/visitash1.svg">
     </h1>
     <div class="container">
-        <form method="post" action="/TechSUAS/controller/cadunico/parecer/processo.php">
+        <form method="post" action="/TechSUAS/controller/cadunico/parecer/processo">
             <div class="codfamiliar">
                 <label>CÓDIGO FAMILIAR: </label>
-                <input type="text" name="codigo_familiar" placeholder="Digite o CÓDIGO FAMILIAR." required>
+                <input type="text" id="codfamiliar" onblur="consultarFamilia()" name="codigo_familiar" placeholder="Digite o CÓDIGO FAMILIAR." required>
             </div>
             <div class="data">
                 <label>DATA DA VISITA: </label>
@@ -46,11 +53,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                 <div class="tituloparecer">
                     <label for="message" class="tituloparecer">PARECER TÉCNICO:</label>
                 </div>
-                <textarea rows="7" name="parecer" placeholder="Faça um breve resumo de como foi a visita."></textarea>
+                <textarea rows="7" name="parecer" placeholder="Faça um breve resumo de como foi a visita." required></textarea>
             </div>
             <div class="btn">
                 <button type="submit">Enviar</button>
-                <a href="visitas.php">
+                <a href="visitas">
                 <i class="fas fa-arrow-left"></i> Voltar
             </a>
             </div>
