@@ -95,7 +95,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
     </script>
 <?php
         } else {
-            echo "ERRO no envio dos DADOS: ".$smtp->error;
+            echo "ERRO no envio dos DADOS: ".   $smtp->error;
         }
         $smtp->close();
         $conn->close();
