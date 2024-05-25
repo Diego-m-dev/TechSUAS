@@ -180,3 +180,14 @@ function removerLinha(botao) {
     var tabela = linha.parentNode; // Encontra a tabela
     tabela.removeChild(linha); // Remove a linha
 }
+
+//função para apresentar dados da família na tela de registrar família
+$('#codfamiliar').on('change', function () {
+    consultarFamilia()
+})
+
+function consultarFamilia() {
+    var codfamiliar = $('#codfamiliar').val();
+    
+    window.alert('Tem certeza de que o Código: ' + codfamiliar + " está correto? Lembre-se de ignorar os zeros a esquerda e não informar o -.")
+}
