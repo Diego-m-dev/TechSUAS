@@ -49,7 +49,7 @@ $(document).ready(function() {
                     window.print()
 
                     setTimeout(function() {
-                        window.location.href = '/TechSUAS/views/concessao/'
+                        window.location.href = '/TechSUAS/views/concessao/index'
                     }, 300)
                 } else {
                     console.error(response.error)
