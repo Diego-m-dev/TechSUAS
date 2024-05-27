@@ -53,7 +53,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
             $(".quantidade, .valor-unitario").on("input", calcularTotal)
         })
     </script>
-</head>
+</head> 
 
 <body>
     <div class="img">
