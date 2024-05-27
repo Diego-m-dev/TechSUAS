@@ -39,13 +39,13 @@ if ($setor != "CONCESSÃO" && $setor != "ADMINISTRATIVO" && $setor != "SUPORTE")
     <div class="tudo">
         <div class="container1">
             <?php
-            $sql_ano = "SELECT DISTINCT ano_form FROM concessao_historico ORDER BY ano_form DESC";
-            $result_sql_ano = $conn->query($sql_ano);
-            $anos = [];
-            while ($d = $result_sql_ano->fetch_assoc()) {
-                $anos[] = $d['ano_form'];
-            }
-            ?>
+$sql_ano = "SELECT DISTINCT ano_form FROM concessao_historico ORDER BY ano_form DESC";
+$result_sql_ano = $conn->query($sql_ano);
+$anos = [];
+while ($d = $result_sql_ano->fetch_assoc()) {
+    $anos[] = $d['ano_form'];
+}
+?>
             <div id="somaCaracteristicas"></div>
 
             <form method="POST" id="filtroForm">
@@ -53,10 +53,10 @@ if ($setor != "CONCESSÃO" && $setor != "ADMINISTRATIVO" && $setor != "SUPORTE")
                 <select name="ano" id="ano" required>
                     <option value="" disabled selected hidden>Selecione</option>
                     <?php
-                    foreach ($anos as $ano) {
-                        echo "<option value='$ano'>$ano</option>";
-                    }
-                    ?>
+foreach ($anos as $ano) {
+    echo "<option value='$ano'>$ano</option>";
+}
+?>
                 </select>
 
                 <label for="mes_pg">Mês de Pagamento</label>
@@ -84,87 +84,87 @@ if ($setor != "CONCESSÃO" && $setor != "ADMINISTRATIVO" && $setor != "SUPORTE")
         </div>
 
         <?php
-        if (!isset($_POST['ano'])) {
-        } else {
-        ?>
+if (!isset($_POST['ano'])) {
+} else {
+    ?>
             <div class="container">
                 <h3>RELATÓRIO DE CONCESSÃO DE BENEFÍCIOS EVENTUAIS</h3>
                 <?php
-                $mes_pago = $_POST['mes_pg'];
+$mes_pago = $_POST['mes_pg'];
 
-                if ($nome == "MICHELLE AGNES GOMES CAVALCANTE") {
+    if ($nome == "MICHELLE AGNES GOMES CAVALCANTE") {
 
-                    $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA'  AND situacao_concessao != 'PAGO'";
-                    $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
+        $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA'  AND situacao_concessao != 'PAGO'";
+        $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
 
-                    if ($resultado_quantidade_itens_mes->num_rows > 0) {
-                        $row = $resultado_quantidade_itens_mes->fetch_assoc();
-                        $total_itens_mes = $row['mes_pag'];
-                    } else {
-                        $total_itens_mes = "Nenhum resultado encontrado para o mês de $mes_escolhido.";
-                    }
+        if ($resultado_quantidade_itens_mes->num_rows > 0) {
+            $row = $resultado_quantidade_itens_mes->fetch_assoc();
+            $total_itens_mes = $row['mes_pag'];
+        } else {
+            $total_itens_mes = "Nenhum resultado encontrado para o mês de $mes_escolhido.";
+        }
 
-                    $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA' AND situacao_concessao != 'PAGO'";
-                    $result_soma_total_mes = $conn->query($soma_total_mes);
-                    $valor_total_mes = [];
+        $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA' AND situacao_concessao != 'PAGO'";
+        $result_soma_total_mes = $conn->query($soma_total_mes);
+        $valor_total_mes = [];
 
-                    while ($c = $result_soma_total_mes->fetch_assoc()) {
-                        $valor_total_mes[] = $c['soma_total_mes'];
-                    }
+        while ($c = $result_soma_total_mes->fetch_assoc()) {
+            $valor_total_mes[] = $c['soma_total_mes'];
+        }
 
-                    $sql_soma_valor_total = "SELECT SUM(valor_total) AS soma_total, nome_item AS nome_item, situacao_concessao AS situacao_concessao FROM concessao_historico
+        $sql_soma_valor_total = "SELECT SUM(valor_total) AS soma_total, nome_item AS nome_item, situacao_concessao AS situacao_concessao FROM concessao_historico
     WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE'  AND situacao_concessao != 'CANCELADA' AND situacao_concessao != 'PAGO'
     GROUP BY nome_item
     ORDER BY nome_item ASC";
-                    $resultado_valor_total = $conn->query($sql_soma_valor_total);
+        $resultado_valor_total = $conn->query($sql_soma_valor_total);
 
-                    $valor_total = [];
-                    $categoria = [];
-                    $situacao = [];
+        $valor_total = [];
+        $categoria = [];
+        $situacao = [];
 
-                    while ($a = $resultado_valor_total->fetch_assoc()) {
-                        $valor_total[] = $a['soma_total'];
-                        $categoria[] = $a['nome_item'];
-                        $situacao[] = $a['situacao_concessao'];
-                    }
+        while ($a = $resultado_valor_total->fetch_assoc()) {
+            $valor_total[] = $a['soma_total'];
+            $categoria[] = $a['nome_item'];
+            $situacao[] = $a['situacao_concessao'];
+        }
 
-                ?>
+        ?>
                     <P class="num_conc">No mês de <?php echo $mes_pago; ?> foram realizadas <?php echo $total_itens_mes; ?> concessões, com um valor total de
                         <?php
-                        foreach ($valor_total_mes as $total_concessao_mes) {
-                            $valor_formatado_mes = number_format($total_concessao_mes, 2, ',', '.');
-                            echo 'R$ ' . $valor_formatado_mes;
-                        }
-                        ?>.
+foreach ($valor_total_mes as $total_concessao_mes) {
+            $valor_formatado_mes = number_format($total_concessao_mes, 2, ',', '.');
+            echo 'R$ ' . $valor_formatado_mes;
+        }
+        ?>.
                     </P>
                     <ul>
                         <?php
 
-                        echo '<div class="list">';
-                        foreach ($categoria as $index => $subcat) {
-                            $valor_formatado = number_format($valor_total[$index], 2, ',', '.');
-                            echo '<div>•<input type="checkbox">' . $subcat . ' - R$ ' . $valor_formatado . '</div>';
-                        }
-                        echo '</div>';
+        echo '<div class="list">';
+        foreach ($categoria as $index => $subcat) {
+            $valor_formatado = number_format($valor_total[$index], 2, ',', '.');
+            echo '<div>•<input type="checkbox">' . $subcat . ' - R$ ' . $valor_formatado . '</div>';
+        }
+        echo '</div>';
 
-                        $sql_mes = $conn->real_escape_string($_POST['mes_pg']);
-                        $sql_ano = $conn->real_escape_string($_POST['ano']);
-                        $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA'  AND situacao_concessao != 'PAGO' ORDER BY nome_item ASC, nome_benef ASC";
+        $sql_mes = $conn->real_escape_string($_POST['mes_pg']);
+        $sql_ano = $conn->real_escape_string($_POST['ano']);
+        $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA'  AND situacao_concessao != 'PAGO' ORDER BY nome_item ASC, nome_resp ASC";
 
-                        if ($stmt_dados = $conn->prepare($sql_dados)) {
-                            $stmt_dados->bind_param("ss", $sql_mes, $sql_ano);
-                            $stmt_dados->execute();
+        if ($stmt_dados = $conn->prepare($sql_dados)) {
+            $stmt_dados->bind_param("ss", $sql_mes, $sql_ano);
+            $stmt_dados->execute();
 
-                            if ($stmt_dados->errno) {
-                                die("ERRO ao consultar: " . $stmt_dados->error);
-                            } else {
-                                // Manipule os resultados aqui
-                                $result = $stmt_dados->get_result();
-                                // Faça algo com os resultados
+            if ($stmt_dados->errno) {
+                die("ERRO ao consultar: " . $stmt_dados->error);
+            } else {
+                // Manipule os resultados aqui
+                $result = $stmt_dados->get_result();
+                // Faça algo com os resultados
 
-                        ?>
+                ?>
                     </ul>
-                    <table id="tabelaConcessoes" border="1">
+                <table id="tabelaConcessoes" border="1">
                         <thead>
                             <tr>
                                 <th>NÚMERO</th>
@@ -175,32 +175,32 @@ if ($setor != "CONCESSÃO" && $setor != "ADMINISTRATIVO" && $setor != "SUPORTE")
                         </thead>
 
                         <?php
-                                while ($row = $result->fetch_assoc()) {
-                                    $valor_formatado1 = number_format($row['valor_total'], 2, ',', '.');
-                                    echo "<tbody>";
-                                    echo "<td>" . $row['num_form'] . "/" . $row['ano_form'] . "</td>";
-                                    echo "<td>" . $row['nome_benef'] . "</td>";
-                                    echo "<td>" . $row['nome_item'] . "</td>";
-                                    echo "<td> R$ " . $valor_formatado1 . "</td>";
-                                    echo "</tbody>";
-                                }
-                        ?>
-                    </table>
-                <?php
-                            }
+while ($row = $result->fetch_assoc()) {
+                    $valor_formatado1 = number_format($row['valor_total'], 2, ',', '.');
+                    echo "<tbody>";
+                    echo "<td>" . $row['num_form'] . "/" . $row['ano_form'] . "</td>";
+                    echo "<td>" . $row['nome_resp'] . "</td>";
+                    echo "<td>" . $row['nome_item'] . "</td>";
+                    echo "<td> R$ " . $valor_formatado1 . "</td>";
+                    echo "</tbody>";
+                }
                 ?>
+                </table>
+    <?php
+}
+            ?>
 
             </div>
             <div class="btns">
                 <button class="btns" type="button" id="btn_immprimir">IMPRIMIR</button>
             </div>
         <?php
-                            $stmt_dados->close();
-                        } else {
-                            // Tratamento de erro se a preparação da consulta falhar
-                            die("ERRO ao preparar a consulta: " . $conn->error);
-                        }
-                    } elseif ($nome == "LUIZ HENRIQUE MORAES MANSO") {
+$stmt_dados->close();
+        } else {
+            // Tratamento de erro se a preparação da consulta falhar
+            die("ERRO ao preparar a consulta: " . $conn->error);
+        }
+    } elseif ($nome == "LUIZ HENRIQUE MORAES MANSO") {
         ?>
         <!--
 
@@ -208,75 +208,75 @@ if ($setor != "CONCESSÃO" && $setor != "ADMINISTRATIVO" && $setor != "SUPORTE")
 
         -->
         <?php
-                        $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item = 'ATAÚDE' AND situacao_concessao != 'CANCELADA'";
-                        $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
+$sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item = 'ATAÚDE' AND situacao_concessao != 'CANCELADA'";
+        $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
 
-                        if ($resultado_quantidade_itens_mes->num_rows > 0) {
-                            $row = $resultado_quantidade_itens_mes->fetch_assoc();
-                            $total_itens_mes = $row['mes_pag'];
-                        } else {
-                            $total_itens_mes = "Nenhum resultado encontrado para o mês de $mes_escolhido.";
-                        }
+        if ($resultado_quantidade_itens_mes->num_rows > 0) {
+            $row = $resultado_quantidade_itens_mes->fetch_assoc();
+            $total_itens_mes = $row['mes_pag'];
+        } else {
+            $total_itens_mes = "Nenhum resultado encontrado para o mês de $mes_escolhido.";
+        }
 
-                        $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item = 'ATAÚDE' AND situacao_concessao != 'CANCELADA'";
-                        $result_soma_total_mes = $conn->query($soma_total_mes);
-                        $valor_total_mes = [];
+        $soma_total_mes = "SELECT SUM(valor_total) AS soma_total_mes FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item = 'ATAÚDE' AND situacao_concessao != 'CANCELADA'";
+        $result_soma_total_mes = $conn->query($soma_total_mes);
+        $valor_total_mes = [];
 
-                        while ($c = $result_soma_total_mes->fetch_assoc()) {
-                            $valor_total_mes[] = $c['soma_total_mes'];
-                        }
+        while ($c = $result_soma_total_mes->fetch_assoc()) {
+            $valor_total_mes[] = $c['soma_total_mes'];
+        }
 
-                        $sql_soma_valor_total = "SELECT SUM(valor_total) AS soma_total, nome_item AS nome_item, situacao_concessao AS situacao_concessao FROM concessao_historico
+        $sql_soma_valor_total = "SELECT SUM(valor_total) AS soma_total, nome_item AS nome_item, situacao_concessao AS situacao_concessao FROM concessao_historico
         WHERE mes_pag = '$mes_pago' AND nome_item = 'ATAÚDE'
         GROUP BY nome_item
         ORDER BY nome_item ASC";
-                        $resultado_valor_total = $conn->query($sql_soma_valor_total);
+        $resultado_valor_total = $conn->query($sql_soma_valor_total);
 
-                        $valor_total = [];
-                        $categoria = [];
-                        $situacao = [];
+        $valor_total = [];
+        $categoria = [];
+        $situacao = [];
 
-                        while ($a = $resultado_valor_total->fetch_assoc()) {
-                            $valor_total[] = $a['soma_total'];
-                            $categoria[] = $a['nome_item'];
-                            $situacao[] = $a['situacao_concessao'];
-                        }
+        while ($a = $resultado_valor_total->fetch_assoc()) {
+            $valor_total[] = $a['soma_total'];
+            $categoria[] = $a['nome_item'];
+            $situacao[] = $a['situacao_concessao'];
+        }
 
         ?>
         <P class="num_conc">No mês de <?php echo $mes_pago; ?> foram realizadas <?php echo $total_itens_mes; ?> concessões, com um valor total de
             <?php
-                        foreach ($valor_total_mes as $total_concessao_mes) {
-                            $valor_formatado_mes = number_format($total_concessao_mes, 2, ',', '.');
-                            echo 'R$ ' . $valor_formatado_mes;
-                        }
-            ?>.
+foreach ($valor_total_mes as $total_concessao_mes) {
+            $valor_formatado_mes = number_format($total_concessao_mes, 2, ',', '.');
+            echo 'R$ ' . $valor_formatado_mes;
+        }
+        ?>.
         </P>
         <ul>
             <?php
 
-                        echo '<div class="list">';
-                        foreach ($categoria as $index => $subcat) {
-                            $valor_formatado = number_format($valor_total[$index], 2, ',', '.');
-                            echo '<div>•' . $subcat . ' - R$ ' . $valor_formatado . '</div>';
-                        }
-                        echo '</div>';
+        echo '<div class="list">';
+        foreach ($categoria as $index => $subcat) {
+            $valor_formatado = number_format($valor_total[$index], 2, ',', '.');
+            echo '<div>•' . $subcat . ' - R$ ' . $valor_formatado . '</div>';
+        }
+        echo '</div>';
 
-                        $sql_mes = $conn->real_escape_string($_POST['mes_pg']);
-                        $sql_ano = $conn->real_escape_string($_POST['ano']);
-                        $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? AND nome_item = 'ATAÚDE' ORDER BY nome_item ASC, nome_benef ASC";
+        $sql_mes = $conn->real_escape_string($_POST['mes_pg']);
+        $sql_ano = $conn->real_escape_string($_POST['ano']);
+        $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? AND nome_item = 'ATAÚDE' ORDER BY nome_item ASC, nome_resp ASC";
 
-                        if ($stmt_dados = $conn->prepare($sql_dados)) {
-                            $stmt_dados->bind_param("ss", $sql_mes, $sql_ano);
-                            $stmt_dados->execute();
+        if ($stmt_dados = $conn->prepare($sql_dados)) {
+            $stmt_dados->bind_param("ss", $sql_mes, $sql_ano);
+            $stmt_dados->execute();
 
-                            if ($stmt_dados->errno) {
-                                die("ERRO ao consultar: " . $stmt_dados->error);
-                            } else {
-                                // Manipule os resultados aqui
-                                $result = $stmt_dados->get_result();
-                                // Faça algo com os resultados
+            if ($stmt_dados->errno) {
+                die("ERRO ao consultar: " . $stmt_dados->error);
+            } else {
+                // Manipule os resultados aqui
+                $result = $stmt_dados->get_result();
+                // Faça algo com os resultados
 
-            ?>
+                ?>
         </ul>
         <table id="tabelaConcessoes" border="1">
             <thead>
@@ -289,33 +289,33 @@ if ($setor != "CONCESSÃO" && $setor != "ADMINISTRATIVO" && $setor != "SUPORTE")
             </thead>
 
             <?php
-                                while ($row = $result->fetch_assoc()) {
-                                    $valor_formatado1 = number_format($row['valor_total'], 2, ',', '.');
-                                    echo "<tbody>";
-                                    echo "<td>" . $row['num_form'] . "/" . $row['ano_form'] . "</td>";
-                                    echo "<td>" . $row['nome_benef'] . "</td>";
-                                    echo "<td>" . $row['nome_item'] . "</td>";
-                                    echo "<td> R$ " . $valor_formatado1 . "</td>";
-                                    echo "</tbody>";
-                                }
-            ?>
+while ($row = $result->fetch_assoc()) {
+                    $valor_formatado1 = number_format($row['valor_total'], 2, ',', '.');
+                    echo "<tbody>";
+                    echo "<td>" . $row['num_form'] . "/" . $row['ano_form'] . "</td>";
+                    echo "<td>" . $row['nome_resp'] . "</td>";
+                    echo "<td>" . $row['nome_item'] . "</td>";
+                    echo "<td> R$ " . $valor_formatado1 . "</td>";
+                    echo "</tbody>";
+                }
+                ?>
         </table>
     <?php
-                            }
-    ?>
+}
+            ?>
 
     </div>
     <div class="btns">
         <button class="btns" type="button" id="btn_immprimir">IMPRIMIR</button>
     </div>
 <?php
-                            $stmt_dados->close();
-                        } else {
-                            // Tratamento de erro se a preparação da consulta falhar
-                            die("ERRO ao preparar a consulta: " . $conn->error);
-                        }
-                    }
-                }
+$stmt_dados->close();
+        } else {
+            // Tratamento de erro se a preparação da consulta falhar
+            die("ERRO ao preparar a consulta: " . $conn->error);
+        }
+    }
+}
 ?>
 
 <script>
