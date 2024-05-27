@@ -41,7 +41,6 @@ $num_form = $result['total_registros'] + 1;
     </div>
     <div class="container">
         <?php
-
 $nis_resp = $_POST['nis'];
 $cpf_resp = $_POST['cpf'];
 $mes_pg = $_POST['mes_pg'];
@@ -228,14 +227,14 @@ if (isset($_POST['cpf'])) {
                 </div>
                 <?php
 
-        $smtp_conc = $conn->prepare("INSERT INTO concessao_historico (id_concessao, num_form, ano_form, cpf_resp, nome_benef, nis_benef, cpf_benef, rg_benef, tit_benef, endereco, renda_media, nome_item, qtd_item, valor_uni, valor_total, data_registro, mes_pag, parentesco, operador, situacao_concessao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+        $smtp_conc = $conn->prepare("INSERT INTO concessao_historico (id_concessao, num_form, ano_form, nome_resp, cpf_resp, nome_benef, nis_benef, cpf_benef, rg_benef, tit_benef, endereco, renda_media, nome_item, qtd_item, valor_uni, valor_total, data_registro, mes_pag, parentesco, operador, situacao_concessao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
         // Verifica se a preparação foi bem-sucedida
         if ($smtp_conc === false) {
             die('Erro na preparação SQL: ' . $conn->error);
         }
 
-        $smtp_conc->bind_param("ssssssssssssssssssss", $dados_resp['id_concessao'], $num_form, $data_atual, $_POST['cpf'], $dados_benef['nom_pessoa'], $dados_benef['num_nis_pessoa_atual'], $cpf_formatado_benef, $rg_benef_formatado, $tit_benef_formatado, $endereco_completo, $renda_formatado, $_POST['itens_conc'], $_POST['quantidade'], $_POST['valor_unitario'], $_POST['valor_total'], $hoje_, $mes_pg, $parentesco, $nome, $situation);
+        $smtp_conc->bind_param("sssssssssssssssssssss", $dados_resp['id_concessao'], $num_form, $data_atual, $dados_resp['nome'], $_POST['cpf'], $dados_benef['nom_pessoa'], $dados_benef['num_nis_pessoa_atual'], $cpf_formatado_benef, $rg_benef_formatado, $tit_benef_formatado, $endereco_completo, $renda_formatado, $_POST['itens_conc'], $_POST['quantidade'], $_POST['valor_unitario'], $_POST['valor_total'], $hoje_, $mes_pg, $parentesco, $nome, $situation);
 
         if ($smtp_conc->execute()) {
             ?>
