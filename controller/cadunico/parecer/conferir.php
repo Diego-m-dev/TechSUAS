@@ -15,7 +15,7 @@
     <h1>PARECER TÉCNICO DE VISITA DOMICILIAR</h1>
     <?php
 // Inclui o arquivo "conexao.php" que deve conter a configuração da conexão com o banco de dados
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
 // Verifica se o formulário foi enviado via POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
