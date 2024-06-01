@@ -3,6 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -12,6 +13,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Importar CSV</title>
 </head>
+
 <body>
     <div class="img">
         <h1 class="titulo-com-imagem">
@@ -21,14 +23,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     <div class="container">
         <form action="/TechSUAS/controller/geral/import.php" method="POST" enctype="multipart/form-data">
 
-        <label>Qual tabela você pretende atualizar: </label>
+            <label>Qual tabela você pretende atualizar: </label>
             <select name="csv_tbl" required>
                 <option value="tudo">Base de Dados do Cadastro Único</option>
                 <option value="folha">Folha de Pagamento</option>
             </select>
-
             <label>
-                Selecione o arquivo CSV: 
+            Selecione o arquivo CSV: 
             </label>
             <input type="file" name="arquivoCSV" id="arquivoCSV" accept=".csv">
             <button type="submit" value="Importar"> Importar </button>
