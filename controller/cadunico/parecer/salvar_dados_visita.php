@@ -17,6 +17,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $numero_parecer = $data['numero_parecer'];
         $ano_parecer = $data['ano_parecer'];
         $codigo_familiar = $data['codigo_familiar'];
+
+        //Limpando o código familiar para salvar apenas os números
+            $limpando_codigo_familiar = preg_replace('/\D/', '', $codigo_familiar);
+            $codigo_familiar_formatado = ltrim($limpando_codigo_familiar, '0');
+
         $data_entrevista = $data['data_entrevista'];
         $renda_per_capita = $data['renda_per_capita'];
         $localidade = $data['localidade'];
@@ -42,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ':id_visitas' => $id_visita,
             ':numero_parecer' => $numero_parecer,
             ':ano_parecer' => $ano_parecer,
-            ':codigo_familiar' => $codigo_familiar,
+            ':codigo_familiar' => $codigo_familiar_formatado,
             ':data_entrevista' => $data_entrevista,
             ':renda_per_capita' => $renda_per_capita,
             ':localidade' => $localidade,
