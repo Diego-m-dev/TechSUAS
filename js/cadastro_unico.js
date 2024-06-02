@@ -187,7 +187,163 @@ $('#codfamiliar').on('change', function () {
 })
 
 function consultarFamilia() {
-    var codfamiliar = $('#codfamiliar').val();
-    
-    window.alert('Tem certeza de que o Código: ' + codfamiliar + " está correto? Lembre-se de ignorar os zeros a esquerda e não informar o -.")
+    var codfam = $('#codfamiliar').val();
+
+    $.ajax({
+        type: 'POST',
+        url: '/TechSUAS/controller/cadunico/parecer/busca_visita.php',
+        data: {
+            codfam: codfam
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response.encontrado){
+                if (response.nome) {
+                    $('#nome').text('NOME: ' + response.nome)
+                } else {
+                    $('#nome').text('O código familiar digitado não existe no banco de dados atual')
+                }
+                $('#data_visita').text(response.data_visita)
+                if (response.acao == 1) {
+                    var acao = "ATUALIZAÇÃO REALIZADA";
+                } else if (response.acao == 2) {
+                    var acao = "NÃO LOCALIZADO";
+                } else if (response.acao == 3) {
+                    var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
+                } else if (response.acao == 4) {
+                    var acao = "A FAMÍLIA RECUSOU ATUALIZAR";
+                } else if (response.acao == 5) {
+                    var acao = "ATUALIZAÇÃO NÃO REALIZADA";
+                } else {
+                    var acao = "!"
+                }
+                $('#acao').text(acao)
+                $('#parecer_tec').text('Parecer do Entrevistador: ' + response.parecer_tec)
+                $('#entrevistador').text('Entrevistador: ' + response.entrevistador)
+            }
+        }
+    })
+}
+
+//função para salvar dados da visita a família
+$(document).ready(function () {
+    $('#imprimir_parecer').click(function () {
+        //imprimirParecer()
+    })
+})
+
+function imprimirParecer() {
+    var dados = {
+        id_visita: document.getElementById("id_visita").innerText,
+        numero_parecer: document.getElementById("numero_parecer").innerText,
+        ano_parecer: document.getElementById("ano_parecer").innerText,
+        codigo_familiar: document.getElementById("codigo_familiar").innerText,
+        data_entrevista: document.getElementById("data_entrevista").innerText,
+        renda_per_capita: document.getElementById("renda_per_capita").innerText,
+        localidade: document.getElementById("localidade").innerText,
+        tipo: document.getElementById("tipo").innerText,
+        titulo: document.getElementById("titulo").innerText,
+        nome_logradouro: document.getElementById("nome_logradouro").innerText,
+        numero_logradouro: document.getElementById("numero_logradouro").innerText,
+        complemento_numero: document.getElementById("complemento_numero").innerText,
+        complemento_adicional: document.getElementById("complemento_adicional").innerText,
+        cep: document.getElementById("cep").innerText,
+        referencia_localizacao: document.getElementById("referencia_localizacao").innerText,
+        situacao: document.getElementById("situacao").innerText,
+        resumo_visita: document.getElementById("resumo_visita").innerText
+    }
+
+    var membrosFamilia = []
+    var membros = document.querySelectorAll('.parentesco')
+    membros.forEach(function(membro, index) {
+        var membroData = {
+            parentesco: membro.innerText,
+            nome_completo: document.querySelectorAll('.nome_completo')[index].innerText,
+            nis: document.querySelectorAll('.nis')[index].innerText,
+            data_nascimento: document.querySelectorAll('.data_nascimento')[index].innerText
+        };
+        membrosFamilia.push(membroData)
+    });
+    dados.membros_familia = membrosFamilia
+
+    $.ajax({
+        url: '/TechSUAS/controller/cadunico/parecer/salvar_dados_visita.php',
+        type: 'POST',
+        data: JSON.stringify(dados),
+        contentType: 'application/json',
+        success: function(response) {
+            Swal.fire({
+                icon: "success",
+                title: "SALVO",
+                text: "Dados salvos com sucesso!",
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita"
+                }
+            })
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro ao salvar os dados:', error)
+            console.log('Resposta do servidor:', xhr.responseText)
+        }
+    });
+}
+
+function imprimirParecer2() {
+    var dados = {
+        id_visita: document.getElementById("id_visita").innerText,
+        numero_parecer: document.getElementById("numero_parecer").innerText,
+        ano_parecer: document.getElementById("ano_parecer").innerText,
+        codigo_familiar: document.getElementById("codigo_familiar").innerText,
+        data_entrevista: document.getElementById("data_entrevista").innerText,
+        renda_per_capita: document.getElementById("renda_per_capita").innerText,
+        localidade: document.getElementById("localidade").innerText,
+        tipo: document.getElementById("tipo").innerText,
+        titulo: document.getElementById("titulo").innerText,
+        nome_logradouro: document.getElementById("nome_logradouro").innerText,
+        numero_logradouro: document.getElementById("numero_logradouro").innerText,
+        complemento_numero: document.getElementById("complemento_numero").innerText,
+        complemento_adicional: document.getElementById("complemento_adicional").innerText,
+        cep: document.getElementById("cep").innerText,
+        referencia_localizacao: document.getElementById("referencia_localizacao").innerText,
+        situacao: document.getElementById("situacao").innerText,
+        resumo_visita: document.getElementById("resumo_visita").innerText
+    }
+
+    var membrosFamilia = []
+    var membros = document.querySelectorAll('.parentesco')
+    membros.forEach(function(membro, index) {
+        var membroData = {
+            parentesco: membro.innerText,
+            nome_completo: document.querySelectorAll('.nome_completo')[index].innerText,
+            nis: document.querySelectorAll('.nis')[index].innerText,
+            data_nascimento: document.querySelectorAll('.data_nascimento')[index].innerText
+        };
+        membrosFamilia.push(membroData)
+    });
+    dados.membros_familia = membrosFamilia
+
+    $.ajax({
+        url: '/TechSUAS/controller/cadunico/parecer/salvar_dados_visita.php',
+        type: 'POST',
+        data: JSON.stringify(dados),
+        contentType: 'application/json',
+        success: function(response) {
+            Swal.fire({
+                icon: "success",
+                title: "SALVO",
+                text: "Dados salvos com sucesso!",
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita"
+                }
+            })
+        },
+        error: function(xhr, status, error) {
+            console.error('Erro ao salvar os dados:', error)
+            console.log('Resposta do servidor:', xhr.responseText)
+        }
+    });
 }
