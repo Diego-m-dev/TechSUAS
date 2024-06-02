@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style-processo.css">
     <link rel="shortcut icon" href="/TechSUAS/img/geral/logo.png" type="image/png">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -15,15 +16,15 @@
 <body>
 
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     //PEGANDO OS DADOS DO FORMULÁRIO
     $data_visita = $_POST['data_visita'];
     $acao_visita = $_POST['acao_visita'];
     $parecer = $_POST['parecer'];
     $codigo_familiar = $_POST['codigo_familiar'];
 
-    $smtp = $conn->prepare("INSERT INTO visitas_feitas (cod_fam, data, acao, parecer_tec) VALUES (?,?,?,?)");
-    $smtp->bind_param("ssss", $codigo_familiar, $data_visita, $acao_visita, $parecer);
+    $smtp = $conn->prepare("INSERT INTO visitas_feitas (cod_fam, data, acao, parecer_tec, entrevistador) VALUES (?,?,?,?,?)");
+    $smtp->bind_param("sssss", $codigo_familiar, $data_visita, $acao_visita, $parecer, $_SESSION['nome_usuario']);
 
     //consulta a composição familiar
 
