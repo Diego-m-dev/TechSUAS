@@ -19,7 +19,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    <script src="/TechSUAS/js/cadastro_unico.js"></script>
+
     <title>Registrar visitas</title>
 </head>
 
@@ -28,10 +28,17 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         <img src="/TechSUAS/img/cadunico/visitas/visitash1.svg">
     </h1>
     <div class="container">
+        <!-- Apresenta Nome da tabela TUDO e se já ouve registro de visita -->
+    <label for=""><span id="nome"></span><br/>
+    <span id="data_visita"></span>
+    <span id="acao"></span>
+    </label>
+
+    <!--Formulário para registrar a visita caso não haja-->
         <form method="post" action="/TechSUAS/controller/cadunico/parecer/processo">
             <div class="codfamiliar">
                 <label>CÓDIGO FAMILIAR: </label>
-                <input type="text" id="codfamiliar" onblur="consultarFamilia()" name="codigo_familiar" placeholder="Digite o CÓDIGO FAMILIAR." required>
+                <input type="text" id="codfamiliar" name="codigo_familiar" onblur="consultarFamilia()" placeholder="Digite o CÓDIGO FAMILIAR." required>
             </div>
             <div class="data">
                 <label>DATA DA VISITA: </label>
@@ -62,7 +69,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             </a>
             </div>
         </form>
-
     </div>
+    <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </body>
 </html>
