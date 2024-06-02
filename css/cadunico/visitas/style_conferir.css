@@ -19,6 +19,11 @@ input {
     color: white;
     cursor: pointer;
 }
+.editable-field {
+    border: none;
+    background-color: transparent;
+    text-transform: uppercase;
+}
 input:hover{
     background-color: #3b82f6;
     box-shadow: 0 0 0 1px #3b83f65f;
