@@ -65,8 +65,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             <div class="btn">
                 <button type="submit">Enviar</button>
                 <a href="visitas">
-                <i class="fas fa-arrow-left"></i> Voltar
-            </a>
+                    <i class="fas fa-arrow-left"></i> Voltar
+                </a>
             </div>
         </form>
     </div>
