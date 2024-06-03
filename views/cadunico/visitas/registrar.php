@@ -29,10 +29,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     </h1>
     <div class="container">
         <!-- Apresenta Nome da tabela TUDO e se já ouve registro de visita -->
-    <label for=""><span id="nome"></span><br/>
-    <span id="data_visita"></span>
-    <span id="acao"></span>
-    </label>
+        <label for="">
+            <span id="nome"></span>
+            <h4><span id="titulo_tela"></span></h4>
+            <div id="data_visita"></div>
+        </label>
 
     <!--Formulário para registrar a visita caso não haja-->
         <form method="post" action="/TechSUAS/controller/cadunico/parecer/processo">
