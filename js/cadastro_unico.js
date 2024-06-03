@@ -200,10 +200,37 @@ function consultarFamilia() {
             if (response.encontrado){
                 if (response.nome) {
                     $('#nome').text('NOME: ' + response.nome)
+                    $('#titulo_tela').text('VISITA(S) REALIZADA(S):')
                 } else {
                     $('#nome').text('O código familiar digitado não existe no banco de dados atual')
                 }
-                $('#data_visita').text(response.data_visita)
+
+                var visitas = response.visitas
+                var visitasHtml = ''
+                
+                visitas.forEach(function(visita) {
+                    if (visita.acao == 1) {
+                        var acao = "ATUALIZAÇÃO REALIZADA";
+                    } else if (visita.acao == 2) {
+                        var acao = "NÃO LOCALIZADO";
+                    } else if (visita.acao == 3) {
+                        var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
+                    } else if (visita.acao == 4) {
+                        var acao = "A FAMÍLIA RECUSOU ATUALIZAR";
+                    } else if (visita.acao == 5) {
+                        var acao = "ATUALIZAÇÃO NÃO REALIZADA";
+                    } else {
+                        var acao = ""
+                    }
+                    visitasHtml += '<div class="visita">';
+                    visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>';
+                    visitasHtml += '<span>Ação: ' + acao + '</span><br>';
+                    visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>';
+                    visitasHtml += '</div><br>';
+                })
+                $('#data_visita').html(visitasHtml);
+
+                /* $('#data_visita').text(response.data_visita)
                 if (response.acao == 1) {
                     var acao = "ATUALIZAÇÃO REALIZADA";
                 } else if (response.acao == 2) {
@@ -219,7 +246,7 @@ function consultarFamilia() {
                 }
                 $('#acao').text(acao)
                 $('#parecer_tec').text('Parecer do Entrevistador: ' + response.parecer_tec)
-                $('#entrevistador').text('Entrevistador: ' + response.entrevistador)
+                $('#entrevistador').text('Entrevistador: ' + response.entrevistador)*/
             }
         }
     })
