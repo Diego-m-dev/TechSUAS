@@ -45,7 +45,7 @@ if (isset($_POST['codfam'])) {
     }
     } else {
         $response['encontrado'] = true;
-        $response['data_visita'] = "NENHUMA VISITA ENCONTRADA";
+        $response['data_visita'] = "NENHUMA VISITA ENCONTRADA!";
     }
 
     // Consulta na tabela tbl_tudo
