@@ -16,27 +16,33 @@ if (isset($_POST['codfam'])) {
     if ($stmt_visita->rowCount() > 0) {
         $dados_visita = $stmt_visita->fetch(PDO::FETCH_ASSOC);
         $response['encontrado'] = true;
+        $response['visitas'] = array();
 
         //formatando a data
 
+        while ($dados_visita = $stmt_visita->fetch(PDO::FETCH_ASSOC)) {
+        
         $data = $dados_visita['data'];
         // Verifica se a data não está vazia e tenta criar um objeto DateTime
         if (!empty($data)) {
             $formatando_data = DateTime::createFromFormat('Y-m-d', $data);
-        
+
             // Verifica se a data foi criada corretamente
             if ($formatando_data) {
-                $data_formatada = $formatando_data->format('d/m/Y');
+                $dados_visita['data'] = $formatando_data->format('d/m/Y');
             } else {
-                echo "Data inválida.";
+                $dados_visita['data'] = "Data inválida.";
             }
+            $status = $dados_visita['acao'];
         } else {
-            echo "Data não fornecida.";
+            $dados_visita['data'] = "Data não fornecida.";
         }
-
-        $response['data_visita'] = ' DATA DA VISITA: '. $data_formatada;
-        $response['acao'] = $dados_visita['acao'];
-        $response['entrevistador'] = $dados_visita['entrevistador'];
+        $response['visitas'][] = array(
+            'data' => $dados_visita['data'],
+            'acao' => $dados_visita['acao'],
+            'entrevistador' => $dados_visita['entrevistador']
+        );
+    }
     } else {
         $response['encontrado'] = true;
         $response['data_visita'] = "NENHUMA VISITA ENCONTRADA";
