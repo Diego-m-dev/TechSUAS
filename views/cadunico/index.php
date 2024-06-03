@@ -73,15 +73,15 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
               </span>
               Links Úteis
             </a>
-<!--
+
           <div class="atendimento">
-            <a class="menu-button" href='../views/atendimento/index'>
+            <a class="menu-button" href='/TechSUAS/views/cadunico/msn_cad/index'>
               <span class="material-symbols-outlined">
                 contacts
               </span>
-              Atendimento
+              Mensagens do CadÚnico
             </a>
--->
+
 <?php
 if ($_SESSION['funcao'] == 1) {
   ?>

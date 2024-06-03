@@ -35,8 +35,8 @@
         $valor_unitario = str_replace(',', '.', $valor_unitario);
         $valor_total = str_replace(',', '.', $valor_total);
 
-        $smtp = $conn->prepare("UPDATE concessao_historico SET nome_item=?, qtd_item=?, valor_uni=?, valor_total=?, mes_pag=?, pg_data=?, situacao_concessao=? WHERE id_hist=?");
-        $smtp->bind_param("ssssssss", $itens_conc, $quantidade, $valor_unitario, $valor_total, $mes_pg, $dt_pg, $situacao, $id_hist);
+        $smtp = $conn->prepare("UPDATE concessao_historico SET nome_resp=?, nome_item=?, qtd_item=?, valor_uni=?, valor_total=?, mes_pag=?, pg_data=?, situacao_concessao=? WHERE id_hist=?");
+        $smtp->bind_param("sssssssss", $itens_conc, $quantidade, $valor_unitario, $valor_total, $mes_pg, $dt_pg, $situacao, $id_hist);
         if ($smtp->execute()) {
 
             if ($situacao == "CANCELADA") {

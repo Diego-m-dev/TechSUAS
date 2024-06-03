@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/sylegerar1.css">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/stylegerar.css">
     <title>documento oficial do cadastro único - são bento do una</title>
 </head>
 
@@ -15,15 +15,12 @@
 
     <?php
 
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
 
-$data_atual = date('d, m, Y');
+$data_atual = date('d/m/Y');
 $ano_atual = date('Y');
-// PEGANDO OS DADOS DO FORMULÁRIO
-// Verifique se o array da sessão existe e obtenha os valores dele
-session_start();
 
 if (isset($_SESSION['dados_conferidos'])) {
     $dados_conferidos = $_SESSION['dados_conferidos'];
@@ -41,13 +38,14 @@ if (isset($_SESSION['dados_conferidos'])) {
     $parecer_tec = $dados_conferidos['parecer_tec'];
     $data_formatada_at = $dados_conferidos['data_formatada_at'];
     $cpf_formatado = $dados_conferidos['cpf_formatado'];
+    $id_visitas = $dados_conferidos['id_visita'];
 
 } else {
     echo "ERRO no armazenamento dos dados.";
 }
 
-$smtp = $conn->prepare("INSERT INTO historico_parecer_visita (numero_parecer, cod_familiar, nome, restante, data_atual) VALUES (?,?,?,?,?)");
-$smtp->bind_param("sssss", $numero_parecer, $cod_familiar, $nom_pessoa, $texto_parecer, $data_atual);
+$smtp = $conn->prepare("INSERT INTO historico_parecer_visita (id_visitas, numero_parecer, ano_parecer, cod_familiar, nome, restante, data_atual) VALUES (?,?,?,?,?,?,?)");
+$smtp->bind_param("sssssss", $id_visitas, $numero_parecer, $ano_atual, $cod_familiar, $nom_pessoa, $texto_parecer, $data_atual);
 
 $cod_familiar_formatado = substr_replace(str_pad($cod_familiar, 11, "0", STR_PAD_LEFT), '-', 9, 0);
 if ($smtp->execute()) {
@@ -64,7 +62,7 @@ $dados_post = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 ?>
 <div class="conteudo">
     <?php
-echo '<link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/sylegerar.css>"';
+echo '<link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/stylegerar.css>"';
 echo "<br>Parecer: " . $numero_parecer . "/" . $ano_atual . "<br>";
 echo "<br><br><label>CÓDIGO FAMILIAR: " . $cod_familiar_formatado . "</label><br>";
 echo "<label>NIS do Responsável pela(o) Unidade Familiar (RUF): " . $nis_responsavel_formatado . "</label>";
@@ -76,7 +74,7 @@ echo "<br><br><p style='text-align:center;'>____________________________________
 echo "</body>";
 echo "</html>";
 
-echo '<script> setTimeout(function(){ window.location.href = ""/TechSUAS/views/cadunico/visitas/visitas"; }, 3000); </script>';
+echo '<script> setTimeout(function(){ window.location.href = "/TechSUAS/views/cadunico/visitas/visitas"; }, 3000); </script>';
 ?>
 </div>
     <script> window.onload = function() { window.print();};

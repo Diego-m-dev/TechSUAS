@@ -1,5 +1,4 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 ?>
 <!DOCTYPE html>
@@ -23,15 +22,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     </div>
     <div class="container">
         <form action="/TechSUAS/controller/geral/import.php" method="POST" enctype="multipart/form-data">
-
             <label>Qual tabela você pretende atualizar: </label>
             <select name="csv_tbl" required>
+                <option value="" disabled selected hidden>Selecione</option>
                 <option value="tudo">Base de Dados do Cadastro Único</option>
                 <option value="folha">Folha de Pagamento</option>
-
             </select>
-
-            Selecione o arquivo CSV: <input type="file" name="arquivoCSV" id="arquivoCSV" accept=".csv">
+            <label>Selecione o arquivo CSV: </label>
+            <input type="file" name="arquivoCSV" id="arquivoCSV" accept=".csv" required>
             <button type="submit" value="Importar"> Importar </button>
             <div class="btn">
                 <a href="/TechSUAS/config/back">
@@ -41,6 +39,4 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </form>
     </div>
 </body>
-
-
 </html>

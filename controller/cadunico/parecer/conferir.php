@@ -7,28 +7,18 @@
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_conferir.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <title>Parecer técnico de visita domiciliar</title>
+    <title>Registro de visita domiciliar</title>
 
 </head>
 
 <body>
-    <h1>PARECER TÉCNICO DE VISITA DOMICILIAR</h1>
+    <h1>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h1>
     <?php
 // Inclui o arquivo "conexao.php" que deve conter a configuração da conexão com o banco de dados
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declaracao/create_moth.php';
 
-// Verifica se o formulário foi enviado via POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Obtém o CPF inserido pelo usuário
-    $codfam = $_POST["codfam"];
-    $codfamv = $_POST["codfam"];
-    $anoatual = date('Y');
-
-    setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
-    //formantando a data para um modelo dia mes (nome) e ano para português
-    $timestampptbr = time();
-
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declaracao/create_moth.php';
+$id_visita = $_POST["id_visita"];
     //data criada com formato 'DD de mmmm de YYYY'
     $data_formatada_at = $dia_atual . " de " . $mes_formatado . " de ". $ano_atual;
 
@@ -39,28 +29,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $totalRegistros = $row['total_registros'];
     $numero_parecer = $totalRegistros + 1;
 
-    // Consulta SQL para buscar informações na tabela com base no Código Familiar
-    //"SELECT * FROM sua_tabela WHERE seu_campo = LPAD('$numero', comprimento_desejado, '0')"
-    
-    // Utilizando a função LPAD na consulta SQL para adicionar zeros à esquerda
-    $sql = $pdo->prepare("SELECT * FROM tbl_tudo WHERE cod_familiar_fam = LPAD(:codfam, 11, '0')");
-    $sql->bindParam(':codfam', $codfam, PDO::PARAM_STR);
-    $sql->execute();
-
-    //$sql = $pdo->prepare("SELECT * FROM tbl_tudo WHERE cod_familiar_fam = :codfam");
-    //$sql->bindParam(':codfam', $codfam, PDO::PARAM_STR);
-    //$sql->execute();
-
-    $sqli = $pdo->prepare("SELECT * FROM visitas_feitas WHERE cod_fam = :codfamv");
-    $sqli->bindParam(':codfamv', $codfamv, PDO::PARAM_STR);
+    $sqli = $pdo->prepare("SELECT * FROM visitas_feitas WHERE id = :idvisita");
+    $sqli->bindParam(':idvisita', $id_visita, PDO::PARAM_STR);
     $sqli->execute();
+
+    // Verifica se o formulário foi enviado via POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     //Verifica se a consulta em visita retornou algum resultado
     if ($sqli->rowCount() > 0) {
-        // Verifica se a consulta retornou algum resultado
+        // Recupera os dados da consulta
+        $dadosv = $sqli->fetch(PDO::FETCH_ASSOC);
+        $codfam = $dadosv['cod_fam'];
+
+    $sql = $pdo->prepare("SELECT * FROM tbl_tudo WHERE cod_familiar_fam = LPAD(:codfam, 11, '0') AND cod_parentesco_rf_pessoa = 1");
+    $sql->bindParam(':codfam', $codfam, PDO::PARAM_STR);
+    $sql->execute();
+
+    $sql_vis_did = $pdo->prepare("SELECT * FROM visitas_feitas WHERE cod_fam = :codfam");
+    $sql_vis_did->bindParam(':codfam', $codfam, PDO::PARAM_STR);
+    $sql_vis_did->execute();
+
         if ($sql->rowCount() > 0) {
             // Recupera os dados da consulta
             $dados = $sql->fetch(PDO::FETCH_ASSOC);
+            $dados_vis_did = $sql_vis_did->fetch(PDO::FETCH_ASSOC);
 
             //Formatando o código familiar
             $cod_familiar = $dados["cod_familiar_fam"];
@@ -105,10 +98,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $sexo1 = " a ";
             }
             $nom_mae_rf = $dados["nom_completo_mae_pessoa"];
+            $id_vis = $dados_vis_did['id'];
 
             ?>
     <form method="post" action="gerarpdf.php">
-        <p name="numero_parecer">Parecer: <?php echo $numero_parecer; ?> / <?php echo $anoatual; ?></p>
+        <p name="numero_parecer">Parecer: <?php echo $numero_parecer; ?> / <?php echo $ano_atual; ?></p>
         <p><label>CÓDIGO FAMILIAR: </label>
         <?php
     $endereco_conpleto = $tipo_logradouro . " " . $nom_tit . " " . $nom_logradouro_fam . ", " . $num_logradouro . " - " . $nom_localidade_fam . ", " . $referencia;
@@ -122,23 +116,32 @@ echo $nis_responsavel_formatado;
             echo "Nenhum registro encontrado para o CPF informado.";
         }
 
-        // Recupera os dados da consulta
-        $dadosv = $sqli->fetch(PDO::FETCH_ASSOC);
-        $localizado = $dadosv["acao"];
-        if ($localizado == "2") {
-            $acao = "família não foi localizada";
-        } elseif ($localizado == "3") {
-            $acao = "família foi identificada como falecida";
-        } elseif ($localizado == "4") {
-            $acao = "responsável familiar recusou-se a fornecer informações para a atualização do Cadastro Único";
+        if ($dadosv['acao'] == 1) {
+            $acao = "ATUALIZAÇÃO REALIZADA";
+        } else if ($dadosv['acao'] == 2) {
+            $acao = "NÃO LOCALIZADO";
+        } else if ($dadosv['acao'] == 3) {
+            $acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
+        } else if ($dadosv['acao'] == 4) {
+            $acao = "A FAMÍLIA RECUSOU ATUALIZAR";
+        } else if ($dadosv['acao'] == 5) {
+            $acao = "ATUALIZAÇÃO NÃO REALIZADA";
         }
-
-        // Supondo que $dadosv["data"] contenha a data no formato 'Y-m-d'
-        $data_mysql = $dadosv["data"];
-        // Converte a data do formato do MySQL para um timestamp
-        $timestamp = strtotime($data_mysql);
-        // Formata o timestamp no formato desejado
-        $data_formatada = strftime('%d de %B de %Y', $timestamp); ?>
+        $data = $dadosv['data'];
+        // Verifica se a data não está vazia e tenta criar um objeto DateTime
+        if (!empty($data)) {
+            $formatando_data = DateTime::createFromFormat('Y-m-d', $data);
+        
+            // Verifica se a data foi criada corretamente
+            if ($formatando_data) {
+                $data_formatada = $formatando_data->format('d/m/Y');
+            } else {
+                echo "Data inválida.";
+            }
+        } else {
+            echo "Data não fornecida.";
+        }
+?>
 
         <p>Data Visita: <?php echo $data_formatada; ?></p>
         <p>Endereço: <?php echo $endereco_conpleto; ?></p>
@@ -154,8 +157,7 @@ echo $nis_responsavel_formatado;
 $parecer_tec = $dadosv["parecer_tec"];
         $nom_pessoa = $dados['nom_pessoa'];
         $texto_parecer = "Foi realizado no dia " . $data_formatada . ", no endereço " . $endereco_conpleto . " declarado por " . $dados["nom_pessoa"] . ", CPF: " . $cpf_formatado . ", " . $sexo . " " . $nom_mae_rf . ", mas " . $sexo1 . " " . $acao . ". Em busca ativa obteve a seguinte informação " . $dadosv["parecer_tec"];
-        // Inicie a sessão
-        session_start();
+
         // Armazene a variável na sessão
         $_SESSION['dados_conferidos'] = array(
             'numero_parecer' => $numero_parecer,
@@ -172,13 +174,10 @@ $parecer_tec = $dadosv["parecer_tec"];
             'parecer_tec' => $parecer_tec,
             'data_formatada_at' => $data_formatada_at,
             'cpf_formatado' => $cpf_formatado,
+            'id_visita' => $id_vis
 
         );
     } else {
-        //Formatando o código familiar
-
-        $cod_familiar_formatado = substr_replace(str_pad($codfamv, 11, "0", STR_PAD_LEFT), '-', 9, 0);
-        echo "Não foi realizado nenhuma visita a essa família " . $cod_familiar_formatado . "<br>";
         echo "<hr><br><a href='/TechSUAS/views/cadunico/visitas/visitas'><i class='fas fa-arrow-left'></i><button>Voltar</button></a>";
     }
 }?>
