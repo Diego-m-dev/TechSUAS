@@ -204,7 +204,7 @@ function consultarFamilia() {
                 } else {
                     $('#nome').text('O código familiar digitado não existe no banco de dados atual')
                 }
-
+                if (response.visitas) {
                 var visitas = response.visitas
                 var visitasHtml = ''
                 
@@ -229,6 +229,9 @@ function consultarFamilia() {
                     visitasHtml += '</div><br>';
                 })
                 $('#data_visita').html(visitasHtml);
+            } else if (response.data_visita) {
+                $('#data_visita').text(response.data_visita);
+            }
 
                 /* $('#data_visita').text(response.data_visita)
                 if (response.acao == 1) {
