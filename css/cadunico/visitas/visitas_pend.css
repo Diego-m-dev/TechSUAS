@@ -24,14 +24,18 @@ table,
 td {
   background-color: #ffffff99;
   color: #13294b;
-  font-size: 16px;
+  font-size: 15px;
   font-family: "Inter", sans-serif;
   border-radius: 5px;
   padding: 1px 2px;
   border-style: outset;
   white-space: nowrap;
+  width: 50%;
 }
+#print{
+  margin-bottom: 10px;
 
+}
 button,
 a {
   font-size: 12px;
@@ -106,5 +110,13 @@ label {
   color: red;
 }
 .bloco{
-  padding-bottom: 10px;
+  
+  display: flex;
+  flex-direction:row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  align-content: flex-start ;
+}
+.impr{
+margin-left: 10px ;
 }

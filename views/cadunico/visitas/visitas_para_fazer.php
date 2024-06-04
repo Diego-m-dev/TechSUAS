@@ -15,6 +15,7 @@ $data9 = $data1 - 1;
 
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -25,6 +26,7 @@ $data9 = $data1 - 1;
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
     <div class="img">
         <h1 class="titulo-com-imagem">
@@ -32,29 +34,56 @@ $data9 = $data1 - 1;
         </h1>
     </div>
     <div class="bloco">
-        <form action=''>
-            <select id="ano_select" name="ano_select">
-            <option value="" disabled selected hidden>Selecione</option>
-            <option value="<?php echo $data2; ?>"><?php echo $data2; ?></option>
-            <option value="<?php echo $data3; ?>"><?php echo $data3; ?></option>
-            <option value="<?php echo $data4; ?>"><?php echo $data4; ?></option>
-            <option value="<?php echo $data5; ?>"><?php echo $data5; ?></option>
-            <option value="<?php echo $data6; ?>"><?php echo $data6; ?></option>
-            <option value="<?php echo $data7; ?>"><?php echo $data7; ?></option>
-            <option value="<?php echo $data8; ?>"><?php echo $data8; ?></option>
-            <option value="<?php echo $data9; ?>"><?php echo $data9; ?></option>
-            <option value="<?php echo $data1; ?>"><?php echo $data1; ?></option>
-        </select>
-            <label>Fitre a localidade:</label>
+        <div>
+            <form action=''>
+                <select id="ano_select" name="ano_select">
+                    <option value="" disabled selected hidden>Selecione</option>
+                    <option value="<?php echo $data2; ?>"><?php echo $data2; ?></option>
+                    <option value="<?php echo $data3; ?>"><?php echo $data3; ?></option>
+                    <option value="<?php echo $data4; ?>"><?php echo $data4; ?></option>
+                    <option value="<?php echo $data5; ?>"><?php echo $data5; ?></option>
+                    <option value="<?php echo $data6; ?>"><?php echo $data6; ?></option>
+                    <option value="<?php echo $data7; ?>"><?php echo $data7; ?></option>
+                    <option value="<?php echo $data8; ?>"><?php echo $data8; ?></option>
+                    <option value="<?php echo $data9; ?>"><?php echo $data9; ?></option>
+                    <option value="<?php echo $data1; ?>"><?php echo $data1; ?></option>
+                </select>
+                <label>Fitre a localidade:</label>
                 <input name="localidade" class="busca2" placeholder="Qual localdade" type="text">
-                <button type="submit">Buscar</button>
+                <button type="submit" id="buscar">Buscar</button>
                 <a href="visitas">
                     <span class="fas fa-arrow-left"></span>
-                Voltar 
+                    Voltar
                 </a>
-        </form>
+            </form>
+
+
+        </div>
     </div>
-    <?php include '../../../controller/cadunico/parecer/tbl_tudo.php';?>
+    <?php include '../../../controller/cadunico/parecer/tbl_tudo.php'; ?>
     <script src='/TechSUAS/js/personalise.js'></script>
+    <script>
+        // Verifica se a tabela possui pelo menos duas linhas com conteúdo
+        var hasContent = false;
+        var contentCount = 0; // Contador para linhas com conteúdo
+
+        for (var i = 0; i < table.rows.length; i++) {
+            if (table.rows[i].cells[0].textContent.trim() !== "") {
+                contentCount++; // Incrementa o contador se a primeira célula tiver conteúdo
+                if (contentCount >= 2) { // Verifica se já há pelo menos duas linhas com conteúdo
+                    hasContent = true;
+                    break;
+                }
+            }
+        }   
+
+        // Exibe ou oculta o botão de acordo com a presença de conteúdo (mínimo 2 linhas)
+        if (hasContent) {
+            button.style.display = "block";
+        } else {
+            button.style.display = "none";
+        }
+    </script>
 </body>
+
 </html>

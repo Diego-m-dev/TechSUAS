@@ -30,6 +30,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             <img src="/TechSUAS/img/cadunico/visitas/h1-buscar_visita.svg" alt="Titulocomimagem">
         </h1>
     </div>
+    <div class="container">
     <div class="camp1">
         <form method="post" action="">
             <label for="codfam" class="busca">CÓDIGO FAMILIAR:</label>
@@ -41,6 +42,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     </div>
     <div class="linha"></div>
     </form>
+    </div>
     <!--
     <span id="sem_registro"></span><br/>
     <span id="nome"></span><br/>

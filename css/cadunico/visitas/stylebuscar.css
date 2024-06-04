@@ -19,10 +19,9 @@ img {
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    padding: 30px 0px 0px 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 10px;
 }
 
 .busca {
@@ -37,9 +36,11 @@ img {
     width: 150px;
     border-radius: 5px;
     font-size: auto;
+    width: 200px;
 }
 .camp1{
     padding: 20px 0px 30px 0px;
+    
 }
 .linha{
     border: 1px solid #13294b;

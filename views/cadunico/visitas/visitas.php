@@ -21,6 +21,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </h1>
       </div>
       <div class="container">
+        <div class="fundo">
         <div class="btns">
           <div class="buscarvisitas">
             <button class="menu-button" onclick="location.href='buscarvisita';">
@@ -58,6 +59,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </div>
         <div class="grafico">
           <canvas id="graficoPizza"></canvas>
+        </div>
         </div>
       </div>
     </nav>

@@ -17,8 +17,17 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 </head>
 <body>
 
-<button id="print" name="excluir[]" onclick="printerVisitas()">imprimir</button>
-<table width="650px" border="1">
+
+
+    <?php
+if (!isset($_GET['ano_select'])) {
+} else {
+    ?>
+        <div id="impr" class="impr">
+            <button id="print" name="excluir[]" onclick="printerVisitas()">imprimir</button>
+        </div>
+
+    <table width="650px" border="1">
 <tr class="titulo" >
 <th class="check">
                 <label class="urg">
@@ -30,10 +39,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
     <th class="cabecalho">DATA ATUALIZAÇÃO</th>
     <th class="cabecalho">ENDEREÇO</th>
 </tr>
+    <?PHP
 
-    <?php
-if (!isset($_GET['ano_select'])) {
-} else {
     $sql_cod = $conn->real_escape_string($_GET['ano_select']);
     $sqli_cod = $conn->real_escape_string($_GET['localidade']);
     $sql_dados = "SELECT * FROM tbl_tudo  WHERE dat_atual_fam LIKE '%$sql_cod%' AND nom_localidade_fam LIKE '%$sqli_cod%' AND cod_parentesco_rf_pessoa = 1";
