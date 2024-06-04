@@ -19,7 +19,6 @@ $(document).ready(function () {
         $('#entrevistadores').show()
     })
 
-
 })
 
 $(document).ready(function () {
@@ -79,7 +78,7 @@ $(document).ready(function () {
             }
         })
     })
-
+        /* FORMULARIO RERNDA */
     $('#btn_dec_renda').click(function () {
         Swal.fire({
             title: "TERMO DE DECLARAÇÃO",
@@ -377,3 +376,4 @@ function imprimirParecer2() {
         }
     });
 }
+
