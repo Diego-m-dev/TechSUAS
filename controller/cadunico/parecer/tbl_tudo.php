@@ -23,12 +23,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 if (!isset($_GET['ano_select'])) {
 } else {
     ?>
-        <div id="impr" class="impr">
-            <button id="print" name="excluir[]" onclick="printerVisitas()">imprimir</button>
-        </div>
+<div class="tabela">
 
-    <table width="650px" border="1">
-<tr class="titulo" >
+
+    <table border="1">
+    <th class="btn_impr"><button id="print" name="excluir[]" onclick="printerVisitas()">imprimir</button></th>
+<tr class="titulo">
 <th class="check">
                 <label class="urg">
                         <input type="checkbox" id="selecionarTodos">
@@ -38,7 +38,9 @@ if (!isset($_GET['ano_select'])) {
     <th class="cabecalho">NOME</th>
     <th class="cabecalho">DATA ATUALIZAÇÃO</th>
     <th class="cabecalho">ENDEREÇO</th>
+    
 </tr>
+
     <?PHP
 
     $sql_cod = $conn->real_escape_string($_GET['ano_select']);
@@ -97,9 +99,7 @@ if (!isset($_GET['ano_select'])) {
     }
 }?>
 </table>
+</div>
 <p id="paraPrint"></p>
-    <script>
-
-    </script>
     </body>
     </html>

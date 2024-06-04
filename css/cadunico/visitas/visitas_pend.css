@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 body {
-  background-image: url(../img/fundo_cad.svg);
+  background-image: url(../../../img/cadunico/background_cad.svg);
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -29,12 +29,10 @@ td {
   border-radius: 5px;
   padding: 1px 2px;
   border-style: outset;
-  white-space: nowrap;
-  width: 50%;
+  width: auto;
 }
-#print{
-  margin-bottom: 10px;
-
+.tabela{
+  margin-top: 20px;
 }
 button,
 a {
@@ -118,5 +116,10 @@ label {
   align-content: flex-start ;
 }
 .impr{
-margin-left: 10px ;
+display: flex;
+flex-direction:row;
+align-items: flex-end;
+justify-content: flex-end;
+align-content: flex-end ;
+margin-right: 50px;
 }
