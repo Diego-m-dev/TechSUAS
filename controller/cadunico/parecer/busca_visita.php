@@ -5,6 +5,7 @@ header('Content-Type: application/json'); // Define o tipo de conteúdo como JSO
 
 if (isset($_POST['codfam'])) {
     $codfamiliar = $conn->real_escape_string($_POST['codfam']);
+    $ajustando_cod = str_pad($codfamiliar, 11,'0',STR_PAD_LEFT);
 
     // Inicializa o array de resposta
     $response = array('encontrado' => false);
@@ -12,11 +13,14 @@ if (isset($_POST['codfam'])) {
     // Consulta na tabela visitas_feitas
     $stmt_visita = $pdo->prepare("SELECT * FROM visitas_feitas WHERE cod_fam = :codfamiliar");
     $stmt_visita->execute(array(':codfamiliar' => $codfamiliar));
+    
 
-    if ($stmt_visita->rowCount() > 0) {
-        $dados_visita = $stmt_visita->fetch(PDO::FETCH_ASSOC);
+
+
+    if ($stmt_visita->rowCount() != 0) {
         $response['encontrado'] = true;
         $response['visitas'] = array();
+
 
         //formatando a data
 
@@ -49,7 +53,7 @@ if (isset($_POST['codfam'])) {
     }
 
     // Consulta na tabela tbl_tudo
-    $stmt_tudo = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '%$codfamiliar%' AND cod_parentesco_rf_pessoa = 1";
+    $stmt_tudo = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$ajustando_cod' AND cod_parentesco_rf_pessoa = 1";
     $sql_query = $conn->query($stmt_tudo) or die("ERRO ao consultar !" . $conn->error);
 
     if ($sql_query->num_rows > 0) {

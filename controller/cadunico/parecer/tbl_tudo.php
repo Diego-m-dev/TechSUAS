@@ -23,13 +23,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 if (!isset($_GET['ano_select'])) {
 } else {
     ?>
+
+<form action="/TechSUAS/controller/cadunico/parecer/visitas_does" method="POST">
+
 <div class="tabela">
 
 
     <table border="1">
-    <th class="btn_impr"><button id="print" name="excluir[]" onclick="printerVisitas()">imprimir</button></th>
+    <th class="btn_impr"><button type="submit" id="print" onclick="printerVisitas()">imprimir</button></th>
 <tr class="titulo">
-<th class="check">
+    <th class="check">
                 <label class="urg">
                         <input type="checkbox" id="selecionarTodos">
                     <span class="checkmark"></span>
@@ -59,11 +62,11 @@ if (!isset($_GET['ano_select'])) {
         while ($dados = $sql_query->fetch_assoc()) {
             ?>
         <tr class="resultado">
-        <td class="check">
-                <label class="urg">
-                        <input type="checkbox" name="excluir[]" value="<?php echo $dados['num_nis_pessoa_atual']; ?>">
-                        <span class="checkmark"></span>
-                </label>
+            <td class="check">
+                    <label class="urg">
+                            <input type="checkbox" name="excluir[]" value="<?php echo $dados['num_nis_pessoa_atual']; ?>">
+                            <span class="checkmark"></span>
+                    </label>
             </td>
             <td class="resultado"><?php echo $dados['nom_pessoa']; ?></td>
             <td class="resultado"><?php echo $dados['dat_atual_fam']; ?></td>
@@ -100,6 +103,7 @@ if (!isset($_GET['ano_select'])) {
 }?>
 </table>
 </div>
+</form>
 <p id="paraPrint"></p>
     </body>
     </html>
