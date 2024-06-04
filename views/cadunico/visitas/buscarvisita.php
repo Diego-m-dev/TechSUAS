@@ -135,7 +135,8 @@ if (!empty($data)) {
     }
 } else {
     echo "Data não fornecida.";
-}            ?></td>
+}
+            ?></td>
 
     <!--3--><td><?php echo $dados_hist_form['entrevistador']; ?></td>
 
