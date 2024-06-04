@@ -30,7 +30,7 @@ if (!isset($_GET['ano_select'])) {
 
 
     <table border="1">
-    <th class="btn_impr"><button type="submit" id="print" onclick="printerVisitas()">imprimir</button></th>
+    <th class="btn_impr"><button type="submit" id="print">imprimir</button></th>
 <tr class="titulo">
     <th class="check">
                 <label class="urg">
