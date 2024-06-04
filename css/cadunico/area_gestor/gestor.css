@@ -1,0 +1,47 @@
+.chart-container {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chart {
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 50px;
+}
+
+table {
+    width: 80%;
+    margin: 0 auto;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+h2, h3 {
+    text-align: center;
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+    font-size: 18px;
+}
+
+.destaque {
+    background-color: #b5b1a7; /* Cor de fundo para destacar */
+}
