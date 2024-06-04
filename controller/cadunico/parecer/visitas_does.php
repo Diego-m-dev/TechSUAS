@@ -18,8 +18,30 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 </head>
 <body>
 <?php
-$nis_form = $_POST['excluir'];
+if (!isset($_POST['excluir'])) {
+    ?>
+    <script>
+            Swal.fire({
+                icon: "info",
+                title: "NENHUM NIS SELECIONADO",
+                text: "Selecione ao menos um NIS!",
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.history.back()
+                }
+            })
+    </script>
+    <?php
+} else {
+    $nis_form = $_POST['excluir'];
 
+
+?>
+<a href="/TechSUAS/views/cadunico/visitas/visitas_para_fazer">
+    <i class="fas fa-arrow-left"></i> Voltar
+</a>
+<?php
 foreach ($nis_form as $nis) {
 
     $sql_dados = "SELECT * FROM tbl_tudo  WHERE num_nis_pessoa_atual LIKE '%$nis%'";
@@ -106,6 +128,7 @@ foreach ($nis_form as $nis) {
     <hr>
     <?php
     //echo 'NIS: '. htmlspecialchars($nis). '<br>';
+}
 }
 ?>
 
