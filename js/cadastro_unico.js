@@ -146,7 +146,6 @@ $(document).ready(function () {
     })
 })
 
-
 function voltarAoMenu() {
     window.history.back()
 }
@@ -376,4 +375,42 @@ function imprimirParecer2() {
         }
     });
 }
+
+/*
+FUNÇÕES PARA A TELA DE DECLARAÇÕES
+
+*/
+
+$(document).ready(function () {
+    $('#btn_dec_cad').click(function () {
+        Swal.fire({
+            title: "DECLARAÇÃO DO CADASTRO ÚNICO",
+            html: `
+            <p>É importante conferir as informações no CadÚnico e SIBEC para certificar-se da situação recente da família.</p>
+            <h4>INFORME O CPF</h4>
+            <form method="POST" action="dec_cadunico" id="form_familia">
+                <label> CPF:
+                    <input id="cpf_dec_cad" type="text" name="cpf_dec_cad"/>
+                </label>
+            </form>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Enviar',
+            cancelButtonText: 'Cancelar',
+            didOpen: () => {
+                $('#cpf_dec_cad').mask('000.000.000-00')
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.getElementById("form_familia")
+                form.submit()
+            }
+        })
+    })
+})
+
+
+
+
+
 
