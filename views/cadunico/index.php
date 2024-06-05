@@ -82,9 +82,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
               Mensagens do CadÚnico
             </a>
 
-<?php
-if ($_SESSION['funcao'] == 1) {
-  ?>
             <div class="peixe">
               <a class="menu-button" href='/TechSUAS/views/cadunico/area_gestao/index'>
                 <span class="material-symbols-outlined">
@@ -93,9 +90,7 @@ if ($_SESSION['funcao'] == 1) {
                 Area do Gestor
               </a>
             </div>
-<?php
-}
-?>
+
           </div>
           <nav>
       </div>
