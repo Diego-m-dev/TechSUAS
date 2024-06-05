@@ -29,7 +29,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     </h1>
     <div class="container">
         <!-- Apresenta Nome da tabela TUDO e se já ouve registro de visita -->
-        <div id="caixaRolagem">
+        <div id="caixaRolagem" class="caixa_rolagem">
             <label id="conteudoLabel" for="">
                 <span id="nome"></span>
                 <h4><span id="titulo_tela"></span></h4>
@@ -74,6 +74,28 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </form>
     </div>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const conteudoLabel = document.getElementById("conteudoLabel")
+        const caixaRolagem = document.getElementById("caixaRolagem")
+
+        // Função para verificar o conteúdo do label
+        function verificarConteudo() {
+            if (conteudoLabel.textContent.trim()) {
+                caixaRolagem.classList.add("visible")
+            } else {
+                caixaRolagem.classList.remove("visible")
+            }
+        }
+
+        // Verificar conteúdo ao carregar a página
+        verificarConteudo()
+
+        // Adicionar event listeners se precisar verificar dinamicamente
+        const observador = new MutationObserver(verificarConteudo)
+        observador.observe(conteudoLabel, { childList: true, subtree: true })
+    })
+    </script>
 
 </body>
 </html>
