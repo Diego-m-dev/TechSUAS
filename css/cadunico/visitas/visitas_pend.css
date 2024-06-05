@@ -34,6 +34,11 @@ td {
 .tabela{
   margin-top: 20px;
 }
+.bloco{
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: ;
+}
 button,
 a {
   font-size: 12px;

@@ -27,6 +27,16 @@ img {
     margin: 0px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
 }
+.caixa_rolagem {
+    width: 500px;   /* Largura fixa da caixa */
+    height: 80px;  /* Altura fixa da caixa */
+    border: 1px solid #ccc;  /* Bordas da caixa */
+    padding: 10px;  /* Espaçamento interno */
+    overflow-y: scroll;  /* Adiciona rolagem vertical */
+    overflow-x: hidden;  /* Oculta a rolagem horizontal */
+    background-color: #ffffff;  /* Cor de fundo */
+    border-radius: 5px;
+}
 
 input,
 select {
