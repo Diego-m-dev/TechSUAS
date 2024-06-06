@@ -31,14 +31,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
       <div class="menu">
         <nav>
           <div class="formularios">
-            <a class="menu-button" href="/TechSUAS/views/cadunico/forms/menuformulario">
+            <a class="menu-button" href="/TechSUAS/views/cadunico/forms/index">
               <span class="material-symbols-outlined">forms_add_on</span>
               Formulários
             </a>
           </div>
 
           <div class="parecer">
-            <a class="menu-button" href="/TechSUAS/views/cadunico/visitas/visitas">
+            <a class="menu-button" href="/TechSUAS/views/cadunico/visitas/index">
               <span class="material-symbols-outlined">location_away</span>
               Visitas
             </a>
@@ -52,7 +52,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
           </div>
 
           <div class="folha">
-            <a class="menu-button" href="/TechSUAS/views/cadunico/declaracoes/declaracao">
+            <a class="menu-button" href="/TechSUAS/views/cadunico/declaracoes/index">
               <span class="material-symbols-outlined">quick_reference_all</span>
               Declarações Cadastro Único
             </a>
