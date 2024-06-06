@@ -151,6 +151,7 @@ if ($sql_user_query->num_rows == 0) {
                     Swal.fire({
     html:`
     <h4>FORMULÁRIO</h4>
+    <h6>É importante conferir as informações no CadÚnico e SIBEC para certificar-se da situação recente da família.</h6>
     <label>CPF:
         <input type="text" id="cpf" name="cpf" value="<?php echo $_POST['cpf_dec_cad']; ?>" required/>
     </label>
