@@ -418,3 +418,35 @@ function voltar() {
 function printWithFields() {
     window.print()
 }
+
+/*
+FUNÇÕES PARA A TELA DE DESLIGAMENTO
+
+*/
+
+$(document).ready(function () {
+    $('#btn_des_vol').click(function () {
+        Swal.fire({
+            title: "DECLARAÇÃO DE DESLIGAMENTO VOLUNTÁRIO",
+            html: `
+            <h4>INFORME O CPF</h4>
+            <form method="POST" action="desligamento_voluntario" id="form_familia">
+                <label> CPF:
+                    <input id="cpf_dec_cad" type="text" name="cpf_dec_cad"/>
+                </label>
+            </form>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Enviar',
+            cancelButtonText: 'Cancelar',
+            didOpen: () => {
+                $('#cpf_dec_cad').mask('000.000.000-00')
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.getElementById("form_familia")
+                form.submit()
+            }
+        })
+    })
+})
