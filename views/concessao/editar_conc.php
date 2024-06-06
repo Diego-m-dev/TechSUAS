@@ -191,34 +191,46 @@ $(document).ready(function() {
     })
 })
 
-
 $(document).ready(function() {
-// Máscara para formatar os números
-    $('.valor-unitario').mask('000000,00', {
-        reverse: true
-    });
+            // Máscara para formatar os números
+            $('.valor-unitario').mask('000000,00', {
+                reverse: true
+            });
 
-    // Função para calcular o total
-    function calcularTotal() {
-        // Recebe a quantidade e valor unitário
-        var quantidade = parseFloat($(".quantidade").val().replace(",", ".")) || 0;
-        var valorUnitario = parseFloat($(".valor-unitario").val().replace(",", ".")) || 0;
+            // Função para calcular o total
+            function calcularTotal() {
+                // Recebe a quantidade e valor unitário
+                var quantidade = parseFloat($(".quantidade").val().replace(",", ".")) || 0;
+                var valorUnitario = parseFloat($(".valor-unitario").val().replace(",", ".")) || 0;
 
-        // Calcula o total e formata como moeda brasileira
-        var total = quantidade * valorUnitario;
+                // Calcula o total
+                var total = quantidade * valorUnitario;
 
-        // Formata o total como string
-        var formattedTotal = total.toLocaleString('pt-BR', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
+                // Formata o total como string
+                var formattedTotal = total.toLocaleString('pt-BR', {
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2
+                });
+
+                // Define o valor formatado no campo
+                $(".valor-total").val(formattedTotal);
+            }
+
+            // Anexa a função aos eventos de alteração de entrada
+            $(".quantidade, .valor-unitario").on("input", calcularTotal);
         });
 
-        // Define o valor formatado no campo
-        $(".valor-total").val(total);
-    }
-        // Anexa a função aos eventos de alteração de entrada
-        $(".quantidade, .valor-unitario").on("input", calcularTotal);
-});
+        // Função para formatar valor monetário
+        function formatCurrency(value) {
+            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        // Preenchendo a tabela com os dados
+        document.getElementById("nome_item").innerText = dados.nome_item;
+        document.getElementById("descricao").innerText = dados.descricao;
+        document.getElementById("qtd_item").innerText = dados.qtd_item;
+        document.getElementByclass("valor_uni").innerText = dados.valor_uni === 0 ? '' : formatCurrency(dados.valor_uni);
+        document.getElementByclass("valor_total").innerText = dados.valor_total === 0 ? '' : formatCurrency(dados.valor_total);
 
 </script>
 
@@ -325,7 +337,7 @@ $(document).ready(function() {
 
     <div class="cab2">
         <p>_________________________________________________________________________<br>ASSINATURA DO RESPONSÁVEL:</p>
-        <p>____________________________________________________________<br>CIBELE SILVA DO NASCIMENTO<br>SECRETÁRIA ADJUNTA DE ASSISTÊNCIA SOCIAL<br>PORTARIA 182/2024 </p>
+        <p>____________________________________________________________<br>MARTHONY DORNELA SANTANA<br>SECRETÁRIO DE ASSISTÊNCIA SOCIAL<br>PORTARIA 143/2023</p>
     </div>
     </div>
 </div>

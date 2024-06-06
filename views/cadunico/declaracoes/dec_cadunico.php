@@ -32,7 +32,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     <h1>DECLARAÇÃO CADASTRO ÚNICO E BOLSA FAMÍLIA</h1>
 
     <div class="no-print">
-
         <button onclick="printWithSignature()">Imprimir com Assinatura Eletrônica</button>
         <button onclick="printWithFields()">Imprimir com Campos de Assinatura</button>
         <button onclick="voltar()">Voltar</button>

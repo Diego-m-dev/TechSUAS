@@ -318,7 +318,10 @@ function imprimirParecer() {
     });
 }
 
-function imprimirParecer2() {
+function imprimirParecerPARTE() {
+    window.print()
+
+    setTimeout(function() {
     var dados = {
         id_visita: document.getElementById("id_visita").innerText,
         numero_parecer: document.getElementById("numero_parecer").innerText,
@@ -365,15 +368,16 @@ function imprimirParecer2() {
                 confirmButtonText: 'OK',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita"
+                        window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita";
                 }
             })
         },
         error: function(xhr, status, error) {
             console.error('Erro ao salvar os dados:', error)
             console.log('Resposta do servidor:', xhr.responseText)
-        }
-    });
+            }
+        })
+    }, 300)
 }
 
 /*
@@ -455,14 +459,49 @@ TROCA DE RF - FUNÇÕES PARA A TELA
 */
 
 $(document).ready(function () {
-    $('#btn_des_vol').click(function () {
+    $('#btn_troca').click(function () {
         Swal.fire({
-            title: "TROCA",
+            title: "TROCA DE RF - C.E.F.",
             html: `
-            <h4>INFORME O CPF</h4>
-            <form method="POST" action="desligamento_voluntario" id="form_familia">
-                <label> CPF:
-                    <input id="cpf_dec_cad" type="text" name="cpf_dec_cad"/>
+            <form method="POST" action="novo_rf_pbf" id="form_familia">
+                    <h4>INFORME O NIS DO RF ANTERIOR</h4>                    
+                <label>
+                    <input id="nis_tc_old" type="text" name="nis_tc_old" maxlength="11" placeholder="NIS do antigo RF"/>
+                </label><br><br><hr>
+                    <h4>INFORME O NIS DO NOVO RF</h4>
+                <label>
+                    <input id="nis_tc_new" type="text" name="nis_tc_new" maxlength="11" placeholder="NIS do novo RF"/>
+                </label>
+            </form>
+            `,
+            showCancelButton: true,
+            confirmButtonText: 'Enviar',
+            cancelButtonText: 'Cancelar',
+            didOpen: () => {
+                $('#cpf_dec_cad').mask('000.000.000-00')
+            }
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const form = document.getElementById("form_familia")
+                form.submit()
+            }
+        })
+    })
+})
+
+/*
+ENCAMINHAMENTOS - FUNÇÕES PARA A TELA
+*/
+
+$(document).ready(function () {
+    $('#btn_encamnhamento').click(function () {
+        Swal.fire({
+            title: "ENCAMINHAMENTOS",
+            html: `
+            <form method="POST" action="encaminhamento" id="form_familia">
+            <h4>Por favor, preencha as informações abaixo</h4>
+                <label>
+                    CPF: <input id="cpf_dec_cad" type="text" name="cpf_dec_cad" placeholder="Digite o cpf aqui"/> 
                 </label>
             </form>
             `,
