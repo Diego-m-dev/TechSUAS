@@ -411,6 +411,10 @@ $(document).ready(function () {
 
 
 
+function voltar() {
+    window.location.href = "/TechSUAS/views/cadunico/declaracoes/index"
+}
 
-
-
+function printWithFields() {
+    window.print()
+}
