@@ -420,7 +420,7 @@ function printWithFields() {
 }
 
 /*
-FUNÇÕES PARA A TELA DE DESLIGAMENTO
+FUNÇÕES PARA A TELA DE DESLIGAMENTO VOLUNTÁRIO
 
 */
 
