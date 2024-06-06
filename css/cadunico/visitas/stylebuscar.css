@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-*{
+
+* {
     margin-top: 0;
 }
+
 body {
     background-image: url("/TechSUAS/img/cadunico/background_cad");
     background-size: cover;
@@ -30,24 +32,32 @@ img {
     color: #13294b;
 }
 
+label {
+    font-size: 16px;
+}
+
 .busca2 {
     background-color: #ffffff;
-    padding: 3px ;
+    padding: 3px;
     width: 150px;
     border-radius: 5px;
-    font-size: auto;
+    font-size: 14px;
     width: 200px;
 }
-.camp1{
+
+.camp1 {
     padding: 20px 0px 30px 0px;
-    
+
 }
-.linha{
+
+.linha {
     border: 1px solid #13294b;
 }
-button,a {
+
+button,
+a {
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     border-radius: 5px;
     padding: 5px 25px;
     border: none;
@@ -56,12 +66,37 @@ button,a {
     color: white;
     cursor: pointer;
 }
-button:hover,a:hover{
+
+button:hover,
+a:hover {
     background-color: #3b82f6;
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }
-a{
-    font-size: 13px;
+
+a {
+    font-size: 12px;
 }
 
+th,
+table,
+td {
+    background-color: #ffffff99;
+    color: #13294b;
+    font-size: 15px;
+    font-family: "Inter", sans-serif;
+    border-radius: 5px;
+    padding: 1px 2px;
+    border-style: outset;
+    width: auto;
+}
+
+table {
+    margin: 10px 10px 10px 10px;
+}
+
+span {
+    color: #13294b;
+    margin: 10px;
+    font-weight: bold;
+}

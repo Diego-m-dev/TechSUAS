@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 } else {
 
     if ($sql_query->num_rows == 0) {
-        echo 'Essa família não consta na sua base de dados. Confira no CadÚnico a situação da família. ';
+        echo '<span> Essa família não consta na sua base de dados. Confira no CadÚnico a situação da família. </span> ';
     } else {
         $dados = $sql_query->fetch_assoc();
 

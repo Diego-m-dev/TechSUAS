@@ -31,14 +31,17 @@ td {
   border-style: outset;
   width: auto;
 }
-.tabela{
+
+.tabela {
   margin-top: 20px;
 }
-.bloco{
+
+.bloco {
   background-color: #ffffff;
   padding: 10px;
-  border-radius: ;
+  border-radius: 5px;
 }
+
 button,
 a {
   font-size: 12px;
@@ -64,16 +67,16 @@ input,
 select,
 option,
 label {
-    background-color: #ffffff;
-    color: #13294b;
-    font-size: 13px;
-    font-family: "Inter", sans-serif;
-    border-radius: 5px;
-    padding: 1px 2px;
-    border-style: outset;
+  background-color: #ffffff;
+  color: #13294b;
+  font-size: 13px;
+  font-family: "Inter", sans-serif;
+  border-radius: 5px;
+  padding: 1px 2px;
+  border-style: outset;
 }
 
-.check{
+.check {
   text-align: center;
 }
 
@@ -112,19 +115,21 @@ label {
   font-size: 16px;
   color: red;
 }
-.bloco{
-  
+
+.bloco {
+
   display: flex;
-  flex-direction:row;
+  flex-direction: row;
   align-items: flex-start;
   justify-content: flex-start;
-  align-content: flex-start ;
+  align-content: flex-start;
 }
-.impr{
-display: flex;
-flex-direction:row;
-align-items: flex-end;
-justify-content: flex-end;
-align-content: flex-end ;
-margin-right: 50px;
+
+.impr {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  align-content: flex-end;
+  margin-right: 50px;
 }

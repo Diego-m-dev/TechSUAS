@@ -31,13 +31,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         <!-- Apresenta Nome da tabela TUDO e se já ouve registro de visita -->
         <div id="caixaRolagem" class="caixa_rolagem">
             <label id="conteudoLabel" for="">
-                <span id="nome"></span>
+                <span id="nome"></span><br>
                 <h4><span id="titulo_tela"></span></h4>
                 <div id="data_visita"></div>
             </label>
         </div>
 
     <!--Formulário para registrar a visita caso não haja-->
+    <div class="cont2">
         <form method="post" action="/TechSUAS/controller/cadunico/parecer/processo">
             <div class="codfamiliar">
                 <label>CÓDIGO FAMILIAR: </label>
@@ -72,6 +73,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                 </a>
             </div>
         </form>
+    </div>
     </div>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
     <script>
