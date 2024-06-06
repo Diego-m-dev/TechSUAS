@@ -13,7 +13,6 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/TechSUAS/js/concessao.js"></script>
-
 </head>
 
 <body>
@@ -21,7 +20,6 @@
     include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     
-
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dt_pg = $_POST['dt_pg'];
         $mes_pg = $_POST['mes_pg'];
@@ -35,10 +33,9 @@
         $valor_unitario = str_replace(',', '.', $valor_unitario);
         $valor_total = str_replace(',', '.', $valor_total);
 
-        $smtp = $conn->prepare("UPDATE concessao_historico SET nome_resp=?, nome_item=?, qtd_item=?, valor_uni=?, valor_total=?, mes_pag=?, pg_data=?, situacao_concessao=? WHERE id_hist=?");
-        $smtp->bind_param("sssssssss", $itens_conc, $quantidade, $valor_unitario, $valor_total, $mes_pg, $dt_pg, $situacao, $id_hist);
+        $smtp = $conn->prepare("UPDATE concessao_historico SET nome_item=?, qtd_item=?, valor_uni=?, valor_total=?, mes_pag=?, pg_data=?, situacao_concessao=? WHERE id_hist=?");
+        $smtp->bind_param("ssssssss", $itens_conc, $quantidade, $valor_unitario, $valor_total, $mes_pg, $dt_pg, $situacao, $id_hist);
         if ($smtp->execute()) {
-
             if ($situacao == "CANCELADA") {
     ?>
                 <script>
@@ -56,7 +53,6 @@
                 <?php
             } else {
                 $smtp_historico = $conn->query("SELECT * FROM concessao_historico WHERE id_hist LIKE '$id_hist'");
-                // Verifica se há resultados na consulta
                 if ($smtp_historico->num_rows > 0) {
                     $dados_hist = $smtp_historico->fetch_assoc();
                     $cpf_pessoa = $dados_hist['cpf_resp'];
@@ -157,7 +153,6 @@
                             </tr>
                         </table><br>
 
-
                         <p align="center" width="500px" id="parentes"></p>
 
                         <table align="center" width="500px" border='1'>
@@ -172,8 +167,12 @@
                                 <td id="nome_item"><?php echo $dados_hist['nome_item']; ?></td>
                                 <td id="descricao"><?php echo $dados_hist['descricao']; ?></td>
                                 <td id="qtd_item"><?php echo $dados_hist['qtd_item']; ?></td>
-                                <td id="valor_uni"><?php echo $dados_hist['valor_uni']; ?></td>
-                                <td id="valor_total"><?php echo $dados_hist['valor_total']; ?></td>
+                                <td id="valor_uni">
+                                    <?php echo ($dados_hist['valor_uni'] == 0) ? '' : $dados_hist['valor_uni']; ?>
+                                </td>
+                                <td id="valor_total">
+                                    <?php echo ($dados_hist['valor_total'] == 0) ? '' : $dados_hist['valor_total']; ?>
+                                </td>
                             </tr>
                         </table><br>
 
@@ -181,10 +180,9 @@
                             <p id="local_data"> </p>
                         </div>
 
-
                         <div class="cab2">
                             <p>_________________________________________________________________________<br>ASSINATURA DO RESPONSÁVEL:</p>
-                            <p>____________________________________________________________<br>MARTHONY DORNELA SANTANA<br>SECRETÁRIO DE ASSISTÊNCIA SOCIAL<br>PORTARIA 143/2023</p>
+                            <p>____________________________________________________________<br>MARTHONY DORNELAS SANTANA<br>SECRETÁRIO DE ASSISTÊNCIA SOCIAL<br>PORTARIA 143/2023</p>
                         </div>
                     </div>
                     </div>
@@ -199,14 +197,13 @@
                                 confirmButtonText: 'OK',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = "/TechSUAS/views/concessao/consultar.php"
+                                    window.location.href = "/TechSUAS/views/concessao/consultar"
                                 }
                             })
                         }, 1500);
                     </script>
     <?php
                 }
-
                 exit();
             }
         } else {

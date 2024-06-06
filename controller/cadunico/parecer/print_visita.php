@@ -8,6 +8,7 @@
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_conferir.css">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_reprint.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -187,7 +188,7 @@
 <?php
                     echo '<span id="resumo_visita">' . $dadosv['parecer_tec'] . '</span>';
 ?>
-            <button type="button" id="imprimir_parecer" onclick="imprimirParecer()">IMPRIMIR</button>
+            <button type="button"  onclick="imprimirParecerPARTE()">IMPRIMIR</button>
                 </form>
 <?php
         } else {
@@ -264,8 +265,8 @@
 <?php
             echo '<span id="resumo_visita">'. $dadosv['parecer_tec']. '</span>';
 ?>
-            <button type="button" onclick="imprimirParecer2()">IMPRIMIR</button>
-        </form>
+</form>
+
 <?php
         }
 

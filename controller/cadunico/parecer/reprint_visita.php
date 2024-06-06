@@ -137,5 +137,8 @@
     </div>
 <script>
         
-            window.print();
+            window.print()
+            setTimeout(function() {
+                window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita";
+            }, 3000);
 </script>
