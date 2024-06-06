@@ -43,6 +43,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         <i class="fas fa-home icon"></i> Troca de RF - C.E.F.
     </a>
 
-
+    <button onclick="voltarMenu()">Voltar</button>
 </body>    
 </html>
