@@ -214,6 +214,11 @@ $hist_query_1 = $conn->query($dados_hist_visita_1) or die("ERRO ao consultar! " 
 
 }
 ?>
+<script>
+            function printPage() {
+            window.print();
+        }
+</script>
 </body>
 
 </html>
