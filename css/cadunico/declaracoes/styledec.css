@@ -20,7 +20,7 @@ p {
     font-family: 'Times New Roman', Times, serif; /* Fonte serifada */
     font-size: 12pt; /* Tamanho da fonte */
     line-height: 1.5; /* Espaçamento de linha */
-    margin: 2.5cm;
+    margin: 0;
     text-indent: 1.25cm;
 }
 
