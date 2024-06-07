@@ -270,6 +270,7 @@
             echo '</div">';
 ?>
 <button type="button"  onclick="imprimirParecerPARTE()">IMPRIMIR</button>
+<a href="/TechSUAS/config/back" ><i class="fas fa-arrow-left"></i>VOLTAR</a>
 </form>
 
     </div>
