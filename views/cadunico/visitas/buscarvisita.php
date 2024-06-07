@@ -38,7 +38,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             <input type="text" name="codfam" class="busca2" id="codfamiliar" placeholder="Digite o CÓDIGO FAMILIAR." required>
 
             <button type="submit">Buscar</button>
-            <a href="visitas"><i class="fas fa-arrow-left"></i>Voltar</a>
+            <a href="index"><i class="fas fa-arrow-left"></i>Voltar</a>
     </div>
     <div class="linha"></div>
     </form>
@@ -55,10 +55,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $sql_visita = $conn->real_escape_string($_POST['codfam']);
 
-    $sql_dados_visitas = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$sql_visita' AND cod_parentesco_rf_pessoa = 1";
+    $cpf_limpo = preg_replace('/\D/', '', $_POST['codfam']);
+    $cpf_already = ltrim($cpf_limpo, '0');
+
+    $sql_dados_visitas = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$cpf_already' AND cod_parentesco_rf_pessoa = 1";
     $sql_query = $conn->query($sql_dados_visitas) or die("ERRO ao consultar !" . $conn - error);
 
-    $dados_form = "SELECT * FROM visitas_feitas WHERE cod_fam LIKE '$sql_visita' ORDER BY id DESC";
+    $dados_form = "SELECT * FROM visitas_feitas WHERE cod_fam LIKE '$cpf_already' ORDER BY id DESC";
     $form_query = $conn->query($dados_form) or die("ERRO ao consultar! " . $conn - error);
 
     if ($form_query->num_rows == 0) {
