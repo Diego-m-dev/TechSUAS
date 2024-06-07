@@ -89,7 +89,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
                 if (outraAcao) {
                     window.location.href = "/TechSUAS/views/cadunico/visitas/registrar"
                 } else {
-                    window.location.href = "/TechSUAS/views/cadunico/visitas/visitas"
+                    window.location.href = "/TechSUAS/views/cadunico/visitas/index"
                 }
             }
         })
