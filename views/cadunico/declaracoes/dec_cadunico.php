@@ -173,11 +173,11 @@ if ($sql_user_query->num_rows == 0) {
     confirmButtonText: 'Continuar',
     preConfirm: () => {
         // Obter valores dos campos
-        const nomePessoa = document.getElementById('nome_pessoa').value;
-        const cpf = document.getElementById('cpf').value;
-        const dataNascimento = document.getElementById('dta_nascimento').value;
-        const genderMale = document.getElementById('gender_male').checked;
-        const genderFemale = document.getElementById('gender_female').checked;
+        const nomePessoa = document.getElementById('nome_pessoa').value
+        const cpf = document.getElementById('cpf').value
+        const dataNascimento = document.getElementById('dta_nascimento').value
+        const genderMale = document.getElementById('gender_male').checked
+        const genderFemale = document.getElementById('gender_female').checked
 
         // Verificar se todos os campos são válidos
         if (!nomePessoa || !cpf || !dataNascimento || (!genderMale && !genderFemale)) {
