@@ -37,11 +37,13 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
     if ($usuario == $dados['usuario'] && password_verify($senha_login, $dados['senha'])) {
         $_SESSION['user_usuario'] = $dados['usuario'];
         $_SESSION['nivel_usuario'] = $dados['nivel'];
+        $_SESSION['cargo_usuario'] = $dados['cargo'];
         $_SESSION['nome_usuario'] = $dados['nome'];
+        $_SESSION['id_cargo'] = $dados['id_cargo'];
         $_SESSION['apelido'] = $dados['apelido'];
         $_SESSION['funcao'] = $dados['funcao'];
         $_SESSION['setor'] = $dados['setor'];
-        
+
         if ($dados['acesso'] == 1) {
             header("location:/TechSUAS/views/geral/primeiro_acesso");
             exit();
