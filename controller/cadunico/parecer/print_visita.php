@@ -7,8 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_conferir.css">
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_reprint.css">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_print_visita.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -22,7 +21,8 @@
 </head>
 
 <body>
-    <h1>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h1>
+    <div class="tudo">
+    <h3>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h3>
     <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declaracao/create_moth.php';
@@ -69,15 +69,15 @@
                 <form id="visitaForm">
                     <span id="id_visita" style="display: none;"><?php echo $id_visita; ?></span>
                     <label for="">Nº Documento:</label>
-                    <span id="numero_parecer"><?php echo $numero_parecer_formatado; ?></span>/<span id="ano_parecer"><?php echo $ano_atual; ?></span>
-                    <span>São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</span>
+                    <span id="numero_parecer"><?php echo $numero_parecer_formatado; ?></span>/<span id="ano_parecer"><?php echo $ano_atual; ?></span><br>
+                    <span class="cidade_data">São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</span>
 
             <!-- MOSTRAR OS DADOS DA FAMÍLIA DE ACORDO COM A TBL_TUDO-->
             <h4>DADOS DA FAMÍLIA</h4>
 <?php
             //CÓDIGO FAMILIAR SENDO FORMATADO E EXIBIDO
             $codigo_formatado = substr_replace(str_pad($dados_tudo['cod_familiar_fam'], 11, '0',STR_PAD_LEFT), '-', 9, 0);
-            echo 'CÓDIGO FAMILIAR: <span id="codigo_familiar">'. $codigo_formatado. '</span>';
+            echo 'Código Familiar: <span id="codigo_familiar">'. $codigo_formatado. '</span>';
 
                 //DATA DA ULTIMA ATUALIZAÇÃO FORMATADA E EXIBINDO
                 $data = $dadosv['data'];
@@ -92,25 +92,26 @@
                     } else {
                         $data_formatada = "Data não fornecida.";
                     }
-            echo 'DATA DA VISITA: <span id="data_entrevista">'. $data_formatada. '</span>';
+            echo 'Data da visita: <span id="data_entrevista">'. $data_formatada. '</span><br>';
 
             //RENDA PERCAPITA FORMATADA E EXIBIDA
-            echo 'RENDA PER CAPITA DA FAMÍLIA: <span id="renda_per_capita">R$ '. $dados_tudo['vlr_renda_media_fam']. ',00 </span>';
+            echo 'Renda per capita da família: <span id="renda_per_capita">R$ '. $dados_tudo['vlr_renda_media_fam']. ',00 </span>';
 ?>
             <!--ENDEREÇO DA FAMÍLIA-->
             <h4>ENDEREÇO DA FAMÍLIA</h4>
 <?php
+            echo '<div class="end_familia">';
             echo '<span id="localidade">1.11 - Localidade: '. $dados_tudo['nom_localidade_fam'] . '</span>';
             echo '<span id="tipo">1.12 - Tipo: '. $dados_tudo['nom_tip_logradouro_fam'] . '</span>';
             echo '<span id="titulo">1.13 - Título: '. $dados_tudo['nom_titulo_logradouro_fam'] . '</span>';
             echo '<span id="nome_logradouro">1.14 - Nome: '. $dados_tudo['nom_logradouro_fam'] . '</span>';
-            echo '<span id="numero_logradouro">1.15 - Número: '. $dados_tudo['num_logradouro_fam'] . '</span>';
+            echo '<span id="numero_logradouro">1.15 - Número: '. $dados_tudo['num_logradouro_fam'] . '</span><br>';
             echo '<span id="complemento_numero">1.16 - Complemento do Número: '. $dados_tudo['des_complemento_fam'] . '</span>';
             echo '<span id="complemento_adicional">1.17 - Complemento Adicional: '. $dados_tudo['des_complemento_adic_fam'] . '</span>';
             $cep = substr_replace($dados_tudo['num_cep_logradouro_fam'], '-', 5, 0);
             echo '<span id="cep">1.18 - CEP: '. $cep . '</span>';
             echo '<span id="referencia_localizacao">1.20 - Referência para Localização: '. $dados_tudo['txt_referencia_local_fam'] . '</span>';
-
+            echo '</div>';
 ?>
             <!-- EXIBIR CADA MEMBRO DA FAMÍLIA-->
             <h4>COMPONENTES DA FAMÍLIA</h4><hr>
@@ -146,8 +147,8 @@
                                 } else {
                                     $parentesco_pessoa = "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
                                 }
-                                echo '<span class="parentesco">' . $parentesco_pessoa . '</span>';
-                                echo '<span class="nome_completo">4.02 - Nome Completo: ' . $member['nom_pessoa'] . '</span>';
+                                echo '<span class="parentesco">' . $parentesco_pessoa . '</span><br>';
+                                echo '<span class="nome_completo">4.02 - Nome Completo: ' . $member['nom_pessoa'] . '</span><br>';
                                 echo '<span class="nis">4.03 - NIS: ' . $member['num_nis_pessoa_atual'] . '</span>';
 
                                 $data_nasc = $member['dta_nasc_pessoa'];
@@ -168,7 +169,7 @@
 ?>
             <!--AREA DAS INFORMAÇÕES DO ENTREVISTADOR-->
             <h4>OBSERVAÇÕES DO ENTREVISTADOR</h4>
-            <h5>Situação</h5>
+            <h4>Situação</h4>
 <?php
                     if ($dadosv['acao'] == 1) {
                         $acao = "ATUALIZAÇÃO REALIZADA";
@@ -184,11 +185,11 @@
                     echo '<span id="situacao">' . $acao . '</span>';
 ?>
 
-            <h5>Resumo da visita</h5>
+            <h4>Resumo da visita</h4>
 <?php
-                    echo '<span id="resumo_visita">' . $dadosv['parecer_tec'] . '</span>';
+                    echo '<p id="resumo_visita">' . $dadosv['parecer_tec'] . '</p>';
 ?>
-            <button type="button"  onclick="imprimirParecerPARTE()">IMPRIMIR</button>
+            
                 </form>
 <?php
         } else {
@@ -199,13 +200,13 @@
             <form id="visitaForm">
             <label for="">Nº Documento:</label>
             <span id="id_visita" style="display: none;"><?php echo $id_visita; ?></span>
-            <span id="numero_parecer"><?php echo $numero_parecer_formatado; ?></span>/<span id="ano_parecer"><?php echo $ano_atual; ?></span>
-            <span>São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</span>
+            <span id="numero_parecer"><?php echo $numero_parecer_formatado; ?></span>/<span id="ano_parecer"><?php echo $ano_atual; ?></span><br>
+            <span class="cidade_data">São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</span>
 
             <!-- MOSTRAR OS DADOS DA FAMÍLIA DE ACORDO COM A TBL_TUDO-->
             <h4>DADOS DA FAMÍLIA</h4>
 <?php
-            echo 'CÓDIGO FAMILIAR: <span id="codigo_familiar">'. substr_replace(str_pad($codfam, 11, "0", STR_PAD_LEFT), '-', 9, 0). '</span>';
+            echo 'Código familiar: <span id="codigo_familiar">'. substr_replace(str_pad($codfam, 11, "0", STR_PAD_LEFT), '-', 9, 0). '</span>';
 
             //DATA DA ULTIMA ATUALIZAÇÃO FORMATADA E EXIBINDO
                     $data = $dadosv['data'];
@@ -220,10 +221,10 @@
                     } else {
                         $data_formatada = "Data não fornecida.";
                     }
-            echo 'DATA DA VISITA: <span id="data_entrevista">'. $data_formatada. '</span>';
+            echo 'Data da visita: <span id="data_entrevista">'. $data_formatada. '</span><br>';
 
                 //RENDA PERCAPITA FORMATADA E EXIBIDA
-                echo 'RENDA PER CAPITA DA FAMÍLIA: <span id="renda_per_capita">R$ <span class="editable-field" contenteditable="true" ></span>,00 </span>';
+                echo 'Renda per capita da família: <span id="renda_per_capita">R$ <span class="editable-field" contenteditable="true" ></span>,00 </span>';
 
 ?>
             <h4>ENDEREÇO DA FAMÍLIA</h4>
@@ -246,7 +247,7 @@
         
 ?>
             <h4>OBSERVAÇÕES DO ENTREVISTADOR</h4>
-            <h5>Situação</h5>
+            <h4>Situação</h4>
 <?php
                                 if ($dadosv['acao'] == 1) {
                                     $acao = "ATUALIZAÇÃO REALIZADA";
@@ -262,11 +263,15 @@
             echo '<span id="situacao">'. $acao .'</span>';
 ?>
             <h5>Resumo da visita</h5>
-<?php
+<?php   
+            echo '<div">';
             echo '<span id="resumo_visita">'. $dadosv['parecer_tec']. '</span>';
+            echo '</div">';
 ?>
+<button type="button"  onclick="imprimirParecerPARTE()">IMPRIMIR</button>
 </form>
 
+    </div>
 <?php
         }
 
@@ -275,6 +280,7 @@
     }
 }
 ?>
+
 
 </body>
 
