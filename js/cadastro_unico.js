@@ -419,6 +419,10 @@ function voltar() {
     window.location.href = "/TechSUAS/views/cadunico/declaracoes/index"
 }
 
+function voltarMenu() {
+        window.location.href = "/TechSUAS/views/cadunico/index"
+}
+
 function printWithFields() {
     window.print()
 }
@@ -519,3 +523,17 @@ $(document).ready(function () {
         })
     })
 })
+
+// FUNÇÃO EMPREGADA NO BOTÃO DE IMPRIMIR DE ENCAMINHAMENTO
+
+function printWithFields_preper() {
+    var hide_show = $('#inputText').val();
+    var setor = $('#setor').val();
+    var retorna = setor == "3" ? $('#inputOutro').val() : setor;
+
+    $('#mostrarText').text(hide_show);
+    $('#mostrarDest').text(`Ao(A) responsável por ${retorna}`);
+    $('.esconder, .buttons').hide();
+
+    window.print();
+}
