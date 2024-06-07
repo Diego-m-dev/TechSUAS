@@ -206,7 +206,8 @@
             <!-- MOSTRAR OS DADOS DA FAMÍLIA DE ACORDO COM A TBL_TUDO-->
             <h4>DADOS DA FAMÍLIA</h4>
 <?php
-            echo 'Código familiar: <span id="codigo_familiar">'. substr_replace(str_pad($codfam, 11, "0", STR_PAD_LEFT), '-', 9, 0). '</span>';
+            $codigo_fami = substr_replace(str_pad($codfam, 11, "0", STR_PAD_LEFT), '-', 9, 0);
+            echo 'Código familiar: <span id="codigo_familiar"><span id="titulo" class="editable-field" contenteditable="true" >'.$codigo_fami.'</span></span>';
 
             //DATA DA ULTIMA ATUALIZAÇÃO FORMATADA E EXIBINDO
                     $data = $dadosv['data'];
