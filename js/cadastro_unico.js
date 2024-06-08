@@ -260,7 +260,14 @@ $(document).ready(function () {
     })
 })
 
+//FUNÇÃO PARA IMPRIMIR QUANDO HOUVER REGISTRO NO TBL TUDO PRIMEIRA FASE NA TELA PRINT_VISITA EM SEGUIDA UMA REQUISIÇÃO AJAX PARA SALVAR QUALQUER ALTERAÇÃO QUE FOR FEITA NO CODIGO FAMILIAR 
+
+
 function imprimirParecer() {
+    window.print()
+
+    setTimeout(function() {
+
     var dados = {
         id_visita: document.getElementById("id_visita").innerText,
         numero_parecer: document.getElementById("numero_parecer").innerText,
@@ -314,10 +321,29 @@ function imprimirParecer() {
         error: function(xhr, status, error) {
             console.error('Erro ao salvar os dados:', error)
             console.log('Resposta do servidor:', xhr.responseText)
+            }
+        })
+    }, 300)
+}
+//FUNÇÃO PARA SALVAR QUAIQUER ALTERAÇÃO NO CÓDIGO
+function salvaCodigoEditado() {
+    var conteudo = {
+        alterado_codigo: document.getElementById("codigo_familiar").innerText,
+        id_para_alterar: document.getElementById("id_visita").innerText
+    }
+
+    $.ajax({
+        url: "/TechSUAS/controller/cadunico/parecer/salvar_alt_parecer.php",
+        type: "POST",
+        data: JSON.stringify(conteudo),
+        contentType: 'application/json',
+        success:  function (response) {
+            console.log(response)
         }
-    });
+    })
 }
 
+//FUNÇÃO PARA IMPRIMIR QUANDO NÃO HOUVER REGISTRO NO TBL_TUDO
 function imprimirParecerPARTE() {
     window.print()
 
