@@ -2,7 +2,6 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 ?>
 
-
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -43,185 +42,166 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     <div class="linha"></div>
     </form>
     </div>
-    <!--
-    <span id="sem_registro"></span><br/>
-    <span id="nome"></span><br/>
-    <span id="data_visita"></span><br/>
-    <span id="acao"></span><br/>
-    <span id="parecer_tec"></span><br/>
-    <span id="entrevistador"></span>
-    -->
+
     <?php
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $sql_visita = $conn->real_escape_string($_POST['codfam']);
+    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $sql_visita = $conn->real_escape_string($_POST['codfam']);
 
-    $cpf_limpo = preg_replace('/\D/', '', $_POST['codfam']);
-    $cpf_already = ltrim($cpf_limpo, '0');
+        $cpf_limpo = preg_replace('/\D/', '', $_POST['codfam']);
+        $cpf_already = ltrim($cpf_limpo, '0');
+        $cpf_zero = str_pad($cpf_already, 11, "0", STR_PAD_LEFT);
 
-    $sql_dados_visitas = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$cpf_already' AND cod_parentesco_rf_pessoa = 1";
-    $sql_query = $conn->query($sql_dados_visitas) or die("ERRO ao consultar !" . $conn - error);
+        $sql_dados_visitas = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$cpf_zero' AND cod_parentesco_rf_pessoa = 1";
+        $sql_query = $conn->query($sql_dados_visitas) or die("ERRO ao consultar! " . $conn->error);
 
-    $dados_form = "SELECT * FROM visitas_feitas WHERE cod_fam LIKE '$cpf_already' ORDER BY id DESC";
-    $form_query = $conn->query($dados_form) or die("ERRO ao consultar! " . $conn - error);
+        $dados_form = "SELECT * FROM visitas_feitas WHERE cod_fam LIKE '$cpf_already' ORDER BY id DESC";
+        $form_query = $conn->query($dados_form) or die("ERRO ao consultar! " . $conn->error);
 
-    if ($form_query->num_rows == 0) {
-        ?>
-            <script>
-                Swal.fire({
-                    icon: "info",
-                    title: "NÃO ENCONTRADO",
-                    text: "Não foi realizada nenhuma visita à família: <?php echo $_POST['codfam']; ?> !",
-                    confirmButtonText: 'OK',
-                })
-            </script>
-        <?php
-} else {
-
-    if ($sql_query->num_rows == 0) {
-        echo '<span> Essa família não consta na sua base de dados. Confira no CadÚnico a situação da família. </span> ';
-    } else {
-        $dados = $sql_query->fetch_assoc();
-
-        $cod_familiar_formatado = substr_replace(str_pad($dados['cod_familiar_fam'], 11, "0", STR_PAD_LEFT), '-', 9, 0);
-
-        $nome = $dados['nom_pessoa'];
-        echo 'Abaixo confira a(s) visita(s) realizada(s) à família de <strong>' . $nome . '</strong>, Código Familiar: <strong>' . $cod_familiar_formatado;
-    }
-        $dados_hist_visita = "SELECT * FROM historico_parecer_visita WHERE codigo_familiar LIKE '%$sql_visita%' ORDER BY id DESC";
-        $hist_query = $conn->query($dados_hist_visita) or die("ERRO ao consultar! " . $conn - error);
-            //$dados_hist = $sql_query->fetch_assoc();
-        ?>
-
-        <!-- INICIA A PRIMEIRA TABELA COM AS INFORMAÇÕES DAS VISITAS REALIZADAS -->
-
-    <table width="650px" border="1">
-    <tr>
-        <th colspan="4">VISITAS REALIZADAS</th>
-    </tr>
-    <tr>
-        <th>MOTIVO</th>
-        <th>DATA DA VISITA</th>
-        <th>ENTREVISTADOR</th>
-        <th>AÇÃO</th>
-    </tr>
+        if ($form_query->num_rows == 0) {
+            ?>
+                <script>
+                    Swal.fire({
+                        icon: "info",
+                        title: "NÃO ENCONTRADO",
+                        text: "Não foi realizada nenhuma visita à família: <?php echo $_POST['codfam']; ?>!",
+                        confirmButtonText: 'OK',
+                    })
+                </script>
             <?php
+        } else {
 
-        while ($dados_hist_form = $form_query->fetch_assoc()) {
+            if ($sql_query->num_rows == 0) {
+                echo '<span> Essa família não consta na sua base de dados. Confira no CadÚnico a situação da família. </span> ';
+            } else {
+                $dados = $sql_query->fetch_assoc();
 
-            ?>
-        <tr>
-    <!--1-->    <td><?php
-            if ($dados_hist_form['acao'] == 1) {
-                $acao = "ATUALIZAÇÃO REALIZADA";
-            } else if ($dados_hist_form['acao'] == 2) {
-                $acao = "NÃO LOCALIZADO";
-            } else if ($dados_hist_form['acao'] == 3) {
-                $acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
-            } else if ($dados_hist_form['acao'] == 4) {
-                $acao = "A FAMÍLIA RECUSOU ATUALIZAR";
-            } else if ($dados_hist_form['acao'] == 5) {
-                $acao = "ATUALIZAÇÃO NÃO REALIZADA";
+                $cod_familiar_formatado = substr_replace(str_pad($dados['cod_familiar_fam'], 11, "0", STR_PAD_LEFT), '-', 9, 0);
+                $nome = $dados['nom_pessoa'];
+
+                echo 'Abaixo confira a(s) visita(s) realizada(s) à família de <strong>' . $nome . '</strong>, Código Familiar: <strong>' . $cod_familiar_formatado . '</strong>.';
             }
-            echo $acao;
-            ?></td>
+            ?>
 
-    <!--2--><td><?php 
-                $data = $dados_hist_form['data'];
-// Verifica se a data não está vazia e tenta criar um objeto DateTime
-if (!empty($data)) {
-    $formatando_data = DateTime::createFromFormat('Y-m-d', $data);
+            <!-- INICIA A PRIMEIRA TABELA COM AS INFORMAÇÕES DAS VISITAS REALIZADAS -->
+            <table width="650px" border="1">
+                <tr>
+                    <th colspan="4">VISITAS REALIZADAS</th>
+                </tr>
+                <tr>
+                    <th>MOTIVO</th>
+                    <th>DATA DA VISITA</th>
+                    <th>ENTREVISTADOR</th>
+                    <th>AÇÃO</th>
+                </tr>
+                <?php
+                $array_id_visita = [];
 
-    // Verifica se a data foi criada corretamente
-    if ($formatando_data) {
-        $data_formatada = $formatando_data->format('d/m/Y');
-        echo $data_formatada;
-    } else {
-        echo "Data inválida.";
-    }
-} else {
-    echo "Data não fornecida.";
-}
-            ?></td>
-
-    <!--3--><td><?php echo $dados_hist_form['entrevistador']; ?></td>
-
-    <!--4--><td><?php
-    $id_visitas_feitas = $dados_hist_form['id'];
-$dados_hist_visita_1 = "SELECT * FROM historico_parecer_visita WHERE codigo_familiar LIKE '$sql_visita' AND id_visitas = $id_visitas_feitas ORDER BY id DESC";
-$hist_query_1 = $conn->query($dados_hist_visita_1) or die("ERRO ao consultar! " . $conn->error);
-
-                if ($dados_hist = $hist_query_1->fetch_assoc()){
-                echo 'FEITO';
-                } else {
+                while ($dados_hist_form = $form_query->fetch_assoc()) {
+                    $id_visitas_feitas = $dados_hist_form['id'];
+                    $array_id_visita[] = $id_visitas_feitas;
                     ?>
-                        <form action="/TechSUAS/controller/cadunico/parecer/print_visita" method="post" style="display:inline;">
-                            <input type="hidden" name="id_visita" value="<?php echo $dados_hist_form['id']; ?>">
-                            <button type="submit">GERAR</button>
-                        </form>
-                    </td>
-        <?php
-            }
-?>
-    </tr>
-<?php
-}
+                    <tr>
+                        <td><?php
+                            $acao_map = [
+                                1 => "ATUALIZAÇÃO REALIZADA",
+                                2 => "NÃO LOCALIZADO",
+                                3 => "FALECIMENTO DO RESPONSÁVEL FAMILIAR",
+                                4 => "A FAMÍLIA RECUSOU ATUALIZAR",
+                                5 => "ATUALIZAÇÃO NÃO REALIZADA"
+                            ];
+                            echo $acao_map[$dados_hist_form['acao']] ?? "Não existe outra nada aqui";
+                            ?></td>
+                        <td><?php
+                            $data = $dados_hist_form['data'];
+                            if (!empty($data)) {
+                                $formatando_data = DateTime::createFromFormat('Y-m-d', $data);
+                                if ($formatando_data) {
+                                    $data_formatada = $formatando_data->format('d/m/Y');
+                                    echo $data_formatada;
+                                } else {
+                                    echo "Data inválida.";
+                                }
+                            } else {
+                                echo "Data não fornecida.";
+                            }
+                            ?></td>
+                        <td><?php echo $dados_hist_form['entrevistador']; ?></td>
+                        <td>
+                            <?php
+                            $dados_hist_visita_1 = "SELECT * FROM historico_parecer_visita WHERE id_visitas = $id_visitas_feitas ORDER BY id DESC";
+                            $hist_query_1 = $conn->query($dados_hist_visita_1) or die("ERRO ao consultar! " . $conn->error);
+                            if ($dados_hist = $hist_query_1->fetch_assoc()) {
+                                echo 'FEITO';
+                            } else {
+                                ?>
+                                <form action="/TechSUAS/controller/cadunico/parecer/print_visita" method="post" style="display:inline;">
+                                    <input type="hidden" name="id_visita" value="<?php echo $dados_hist_form['id']; ?>">
+                                    <button type="submit">GERAR</button>
+                                </form>
+                                <?php
+                            }
+                            ?>
+                        </td>
+                    </tr>
+                    <?php
+                }
+                ?>
+            </table>
 
-?>
-        <!-- INICIA A SEGUNDA TABELA COM AS INFORMAÇÕES DOS PARECERES DAS VISITAS -->
-
-        <table width="650px" border="1">
-    <tr>
-        <th colspan="4">PARECERES REFERENTE AS VISITAS</th>
-    </tr>
-    <tr>
-        <th>Nº PARECER</th>
-        <th>TEXTO DO PARECER</th>
-        <th>DATA DA VISITA</th>
-        <th>AÇÃO</th>
-    </tr>
-    <?php 
-    if ($hist_query->num_rows == 0) {
-        ?>
-        <tr>
-            <td coslpan="4"> Nenhum resultado encontrado</td>
-        </tr>
-        <?php
-    } else {
-        while ($dados_hist_feito = $hist_query->fetch_assoc()) {
-            ?>
-        <tr>
-    <!--1--><td><?php 
-                        $n1 = $dados_hist_feito['numero_parecer'];
-                        $num_parecer = str_pad($n1, 4, "0", STR_PAD_LEFT);
-                        echo $num_parecer. '/'. $dados_hist_feito['ano_parecer'];
-    ?></td>
-
-    <!--2--><td><?php echo $dados_hist_feito['resumo_visita']; ?></td>
-
-    <!--3--><td><?php echo $dados_hist_feito['data_entrevista']; ?></td>
-
-    <!--4--><td>
-                <form action="/TechSUAS/controller/cadunico/parecer/reprint_visita" method="post" style="display:inline;">
-                    <input type="hidden" name="id_visita" value="<?php echo $dados_hist_feito['id_visitas']; ?>">
-                    <button type="submit">IMPRIMIR</button>
-                </form>
-        </td>
-    </tr>
-
-<?php
+            <!-- INICIA A SEGUNDA TABELA COM AS INFORMAÇÕES DOS PARECERES DAS VISITAS -->
+            <table width="650px" border="1">
+                <tr>
+                    <th colspan="4">PARECERES REFERENTE AS VISITAS</th>
+                </tr>
+                <tr>
+                    <th>Nº PARECER</th>
+                    <th>TEXTO DO PARECER</th>
+                    <th>DATA DA VISITA</th>
+                    <th>AÇÃO</th>
+                </tr>
+                <?php
+                if (!empty($array_id_visita)) {
+                    $ids = implode(',', $array_id_visita);
+                    $dados_hist_visita = "SELECT * FROM historico_parecer_visita WHERE id_visitas IN ($ids) ORDER BY id DESC";
+                    $hist_query = $conn->query($dados_hist_visita) or die("ERRO ao consultar! " . $conn->error);
+                    if ($hist_query->num_rows == 0) {
+                        ?>
+                        <tr>
+                            <td colspan="4">Nenhum resultado encontrado</td>
+                        </tr>
+                        <?php
+                    } else {
+                        while ($dados_hist_feito = $hist_query->fetch_assoc()) {
+                            ?>
+                            <tr>
+                                <td><?php
+                                    $n1 = $dados_hist_feito['numero_parecer'];
+                                    $num_parecer = str_pad($n1, 4, "0", STR_PAD_LEFT);
+                                    echo $num_parecer . '/' . $dados_hist_feito['ano_parecer'];
+                                    ?></td>
+                                <td><?php echo $dados_hist_feito['resumo_visita']; ?></td>
+                                <td><?php echo $dados_hist_feito['data_entrevista']; ?></td>
+                                <td>
+                                    <form action="/TechSUAS/controller/cadunico/parecer/reprint_visita" method="post" style="display:inline;">
+                                        <input type="hidden" name="id_visita" value="<?php echo $dados_hist_feito['id_visitas']; ?>">
+                                        <button type="submit">IMPRIMIR</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                    }
+                }
+                ?>
+            </table>
+            <?php
         }
     }
-}
-
-} else {
-
-}
-?>
-<script>
-            function printPage() {
+    ?>
+    <script>
+        function printPage() {
             window.print();
         }
-</script>
+    </script>
 </body>
-
 </html>
