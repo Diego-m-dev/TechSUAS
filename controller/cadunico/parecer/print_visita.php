@@ -33,7 +33,7 @@
     $data_formatada_at = $dia_atual . " de " . $mes_formatado . " de ". $ano_atual;
 
     // Consulta SQL para contar os registros
-    $sqlr = "SELECT COUNT(*) as total_registros FROM historico_parecer_visita";
+    $sqlr = "SELECT COUNT(*) as total_registros FROM historico_parecer_visita WHERE ano_parecer = '$ano_atual'";
     $result = $pdo->query($sqlr);
     $row = $result->fetch(PDO::FETCH_ASSOC);
     $totalRegistros = $row['total_registros'];
@@ -171,26 +171,27 @@
             <h4>OBSERVAÇÕES DO ENTREVISTADOR</h4>
             <h4>Situação</h4>
 <?php
-                    if ($dadosv['acao'] == 1) {
-                        $acao = "ATUALIZAÇÃO REALIZADA";
-                    } else if ($dadosv['acao'] == 2) {
-                        $acao = "NÃO LOCALIZADO";
-                    } else if ($dadosv['acao'] == 3) {
-                        $acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
-                    } else if ($dadosv['acao'] == 4) {
-                        $acao = "A FAMÍLIA RECUSOU ATUALIZAR";
-                    } else if ($dadosv['acao'] == 5) {
-                        $acao = "ATUALIZAÇÃO NÃO REALIZADA";
-                    }
-                    echo '<span id="situacao">' . $acao . '</span>';
+        $acao_map = [
+            1 => "ATUALIZAÇÃO REALIZADA",
+            2 => "NÃO LOCALIZADO",
+            3 => "FALECIMENTO DO RESPONSÁVEL FAMILIAR",
+            4 => "A FAMÍLIA RECUSOU ATUALIZAR",
+            5 => "ATUALIZAÇÃO NÃO REALIZADA"
+        ];
+
+        echo '<span id="situacao">'. $acao_map[$dadosv['acao']]. '</span>' ?? "Não existe outra nada aqui";
 ?>
 
             <h4>Resumo da visita</h4>
 <?php
                     echo '<p id="resumo_visita">' . $dadosv['parecer_tec'] . '</p>';
 ?>
-            
                 </form>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            imprimirParecer()
+        })
+        </script>
 <?php
         } else {
 
@@ -229,17 +230,38 @@
 
 ?>
             <h4>ENDEREÇO DA FAMÍLIA</h4>
-<?php
-        echo '1.11 - Localidade: <span id="localidade" class="editable-field" contenteditable="true" ></span>';
-        echo '1.12 - Tipo: <span id="tipo" class="editable-field" contenteditable="true" ></span>';
-        echo '1.13 - Título: <span id="titulo" class="editable-field" contenteditable="true" ></span>';
-        echo '1.14 - Nome: <span id="nome_logradouro" class="editable-field" contenteditable="true" ></span>';
-        echo '1.15 - Número: <span id="numero_logradouro" class="editable-field" contenteditable="true" ></span>';
-        echo '1.16 - Complemento do Número: <span id="complemento_numero" class="editable-field" contenteditable="true" ></span>';
-        echo '1.17 - Complemento Adicional: <span id="complemento_adicional" class="editable-field" contenteditable="true" ></span>';
-        echo '1.18 - CEP: <span id="cep" class="editable-field" contenteditable="true" ></span>';
-        echo '1.20 - Referência para Localização: <span id="referencia_localizacao" class="editable-field" contenteditable="true" ></span>';
-?>
+    <table border="1">
+        <tr>
+            <td colspan="5">1.11 - Localidade:</td>
+            <td colspan="20"><?php echo '<span id="localidade" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="5">1.12 - Tipo:</td>
+            <td colspan="6"><?php echo '<span id="tipo" class="editable-field" contenteditable="true" ></span>'; ?></td>
+            <td colspan="3">1.13 - Título:</td>
+            <td colspan="11"><?php echo '<span id="titulo" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+        <tr>
+        <td colspan="5">1.14 - Nome:</td>
+            <td colspan="20"><?php echo '<span id="nome_logradouro" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="5">1.15 - Número:</td>
+            <td colspan="6"><?php echo '<span id="numero_logradouro" class="editable-field" contenteditable="true" ></span>'; ?></td>
+            <td colspan="5">1.16 - Complemento do Número:</td>
+            <td colspan="9"><?php echo '<span id="complemento_numero" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="5">1.17 - Complemento Adicional:</td>
+            <td colspan="20"><?php echo '<span id="complemento_adicional" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="3">1.18 - CEP:</td>
+            <td colspan="7"><?php echo '<span id="cep" class="editable-field" contenteditable="true" ></span>'; ?></td>
+            <td colspan="6">1.20 - Referência para Localização:</td>
+            <td colspan="9"><?php echo '<span id="referencia_localizacao" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+    </table>
             <h4>INFORMAÇÕES DO RESPONSÁVEL PELA UNIDADE FAMILIAR</h4>
 <?php
         echo '<hr>4.02 - Nome Completo: <span id="nome_completo" class="editable-field" contenteditable="true" ></span>';
@@ -250,18 +272,15 @@
             <h4>OBSERVAÇÕES DO ENTREVISTADOR</h4>
             <h4>Situação</h4>
 <?php
-                                if ($dadosv['acao'] == 1) {
-                                    $acao = "ATUALIZAÇÃO REALIZADA";
-                                } else if ($dadosv['acao'] == 2) {
-                                    $acao = "NÃO LOCALIZADO";
-                                } else if ($dadosv['acao'] == 3) {
-                                    $acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
-                                } else if ($dadosv['acao'] == 4) {
-                                    $acao = "A FAMÍLIA RECUSOU ATUALIZAR";
-                                } else if ($dadosv['acao'] == 5) {
-                                    $acao = "ATUALIZAÇÃO NÃO REALIZADA";
-                                }
-            echo '<span id="situacao">'. $acao .'</span>';
+        $acao_map = [
+            1 => "ATUALIZAÇÃO REALIZADA",
+            2 => "NÃO LOCALIZADO",
+            3 => "FALECIMENTO DO RESPONSÁVEL FAMILIAR",
+            4 => "A FAMÍLIA RECUSOU ATUALIZAR",
+            5 => "ATUALIZAÇÃO NÃO REALIZADA"
+        ];
+
+        echo '<span id="situacao">'. $acao_map[$dadosv['acao']]. '</span>' ?? "Não existe outra nada aqui";
 ?>
             <h5>Resumo da visita</h5>
 <?php   
@@ -269,12 +288,13 @@
             echo '<span id="resumo_visita">'. $dadosv['parecer_tec']. '</span>';
             echo '</div">';
 ?>
-<button type="button"  onclick="imprimirParecerPARTE()">IMPRIMIR</button>
+<button type="button" onclick="salvaCodigoEditado(); imprimirParecer()">IMPRIMIR</button>
 <a href="/TechSUAS/config/back" ><i class="fas fa-arrow-left"></i>VOLTAR</a>
 </form>
 
     </div>
 <?php
+
         }
 
     } else {
