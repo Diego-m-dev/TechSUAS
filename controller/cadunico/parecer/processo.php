@@ -20,7 +20,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     //PEGANDO OS DADOS DO FORMULÁRIO
     $data_visita = $_POST['data_visita'];
     $acao_visita = $_POST['acao_visita'];
-    $parecer = $_POST['parecer'];
+    $parecer = nl2br($_POST['parecer']);
     $codigo_familiar = $_POST['codigo_familiar'];
     $cod_limpo = preg_replace('/\D/', '', $codigo_familiar);
     $cod_ajustado = substr_replace(str_pad($cod_limpo, 11,'0',STR_PAD_LEFT), '-', 9, 0);
