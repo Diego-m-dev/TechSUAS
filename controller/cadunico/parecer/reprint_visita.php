@@ -88,24 +88,44 @@
 ?>
             <!--ENDEREÇO DA FAMÍLIA-->
             <h4>ENDEREÇO DA FAMÍLIA</h4>
-<?php
-            echo '<div class="end_familia">';
-            echo '<span id="localidade"> '. $dadosv['localidade'] . '</span>';
-            echo '<span id="tipo">'. $dadosv['tipo'] . '</span>';
-            echo '<span id="titulo">'. $dadosv['titulo'] . '</span><br>';
-            echo '<span id="nome_logradouro">'. $dadosv['nome_logradouro'] . '</span>';
-            echo '<span id="numero_logradouro">'. $dadosv['numero_logradouro'] . '</span><br>';
-            echo '<span id="complemento_numero">'. $dadosv['complemento_numero'] . '</span>';
-            echo '<span id="complemento_adicional">'. $dadosv['complemento_adicional'] . '</span><br>';
-            echo '<span id="cep">'. $dadosv['cep'] . '</span>';
-            echo '<span id="referencia_localizacao">'. $dadosv['referencia_localizacao'] . '</span>';
-            echo '</div>';
-
-?>
+<?php echo '<div class="end_familia" class="tabela">'; ?>
+        <table>
+        <tr>
+            <td class="title_line" colspan="5">1.11 - Localidade:</td>
+            <td colspan="20"><?php echo '<span id="localidade">'. $dadosv['localidade'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="4">1.12 - Tipo:</td>
+            <td colspan="16"><?php echo '<span id="tipo">'. $dadosv['tipo'] . '</span>'; ?></td>
+            <td class="title_line" colspan="2">1.13 - Título:</td>
+            <td colspan="3"><?php echo '<span id="titulo">'. $dadosv['titulo'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="4">1.14 - Nome:</td>
+            <td colspan="21"><?php echo '<span id="nome_logradouro">'. $dadosv['nome_logradouro'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="8">1.15 - Número:</td>
+            <td colspan="4"><span id="numero_logradouro"><?php echo $dadosv['numero_logradouro'] == 0 ? "" : $dadosv['numero_logradouro']; ?></span></td>
+            <td class="title_line" colspan="8">1.16 - Complemento do Número:</td>
+            <td colspan="5"><?php echo '<span id="complemento_numero">'. $dadosv['complemento_numero'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="12">1.17 - Complemento Adicional:</td>
+            <td colspan="8"><?php echo '<span id="complemento_adicional">'. $dadosv['complemento_adicional'] . '</span>'; ?></td>
+            <td colspan="2">1.18 - CEP:</td>
+            <td colspan="3"><?php echo '<span id="cep">'.  $dadosv['cep'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="12">1.20 - Referência para Localização:</td>
+            <td colspan="13"><?php echo '<span id="referencia_localizacao">'. $dadosv['referencia_localizacao'] . '</span>'; ?></td>
+        </tr>
+<?php echo '</div>'; ?>
+        </table>
             <!-- EXIBIR CADA MEMBRO DA FAMÍLIA-->
             <h4>COMPONENTES DA FAMÍLIA</h4><hr>
 <?php
-            $id_parecer = $dadosv['id'];
+                $id_parecer = $dadosv['id'];
                 $sql_membro_familia = "SELECT * FROM membros_familia WHERE parecer_id LIKE '$id_parecer' ORDER BY id ASC";
                 $sql_membro_familia_query = $conn->query($sql_membro_familia) or die("ERRO ao consultar! " . $conn - error);
 
@@ -113,11 +133,23 @@
                 //NENHUM MEMBRO FAMILIAR ENCONTRADO
             } else {
                 while ($member = $sql_membro_familia_query->fetch_assoc()) {
-
-                                echo '<span class="parentesco">' . $member['parentesco']. '</span>:<br>';
-                                echo '<span class="nome_completo">' . $member['nome_completo'] . '</span><br>';
-                                echo '<span class="nis">' . $member['nis'] . '</span>';
-                                echo '<span class="data_nascimento">' . $member['data_nascimento'] . '<hr></span>';
+?>
+    <table width="800">
+        <tr>
+            <td colspan="8"><?php echo '<span class="parentesco">' . $member['parentesco']. '</span>:<br>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="2">4.02 - Nome:</td>
+            <td colspan="6"><?php echo ' <span class="nome_completo">' . $member['nome_completo'] . '</span><br>'; ?></td>
+        </tr>
+        <tr>
+        <td colspan="3">4.03 - NIS:</td>
+        <td colspan="3"><?php echo '<span class="nis">' . $member['nis'] . '</span>'; ?></td>
+        <td colspan="1">4.06 - Data De Nascimento:</td>
+        <td colspan="1"><?php echo '<span class="data_nascimento">' . $member['data_nascimento'] . '</span>'; ?></td>
+        </tr>
+    </table><hr>
+<?php
                 }
             }
 ?>
