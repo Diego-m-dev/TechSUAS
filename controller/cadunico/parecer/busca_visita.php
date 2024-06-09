@@ -5,14 +5,14 @@ header('Content-Type: application/json'); // Define o tipo de conteúdo como JSO
 
 if (isset($_POST['codfam'])) {
     $codfamiliar = $conn->real_escape_string($_POST['codfam']);
-    $ajustando_cod = str_pad($codfamiliar, 11,'0',STR_PAD_LEFT);
-
+    $cpf_limpo = preg_replace('/\D/', '', $_POST['codfam']);
+    $ajustando_cod = str_pad($cpf_limpo, 11,'0',STR_PAD_LEFT);
     // Inicializa o array de resposta
     $response = array('encontrado' => false);
 
     // Consulta na tabela visitas_feitas
     $stmt_visita = $pdo->prepare("SELECT * FROM visitas_feitas WHERE cod_fam = :codfamiliar");
-    $stmt_visita->execute(array(':codfamiliar' => $codfamiliar));
+    $stmt_visita->execute(array(':codfamiliar' => $cpf_limpo));
     
 
 
