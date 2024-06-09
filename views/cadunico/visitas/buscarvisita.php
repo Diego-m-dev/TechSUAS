@@ -83,7 +83,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             ?>
 
             <!-- INICIA A PRIMEIRA TABELA COM AS INFORMAÇÕES DAS VISITAS REALIZADAS -->
-            <table width="650px" border="1">
+            <table width="650px" border="3">
                 <tr>
                     <th colspan="4">VISITAS REALIZADAS</th>
                 </tr>
@@ -149,7 +149,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             </table>
 
             <!-- INICIA A SEGUNDA TABELA COM AS INFORMAÇÕES DOS PARECERES DAS VISITAS -->
-            <table width="650px" border="1">
+            <table width="650px" border="3">
                 <tr>
                     <th colspan="4">PARECERES REFERENTE AS VISITAS</th>
                 </tr>
@@ -202,6 +202,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         function printPage() {
             window.print();
         }
+        $('#codfamiliar').mask('000000000-00')
     </script>
 </body>
 </html>
