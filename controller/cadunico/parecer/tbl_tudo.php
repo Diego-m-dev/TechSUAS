@@ -22,7 +22,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
     <?php
 if (!isset($_GET['ano_select'])) {
-    echo 'Selecione o ano.';
+?>
+<p>Selecione ao menos o ano.</p>
+<p>Antes de realizar a visita domiciliar, é crucial consultar cadastro de cada família no sistema V7.</p>
+<?php
 } else {
     ?>
 
@@ -55,11 +58,16 @@ if (!isset($_GET['ano_select'])) {
         $sql_dados = "SELECT * FROM tbl_tudo  WHERE dat_atual_fam LIKE '%$sql_cod%' AND nom_localidade_fam LIKE '%$sqli_cod%' AND cod_parentesco_rf_pessoa = 1
         ORDER BY cod_local_domic_fam ASC,nom_localidade_fam ASC, num_logradouro_fam ASC";
         $sql_query = $conn->query($sql_dados) or die("ERRO ao consultar !" . $conn - error);
+
+        $num_result = $sql_query->num_rows;
+
         } else {
         $sqlm_cod = ($_GET['mes_select']);
         $sql_dados = "SELECT * FROM tbl_tudo  WHERE dat_atual_fam LIKE '%$sql_cod%' AND nom_localidade_fam LIKE '%$sqli_cod%' AND MONTH(dat_atual_fam) = '$sqlm_cod' AND cod_parentesco_rf_pessoa = 1
         ORDER BY cod_local_domic_fam ASC,nom_localidade_fam ASC, num_logradouro_fam ASC";
         $sql_query = $conn->query($sql_dados) or die("ERRO ao consultar !" . $conn - error);
+
+        $num_result = $sql_query->num_rows;
     }
 
     if ($sql_query->num_rows == 0) {
@@ -69,8 +77,18 @@ if (!isset($_GET['ano_select'])) {
     </tr>
         <?php
     } else {
-
+        if ($num_result == 1) {
+?>
+        <h5>Foi encontrado <?php echo $num_result; ?> resultado.</h5>
+<?php
+        } else {
+?>
+        <h5>Foram encontrados <?php echo $num_result;?> resultados.</h5>
+<?php
+}
+    $seq = 1; //CASO QUEIRA INCREMENTAR UMA SEQUENCIA À TABELA BASTA APRESENTAR ESSA VARIÁVEL DENTRO DA TABELA.
         while ($dados = $sql_query->fetch_assoc()) {
+            
             ?>
         <tr class="resultado">
             <td class="check">
@@ -105,9 +123,11 @@ if (!isset($_GET['ano_select'])) {
             ?></td>
         </tr>
 <?php
-}
+            $seq++;
+        }
     }
-}?>
+}
+?>
 </table>
 </div>
 </form>
