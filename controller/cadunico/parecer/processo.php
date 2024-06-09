@@ -22,9 +22,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     $acao_visita = $_POST['acao_visita'];
     $parecer = $_POST['parecer'];
     $codigo_familiar = $_POST['codigo_familiar'];
+    $cod_limpo = preg_replace('/\D/', '', $codigo_familiar);
+    $cod_ajustado = substr_replace(str_pad($cod_limpo, 11,'0',STR_PAD_LEFT), '-', 9, 0);
 
     $smtp = $conn->prepare("INSERT INTO visitas_feitas (cod_fam, data, acao, parecer_tec, entrevistador) VALUES (?,?,?,?,?)");
-    $smtp->bind_param("sssss", $codigo_familiar, $data_visita, $acao_visita, $parecer, $_SESSION['nome_usuario']);
+    $smtp->bind_param("sssss", $cod_limpo, $data_visita, $acao_visita, $parecer, $_SESSION['nome_usuario']);
 
     //consulta a composição familiar
 
@@ -80,7 +82,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             text: 'Dados salvos com sucesso!',
             html: `
             <h5>Dados da família</h5>
-            <p>Código Familiar: <?php echo $codigo_familiar; ?></p>
+            <p>Código Familiar: <?php echo $cod_ajustado; ?></p>
             `,
         }).then((result) => {
             if (result.isConfirmed) {
