@@ -185,7 +185,14 @@ $('#codfamiliar').on('change', function () {
 })
 
 function consultarFamilia() {
-    var codfam = $('#codfamiliar').val();
+    var codfam = $('#codfamiliar').val()
+    const input = document.getElementById('codfamiliar')
+    input.addEventListener('blur', function () {
+        if (input.value.trim() === '') {
+            setTimeout(function () {
+                input.focus()
+            }, 0)
+        } else {
 
     $.ajax({
         type: 'POST',
@@ -208,27 +215,27 @@ function consultarFamilia() {
                 
                 visitas.forEach(function(visita) {
                     if (visita.acao == 1) {
-                        var acao = "ATUALIZAÇÃO REALIZADA";
+                        var acao = "ATUALIZAÇÃO REALIZADA"
                     } else if (visita.acao == 2) {
-                        var acao = "NÃO LOCALIZADO";
+                        var acao = "NÃO LOCALIZADO"
                     } else if (visita.acao == 3) {
-                        var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
+                        var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR"
                     } else if (visita.acao == 4) {
-                        var acao = "A FAMÍLIA RECUSOU ATUALIZAR";
+                        var acao = "A FAMÍLIA RECUSOU ATUALIZAR"
                     } else if (visita.acao == 5) {
-                        var acao = "ATUALIZAÇÃO NÃO REALIZADA";
+                        var acao = "ATUALIZAÇÃO NÃO REALIZADA"
                     } else {
                         var acao = ""
                     }
-                    visitasHtml += '<div class="visita">';
-                    visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>';
-                    visitasHtml += '<span>Ação: ' + acao + '</span><br>';
-                    visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>';
-                    visitasHtml += '</div><br>';
+                    visitasHtml += '<div class="visita">'
+                    visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>'
+                    visitasHtml += '<span>Ação: ' + acao + '</span><br>'
+                    visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>'
+                    visitasHtml += '</div><br>'
                 })
-                $('#data_visita').html(visitasHtml);
+                $('#data_visita').html(visitasHtml)
             } else if (response.data_visita) {
-                $('#data_visita').text(response.data_visita);
+                $('#data_visita').text(response.data_visita)
             }
 
                 /* $('#data_visita').text(response.data_visita)
@@ -248,8 +255,10 @@ function consultarFamilia() {
                 $('#acao').text(acao)
                 $('#parecer_tec').text('Parecer do Entrevistador: ' + response.parecer_tec)
                 $('#entrevistador').text('Entrevistador: ' + response.entrevistador)*/
+                }
             }
-        }
+        })
+    }
     })
 }
 
