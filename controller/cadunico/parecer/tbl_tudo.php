@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -21,6 +22,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
     <?php
 if (!isset($_GET['ano_select'])) {
+    echo 'Selecione o ano.';
 } else {
     ?>
 
@@ -40,16 +42,25 @@ if (!isset($_GET['ano_select'])) {
             </th>
     <th class="cabecalho">NOME</th>
     <th class="cabecalho">DATA ATUALIZAÇÃO</th>
-    <th class="cabecalho">ENDEREÇO</th>
+    <th class="cabecalho">BAIRRO</th>
+    <th class="cabecalho">RUA</th>
     
 </tr>
 
-    <?PHP
+    <?php
 
     $sql_cod = $conn->real_escape_string($_GET['ano_select']);
     $sqli_cod = $conn->real_escape_string($_GET['localidade']);
-    $sql_dados = "SELECT * FROM tbl_tudo  WHERE dat_atual_fam LIKE '%$sql_cod%' AND nom_localidade_fam LIKE '%$sqli_cod%' AND cod_parentesco_rf_pessoa = 1";
-    $sql_query = $conn->query($sql_dados) or die("ERRO ao consultar !" . $conn - error);
+    if (empty($_GET['mes_select'])) {
+        $sql_dados = "SELECT * FROM tbl_tudo  WHERE dat_atual_fam LIKE '%$sql_cod%' AND nom_localidade_fam LIKE '%$sqli_cod%' AND cod_parentesco_rf_pessoa = 1
+        ORDER BY cod_local_domic_fam ASC,nom_localidade_fam ASC, num_logradouro_fam ASC";
+        $sql_query = $conn->query($sql_dados) or die("ERRO ao consultar !" . $conn - error);
+        } else {
+        $sqlm_cod = ($_GET['mes_select']);
+        $sql_dados = "SELECT * FROM tbl_tudo  WHERE dat_atual_fam LIKE '%$sql_cod%' AND nom_localidade_fam LIKE '%$sqli_cod%' AND MONTH(dat_atual_fam) = '$sqlm_cod' AND cod_parentesco_rf_pessoa = 1
+        ORDER BY cod_local_domic_fam ASC,nom_localidade_fam ASC, num_logradouro_fam ASC";
+        $sql_query = $conn->query($sql_dados) or die("ERRO ao consultar !" . $conn - error);
+    }
 
     if ($sql_query->num_rows == 0) {
         ?>
@@ -57,7 +68,7 @@ if (!isset($_GET['ano_select'])) {
     <td colspan="7">Nenhum resultado encontrado...</td>
     </tr>
         <?php
-} else {
+    } else {
 
         while ($dados = $sql_query->fetch_assoc()) {
             ?>
@@ -69,33 +80,29 @@ if (!isset($_GET['ano_select'])) {
                     </label>
             </td>
             <td class="resultado"><?php echo $dados['nom_pessoa']; ?></td>
-            <td class="resultado"><?php echo $dados['dat_atual_fam']; ?></td>
-            <td class="resultado"><?php
-//construindo o endereço
-            $tipo_logradouro = $dados["nom_tip_logradouro_fam"];
-            $nom_logradouro_fam = $dados["nom_logradouro_fam"];
-            $num_logradouro_fam = $dados["num_logradouro_fam"];
-            if ($num_logradouro_fam == "") {
-                $num_logradouro = "S/N";
+            <td class="resultado"><?php 
+            
+            $data = $dados['dat_atual_fam'];
+            if (!empty($data)) {
+                $formatando_data = DateTime::createFromFormat('Y-m-d', $data);
+                if ($formatando_data) {
+                    $data_formatada = $formatando_data->format('d/m/Y');
+                    echo $data_formatada;
+                } else {
+                    echo "Data inválida.";
+                }
             } else {
-                $num_logradouro = $dados["num_logradouro_fam"];
-            }
-            $nom_localidade_fam = $dados["nom_localidade_fam"];
-            $nom_titulo_logradouro_fam = $dados["nom_titulo_logradouro_fam"];
-            if ($nom_titulo_logradouro_fam == "") {
-                $nom_tit = "";
-            } else {
-                $nom_tit = $dados["nom_titulo_logradouro_fam"];
-            }
-            $txt_referencia_local_fam = $dados["txt_referencia_local_fam"];
-            if ($txt_referencia_local_fam == "") {
-                $referencia = "SEM REFERÊNCIA";
-            } else {
-                $referencia = $dados["txt_referencia_local_fam"];
-            }
+                echo "Data não fornecida.";
+            }            
+            ?></td>
+            <td class="resultado"><?php echo $dados["nom_localidade_fam"]; ?></td>
+            <td class="resultado"><?php 
+            echo $dados["nom_tip_logradouro_fam"]. ' ';
+            echo $dados["nom_titulo_logradouro_fam"] == "" ? "" : $dados["nom_titulo_logradouro_fam"]. ' ';
+            echo $dados["nom_logradouro_fam"]. ', ';
+            echo $dados["num_logradouro_fam"] == "" ? "S/N" : $dados["num_logradouro_fam"];
 
-            $endereco_conpleto = $tipo_logradouro . " " . $nom_tit . " " . $nom_logradouro_fam . ", " . $num_logradouro . " - " . $nom_localidade_fam;
-            echo $endereco_conpleto;?></td>
+            ?></td>
         </tr>
 <?php
 }
