@@ -96,23 +96,44 @@
 
             //RENDA PERCAPITA FORMATADA E EXIBIDA
             echo 'Renda per capita da família: <span id="renda_per_capita">R$ '. $dados_tudo['vlr_renda_media_fam']. ',00 </span>';
+            $cep = substr_replace($dados_tudo['num_cep_logradouro_fam'], '-', 5, 0);
 ?>
             <!--ENDEREÇO DA FAMÍLIA-->
             <h4>ENDEREÇO DA FAMÍLIA</h4>
-<?php
-            echo '<div class="end_familia">';
-            echo '<span id="localidade">1.11 - Localidade: '. $dados_tudo['nom_localidade_fam'] . '</span>';
-            echo '<span id="tipo">1.12 - Tipo: '. $dados_tudo['nom_tip_logradouro_fam'] . '</span>';
-            echo '<span id="titulo">1.13 - Título: '. $dados_tudo['nom_titulo_logradouro_fam'] . '</span>';
-            echo '<span id="nome_logradouro">1.14 - Nome: '. $dados_tudo['nom_logradouro_fam'] . '</span>';
-            echo '<span id="numero_logradouro">1.15 - Número: '. $dados_tudo['num_logradouro_fam'] . '</span><br>';
-            echo '<span id="complemento_numero">1.16 - Complemento do Número: '. $dados_tudo['des_complemento_fam'] . '</span>';
-            echo '<span id="complemento_adicional">1.17 - Complemento Adicional: '. $dados_tudo['des_complemento_adic_fam'] . '</span>';
-            $cep = substr_replace($dados_tudo['num_cep_logradouro_fam'], '-', 5, 0);
-            echo '<span id="cep">1.18 - CEP: '. $cep . '</span>';
-            echo '<span id="referencia_localizacao">1.20 - Referência para Localização: '. $dados_tudo['txt_referencia_local_fam'] . '</span>';
-            echo '</div>';
-?>
+            <?php echo '<div class="end_familia">'; ?>
+            <table class="table_alin">
+        <tr>
+            <td class="title_line" colspan="8">1.11 - Localidade:</td>
+            <td colspan="17"><?php echo '<span id="localidade">'. $dados_tudo['nom_localidade_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="8">1.12 - Tipo:</td>
+            <td colspan="6"><?php echo '<span id="tipo">'. $dados_tudo['nom_tip_logradouro_fam'] . '</span>'; ?></td>
+            <td class="title_line" colspan="3">1.13 - Título:</td>
+            <td colspan="8"><?php echo '<span id="titulo">'. $dados_tudo['nom_titulo_logradouro_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="5">1.14 - Nome:</td>
+            <td colspan="20"><?php echo '<span id="nome_logradouro">'. $dados_tudo['nom_logradouro_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="8">1.15 - Número:</td>
+            <td colspan="4"><span id="numero_logradouro"><?php echo $dados_tudo['num_logradouro_fam'] == 0 ? "" : $dados_tudo['num_logradouro_fam']; ?></span></td>
+            <td class="title_line" colspan="8">1.16 - Complemento do Número:</td>
+            <td colspan="5"><?php echo '<span id="complemento_numero">'. $dados_tudo['des_complemento_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="8">1.17 - Complemento Adicional:</td>
+            <td colspan="5"><?php echo '<span id="complemento_adicional">'. $dados_tudo['des_complemento_adic_fam'] . '</span>'; ?></td>
+            <td colspan="5">1.18 - CEP:</td>
+            <td colspan="7"><?php echo '<span id="cep">'. $cep . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="10">1.20 - Referência para Localização:</td>
+            <td colspan="15"><?php echo '<span id="referencia_localizacao">'. $dados_tudo['txt_referencia_local_fam'] . '</span>'; ?></td>
+        </tr>
+    </table>
+            <?php echo '</div>'; ?>
             <!-- EXIBIR CADA MEMBRO DA FAMÍLIA-->
             <h4>COMPONENTES DA FAMÍLIA</h4><hr>
 <?php
@@ -120,34 +141,22 @@
                 //NENHUM MEMBRO FAMILIAR ENCONTRADO
             } else {
                 while ($member = $sql_familia_pessoa_query->fetch_assoc()) {
-                                $parentesco = $member['cod_parentesco_rf_pessoa'];
-                                $parentesco_pessoa = '';
-                                if ($parentesco == 1){
-                                    $parentesco_pessoa = "RESPONSAVEL FAMILIAR";
-                                } elseif ($parentesco == 2){
-                                    $parentesco_pessoa = "CONJUGE OU COMPANHEIRO";
-                                } elseif ($parentesco == 3){
-                                    $parentesco_pessoa = "FILHO(A)";
-                                } elseif ($parentesco == 4){
-                                    $parentesco_pessoa = "ENTEADO(A)";
-                                } elseif ($parentesco == 5){
-                                    $parentesco_pessoa = "NETO(A) OU BISNETO(A)";
-                                } elseif ($parentesco == 6){
-                                    $parentesco_pessoa = "PAI OU MÃE";
-                                } elseif ($parentesco == 7){
-                                    $parentesco_pessoa = "SOGRO(A)";
-                                } elseif ($parentesco == 8){
-                                    $parentesco_pessoa = "IRMÃO OU IRMÃ";
-                                } elseif ($parentesco == 9){
-                                    $parentesco_pessoa = "GENRO OU NORA";
-                                } elseif ($parentesco == 10){
-                                    $parentesco_pessoa = "OUTROS PARENTES";
-                                } elseif ($parentesco == 11){
-                                    $parentesco_pessoa = "NÃO PARENTE";
-                                } else {
-                                    $parentesco_pessoa = "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
-                                }
-                                echo '<span class="parentesco">' . $parentesco_pessoa . '</span><br>';
+
+                                $parentesco_map = [
+                                    1 => "RESPONSAVEL FAMILIAR",
+                                    2 => "CONJUGE OU COMPANHEIRO",
+                                    3 => "FILHO(A)",
+                                    4 => "ENTEADO(A)",
+                                    5 => "NETO(A) OU BISNETO(A)",
+                                    6 => "PAI OU MÃE",
+                                    7 => "SOGRO(A)",
+                                    8 => "IRMÃO OU IRMÃ",
+                                    9 => "GENRO OU NORA",
+                                    10 => "OUTROS PARENTES",
+                                    11 => "NÃO PARENTE"
+                                ];
+
+                                echo '<span class="parentesco">' . $parentesco_map[$member['cod_parentesco_rf_pessoa']] . '</span><br>' ?? "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
                                 echo '<span class="nome_completo">4.02 - Nome Completo: ' . $member['nom_pessoa'] . '</span><br>';
                                 echo '<span class="nis">4.03 - NIS: ' . $member['num_nis_pessoa_atual'] . '</span>';
 
@@ -230,35 +239,35 @@
 
 ?>
             <h4>ENDEREÇO DA FAMÍLIA</h4>
-    <table border="1">
-        <tr>
-            <td colspan="5">1.11 - Localidade:</td>
+    <table>
+<!--L1--><tr>
+            <td class="title_line" colspan="5">1.11 - Localidade:</td>
             <td colspan="20"><?php echo '<span id="localidade" class="editable-field" contenteditable="true" ></span>'; ?></td>
         </tr>
-        <tr>
-            <td colspan="5">1.12 - Tipo:</td>
+<!--L2--><tr>
+            <td class="title_line" colspan="5">1.12 - Tipo:</td>
             <td colspan="6"><?php echo '<span id="tipo" class="editable-field" contenteditable="true" ></span>'; ?></td>
-            <td colspan="3">1.13 - Título:</td>
+            <td class="title_line" colspan="3">1.13 - Título:</td>
             <td colspan="11"><?php echo '<span id="titulo" class="editable-field" contenteditable="true" ></span>'; ?></td>
         </tr>
-        <tr>
-        <td colspan="5">1.14 - Nome:</td>
+<!--L3--><tr>
+            <td class="title_line" colspan="5">1.14 - Nome:</td>
             <td colspan="20"><?php echo '<span id="nome_logradouro" class="editable-field" contenteditable="true" ></span>'; ?></td>
         </tr>
-        <tr>
-            <td colspan="5">1.15 - Número:</td>
+<!--L4--><tr>
+            <td class="title_line" colspan="5">1.15 - Número:</td>
             <td colspan="6"><?php echo '<span id="numero_logradouro" class="editable-field" contenteditable="true" ></span>'; ?></td>
-            <td colspan="5">1.16 - Complemento do Número:</td>
+            <td class="title_line" colspan="5">1.16 - Complemento do Número:</td>
             <td colspan="9"><?php echo '<span id="complemento_numero" class="editable-field" contenteditable="true" ></span>'; ?></td>
         </tr>
-        <tr>
-            <td colspan="5">1.17 - Complemento Adicional:</td>
+<!--L5--><tr>
+            <td class="title_line" colspan="5">1.17 - Complemento Adicional:</td>
             <td colspan="20"><?php echo '<span id="complemento_adicional" class="editable-field" contenteditable="true" ></span>'; ?></td>
         </tr>
-        <tr>
-            <td colspan="3">1.18 - CEP:</td>
+<!--L6--><tr>
+            <td class="title_line" colspan="3">1.18 - CEP:</td>
             <td colspan="7"><?php echo '<span id="cep" class="editable-field" contenteditable="true" ></span>'; ?></td>
-            <td colspan="6">1.20 - Referência para Localização:</td>
+            <td class="title_line" colspan="6">1.20 - Referência para Localização:</td>
             <td colspan="9"><?php echo '<span id="referencia_localizacao" class="editable-field" contenteditable="true" ></span>'; ?></td>
         </tr>
     </table>
