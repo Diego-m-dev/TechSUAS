@@ -2,15 +2,17 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
-$data1 = date('Y');
-$data2 = $data1 - 8;
-$data3 = $data1 - 7;
-$data4 = $data1 - 6;
-$data5 = $data1 - 5;
-$data6 = $data1 - 4;
-$data7 = $data1 - 3;
-$data8 = $data1 - 2;
-$data9 = $data1 - 1;
+$sql_ano = "SELECT DISTINCT YEAR(dat_atual_fam) AS ano FROM tbl_tudo ORDER BY ano DESC";
+$result_sql_ano = $conn->query($sql_ano);
+
+if (!$result_sql_ano) {
+    die("ERRO ao consultar! " . $conn->error);
+}
+
+$anos = [];
+while ($d = $result_sql_ano->fetch_assoc()) {
+    $anos[] = $d['ano'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -36,26 +38,41 @@ $data9 = $data1 - 1;
     <div class="bloco">
         <div>
             <form action=''>
-                <select id="ano_select" name="ano_select">
-                    <option value="" disabled selected hidden>Selecione</option>
-                    <option value="<?php echo $data2; ?>"><?php echo $data2; ?></option>
-                    <option value="<?php echo $data3; ?>"><?php echo $data3; ?></option>
-                    <option value="<?php echo $data4; ?>"><?php echo $data4; ?></option>
-                    <option value="<?php echo $data5; ?>"><?php echo $data5; ?></option>
-                    <option value="<?php echo $data6; ?>"><?php echo $data6; ?></option>
-                    <option value="<?php echo $data7; ?>"><?php echo $data7; ?></option>
-                    <option value="<?php echo $data8; ?>"><?php echo $data8; ?></option>
-                    <option value="<?php echo $data9; ?>"><?php echo $data9; ?></option>
-                    <option value="<?php echo $data1; ?>"><?php echo $data1; ?></option>
-                </select>
-                <label>Fitre a localidade:</label>
-                <input name="localidade" class="busca2" placeholder="Qual localdade" type="text">
-                <button type="submit" id="buscar">Buscar</button>
-                <a href="index">
-                    <span class="fas fa-arrow-left"></span>
-                    Voltar
-                </a>
-            </form>
+                <label for="">Selecione ano e mês:
+    <select name="mes_select" id="mes_select">
+        <option value="" disabled selected hidden>Mês</option>
+        <option value="01">Janeiro</option>
+        <option value="02">Fevereiro</option>
+        <option value="03">Março</option>
+        <option value="04">Abril</option>
+        <option value="05">Maio</option>
+        <option value="06">Junho</option>
+        <option value="07">Julho</option>
+        <option value="08">Agosto</option>
+        <option value="09">Setembro</option>
+        <option value="10">Outubro</option>
+        <option value="11">Novembro</option>
+        <option value="12">Dezembro</option>
+    </select>
+
+    <select id="ano_select" name="ano_select">
+        <option value="" disabled selected hidden>Ano</option>
+<?php
+foreach ($anos as $ano) {
+    echo "<option value='$ano'>$ano</option>";
+}
+?>
+    </select>
+    </label>
+
+    <label>Fitre a localidade:</label>
+        <input name="localidade" class="busca2" placeholder="Qual localdade" type="text">
+            <button type="submit" id="buscar">Buscar</button>
+            <a href="index">
+                <span class="fas fa-arrow-left"></span>
+                Voltar
+            </a>
+        </form>
 
 
         </div>
