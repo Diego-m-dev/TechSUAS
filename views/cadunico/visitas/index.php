@@ -91,22 +91,23 @@ $numero_parecer = $totalRegistros;
 
   //$sql = "SELECT * FROM tbl_tudo WHERE dat_atual_fam LIKE '%$sql_ano%'";
 ?>
+<?php echo 'Até o momento foram '. $numero_parecer . ' visitas realizadas.'; ?>
 <script>
 try {
     // Dados para o gráfico de pizza
     var anos = <?php echo json_encode($anos); ?>;
     var quantidades = <?php echo json_encode($quantidades); ?>;
-    var volaroe = <?php echo json_encode($totalRegistros); ?>;
+    //var volaroe = <?php echo json_encode($totalRegistros); ?>;
 
     // Adiciona volaroe às quantidades
-    quantidades.push(volaroe);
+    //quantidades.push(volaroe);
 
     // Crie o gráfico de pizza
     var ctx = document.getElementById('graficoPizza').getContext('2d');
     var myPieChart = new Chart(ctx, {
         type: 'pie',
         data: {
-            labels: anos.concat([volaroe]),
+            labels: anos,
             datasets: [{
                 data: quantidades,
                 backgroundColor: ['#13294b', '#065f33', '#8b0000', '#cd5c5c', '#008080', '#2e8b57', '#00ff00', '#ff9900'],
