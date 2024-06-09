@@ -157,8 +157,8 @@
                                 ];
 
                                 echo '<span class="parentesco">' . $parentesco_map[$member['cod_parentesco_rf_pessoa']] . '</span><br>' ?? "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
-                                echo '<span class="nome_completo">4.02 - Nome Completo: ' . $member['nom_pessoa'] . '</span><br>';
-                                echo '<span class="nis">4.03 - NIS: ' . $member['num_nis_pessoa_atual'] . '</span>';
+                                echo '4.02 - Nome Completo: <span class="nome_completo">' . $member['nom_pessoa'] . '</span><br>';
+                                echo '4.03 - NIS: <span class="nis">' . $member['num_nis_pessoa_atual'] . '</span>';
 
                                 $data_nasc = $member['dta_nasc_pessoa'];
                                 if (!empty($data_nasc)) {
@@ -172,7 +172,7 @@
                                 } else {
                                     $data_formatada_nasc = "Data não fornecida.";
                                 }
-                                echo '<span class="data_nascimento">4.06 - Data de Nascimento: ' . $data_formatada_nasc . '<hr></span>';
+                                echo '4.06 - Data de Nascimento: <span class="data_nascimento">' . $data_formatada_nasc . '<hr></span>';
                 }
             }
 ?>
@@ -188,12 +188,13 @@
             5 => "ATUALIZAÇÃO NÃO REALIZADA"
         ];
 
-        echo '<span id="situacao">'. $acao_map[$dadosv['acao']]. '</span>' ?? "Não existe outra nada aqui";
+        echo '<span id="situacao">'. $acao_map[$dadosv['acao']]. '</span>' ?? "SEM MOTIVO";
 ?>
 
             <h4>Resumo da visita</h4>
 <?php
-                    echo '<p id="resumo_visita">' . $dadosv['parecer_tec'] . '</p>';
+        $texto_paragrafo = str_replace("<br />", '</p><p id="resumo_visita">', $dadosv['parecer_tec']);
+        echo '<p id="resumo_visita">' . $texto_paragrafo . '</p>';
 ?>
                 </form>
         <script>
