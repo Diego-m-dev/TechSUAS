@@ -42,7 +42,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         <form method="post" action="/TechSUAS/controller/cadunico/parecer/processo">
             <div class="codfamiliar">
                 <label>CÓDIGO FAMILIAR: </label>
-                <input type="text" id="codfamiliar" name="codigo_familiar" onblur="consultarFamilia()" placeholder="Digite o CÓDIGO FAMILIAR." required>
+                <input type="text" id="codfamiliar" name="codigo_familiar" placeholder="Digite o CÓDIGO FAMILIAR." required>
             </div>
             <div class="data">
                 <label>DATA DA VISITA: </label>
@@ -97,6 +97,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         const observador = new MutationObserver(verificarConteudo)
         observador.observe(conteudoLabel, { childList: true, subtree: true })
     })
+    $('#codfamiliar').mask('000000000-00')
     </script>
 
 </body>
