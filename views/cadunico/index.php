@@ -37,41 +37,41 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </a>
           </div>
 
-          <div class="parecer">
+          <div class="visit">
             <a class="menu-button" href="/TechSUAS/views/cadunico/visitas/index">
               <span class="material-symbols-outlined">location_away</span>
               Visitas
             </a>
           </div>
 
-          <div class="visitas">
+          <div class="folha">
             <a class="menu-button" href="/TechSUAS/views/cadunico/folha/folha">
               <span class="material-symbols-outlined">request_quote</span>
               Folha de Pagamento
             </a>
           </div>
 
-          <div class="folha">
+          <div class="dec_enc">
             <a class="menu-button" href="/TechSUAS/views/cadunico/declaracoes/index">
               <span class="material-symbols-outlined">quick_reference_all</span>
               Declarações e Encaminhamentos
             </a>
           </div>
 
-          <div class="folha">
+          <div class="links">
             <a class="menu-button" href="/TechSUAS/views/cadunico/links">
               <span class="material-symbols-outlined">link</span>
               Links Úteis
             </a>
           </div>
 
-          <div class="atendimento">
+          <div class="msg_cad">
             <a class="menu-button" href="/TechSUAS/views/cadunico/msn_cad/index">
               <span class="material-symbols-outlined">contacts</span>
               Mensagens do CadÚnico
             </a>
           </div>
-          <div class="atendimento">
+          <div class="painel">
             <a class="menu-button" href="#">
               <span class="material-symbols-outlined">contacts</span>
               Painel do Entrevistador
