@@ -21,6 +21,11 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 
+if (!isset($_POST['detalhe']) && empty($_POST['detalhe'])) {
+    echo '<script>window.history.back()</script>';
+    exit();
+}
+
 $entrevistador = $_POST['detalhe'];
 
 $stmt_cadastro = "SELECT * FROM tbl_tudo
@@ -29,8 +34,13 @@ $stmt_cadastro = "SELECT * FROM tbl_tudo
                     AND cod_parentesco_rf_pessoa = 1
                     ORDER BY dat_atual_fam DESC";
 
-$stmt_query = $conn->query($stmt_cadastro) or die("ERRO ao consultar !" . $conn - error);
+$stmt_visitas = "SELECT COUNT(*) AS quantidade_visitas
+                    FROM visitas_feitas
+                    WHERE entrevistador = '$entrevistador'";
 
+$stmt_query = $conn->query($stmt_cadastro) or die("ERRO ao consultar !" . $conn - error);
+$stmt_query_visitas = $conn->query($stmt_visitas) or die("ERRO ao consultar !" . $conn - error);
+    $quant_visita = $stmt_query_visitas->fetch_assoc();
 if ($stmt_query->num_rows == 0) {
     echo "Nenhum cadastro encontrado para esse Entrevistador.";
 } else {
@@ -42,7 +52,13 @@ if ($stmt_query->num_rows == 0) {
     $cpf_formatado = substr($cpf_formatado, 0, 3) . '.' . substr($cpf_formatado, 3, 3) . '.' . substr($cpf_formatado, 6, 3) . '-' . substr($cpf_formatado, 9, 2);
     echo $cpf_formatado;
     ?></span>
-
+    <p> Em todo o tempo no Cadastro Único já realizou <?php echo $quant_visita['quantidade_visitas'] == 1 ? $quant_visita['quantidade_visitas']. " visita." : $quant_visita['quantidade_visitas']. ' visitas.'; ?></p>
+    <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/visitas/accompany_visits';">
+            <span class="material-symbols-outlined">
+                    library_add
+            </span>
+        Confira as visitas aqui
+    </a>
         <!-- Gráfico por Ano -->
         <h3>Cadastros por Ano</h3>
         <canvas id="graficoAno"></canvas>
