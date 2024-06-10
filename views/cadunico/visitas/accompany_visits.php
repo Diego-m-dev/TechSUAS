@@ -45,7 +45,6 @@ if ($_SESSION['funcao'] != '1') {
         <label for="endDateFilter">Data Fim:</label>
         <input type="date" id="endDateFilter">
 
-
         <button onclick="filterData()">Filtrar</button>
     </div>
     
