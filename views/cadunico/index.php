@@ -72,7 +72,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </a>
           </div>
           <div class="painel">
-            <a class="menu-button" href="#">
+            <a class="menu-button" href="/TechSUAS/views/cadunico/dashboard">
               <span class="material-symbols-outlined">contacts</span>
               Painel do Entrevistador
             </a>
