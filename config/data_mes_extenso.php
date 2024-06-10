@@ -13,3 +13,5 @@ $formatter->setPattern('d \'de\' MMMM \'de\' y');
 $data_formatada = $formatter->format($date_formatando);
 
 $data_cabecalho = date('d/m/Y H:i');
+
+$cidade = 'São Bento do Una - PE, ';
