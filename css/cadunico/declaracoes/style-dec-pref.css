@@ -62,7 +62,6 @@ a:hover {
         background-size: cover;
         background-repeat: no-repeat;
         font-size: 16px;
-
     }
 
     @page {
@@ -86,8 +85,9 @@ a:hover {
 
     .conteudo {
         text-align: justify;
-        line-height: 1.7;
+        line-height: 1.5;
         margin-bottom: 50px;
+        margin-top: 50px;
     }
 
     .cont{
@@ -95,8 +95,6 @@ a:hover {
     }
 
     h1 {
-        position: absolute;
-        width: 100%;
         margin-bottom: 50px;
     }
 
@@ -105,7 +103,7 @@ a:hover {
         flex-direction: column-reverse;
         justify-content: center;
         align-items: center;
-        margin-top: 150px;
+        margin-top: 350px;
         font-weight: bold;
     }
 
@@ -125,6 +123,9 @@ a:hover {
         /* Cor e espessura da linha */
         margin: 0px;
         /* Espaçamento acima e abaixo da linha */
-        text-indent: 0cm;
+        text-indent: none;
+    }
+    p .cont{
+        text-indent: 1.25cm;
     }
 }
