@@ -33,7 +33,7 @@
     $data_formatada_at = $dia_atual . " de " . $mes_formatado . " de ". $ano_atual;
 
     // Consulta SQL para contar os registros
-    $sqlr = "SELECT COUNT(*) as total_registros FROM historico_parecer_visita";
+    $sqlr = "SELECT COUNT(*) as total_registros FROM historico_parecer_visita WHERE ano_parecer = '$ano_atual'";
     $result = $pdo->query($sqlr);
     $row = $result->fetch(PDO::FETCH_ASSOC);
     $totalRegistros = $row['total_registros'];
@@ -96,23 +96,44 @@
 
             //RENDA PERCAPITA FORMATADA E EXIBIDA
             echo 'Renda per capita da família: <span id="renda_per_capita">R$ '. $dados_tudo['vlr_renda_media_fam']. ',00 </span>';
+            $cep = substr_replace($dados_tudo['num_cep_logradouro_fam'], '-', 5, 0);
 ?>
             <!--ENDEREÇO DA FAMÍLIA-->
             <h4>ENDEREÇO DA FAMÍLIA</h4>
-<?php
-            echo '<div class="end_familia">';
-            echo '<span id="localidade">1.11 - Localidade: '. $dados_tudo['nom_localidade_fam'] . '</span>';
-            echo '<span id="tipo">1.12 - Tipo: '. $dados_tudo['nom_tip_logradouro_fam'] . '</span>';
-            echo '<span id="titulo">1.13 - Título: '. $dados_tudo['nom_titulo_logradouro_fam'] . '</span>';
-            echo '<span id="nome_logradouro">1.14 - Nome: '. $dados_tudo['nom_logradouro_fam'] . '</span>';
-            echo '<span id="numero_logradouro">1.15 - Número: '. $dados_tudo['num_logradouro_fam'] . '</span><br>';
-            echo '<span id="complemento_numero">1.16 - Complemento do Número: '. $dados_tudo['des_complemento_fam'] . '</span>';
-            echo '<span id="complemento_adicional">1.17 - Complemento Adicional: '. $dados_tudo['des_complemento_adic_fam'] . '</span>';
-            $cep = substr_replace($dados_tudo['num_cep_logradouro_fam'], '-', 5, 0);
-            echo '<span id="cep">1.18 - CEP: '. $cep . '</span>';
-            echo '<span id="referencia_localizacao">1.20 - Referência para Localização: '. $dados_tudo['txt_referencia_local_fam'] . '</span>';
-            echo '</div>';
-?>
+            <?php echo '<div class="end_familia">'; ?>
+            <table class="table_alin">
+        <tr>
+            <td class="title_line" colspan="8">1.11 - Localidade:</td>
+            <td colspan="17"><?php echo '<span id="localidade">'. $dados_tudo['nom_localidade_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="8">1.12 - Tipo:</td>
+            <td colspan="6"><?php echo '<span id="tipo">'. $dados_tudo['nom_tip_logradouro_fam'] . '</span>'; ?></td>
+            <td class="title_line" colspan="3">1.13 - Título:</td>
+            <td colspan="8"><?php echo '<span id="titulo">'. $dados_tudo['nom_titulo_logradouro_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="5">1.14 - Nome:</td>
+            <td colspan="20"><?php echo '<span id="nome_logradouro">'. $dados_tudo['nom_logradouro_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="8">1.15 - Número:</td>
+            <td colspan="4"><span id="numero_logradouro"><?php echo $dados_tudo['num_logradouro_fam'] == 0 ? "" : $dados_tudo['num_logradouro_fam']; ?></span></td>
+            <td class="title_line" colspan="8">1.16 - Complemento do Número:</td>
+            <td colspan="5"><?php echo '<span id="complemento_numero">'. $dados_tudo['des_complemento_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="8">1.17 - Complemento Adicional:</td>
+            <td colspan="5"><?php echo '<span id="complemento_adicional">'. $dados_tudo['des_complemento_adic_fam'] . '</span>'; ?></td>
+            <td colspan="5">1.18 - CEP:</td>
+            <td colspan="7"><?php echo '<span id="cep">'. $cep . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="10">1.20 - Referência para Localização:</td>
+            <td colspan="15"><?php echo '<span id="referencia_localizacao">'. $dados_tudo['txt_referencia_local_fam'] . '</span>'; ?></td>
+        </tr>
+    </table>
+            <?php echo '</div>'; ?>
             <!-- EXIBIR CADA MEMBRO DA FAMÍLIA-->
             <h4>COMPONENTES DA FAMÍLIA</h4><hr>
 <?php
@@ -120,36 +141,24 @@
                 //NENHUM MEMBRO FAMILIAR ENCONTRADO
             } else {
                 while ($member = $sql_familia_pessoa_query->fetch_assoc()) {
-                                $parentesco = $member['cod_parentesco_rf_pessoa'];
-                                $parentesco_pessoa = '';
-                                if ($parentesco == 1){
-                                    $parentesco_pessoa = "RESPONSAVEL FAMILIAR";
-                                } elseif ($parentesco == 2){
-                                    $parentesco_pessoa = "CONJUGE OU COMPANHEIRO";
-                                } elseif ($parentesco == 3){
-                                    $parentesco_pessoa = "FILHO(A)";
-                                } elseif ($parentesco == 4){
-                                    $parentesco_pessoa = "ENTEADO(A)";
-                                } elseif ($parentesco == 5){
-                                    $parentesco_pessoa = "NETO(A) OU BISNETO(A)";
-                                } elseif ($parentesco == 6){
-                                    $parentesco_pessoa = "PAI OU MÃE";
-                                } elseif ($parentesco == 7){
-                                    $parentesco_pessoa = "SOGRO(A)";
-                                } elseif ($parentesco == 8){
-                                    $parentesco_pessoa = "IRMÃO OU IRMÃ";
-                                } elseif ($parentesco == 9){
-                                    $parentesco_pessoa = "GENRO OU NORA";
-                                } elseif ($parentesco == 10){
-                                    $parentesco_pessoa = "OUTROS PARENTES";
-                                } elseif ($parentesco == 11){
-                                    $parentesco_pessoa = "NÃO PARENTE";
-                                } else {
-                                    $parentesco_pessoa = "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
-                                }
-                                echo '<span class="parentesco">' . $parentesco_pessoa . '</span><br>';
-                                echo '<span class="nome_completo">4.02 - Nome Completo: ' . $member['nom_pessoa'] . '</span><br>';
-                                echo '<span class="nis">4.03 - NIS: ' . $member['num_nis_pessoa_atual'] . '</span>';
+
+                                $parentesco_map = [
+                                    1 => "RESPONSAVEL FAMILIAR",
+                                    2 => "CONJUGE OU COMPANHEIRO",
+                                    3 => "FILHO(A)",
+                                    4 => "ENTEADO(A)",
+                                    5 => "NETO(A) OU BISNETO(A)",
+                                    6 => "PAI OU MÃE",
+                                    7 => "SOGRO(A)",
+                                    8 => "IRMÃO OU IRMÃ",
+                                    9 => "GENRO OU NORA",
+                                    10 => "OUTROS PARENTES",
+                                    11 => "NÃO PARENTE"
+                                ];
+
+                                echo '<span class="parentesco">' . $parentesco_map[$member['cod_parentesco_rf_pessoa']] . '</span><br>' ?? "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
+                                echo '4.02 - Nome Completo: <span class="nome_completo">' . $member['nom_pessoa'] . '</span><br>';
+                                echo '4.03 - NIS: <span class="nis">' . $member['num_nis_pessoa_atual'] . '</span>';
 
                                 $data_nasc = $member['dta_nasc_pessoa'];
                                 if (!empty($data_nasc)) {
@@ -163,7 +172,7 @@
                                 } else {
                                     $data_formatada_nasc = "Data não fornecida.";
                                 }
-                                echo '<span class="data_nascimento">4.06 - Data de Nascimento: ' . $data_formatada_nasc . '<hr></span>';
+                                echo '4.06 - Data de Nascimento: <span class="data_nascimento">' . $data_formatada_nasc . '<hr></span>';
                 }
             }
 ?>
@@ -171,26 +180,28 @@
             <h4>OBSERVAÇÕES DO ENTREVISTADOR</h4>
             <h4>Situação</h4>
 <?php
-                    if ($dadosv['acao'] == 1) {
-                        $acao = "ATUALIZAÇÃO REALIZADA";
-                    } else if ($dadosv['acao'] == 2) {
-                        $acao = "NÃO LOCALIZADO";
-                    } else if ($dadosv['acao'] == 3) {
-                        $acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
-                    } else if ($dadosv['acao'] == 4) {
-                        $acao = "A FAMÍLIA RECUSOU ATUALIZAR";
-                    } else if ($dadosv['acao'] == 5) {
-                        $acao = "ATUALIZAÇÃO NÃO REALIZADA";
-                    }
-                    echo '<span id="situacao">' . $acao . '</span>';
+        $acao_map = [
+            1 => "ATUALIZAÇÃO REALIZADA",
+            2 => "NÃO LOCALIZADO",
+            3 => "FALECIMENTO DO RESPONSÁVEL FAMILIAR",
+            4 => "A FAMÍLIA RECUSOU ATUALIZAR",
+            5 => "ATUALIZAÇÃO NÃO REALIZADA"
+        ];
+
+        echo '<span id="situacao">'. $acao_map[$dadosv['acao']]. '</span>' ?? "SEM MOTIVO";
 ?>
 
             <h4>Resumo da visita</h4>
 <?php
-                    echo '<p id="resumo_visita">' . $dadosv['parecer_tec'] . '</p>';
+        $texto_paragrafo = str_replace("<br />", '</p><p id="resumo_visita">', $dadosv['parecer_tec']);
+        echo '<p id="resumo_visita">' . $texto_paragrafo . '</p>';
 ?>
-            
                 </form>
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            imprimirParecer()
+        })
+        </script>
 <?php
         } else {
 
@@ -229,17 +240,38 @@
 
 ?>
             <h4>ENDEREÇO DA FAMÍLIA</h4>
-<?php
-        echo '1.11 - Localidade: <span id="localidade" class="editable-field" contenteditable="true" ></span>';
-        echo '1.12 - Tipo: <span id="tipo" class="editable-field" contenteditable="true" ></span>';
-        echo '1.13 - Título: <span id="titulo" class="editable-field" contenteditable="true" ></span>';
-        echo '1.14 - Nome: <span id="nome_logradouro" class="editable-field" contenteditable="true" ></span>';
-        echo '1.15 - Número: <span id="numero_logradouro" class="editable-field" contenteditable="true" ></span>';
-        echo '1.16 - Complemento do Número: <span id="complemento_numero" class="editable-field" contenteditable="true" ></span>';
-        echo '1.17 - Complemento Adicional: <span id="complemento_adicional" class="editable-field" contenteditable="true" ></span>';
-        echo '1.18 - CEP: <span id="cep" class="editable-field" contenteditable="true" ></span>';
-        echo '1.20 - Referência para Localização: <span id="referencia_localizacao" class="editable-field" contenteditable="true" ></span>';
-?>
+    <table>
+<!--L1--><tr>
+            <td class="title_line" colspan="5">1.11 - Localidade:</td>
+            <td colspan="20"><?php echo '<span id="localidade" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+<!--L2--><tr>
+            <td class="title_line" colspan="5">1.12 - Tipo:</td>
+            <td colspan="6"><?php echo '<span id="tipo" class="editable-field" contenteditable="true" ></span>'; ?></td>
+            <td class="title_line" colspan="3">1.13 - Título:</td>
+            <td colspan="11"><?php echo '<span id="titulo" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+<!--L3--><tr>
+            <td class="title_line" colspan="5">1.14 - Nome:</td>
+            <td colspan="20"><?php echo '<span id="nome_logradouro" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+<!--L4--><tr>
+            <td class="title_line" colspan="5">1.15 - Número:</td>
+            <td colspan="6"><?php echo '<span id="numero_logradouro" class="editable-field" contenteditable="true" ></span>'; ?></td>
+            <td class="title_line" colspan="5">1.16 - Complemento do Número:</td>
+            <td colspan="9"><?php echo '<span id="complemento_numero" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+<!--L5--><tr>
+            <td class="title_line" colspan="5">1.17 - Complemento Adicional:</td>
+            <td colspan="20"><?php echo '<span id="complemento_adicional" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+<!--L6--><tr>
+            <td class="title_line" colspan="3">1.18 - CEP:</td>
+            <td colspan="7"><?php echo '<span id="cep" class="editable-field" contenteditable="true" ></span>'; ?></td>
+            <td class="title_line" colspan="6">1.20 - Referência para Localização:</td>
+            <td colspan="9"><?php echo '<span id="referencia_localizacao" class="editable-field" contenteditable="true" ></span>'; ?></td>
+        </tr>
+    </table>
             <h4>INFORMAÇÕES DO RESPONSÁVEL PELA UNIDADE FAMILIAR</h4>
 <?php
         echo '<hr>4.02 - Nome Completo: <span id="nome_completo" class="editable-field" contenteditable="true" ></span>';
@@ -250,18 +282,15 @@
             <h4>OBSERVAÇÕES DO ENTREVISTADOR</h4>
             <h4>Situação</h4>
 <?php
-                                if ($dadosv['acao'] == 1) {
-                                    $acao = "ATUALIZAÇÃO REALIZADA";
-                                } else if ($dadosv['acao'] == 2) {
-                                    $acao = "NÃO LOCALIZADO";
-                                } else if ($dadosv['acao'] == 3) {
-                                    $acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
-                                } else if ($dadosv['acao'] == 4) {
-                                    $acao = "A FAMÍLIA RECUSOU ATUALIZAR";
-                                } else if ($dadosv['acao'] == 5) {
-                                    $acao = "ATUALIZAÇÃO NÃO REALIZADA";
-                                }
-            echo '<span id="situacao">'. $acao .'</span>';
+        $acao_map = [
+            1 => "ATUALIZAÇÃO REALIZADA",
+            2 => "NÃO LOCALIZADO",
+            3 => "FALECIMENTO DO RESPONSÁVEL FAMILIAR",
+            4 => "A FAMÍLIA RECUSOU ATUALIZAR",
+            5 => "ATUALIZAÇÃO NÃO REALIZADA"
+        ];
+
+        echo '<span id="situacao">'. $acao_map[$dadosv['acao']]. '</span>' ?? "Não existe outra nada aqui";
 ?>
             <h5>Resumo da visita</h5>
 <?php   
@@ -269,12 +298,13 @@
             echo '<span id="resumo_visita">'. $dadosv['parecer_tec']. '</span>';
             echo '</div">';
 ?>
-<button type="button"  onclick="imprimirParecerPARTE()">IMPRIMIR</button>
+<button type="button" onclick="salvaCodigoEditado(); imprimirParecer()">IMPRIMIR</button>
 <a href="/TechSUAS/config/back" ><i class="fas fa-arrow-left"></i>VOLTAR</a>
 </form>
 
     </div>
 <?php
+
         }
 
     } else {

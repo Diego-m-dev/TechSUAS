@@ -64,6 +64,11 @@ span>#codigo_familiar,#data_entrevista{
     overflow-wrap: break-word;
     width: 100%;
     box-sizing: border-box;
+    text-align: justify;
+    text-indent: 2em; /* Recuo da primeira linha */
+    line-height: 1.5; /* Espaçamento entre linhas */
+    margin-bottom: 1em; /* Espaçamento entre parágrafos */
+
 }
 .editable-field{
     border: 1px solid #000000;

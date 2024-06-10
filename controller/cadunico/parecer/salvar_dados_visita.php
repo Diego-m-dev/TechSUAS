@@ -34,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $cep = $data['cep'];
         $referencia_localizacao = $data['referencia_localizacao'];
         $situacao = $data['situacao'];
-        $resumo_visita = $data['resumo_visita'];
+        $resumo_visita = nl2br($data['resumo_visita']);
         $membros = $data['membros_familia']; // Supondo que membros seja um array de objetos
 
         // Iniciar transação

@@ -52,47 +52,99 @@ foreach ($nis_form as $nis) {
     } else {
         $dados = $sql_query->fetch_assoc();
         $codigo_familiar = $dados['cod_familiar_fam'];
-        $dat_atual_fam = $dados['dat_atual_fam'];
-                    if (!empty($dat_atual_fam)) {
-                        $formatando_data = DateTime::createFromFormat('Y-m-d', $dat_atual_fam);
+        // Remove os zeros à esquerda
+        $cod_fam = ltrim($codigo_familiar, '0');
 
-                        // Verifica se a data foi criada corretamente
-                        if ($formatando_data) {
-                            $dat_atual_fam_formatado = $formatando_data->format('d/m/Y');
-                        } else {
-                            $dat_atual_fam_formatado = "Data inválida.";
-                        }
-                    } else {
-                        $dat_atual_fam_formatado = "Data não fornecida.";
-                    }
+
+        $sql_visitas_did = "SELECT * FROM visitas_feitas WHERE cod_fam = '$cod_fam'";
+        $sql_query_vis_did = $conn->query($sql_visitas_did) or die("ERRO ao consultar !" . $conn - error);
+
+        if ($sql_query_vis_did->num_rows == 0) {
+            $resultado = "";
+        } else {
+            $dados_visitinha = $sql_query_vis_did->fetch_assoc();
+            $aviso = "ESSA FAMILIA JÁ FOI VISITADA NO DIA ";
+            $datadaVisita = $dados_visitinha['data'];
+
+            if (!empty($datadaVisita)) {
+                $formatando_data_visita = DateTime::createFromFormat('Y-m-d', $datadaVisita);
+        
+                // Verifica se a data foi criada corretamente
+                if ($formatando_data_visita) {
+                    $data_visita = $formatando_data_visita->format('d/m/Y');
+                } else {
+                    $data_visita = "Data inválida.";
+                }
+            } else {
+                $aviso_base = "Data não fornecida.";
+            }
+            $resultado = $aviso . $data_visita;
+        }
+
+
+        $dat_atual_fam = $dados['dat_atual_fam'];
+    if (!empty($dat_atual_fam)) {
+        $formatando_data = DateTime::createFromFormat('Y-m-d', $dat_atual_fam);
+
+        // Verifica se a data foi criada corretamente
+        if ($formatando_data) {
+            $dat_atual_fam_formatado = $formatando_data->format('d/m/Y');
+        } else {
+            $dat_atual_fam_formatado = "Data inválida.";
+        }
+    } else {
+        $dat_atual_fam_formatado = "Data não fornecida.";
+    }
         ?>
         <h4>INFORMAÇÕES RELATIVAS A ULTIMA ATUALIZAÇÃO <?php echo $dat_atual_fam_formatado; ?> </h4>
+        <h4 style="color: red;"><?php echo $resultado; ?></h4>
         <?php
         $codigo_formatado = substr_replace(str_pad($dados['cod_familiar_fam'], 11, '0',STR_PAD_LEFT), '-', 9, 0);
         echo $codigo_formatado. '<br>';
-        echo 'RF: '. $dados['nom_pessoa']. '<br>';
-
         ?>
-        <table border="1">
+        <p>Responsável Familiar: <strong><?php echo $dados['nom_pessoa']; ?></strong></p>
+        <?php
+
+        $cep = substr_replace($dados['num_cep_logradouro_fam'], '-', 5, 0);
+        ?>
+        <table border="1" width="800">
             <tr>
                 <th>ENDEREÇO</th>
             </tr>
             <tr>
                 <td>
-        <?php
-
-        echo '<span id="localidade">1.11 - Localidade: '. $dados['nom_localidade_fam'] . '</span>';
-        echo '<span id="tipo">1.12 - Tipo: '. $dados['nom_tip_logradouro_fam'] . '</span>';
-        echo '<span id="titulo">1.13 - Título: '. $dados['nom_titulo_logradouro_fam'] . '</span>';
-        echo '<span id="nome_logradouro">1.14 - Nome: '. $dados['nom_logradouro_fam'] . '</span>';
-        echo '<span id="numero_logradouro">1.15 - Número: '. $dados['num_logradouro_fam'] . '</span>';
-        echo '<span id="complemento_numero">1.16 - Complemento do Número: '. $dados['des_complemento_fam'] . '</span>';
-        echo '<span id="complemento_adicional">1.17 - Complemento Adicional: '. $dados['des_complemento_adic_fam'] . '</span>';
-        $cep = substr_replace($dados['num_cep_logradouro_fam'], '-', 5, 0);
-        echo '<span id="cep">1.18 - CEP: '. $cep . '</span>';
-        echo '<span id="referencia_localizacao">1.20 - Referência para Localização: '. $dados['txt_referencia_local_fam'] . '</span>';
-
-        ?>
+            <table class="table_alin" width="798">
+        <tr>
+            <td class="title_line" colspan="5">1.11 - Localidade:</td>
+            <td colspan="20"><?php echo '<span id="localidade">'. $dados['nom_localidade_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="4">1.12 - Tipo:</td>
+            <td colspan="16"><?php echo '<span id="tipo">'. $dados['nom_tip_logradouro_fam'] . '</span>'; ?></td>
+            <td class="title_line" colspan="2">1.13 - Título:</td>
+            <td colspan="3"><?php echo '<span id="titulo">'. $dados['nom_titulo_logradouro_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="4">1.14 - Nome:</td>
+            <td colspan="21"><?php echo '<span id="nome_logradouro">'. $dados['nom_logradouro_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td class="title_line" colspan="8">1.15 - Número:</td>
+            <td colspan="4"><span id="numero_logradouro"><?php echo $dados['num_logradouro_fam'] == 0 ? "" : $dados['num_logradouro_fam']; ?></span></td>
+            <td class="title_line" colspan="8">1.16 - Complemento do Número:</td>
+            <td colspan="5"><?php echo '<span id="complemento_numero">'. $dados['des_complemento_fam'] . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="12">1.17 - Complemento Adicional:</td>
+            <td colspan="8"><?php echo '<span id="complemento_adicional">'. $dados['des_complemento_adic_fam'] . '</span>'; ?></td>
+            <td colspan="2">1.18 - CEP:</td>
+            <td colspan="3"><?php echo '<span id="cep">'. $cep . '</span>'; ?></td>
+        </tr>
+        <tr>
+            <td colspan="12">1.20 - Referência para Localização:</td>
+            <td colspan="13"><?php echo '<span id="referencia_localizacao">'. $dados['txt_referencia_local_fam'] . '</span>'; ?></td>
+        </tr>
+    </table>
                 </td>
             </tr>
         </table><br>
@@ -105,22 +157,22 @@ foreach ($nis_form as $nis) {
                 
             } else {
                 ?>
-                <table border="1">
+                <table border="1" width="800">
                 <tr>
                     <th colspan="3">MEMBROS</th>
                 </tr>
 <?php
-                while ($fam = $sql_query_fam->fetch_assoc()) {
-                    ?>
-                    <tr>
-                    <td><?php echo $fam['cod_parentesco_rf_pessoa']; ?></td>
-                    <td><?php echo $fam['nom_pessoa']; ?></td>
-                    <td><?php echo $fam['num_nis_pessoa_atual']; ?></td>
-                    </tr>
-                    <?php
-                }
+    while ($fam = $sql_query_fam->fetch_assoc()) {
+        ?>
+        <tr>
+        <td><?php echo $fam['cod_parentesco_rf_pessoa']; ?></td>
+        <td><?php echo $fam['nom_pessoa']; ?></td>
+        <td><?php echo $fam['num_nis_pessoa_atual']; ?></td>
+        </tr>
+        <?php
+    }
 ?>
-                </table>
+    </table>
 <?php
         }
     }

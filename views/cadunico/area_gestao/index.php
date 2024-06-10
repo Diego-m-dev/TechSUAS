@@ -28,14 +28,24 @@ if ($_SESSION['funcao'] != '1') {
     <button type="button" id="btn_familia">Consultar Famílias</button>
     <button type="button" id="btn_entrevistadores">Entrevistadores</button>
 
-    <div class="btn">
-            <a class="menu-button" onclick="location.href='/TechSUAS/views/geral/atualizar_tabela';">
-                    <span class="material-symbols-outlined">
-                            library_add
-                    </span>
-                    Importar Banco de Dados
-            </a>
-    </div>
+
+<div class="btn">
+    <a class="menu-button" onclick="location.href='/TechSUAS/views/geral/atualizar_tabela';">
+            <span class="material-symbols-outlined">
+                    library_add
+            </span>
+        Importar Banco de Dados
+    </a>
+</div>
+
+<div class="btn">
+    <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/visitas/accompany_visits';">
+            <span class="material-symbols-outlined">
+                    library_add
+            </span>
+        Acompanhar Visitas
+    </a>
+</div>
 
     <!-- CADASTROS Formulário para filtrar informações do cadastro-->
 <form method="post" id="simples">

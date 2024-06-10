@@ -185,7 +185,14 @@ $('#codfamiliar').on('change', function () {
 })
 
 function consultarFamilia() {
-    var codfam = $('#codfamiliar').val();
+    var codfam = $('#codfamiliar').val()
+    const input = document.getElementById('codfamiliar')
+    input.addEventListener('blur', function () {
+        if (input.value.trim() === '') {
+            setTimeout(function () {
+                input.focus()
+            }, 0)
+        } else {
 
     $.ajax({
         type: 'POST',
@@ -208,27 +215,27 @@ function consultarFamilia() {
                 
                 visitas.forEach(function(visita) {
                     if (visita.acao == 1) {
-                        var acao = "ATUALIZAÇÃO REALIZADA";
+                        var acao = "ATUALIZAÇÃO REALIZADA"
                     } else if (visita.acao == 2) {
-                        var acao = "NÃO LOCALIZADO";
+                        var acao = "NÃO LOCALIZADO"
                     } else if (visita.acao == 3) {
-                        var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
+                        var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR"
                     } else if (visita.acao == 4) {
-                        var acao = "A FAMÍLIA RECUSOU ATUALIZAR";
+                        var acao = "A FAMÍLIA RECUSOU ATUALIZAR"
                     } else if (visita.acao == 5) {
-                        var acao = "ATUALIZAÇÃO NÃO REALIZADA";
+                        var acao = "ATUALIZAÇÃO NÃO REALIZADA"
                     } else {
                         var acao = ""
                     }
-                    visitasHtml += '<div class="visita">';
-                    visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>';
-                    visitasHtml += '<span>Ação: ' + acao + '</span><br>';
-                    visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>';
-                    visitasHtml += '</div><br>';
+                    visitasHtml += '<div class="visita">'
+                    visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>'
+                    visitasHtml += '<span>Ação: ' + acao + '</span><br>'
+                    visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>'
+                    visitasHtml += '</div><br>'
                 })
-                $('#data_visita').html(visitasHtml);
+                $('#data_visita').html(visitasHtml)
             } else if (response.data_visita) {
-                $('#data_visita').text(response.data_visita);
+                $('#data_visita').text(response.data_visita)
             }
 
                 /* $('#data_visita').text(response.data_visita)
@@ -248,8 +255,10 @@ function consultarFamilia() {
                 $('#acao').text(acao)
                 $('#parecer_tec').text('Parecer do Entrevistador: ' + response.parecer_tec)
                 $('#entrevistador').text('Entrevistador: ' + response.entrevistador)*/
+                }
             }
-        }
+        })
+    }
     })
 }
 
@@ -260,7 +269,14 @@ $(document).ready(function () {
     })
 })
 
+//FUNÇÃO PARA IMPRIMIR QUANDO HOUVER REGISTRO NO TBL TUDO PRIMEIRA FASE NA TELA PRINT_VISITA EM SEGUIDA UMA REQUISIÇÃO AJAX PARA SALVAR QUALQUER ALTERAÇÃO QUE FOR FEITA NO CODIGO FAMILIAR 
+
+
 function imprimirParecer() {
+    window.print()
+
+    setTimeout(function() {
+
     var dados = {
         id_visita: document.getElementById("id_visita").innerText,
         numero_parecer: document.getElementById("numero_parecer").innerText,
@@ -314,10 +330,29 @@ function imprimirParecer() {
         error: function(xhr, status, error) {
             console.error('Erro ao salvar os dados:', error)
             console.log('Resposta do servidor:', xhr.responseText)
+            }
+        })
+    }, 300)
+}
+//FUNÇÃO PARA SALVAR QUAIQUER ALTERAÇÃO NO CÓDIGO
+function salvaCodigoEditado() {
+    var conteudo = {
+        alterado_codigo: document.getElementById("codigo_familiar").innerText,
+        id_para_alterar: document.getElementById("id_visita").innerText
+    }
+
+    $.ajax({
+        url: "/TechSUAS/controller/cadunico/parecer/salvar_alt_parecer.php",
+        type: "POST",
+        data: JSON.stringify(conteudo),
+        contentType: 'application/json',
+        success:  function (response) {
+            console.log(response)
         }
-    });
+    })
 }
 
+//FUNÇÃO PARA IMPRIMIR QUANDO NÃO HOUVER REGISTRO NO TBL_TUDO
 function imprimirParecerPARTE() {
     window.print()
 

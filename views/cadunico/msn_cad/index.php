@@ -8,11 +8,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 <html lang="pt-br">
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -40,10 +42,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         </form>
 
         <?php
-
-if (isset($_GET['msg'])) {
-    echo "<p>{$_GET['msg']}</p>";
-}
 if (!isset($_POST['cod_fam'])) {
 
 } else {
@@ -55,17 +53,58 @@ if (!isset($_POST['cod_fam'])) {
     if ($sql_query->num_rows == 0) {
         echo $_POST['cod_fam']. " não encontrado!";
     } else {
+?>
+        <table border="1">
+            <tr>
+            <th>NOME</th>
+            <th>NIS</th>
+            <th>DATA DA ULTIMA ATUALIZAÇÃO</th>
+            <th>TELEFONE 1</th>
+            <th>TELEFONE 2</th>
+            <th>AÇÃO</th>
+            </tr>
+        
+<?php
         while ($dados = $sql_query->fetch_assoc()) {
+?>
+    <form action="salvar_pedido" method="POST">
+        <tr>
+            <td><?php echo $dados['nom_pessoa']; ?></td>
+            <td><?php echo $dados['num_nis_pessoa_atual']; ?></td>
+            <td><?php 
+                $data = $dados['dat_atual_fam'] ?? '';
 
-            echo "Nome: ". $dados['nom_pessoa']. " | NIS: ". $dados['num_nis_pessoa_atual']. "<br>";
-            echo "Apelido/Nome Social: ". $dados['nom_apelido_pessoa']. " / ";
-            echo "Data de Nascimento: ". $dados['dta_nasc_pessoa']. " / ";
-            echo "Nome da Mãe: ". $dados['nom_completo_mae_pessoa']. " / ";
-            echo "CPF: ". $dados['num_cpf_pessoa']. "<br>";
-            //Contatos 
-            echo "tel.1: ". $dados['num_ddd_contato_1_fam']. $dados['num_tel_contato_1_fam']. " / ";
-            echo "tel.2: ". $dados['num_ddd_contato_2_fam']. $dados['num_tel_contato_2_fam']. "<br>";
-        }
+                if ($data) {
+                    $formatando_data = DateTime::createFromFormat('Y-m-d', $data);
+                    echo $dados_visita = $formatando_data ? $formatando_data->format('d/m/Y') : 'Data inválida.';
+                } else {
+                    echo 'Data não fornecida.';
+                }
+
+            ?></td>
+            <td><?php
+                $tel_oito = str_pad(substr($dados['num_tel_contato_1_fam'], -8), 9, "9", STR_PAD_LEFT);
+            echo $dados['num_ddd_contato_1_fam'] == 0 ? "" : $dados['num_ddd_contato_1_fam'] . $tel_oito;
+            ?></td>
+            <td><?php
+                $tel_oito_ = str_pad(substr($dados['num_tel_contato_2_fam'], -8), 9, "9", STR_PAD_LEFT);
+            echo $dados['num_ddd_contato_2_fam'] == 0 ? "" : $dados['num_ddd_contato_2_fam'] . $tel_oito_;
+            ?></td>
+            <td>
+                <form action="salvar_pedido" method="post" style="display:inline;">
+                    <input type="hidden" name="nis_liga" value="<?php echo $dados['num_nis_pessoa_atual']; ?>">
+                    <button type="submit">GERAR</button>
+                </form>
+            </td>
+        </tr>
+    </form>
+
+<?php
+    }
+?>
+        </table>
+
+<?php
     }
 }
 ?>
