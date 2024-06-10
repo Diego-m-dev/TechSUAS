@@ -71,7 +71,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
               Mensagens do CadÚnico
             </a>
           </div>
-
+<?php
+  if ($_SESSION['nivel_usuario'] == 'admin') {
+?>
           <div class="peixe">
             <a class="menu-button" href="/TechSUAS/views/cadunico/area_gestao/index">
               <span class="material-symbols-outlined">person</span>
@@ -81,7 +83,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         </nav>
       </div>
     </div>
+<?php
+  }
+?>
   </div>
+
 
   <div class="calend">
     <div class="calendendario">
