@@ -54,7 +54,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
                     $dt_atualizacao = DateTime::createFromFormat('Y-m-d', $dt_atualizacao_str);
                     $data_atual_ = DateTime::createFromFormat('Y-m-d', $data_atual_str);
     ?>
-                    <p class="cont">Para os devidos fins, confirmo que  
+                    <p style="text-indent: 1.25cm;">Para os devidos fins, confirmo que  
     <?php
                 echo $sexo_pessoa_ == "1" ? " o Sr. " : " a Sra. ";
                 echo '<strong>'. $dados_tbl['nom_pessoa']. '</strong>';?>, CPF: <strong><?php echo $_POST['cpf_dec_cad'];
@@ -127,6 +127,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     } else {
         $dados_user = $sql_user_query->fetch_assoc();
     ?>
+    </div>
     <div class="assinatura">
         <div>
         <p class="signature-line"></p><br>
@@ -135,6 +136,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
         <?php echo $dados_user['id_cargo']; ?></p>
         </div>
     </div>
+    <div class="conteudo">
     <?php
     }
 
@@ -239,6 +241,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     ?>
             </script>
             <p>Para os devidos fins, confirmo que <span id="sDDr"><!--O SR OU A SRA--></span> <strong><span class="maiusculo" id="nome_1"><!--NOME DO INDIVIDUO--></span></strong>, CPF: <strong><span id="cpf_1"><!--CPF DO INDIVIDUO--></span></strong>, <span id="sDnC" ><!--NASCIDO OU NASCIDA--></span>no dia <strong><span id="dataNascimento"><!--DATA DE NASCIMENTO DO INDIVIDUO--></span></strong>, não é <span id="sDEv"><!--INSCRITO OU INSCRITA--></span> no Cadastro Único para Programas do Governo Federal.</p>
+    </div>
             <div class="assinatura">
                 <div><p class="signature-line"></p></div>
                 <div><p><?php echo $dados_user['nome']; ?></p></div>
