@@ -12,45 +12,42 @@ if ($_SESSION['funcao'] != '1') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <link rel="stylesheet" href="style.css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Controle de Visitas</title>
 </head>
 <body>
     <h1>CONTROLE DE VISITAS</h1>
 
-    <label for="codigoFamiliar">Código Familiar</label>
-    <input type="text" id="codigoFamiliar">
+    <div class="filters-container">
+        <label for="codigoFamiliar">Código Familiar</label>
+        <input type="text" id="codigoFamiliar">
+        
+        <div class="date-container">
+            <label for="dateFilter">Data:</label>
+            <input type="date" id="dateFilter">
+        </div>
 
-    <label for="dateFilter">Data:</label>
-    <input type="date" id="dateFilter">
-    
-    <label for="statusFilter">Status:</label>
-    <select id="statusFilter">
-        <option value="">Todos</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-    </select>
+        <label for="statusFilter">Status:</label>
+        <select id="statusFilter">
+            <option value="">Todos</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
 
-    <label for="nameFilter">Nome do Entrevistador:</label>
-    <input type="text" id="nameFilter">
+        <label for="nameFilter">Nome do Entrevistador:</label>
+        <input type="text" id="nameFilter">
 
-    <label for="startDateFilter">Data Início:</label>
-    <input type="date" id="startDateFilter">
+        <label for="startDateFilter">Data Início:</label>
+        <input type="date" id="startDateFilter">
 
-    <label for="endDateFilter">Data Fim:</label>
-    <input type="date" id="endDateFilter">
+        <label for="endDateFilter">Data Fim:</label>
+        <input type="date" id="endDateFilter">
 
-    
-    <button onclick="filterData()">Filtrar</button>
+
+        <button onclick="filterData()">Filtrar</button>
+    </div>
     
     <!-- Tabela para exibir os dados -->
     <table border="1">
@@ -67,7 +64,6 @@ if ($_SESSION['funcao'] != '1') {
     </table>
 
     <?php
-
     $sql_acomp_visit = "SELECT cod_fam, data, acao, entrevistador FROM visitas_feitas";
     $sql_query_acomp_visit = $conn->query($sql_acomp_visit);
 
@@ -81,49 +77,45 @@ if ($_SESSION['funcao'] != '1') {
 
     <script>
         // Passar dados do PHP para JavaScript
-        const data = <?php echo json_encode($dados); ?>
+        const data = <?php echo json_encode($dados); ?>;
 
         function renderTable(filteredData) {
-            const tableBody = document.getElementById('dataBody')
-            tableBody.innerHTML = ''
+            const tableBody = document.getElementById('dataBody');
+            tableBody.innerHTML = '';
             filteredData.forEach(row => {
-                const tr = document.createElement('tr')
+                const tr = document.createElement('tr');
                 for (let i = 0; i < 4; i++) {
-                    const td = document.createElement('td')
-                    td.textContent = row[i]
-                    tr.appendChild(td)
+                    const td = document.createElement('td');
+                    td.textContent = row[i];
+                    tr.appendChild(td);
                 }
-                tableBody.appendChild(tr)
-            })
+                tableBody.appendChild(tr);
+            });
         }
 
+        function filterData() {
+            const nameFilter = document.getElementById('nameFilter').value.toLowerCase();
+            const startDateFilter = document.getElementById('startDateFilter').value;
+            const endDateFilter = document.getElementById('endDateFilter').value;
+            const statusFilter = document.getElementById('statusFilter').value;
+            const codigoFamiliar = document.getElementById('codigoFamiliar').value;
 
-function filterData() {
-    const nameFilter = document.getElementById('nameFilter').value.toLowerCase()
-    const startDateFilter = document.getElementById('startDateFilter').value
-    const endDateFilter = document.getElementById('endDateFilter').value
-    const statusFilter = document.getElementById('statusFilter').value
-    const codigoFamiliar = document.getElementById('codigoFamiliar').value
+            const filteredData = data.filter(row => {
+                const nameMatches = nameFilter ? row[3].toLowerCase().includes(nameFilter) : true;
+                const dateMatches = startDateFilter && endDateFilter 
+                    ? (row[1] >= startDateFilter && row[1] <= endDateFilter) 
+                    : true;
+                const statusMatches = statusFilter ? row[2] == statusFilter : true;
+                const codigoFamiliarMatches = codigoFamiliar ? row[0] == codigoFamiliar : true;
 
-    const filteredData = data.filter(row => {
-        const nameMatches = nameFilter ? row[3].toLowerCase().includes(nameFilter) : true
-        const dateMatches = startDateFilter && endDateFilter 
-            ? (row[1] >= startDateFilter && row[1] <= endDateFilter) 
-            : true
-        const statusMatches = statusFilter ? row[2] == statusFilter : true
+                return nameMatches && dateMatches && statusMatches && codigoFamiliarMatches;
+            });
 
-        const codigoFamiliarMatches = codigoFamiliar ? row[0] == codigoFamiliar : true
-
-        return nameMatches && dateMatches && statusMatches && codigoFamiliarMatches
-    })
-
-    renderTable(filteredData)
-}
-
+            renderTable(filteredData);
+        }
 
         // Render the full table initially
-        renderTable(data)
-
+        renderTable(data);
     </script>
 </body>
 </html>
