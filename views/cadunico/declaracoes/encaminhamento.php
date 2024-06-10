@@ -89,7 +89,7 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
 
                     <h1>ENCAMINHAMENTO</h1>
                     <h4><span id="setor"></span></h4>
-                    <p><span id="carimbo"></span></p>
+                    <div class="cidade_data" id="carimbo"></div>
                     <p><span id="assunto"></span></p>
 
 
