@@ -71,6 +71,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
               Mensagens do CadÚnico
             </a>
           </div>
+          <div class="atendimento">
+            <a class="menu-button" href="#">
+              <span class="material-symbols-outlined">contacts</span>
+              Painel do Entrevistador
+            </a>
+          </div>
 <?php
   if ($_SESSION['nivel_usuario'] == 'admin') {
 ?>
