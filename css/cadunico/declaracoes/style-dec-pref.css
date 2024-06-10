@@ -2,62 +2,51 @@ body {
     font-family: 'Times New Roman', Times, serif;
     margin: 0;
     padding: 0;
-    background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-
-
-.container,
-#form{
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    align-content: center;
-    
-}
-.signature-line{
-    padding-top: 300px;
-}
-#form{
-    text-align: center;
-}
-#title {
-    font-size: 22px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 140px;
-    width: 80%;
 }
 
-#right-align {
-    font-size: 18px;
-    text-align: right;
+.tudo {
     width: 80%;
+    padding: 30px 10px 10px 10px;
+    position: absolute;
+    height: 80%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .signature-line {
-    width: 80%;
-    margin-top: 18px;
-    font-size: 20px;
+    width: 600px;
+    /* Largura da linha */
+    border-bottom: 1px solid #000;
+    /* Cor e espessura da linha */
+    margin: 0px;
+    /* Espaçamento acima e abaixo da linha */
+}
+
+button,
+a {
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover,
+a:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}
+
+.material-symbols-outlined {
     text-align: center;
-}
-
-#justified-text {
-    text-align: justify;
-    font-size: 18px;
-    text-indent: 50px;
-    margin-top: 20px;
-    width: 80%;
-    padding-top: 100px;
-}
-
-#cord{
-    font-size: 18px;
-}
-#mat{
-    font-size: 16px;
 }
 
 @media print {
@@ -66,10 +55,76 @@ body {
         /* Oculta o conteúdo após o corpo do documento */
     }
 
+    body {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-size: 16px;
+
+    }
+
     @page {
         size: auto;
         /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
         margin: 0;
-        /* opcional: define margens da página */
+        /* opcional: 
+        define margens da página */
+    }
+
+    button {
+        display: none;
+    }
+
+    .tudo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 100px;
+    }
+
+    .conteudo {
+        text-align: justify;
+        line-height: 1.7;
+        margin-bottom: 50px;
+    }
+
+    .cont{
+        text-indent: 1.25cm;
+    }
+
+    h1 {
+        position: absolute;
+        width: 100%;
+        margin-bottom: 50px;
+    }
+
+    .assinatura {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        margin-top: 150px;
+        font-weight: bold;
+    }
+
+    h1 {
+        font-size: 24px;
+        text-align: center;
+    }
+
+    p {
+        text-align: center;
+    }
+
+    .signature-line {
+        width: 600px;
+        /* Largura da linha */
+        border-bottom: 1px solid #000;
+        /* Cor e espessura da linha */
+        margin: 0px;
+        /* Espaçamento acima e abaixo da linha */
+        text-indent: 0cm;
     }
 }

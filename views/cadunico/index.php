@@ -54,7 +54,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
           <div class="folha">
             <a class="menu-button" href="/TechSUAS/views/cadunico/declaracoes/index">
               <span class="material-symbols-outlined">quick_reference_all</span>
-              Declarações Cadastro Único
+              Declarações e Encaminhamentos
             </a>
           </div>
 

@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-*{
+
+* {
     margin-top: 0;
 }
+
 body {
     background-image: url(/TechSUAS/img/cadunico/background_cad.svg);
     background-size: cover;
@@ -12,14 +14,20 @@ body {
     display: flex;
     flex-direction: column;
 }
-h1{
+
+h1 {
     text-align: center;
 }
+
 p {
-    text-align: justify; /* Alinhamento justificado */
-    font-family: 'Times New Roman', Times, serif; /* Fonte serifada */
-    font-size: 12pt; /* Tamanho da fonte */
-    line-height: 1.5; /* Espaçamento de linha */
+    text-align: justify;
+    /* Alinhamento justificado */
+    font-family: 'Times New Roman', Times, serif;
+    /* Fonte serifada */
+    font-size: 12pt;
+    /* Tamanho da fonte */
+    line-height: 1.5;
+    /* Espaçamento de linha */
     margin: 0;
     text-indent: 1.25cm;
 }
@@ -33,33 +41,12 @@ img {
 
 .container {
     display: flex;
-    justify-content:flex-start;
+    justify-content: flex-start;
     flex-direction: column;
-    padding: 10px;
-    background-color: #ffffff;
-    border-radius: 5px;
 }
-.desligamento,.encaminhamento{
-    padding-top: 10px;
-    color: #13294b;
-}
-.decprefeitura{
-    color: #13294b;
-}
-.linha{
-    border: 1px solid #13294b;
-}
-.lin1{
-    padding-top: 15px;
-}
-textarea{
-    width: 350px;
-    height: auto;
-    border-radius: 5px;
-    position: relative;
-    top: 13px;
-}
-button,a {
+
+button,
+a {
     text-decoration: none;
     font-size: 14px;
     border-radius: 5px;
@@ -70,14 +57,38 @@ button,a {
     color: white;
     cursor: pointer;
 }
-button:hover,a:hover{
+
+button:hover,
+a:hover {
     background-color: #3b82f6;
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }
-select,
-input{
-    font-size: 16px;
-    border-radius: 4px;
+
+nav {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
+nav a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #13294b;
+    transition: background-color 0.3s, transform 0.2s;
+    margin: 10px 0;
+    width: 70%;
+    font-size: 20px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a:hover {
+    background-color: #3b82f6;
+    transform: scale(1.03);
+}
