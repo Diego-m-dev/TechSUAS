@@ -1,0 +1,139 @@
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.tudo {
+    width: 80%;
+    padding: 30px 10px 10px 10px;
+    position: absolute;
+    height: 80%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.signature-line {
+    width: 600px;
+    /* Largura da linha */
+    border-bottom: 1px solid #000;
+    /* Cor e espessura da linha */
+    margin: 0px;
+    /* Espaçamento acima e abaixo da linha */
+}
+.cidade_data{
+    display: none;
+}
+button,
+a {
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+    margin: 10px 0px 10px 0px;
+}
+
+button:hover,
+a:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}
+
+textarea{
+    width: 600px;
+    height: 80px;
+}
+#endereco,#nome_enc{
+    width: 300px;
+    margin-top: 5px;
+}
+@media print {
+    body::after {
+        content: none !important;
+        /* Oculta o conteúdo após o corpo do documento */
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    @page {
+        size: auto;
+        /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
+        margin: 0;
+        /* opcional: 
+        define margens da página */
+    }
+
+    button {
+        display: none;
+    }
+
+    .tudo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 50px;
+    }
+
+    .conteudo {
+        text-align: center;
+        line-height: 1.5;
+        margin-bottom: 50px;
+    }
+
+    .cont{
+        text-indent: 1.25cm;
+    }
+
+    h1 {
+        margin-bottom: 50px;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .assinatura {
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: center;
+        align-items: center;
+        margin-top: 200px;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    p{
+        text-align: justify;
+    }
+
+    .signature-line {
+        width: 600px;
+        /* Largura da linha */
+        border-bottom: 1px solid #000;
+        /* Cor e espessura da linha */
+        margin: 0px;
+        /* Espaçamento acima e abaixo da linha */
+        text-align: center;
+    }
+    p .cont{
+        text-indent: 1.25cm;
+    }
+    .cidade_data{
+        display: block; /* ou inline-block, dependendo do contexto */
+        margin-left: 320px;
+    }
+}

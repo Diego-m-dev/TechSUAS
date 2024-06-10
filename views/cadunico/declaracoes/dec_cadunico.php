@@ -249,9 +249,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
         <?php echo 'São Bento do Una - PE, '. $data_formatada; ?>
     </div>
             <div class="assinatura">
-                <div><p class="signature-line"></p></div>
-                <div><p><?php echo $dados_user['nome']; ?></p></div>
-                <div><p><?php echo $dados_user['id_cargo']; ?></p></div>
+                <div class="assinatura"><p class="signature-line"></p></div>
+                <div class="assinatura"><p><?php echo $dados_user['nome']; ?></p></div>
+                <div class="assinatura"><p><?php echo $dados_user['id_cargo']; ?></p></div>
             </div>
     <?php
         }
