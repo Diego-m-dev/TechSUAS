@@ -67,22 +67,22 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
           <div class="msg_cad">
             <a class="menu-button" href="/TechSUAS/views/cadunico/msn_cad/index">
-              <span class="material-symbols-outlined">contacts</span>
+              <span class="material-symbols-outlined">forward_to_inbox</span>
               Mensagens do CadÚnico
             </a>
           </div>
           <div class="painel">
             <a class="menu-button" href="#">
-              <span class="material-symbols-outlined">contacts</span>
+              <span class="material-symbols-outlined">admin_panel_settings</span>
               Painel do Entrevistador
             </a>
           </div>
 <?php
-  if ($_SESSION['nivel_usuario'] == 'admin') {
+  if ($_SESSION['nivel_usuario'] != 'usuario') {
 ?>
           <div class="peixe">
             <a class="menu-button" href="/TechSUAS/views/cadunico/area_gestao/index">
-              <span class="material-symbols-outlined">person</span>
+              <span class="material-symbols-outlined">shield_person</span>
               Área do Gestor
             </a>
           </div>
