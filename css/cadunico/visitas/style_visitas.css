@@ -60,7 +60,20 @@ img {
   background-color: #3b82f6;
   transform: scale(1.05);
 }
+.parent {
+  display: flex;
+  justify-content: center;  /* Centraliza horizontalmente */
+  align-items: center;      /* Centraliza verticalmente */
+  margin-top: 20px;
+  text-transform: uppercase;/* Altura total da tela, ajuste conforme necessário */
+  text-decoration:underline;
+}
 
+
+.visits {
+  display: block;
+  /* Outros estilos necessários */
+}
 
 @media screen and (max-width: 800px) {
   .menu-button {
