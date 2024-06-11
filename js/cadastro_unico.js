@@ -577,17 +577,42 @@ function printWithFields_preper() {
 
 function buscarDadosFamily() {
     var familia = $("#codfamiliar").val()
-    
+
+        // Remove todos os caracteres que não sejam números
+        let cpfLimpo = familia.replace(/\D/g, '');
+        // Preenche com zeros à esquerda para garantir que tenha 11 dígitos
+        let ajustandoCoda = cpfLimpo.padStart(11, '0');
+        let ajustandoCod = ajustandoCoda.replace(/^(\d{9})(\d{2})$/, '$1-$2')
+
+    $('#codfamiliar_print').text(ajustandoCod)
+
     $.ajax({
         type: 'POST',
         url: '/TechSUAS/controller/cadunico/busca_family.php',
         data: {
-            codfam: codfam
+            codfam: familia
         },
         dataType: 'json',
         success: function (response) {
             if (response.encontrado){
-                if (response.nome) {
+                $('#data_entrevista').text(`Data da ultima Atualização ${response.data_entrevista}`)
+                if (response.dados_familia) {
+                    var dados_familiap = response.dados_familia
+                    var visitasHtml = ''
+                    visitasHtml += '<table>'
+                    visitasHtml += '<tr><th>NIS</th><th></th><th>NOME</th><th></th><th>PARENTESCO</th></tr>'                    
+                    dados_familiap.forEach(function(familia_show) {
+                        visitasHtml += '<div class="visita">'
+                        visitasHtml += '<tr>'
+                        visitasHtml += '<td><span>' + familia_show.nis_atual + '</span></td><td></td>'
+                        visitasHtml += '<td><span>' + familia_show.nome + '</span></td><td></td>'
+                        visitasHtml += '<td><span>' + familia_show.parentesco    + '</span></td>'
+                        visitasHtml += '</tr>'
+                        visitasHtml += '</div>'
+                    })
+                    visitasHtml += '</table>'
+                    $('#familia_show').html(visitasHtml)
+
                 }
             }
         }
@@ -608,4 +633,15 @@ function mostrarCampoTexto() {
         // Caso contrário, oculta o campo de texto
         campoTexto.style.display = "none"
     }
+}
+
+//FUNÇÃO PARA APLICAR A DATA DA ENTREVISTA CASO SEJA NO MESMO DIA.
+
+function dataHoje() {
+    var hoje = new Date();
+    var dia = String(hoje.getDate()).padStart(2, '0')
+    var mes = String(hoje.getMonth() + 1).padStart(2, '0') // Janeiro é 0!
+    var ano = hoje.getFullYear()
+    var dataAtual = ano + '-' + mes + '-' + dia
+    document.getElementById("data_entrevista").value = dataAtual
 }
