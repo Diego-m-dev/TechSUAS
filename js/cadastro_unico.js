@@ -425,7 +425,7 @@ $(document).ready(function () {
         Swal.fire({
             title: "DECLARAÇÃO DO CADASTRO ÚNICO",
             html: `
-            <p>É importante conferir as informações no CadÚnico e SIBEC para certificar-se da situação recente da família.</p>
+            <p>É importante conferir as informações no CadÚnico e SIBEC para certificar-se da situação recente da família.</p><br> 
             <h4>INFORME O CPF</h4>
             <form method="POST" action="dec_cadunico" id="form_familia">
                 <label> CPF:
