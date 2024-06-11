@@ -20,78 +20,84 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
           <img src="/TechSUAS/img/cadunico/visitas/h1-visitas.svg" alt="Titulocomimagem">
         </h1>
       </div>
-      <div class="container">
-        <div class="fundo">
-        <div class="btns">
-          <div class="buscarvisitas">
-            <button class="menu-button" onclick="location.href='buscarvisita';">
-              <span class="material-symbols-outlined">
-                manage_search
-              </span>
-              Buscar visitas realizadas
-            </button>
-          </div>
-          <div class="visitas_n">
-            <button class="menu-button" onclick="location.href='visitas_para_fazer';">
-              <span class="material-symbols-outlined">
-                person_search
-              </span>
-              Visitas não realizadas
-            </button>
-          </div>
+      <div class="tudo">
+        <div class="container">
+          <div class="fundo">
+          <div class="btns">
+            <div class="buscarvisitas">
+              <button class="menu-button" onclick="location.href='buscarvisita';">
+                <span class="material-symbols-outlined">
+                  manage_search
+                </span>
+                Buscar visitas realizadas
+              </button>
+            </div>
+            <div class="visitas_n">
+              <button class="menu-button" onclick="location.href='visitas_para_fazer';">
+                <span class="material-symbols-outlined">
+                  person_search
+                </span>
+                Visitas não realizadas
+              </button>
+            </div>
 
-          <div class="parecer">
-            <button class="menu-button" onclick="location.href='registrar';">
-              <span class="material-symbols-outlined">
-                forum
-              </span>
-              Registrar
-            </button>
-          </div>
+            <div class="parecer">
+              <button class="menu-button" onclick="location.href='registrar';">
+                <span class="material-symbols-outlined">
+                  forum
+                </span>
+                Registrar
+              </button>
+            </div>
 
-          <div class="voltar">
-            <a href="/TechSUAS/config/back" class="menu-button">
-              <span class="fas fa-arrow-left">
-              </span>
-              Voltar ao menu
-            </a>
+            <div class="voltar">
+              <a href="/TechSUAS/config/back" class="menu-button">
+                <span class="fas fa-arrow-left">
+                </span>
+                Voltar ao menu
+              </a>
+            </div>
+          </div>
+          <div class="grafico">
+            <canvas id="graficoPizza"></canvas>
+          </div>
           </div>
         </div>
-        <div class="grafico">
-          <canvas id="graficoPizza"></canvas>
-        </div>
-        </div>
-      </div>
-    </nav>
-    <?php
+      </nav>
+      <?php
 
-// Consulta SQL
-$sql_ano = 'SELECT YEAR(dat_atual_fam) AS ano, COUNT(*) AS quantidade
-FROM tbl_tudo
-WHERE cod_parentesco_rf_pessoa = 1
-GROUP BY YEAR(dat_atual_fam)
-ORDER BY ano DESC';
-$resultado_p_ano = $conn->query($sql_ano);
+  // Consulta SQL
+  $sql_ano = 'SELECT YEAR(dat_atual_fam) AS ano, COUNT(*) AS quantidade
+  FROM tbl_tudo
+  WHERE cod_parentesco_rf_pessoa = 1
+  GROUP BY YEAR(dat_atual_fam)
+  ORDER BY ano DESC';
+  $resultado_p_ano = $conn->query($sql_ano);
 
-// Crie arrays para armazenar os anos e quantidades
-$anos = [];
-$quantidades = [];
+  // Crie arrays para armazenar os anos e quantidades
+  $anos = [];
+  $quantidades = [];
 
-while ($linha = $resultado_p_ano->fetch_assoc()) {
-    $anos[] = $linha['ano'];
-    $quantidades[] = $linha['quantidade'];
-}
+  while ($linha = $resultado_p_ano->fetch_assoc()) {
+      $anos[] = $linha['ano'];
+      $quantidades[] = $linha['quantidade'];
+  }
 
-//dados totais dos registros de visitas
-$sqlr = "SELECT COUNT(*) as total_visitas FROM visitas_feitas";
-$result = $pdo->query($sqlr);
-$row = $result->fetch(PDO::FETCH_ASSOC);
-$totalRegistros = $row['total_visitas'];
-$numero_parecer = $totalRegistros;
+  //dados totais dos registros de visitas
+  $sqlr = "SELECT COUNT(*) as total_visitas FROM visitas_feitas";
+  $result = $pdo->query($sqlr);
+  $row = $result->fetch(PDO::FETCH_ASSOC);
+  $totalRegistros = $row['total_visitas'];
+  $numero_parecer = $totalRegistros;
 
-  //$sql = "SELECT * FROM tbl_tudo WHERE dat_atual_fam LIKE '%$sql_ano%'";
-?>
-<?php echo 'Até o momento foram '. $numero_parecer . ' visitas realizadas.'; ?>
+    //$sql = "SELECT * FROM tbl_tudo WHERE dat_atual_fam LIKE '%$sql_ano%'";
+  ?>
+  <div class="parent">
+    <div class="visits">
+      <?php echo 'Até o momento foram realizadas '. $numero_parecer . ' visitas.'; ?>
+    </div>
+  </div>
+</div>
 <script>
 try {
     // Dados para o gráfico de pizza
