@@ -15,10 +15,11 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="stylesheet" type="text/css" href=/TechSUAS/css/cadunico/declaracoes/style_enc.css>
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="stylesheet" type="text/css" href=/TechSUAS/css/cadunico/declaracoes/style_enc.css>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -69,7 +70,7 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
 
                         }).then((result) => {
                             if (result.isConfirmed) {
-                                $('#setor').text(`<?php echo $_SESSION['setor']; ?>`)
+                                $('#setor1').text(`<?php echo $_SESSION['setor']; ?>`)
                                 $('#carimbo').text(`<?php echo $cidade . $data_formatada; ?>.`)
                                 $('#assunto').text('Assunto:')
                                 $('#encaminho').text('Encaminho o(a) Sr(a). ')
@@ -88,9 +89,9 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
                     </script>
 
                     <h1>ENCAMINHAMENTO</h1>
-                    <h4><span id="setor"></span></h4>
+                    <h4><span id="setor1"></span></h4>
                     <div class="cidade_data" id="carimbo"></div>
-                    <p><span id="assunto"></span></p>
+                    <p><span id="assunto"></span> <span class="editable-field" contenteditable="true"></span></p>
 
 
                     <p class="cont"><span id="encaminho"></span><strong><span id="nome_wen"></span></strong><span id="cpf"></span><strong><span id="cpf_wen"></span></strong><span id="reside"></span><strong><span id="end_wen"></span></strong>.
@@ -159,7 +160,7 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
 
                         ?>
                         <!--CORPO-->
-                        <p>Assunto:</p>
+                        <p>Assunto:  <span class="editable-field" contenteditable="true"></span></p>
                         <div class="conteudo">
                             <p class="cont ">Encaminho <?php echo  $dados_enc['cod_sexo_pessoa'] == "1" ? " o Sr. " : " a Sra. "; ?> <strong><?php echo $dados_enc['nom_pessoa']; ?></strong>, CPF: <strong><?php echo $_POST['cpf_dec_cad']; ?>, </strong> <?php echo  $dados_enc['cod_sexo_pessoa'] == "1" ? " filho " : " filha "; ?> de <strong><?php echo $dados_enc['nom_completo_mae_pessoa']; ?></strong>, reside em
                                 <span class="editable-field" contenteditable="true"><i>
@@ -245,20 +246,6 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
             }
                     ?>
                         </div>
-                        <script>
-                            function mostrarCampoTexto() {
-                                var select = document.getElementById("setor");
-                                var campoTexto = document.getElementById("inputOutro");
-
-                                if (select.value == "3") {
-                                    // Se a opção 'Outros' for selecionada, mostra o campo de texto
-                                    campoTexto.style.display = "block";
-                                } else {
-                                    // Caso contrário, oculta o campo de texto
-                                    campoTexto.style.display = "none";
-                                }
-                            }
-                        </script>
 </body>
 
 </html>
