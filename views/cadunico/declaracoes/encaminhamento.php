@@ -18,7 +18,7 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
     <link rel="stylesheet" type="text/css" href=/TechSUAS/css/cadunico/declaracoes/style_enc.css>
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -140,7 +140,7 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
                         <div class="no-print">
                             <button class="buttons" onclick="printWithSignature()">Imprimir com Assinatura Eletrônica</button>
                             <button class="buttons" onclick="printWithFields_preper()">Imprimir com Campos de Assinatura</button>
-                            <button class="buttons" onclick="voltar()">Voltar</button>
+                            <button class="buttons" onclick="voltar()"><i class="fas fa-arrow-left"></i>Voltar</button>
                         </div>
 
                     <?php
@@ -237,7 +237,7 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
                             <div class="no-print">
                                 <button class="buttons" onclick="printWithSignature()">Imprimir com Assinatura Eletrônica</button>
                                 <button class="buttons" onclick="printWithFields_preper()">Imprimir com Campos de Assinatura</button>
-                                <button class="buttons" onclick="voltar()">Voltar</button>
+                                <button class="buttons" onclick="voltar()"><i class="fas fa-arrow-left"></i>Voltar</button>
                             </div>
 
                     <?php
