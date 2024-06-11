@@ -55,6 +55,13 @@ textarea{
     width: 300px;
     margin-top: 5px;
 }
+.editable-field{
+    border: 1px solid #000000;
+    padding: 1px 20px 1px 20px ;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight:300;
+}
 @media print {
     body::after {
         content: none !important;
@@ -78,7 +85,9 @@ textarea{
         /* opcional: 
         define margens da página */
     }
-
+.editable-field{
+    border: none;
+}
     button {
         display: none;
     }
