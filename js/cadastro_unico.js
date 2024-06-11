@@ -572,3 +572,24 @@ function printWithFields_preper() {
 
     window.print();
 }
+
+//FUNÇÃO DA TELA DASHBOARD ENTREVISTADOR
+
+function buscarDadosFamily() {
+    var familia = $("#codfamiliar").val()
+    
+    $.ajax({
+        type: 'POST',
+        url: '/TechSUAS/controller/cadunico/busca_family.php',
+        data: {
+            codfam: codfam
+        },
+        dataType: 'json',
+        success: function (response) {
+            if (response.encontrado){
+                if (response.nome) {
+                }
+            }
+        }
+    })
+}
