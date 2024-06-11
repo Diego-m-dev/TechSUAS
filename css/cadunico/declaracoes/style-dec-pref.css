@@ -103,7 +103,7 @@ a:hover {
 
     .assinatura {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         margin-top: 350px;
