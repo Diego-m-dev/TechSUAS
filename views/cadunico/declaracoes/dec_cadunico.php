@@ -128,6 +128,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
         $dados_user = $sql_user_query->fetch_assoc();
     ?>
     </div>
+    </div>
     <div class="cidade_data">
         <?php echo $cidade; ?><?php echo $data_formatada; ?>.
     </div>
@@ -244,7 +245,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     ?>
             </script>
             <p>Para os devidos fins, confirmo que <span id="sDDr"><!--O SR OU A SRA--></span> <strong><span class="maiusculo" id="nome_1"><!--NOME DO INDIVIDUO--></span></strong>, CPF: <strong><span id="cpf_1"><!--CPF DO INDIVIDUO--></span></strong>, <span id="sDnC" ><!--NASCIDO OU NASCIDA--></span>no dia <strong><span id="dataNascimento"><!--DATA DE NASCIMENTO DO INDIVIDUO--></span></strong>, não é <span id="sDEv"><!--INSCRITO OU INSCRITA--></span> no Cadastro Único para Programas do Governo Federal.</p>
-    </div>
+
+    
     <div class="cidade_data">
         <?php echo $cidade; ?><?php echo $data_formatada; ?>.
     </div>
@@ -268,5 +270,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             <button onclick="voltar()"><i class="fas fa-arrow-left"></i>Voltar</button>
         </div>
     </div>
+</div>
 </body>
 </html>
