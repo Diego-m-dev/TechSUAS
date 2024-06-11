@@ -593,3 +593,19 @@ function buscarDadosFamily() {
         }
     })
 }
+
+//FUNÇÃO PARA MUDAR DE SELECT PARA INPUT 
+
+function mostrarCampoTexto() {
+    var select = document.getElementById("setor")
+    var campoTexto = document.getElementById("inputOutro")
+
+    if (select.value === "3") {
+        // Se a opção 'Outros' for selecionada, mostra o campo de texto
+        campoTexto.style.display = "block"
+        select.style.display = "none"
+    } else {
+        // Caso contrário, oculta o campo de texto
+        campoTexto.style.display = "none"
+    }
+}
