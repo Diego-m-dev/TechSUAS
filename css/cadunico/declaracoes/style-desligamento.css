@@ -77,6 +77,9 @@ p .declar{
     text-transform: uppercase;
     font-weight:300;
 }
+.titulo{
+    display: none;
+}
 @media print {
     body::after {
         content: none !important;
@@ -158,5 +161,14 @@ p .declar{
         display: block; /* ou inline-block, dependendo do contexto */
         margin-left: 320px;
         margin-bottom: 70px;
+    }
+    .titulo {
+        font-size: 10px;
+        position: fixed; /* Posicionamento fixo */
+        top: 30px; /* Posição no topo */
+        right: 20px; /* Distância da direita */
+        transform: translateY(50%); /* Ajuste para o centro vertical */
+        display: block; /* Garante que seja exibido como bloco */
+        white-space: nowrap; /* Impede que o texto quebre a linha */
     }
 }

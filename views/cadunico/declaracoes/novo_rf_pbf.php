@@ -35,6 +35,11 @@ $data_prazo = $data_hj_modufy->format('d/m/Y');
 
 </head>
 <body>
+<div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
+        </div>
+    </div>
 
 <?php
 if (isset($_POST['nis_tc_new']) && isset($_POST['nis_tc_old'])) {

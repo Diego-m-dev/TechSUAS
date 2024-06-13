@@ -3,7 +3,7 @@ body{
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
-    overflow: hidden;
+    overflow: auto;
     font-family: "Inter", sans-serif;
 }
 * {
@@ -16,7 +16,7 @@ img {
 }
 .container{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: flex-start;
     align-items: center;
     padding: 10px;
@@ -55,3 +55,6 @@ a:hover{
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }  
+a{
+    text-decoration: none;
+}

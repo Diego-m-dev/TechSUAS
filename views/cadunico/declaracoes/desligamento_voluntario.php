@@ -30,7 +30,11 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
 </head>
 
 <body>
-
+<div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
+        </div>
+    </div>
     <?php
     if (isset($_POST['cpf_dec_cad'])) {
 

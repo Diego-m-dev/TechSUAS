@@ -21,6 +21,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     <title>Declarações</title>
 </head>
 <body>
+<div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
+        </div>
+    </div>
     <div class="img">
         <h1 class="titulo-com-imagem">
             <img src="/TechSUAS/img/cadunico/declaracoes/h1-declaração.svg" alt="Titulocomimagem">

@@ -31,6 +31,11 @@ $sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn -
 </head>
 
 <body>
+<div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
+        </div>
+    </div>
     <div class="tudo">
         <div class="conteudo">
             <?php

@@ -16,6 +16,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/validar_cpf.php';
     </head>
 
 <body>
+<div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
+        </div>
+    </div>
         <h1>DECLARAÇÃO DO CADASTRO ÚNICO</h1>
         <h3>Confira se as informações estão corretas</h3>
         <form method="post" action="/TechSUAS/controller/cadunico/declaracao/con_doc">

@@ -50,6 +50,9 @@ a:hover {
 .material-symbols-outlined {
     text-align: center;
 }
+.titulo{
+    display: none;
+}
 
 @media print {
     body::after {
@@ -134,5 +137,14 @@ a:hover {
     .cidade_data{
         display: block; /* ou inline-block, dependendo do contexto */
         margin-left: auto;
+    }
+    .titulo {
+        font-size: 10px;
+        position: fixed; /* Posicionamento fixo */
+        top: 30px; /* Posição no topo */
+        right: 20px; /* Distância da direita */
+        transform: translateY(50%); /* Ajuste para o centro vertical */
+        display: block; /* Garante que seja exibido como bloco */
+        white-space: nowrap; /* Impede que o texto quebre a linha */
     }
 }

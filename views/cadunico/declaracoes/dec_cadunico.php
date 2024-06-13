@@ -30,6 +30,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
 </head>
 <body>
+    <div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
+        </div>
+    </div>
     <div class="tudo">
         <h1>DECLARAÇÃO DO CADASTRO ÚNICO PARA PROGRAMAS DO GOVERNO FEDERAL</h1>
         <div class="conteudo">
