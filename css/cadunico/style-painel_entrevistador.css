@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    background-image: url(../../img/cadunico/background_cad.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    font-family: "Inter", sans-serif;
+}
+
+* {
+    margin-top: 0px;
+}
+
+img {
+    display: flex;
+    width: 100%;
+    max-height: 120px
+}
+.container{
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+.bloc1{
+    display: flex;
+    flex-direction: row;
+}
+
+th,
+table,
+td {
+    background-color: #ffffff99;
+    color: #13294b;
+    font-size: 15px;
+    font-family: "Inter", sans-serif;
+    border-radius: 5px;
+    padding: 1px 2px;
+    border-style: outset;
+    width: auto;
+}
+
+
+button,
+a {
+    font-size: 12px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(255, 255, 255, 0.3) 0px 30px 60px -30px, rgba(255, 255, 255, 0.35) 0px -2px 6px 0px inset;
+}
+
+button:hover,
+a:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}
+
+input,
+select,
+option,
+label {
+    background-color: #ffffff;
+    color: #13294b;
+    font-size: 13px;
+    font-family: "Inter", sans-serif;
+    border-radius: 5px;
+    padding: 1px 2px;
+    border-style: outset;
+}
+
+.check {
+    text-align: center;
+}
+
+/* Estilizando o checkbox */
+.urg input[type="checkbox"] {
+    display: none;
+}
+
+
+/* Estilizando o visual do checkbox */
+.urg .checkmark {
+    display: inline-block;
+    width: 16px;
+    /* Tamanho do checkbox */
+    height: 16px;
+    /* Tamanho do checkbox */
+    border-radius: 50%;
+    /* Deixa o checkbox redondo */
+    border: 2px solid #13294b;
+    /* Borda do checkbox */
+    position: relative;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+/* Altera o visual quando marcado */
+.urg input[type="checkbox"]:checked+.checkmark::after {
+    content: "X";
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 16px;
+    color: red;
+}
+
