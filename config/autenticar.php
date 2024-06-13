@@ -92,6 +92,8 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
             })
         </script>
                 <?php
+            } elseif ($_SESSION['setor'] == 'FICHARIO') {
+                header("location:/TechSUAS/views/cras/test_comparativo");
             }
             exit();
         } else {
