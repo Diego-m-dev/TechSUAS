@@ -7,6 +7,7 @@ body {
     background-attachment: fixed;
     overflow: auto;
     font-family: "Inter", sans-serif;
+    font-size: 14px;
 }
 
 * {
@@ -18,32 +19,91 @@ img {
     width: 100%;
     max-height: 120px
 }
-.container{
-    padding: 10px;
-    background-color: #ffffff;
-    border-radius: 5px;
-}
-.bloc1{
+
+.bloc1,
+.bloc2,
+.upload,
+.btn {
     display: flex;
     flex-direction: row;
 }
 
-th,
-table,
-td {
-    background-color: #ffffff99;
-    color: #13294b;
-    font-size: 15px;
-    font-family: "Inter", sans-serif;
+.observ,
+#data_entre,
+.upl {
+    margin-left: 50px;
+}
+
+textarea {
+    height: 100px;
+    width: 350px;
     border-radius: 5px;
-    padding: 1px 2px;
-    border-style: outset;
-    width: auto;
+}
+
+.situacao,
+.observ {
+    line-height: 2;
 }
 
 
+.tudo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 10px 20px 20px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
+nav {
+    text-align: center;
+    padding: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #13294b;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 100%;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+nav a:hover {
+    background-color: #3b82f6;
+    transform: scale(1.03);
+}
+
+.cadastrar {
+    margin-right: 40px;
+}
+
+a {
+    margin-top: 5px;
+}
+
+.btns {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    width: 40%;
+    line-height: 2;
+    border-left: 2px solid #13294b;
+}
+
 button,
 a {
+    font-family: "Inter", sans-serif;
+    text-transform: uppercase;
     font-size: 12px;
     border-radius: 5px;
     padding: 5px 25px;
@@ -53,7 +113,12 @@ a {
     color: white;
     cursor: pointer;
     text-decoration: none;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(255, 255, 255, 0.3) 0px 30px 60px -30px, rgba(255, 255, 255, 0.35) 0px -2px 6px 0px inset;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.upload,
+.bloc2 {
+    margin-top: 20px;
 }
 
 button:hover,
@@ -63,21 +128,44 @@ a:hover {
     color: #fff;
 }
 
+.ocult2 {
+    width: 50%;
+}
+
 input,
 select,
 option,
-label {
+label,
+span,
+#familia_show,
+#data_entrevista,
+#codfamiliar_print,
+#data_entre {
     background-color: #ffffff;
     color: #13294b;
-    font-size: 13px;
-    font-family: "Inter", sans-serif;
     border-radius: 5px;
     padding: 1px 2px;
     border-style: outset;
 }
 
+.ocult {
+    display: none;
+}
+i.material-symbols-outlined {
+    font-size: 14px;
+}
+.visible {
+    display: block;
+}
+
 .check {
     text-align: center;
+}
+
+.btn {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
 }
 
 /* Estilizando o checkbox */
@@ -113,4 +201,3 @@ label {
     font-size: 16px;
     color: red;
 }
-
