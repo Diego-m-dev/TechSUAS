@@ -38,7 +38,7 @@ $(document).ready(function () {
                     html: `
                     <h6>para unipessoal</h6>
                     <h4>INFORME O CPF</h4>
-                    <form method="POST" action="termo_responsabilidade_uni.php" id="form_residencia_uni">
+                    <form method="POST" action="/TechSUAS/views/cadunico/forms/termo_responsabilidade_uni.php" id="form_residencia_uni">
                         <label> CPF:
                             <input type="text" name="cpf_residencia"/>
                         </label>
@@ -60,7 +60,7 @@ $(document).ready(function () {
                     html: `
                     <h6>para famílias com duas pessoas ou mais</h6>
                     <h4>INFORME O CPF</h4>
-                    <form method="POST" action="termo_responsabilidade.php" id="form_residencia_familia">
+                    <form method="POST" action="/TechSUAS/views/cadunico/forms/termo_responsabilidade.php" id="form_residencia_familia">
                         <label> CPF:
                             <input type="text" name="cpf_residencia"/>
                         </label>
@@ -84,7 +84,7 @@ $(document).ready(function () {
             title: "TERMO DE DECLARAÇÃO",
             html: `
             <h4>INFORME O CPF</h4>
-            <form method="POST" action="Termo_declaracao" id="form_dec_renda">
+            <form method="POST" action="/TechSUAS/views/cadunico/forms/Termo_declaracao" id="form_dec_renda">
                 <label> CPF:
                     <input type="text" name="cpf_declar"/>
                 </label>
@@ -106,7 +106,7 @@ $(document).ready(function () {
             title: "FICHA DE EXCLUSÃO DE FAMILIA",
             html: `
             <h4>INFORME O NIS</h4>
-            <form method="POST" action="Ficha_de_Exclusão_de_familia" id="form_fc_pessoa">
+            <form method="POST" action="/TechSUAS/views/cadunico/forms/Ficha_de_Exclusão_de_familia" id="form_fc_pessoa">
                 <label> NIS:
                     <input type="text" name="nis_exc_pessoa"/>
                 </label>
@@ -128,7 +128,7 @@ $(document).ready(function () {
             title: "FICHA DE EXCLUSÃO DE PESSOA",
             html: `
             <h4>INFORME O NIS</h4>
-            <form method="POST" action="Ficha_de_Exclusão_de_Pessoa" id="form_fc_pessoa">
+            <form method="POST" action="/TechSUAS/views/cadunico/forms/Ficha_de_Exclusão_de_Pessoa" id="form_fc_pessoa">
                 <label> NIS:
                     <input type="text" name="nis_exc_pessoa"/>
                 </label>
@@ -427,7 +427,7 @@ $(document).ready(function () {
             html: `
             <p>É importante conferir as informações no CadÚnico e SIBEC para certificar-se da situação recente da família.</p><br> 
             <h4>INFORME O CPF</h4>
-            <form method="POST" action="dec_cadunico" id="form_familia">
+            <form method="POST" action="/TechSUAS/views/cadunico/declaracoes/dec_cadunico" id="form_familia">
                 <label> CPF:
                     <input id="cpf_dec_cad" type="text" name="cpf_dec_cad"/>
                 </label>
@@ -472,7 +472,7 @@ $(document).ready(function () {
             title: "DECLARAÇÃO DE DESLIGAMENTO VOLUNTÁRIO",
             html: `
             <h4>INFORME O CPF</h4>
-            <form method="POST" action="desligamento_voluntario" id="form_familia">
+            <form method="POST" action="/TechSUAS/views/cadunico/declaracoes/desligamento_voluntario" id="form_familia">
                 <label> CPF:
                     <input id="cpf_dec_cad" type="text" name="cpf_dec_cad"/>
                 </label>
@@ -502,7 +502,7 @@ $(document).ready(function () {
         Swal.fire({
             title: "TROCA DE RF - C.E.F.",
             html: `
-            <form method="POST" action="novo_rf_pbf" id="form_familia">
+            <form method="POST" action="/TechSUAS/views/cadunico/declaracoes/novo_rf_pbf" id="form_familia">
                     <h4>INFORME O NIS DO RF ANTERIOR</h4>                    
                 <label>
                     <input id="nis_tc_old" type="text" name="nis_tc_old" maxlength="11" placeholder="NIS do antigo RF"/>
@@ -537,7 +537,7 @@ $(document).ready(function () {
         Swal.fire({
             title: "ENCAMINHAMENTOS",
             html: `
-            <form method="POST" action="encaminhamento" id="form_familia">
+            <form method="POST" action="/TechSUAS/views/cadunico/declaracoes/encaminhamento" id="form_familia">
             <h4>Por favor, preencha as informações abaixo</h4>
                 <label>
                     CPF: <input id="cpf_dec_cad" type="text" name="cpf_dec_cad" placeholder="Digite o cpf aqui"/> 
@@ -642,6 +642,8 @@ function dataHoje() {
     var dia = String(hoje.getDate()).padStart(2, '0')
     var mes = String(hoje.getMonth() + 1).padStart(2, '0') // Janeiro é 0!
     var ano = hoje.getFullYear()
-    var dataAtual = ano + '-' + mes + '-' + dia
-    document.getElementById("data_entrevista").value = dataAtual
+    var dataFormatada = dia + '/' + mes + '/' + ano
+
+    $('#cont_data').hide()
+    $('#data_entre').text(dataFormatada)
 }
