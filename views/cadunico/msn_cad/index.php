@@ -8,13 +8,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 <html lang="pt-br">
 
 <head>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-
+    <link rel="stylesheet" href="../../../css/cadunico/msn/style_msn.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -25,7 +24,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 <body>
 <div class="img">
         <h1 class="titulo-com-imagem">
-            <img src="#" alt="Titulocomimagem">
+            <img src="/TechSUAS/img/cadunico/h1-msg_cad.svg" alt="Titulocomimagem">
         </h1>
     </div>
     <div class="container">
@@ -34,13 +33,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             <div>
                 <label for="tipo">Código Familiar:</label>
                     <input type="text" id="cod_fam" name="cod_fam" />
-                
-            </div>
-            <div>
-                <button type="submit">Buscar</button>
-            </div>
+                    <button type="submit">BUSCAR</button>
+                    
+            
         </form>
-
+        <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
+        </div>
         <?php
 if (!isset($_POST['cod_fam'])) {
 
@@ -109,7 +107,6 @@ if (!isset($_POST['cod_fam'])) {
 }
 ?>
     </div>
-    <footer><img src="footer.svg" alt=""></footer>
     <script>
     $(document).ready(function (){
         $('#cod_fam').mask('000000000-00')

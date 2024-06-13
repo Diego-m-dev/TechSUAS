@@ -18,6 +18,7 @@ $sql_reside->execute();
     <title>Termo de Responsabilidade</title>
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/tr.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 </head>
 
 <body>
@@ -74,7 +75,7 @@ if ($sql_reside->rowCount() > 0) {
             <p class="center ass">______________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</p>
 
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
-            <button class="impr" onclick="voltarAoMenu()">Voltar</button>
+            <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
 <?php
 } else {
 

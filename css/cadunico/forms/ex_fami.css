@@ -88,6 +88,26 @@ p {
     display: none;
 }
 
+button,
+a {
+    text-decoration: none;
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+    margin: 10px 0px 10px 0px;
+}
+
+button:hover,
+a:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}
 @media print {
     button{
         display: none;
