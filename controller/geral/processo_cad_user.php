@@ -35,7 +35,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $verifica_usuario->execute();
     $verifica_usuario->store_result();
 
-    echo $mddrRfc1nkKKKdsad56;
     if ($verifica_usuario->num_rows > 0) {
         // Se o nome de usuário já está em uso, exibe uma mensagem e redirecione de volta ao login
         ?>
@@ -53,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </script>
             <?php
         exit();
-    } 
+    }
 
     // Caso o Nome do Usuário seja unico será adicionado ao SQL
     $smtp = $conn->prepare("INSERT INTO usuarios (nome, usuario, senha, nivel, setor, funcao, email, acesso, data_registro) VALUES (?,?,?,?,?,?, ?, ?, NOW())");
