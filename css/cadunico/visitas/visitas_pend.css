@@ -36,7 +36,7 @@ td {
   margin-top: 20px;
 }
 
-.bloco {
+.bloco, p {
   background-color: #ffffff;
   padding: 10px;
   border-radius: 5px;
@@ -75,7 +75,9 @@ label {
   padding: 1px 2px;
   border-style: outset;
 }
-
+p{
+  color: #13294b;
+}
 .check {
   text-align: center;
 }
@@ -117,7 +119,6 @@ label {
 }
 
 .bloco {
-
   display: flex;
   flex-direction: row;
   align-items: flex-start;
