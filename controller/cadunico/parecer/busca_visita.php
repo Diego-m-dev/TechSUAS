@@ -22,10 +22,8 @@ if (isset($_POST['codfam'])) {
         $response['visitas'] = array();
 
 
-        //formatando a data
-
         while ($dados_visita = $stmt_visita->fetch(PDO::FETCH_ASSOC)) {
-        
+        //formatando a data
         $data = $dados_visita['data'];
         // Verifica se a data não está vazia e tenta criar um objeto DateTime
         if (!empty($data)) {
