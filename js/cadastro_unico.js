@@ -1,3 +1,4 @@
+//BOTÕES DA TELA DE AREA DO GESTOR
 $(document).ready(function () {
     $('#simples').hide()
     $('#beneficio').hide()
@@ -7,6 +8,8 @@ $(document).ready(function () {
         $('#simples').show()
         $('#beneficio').hide()
         $('#entrevistadores').hide()
+        $('#btn_benef').hide()
+        $('#btn_entrevistadores').hide()
     })
     $('#btn_benef').click(function () {
         $('#beneficio').show()
@@ -18,8 +21,40 @@ $(document).ready(function () {
         $('#simples').hide()
         $('#entrevistadores').show()
     })
-
 })
+
+//BOTÕES PARA FILTROS
+$(document).ready(function () {
+    $('.filters-container').hide()
+    $('.table-container').hide()
+
+    $('#btn_gepetees').click(function () {
+        $('.filters-container').show()
+        $('.table-container').show()
+        $('#btn_gepetees').hide()
+    })
+})
+
+//FUNÇÃO PARA FILTRAR OS GPTE
+function filterGPTE() {
+    fetch("/TechSUAS/views/cadunico/area_gestao/filtro_gpte")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na requisição: ' + response.status)
+        }
+        return response.json()
+    })
+    .then(data => {
+        console.log('Dados recebidos', data)
+    })
+    .catch(error => {
+        console.log('Erro ao buscar dados:', error)
+    })
+}
+
+function atualizar() {
+    window.location.reload()
+}
 
 $(document).ready(function () {
     $('#btn_residencia').click(function () {
