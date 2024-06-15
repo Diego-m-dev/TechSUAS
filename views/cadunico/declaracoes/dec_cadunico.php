@@ -232,14 +232,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             var [year, month, day] = dateStr.split('-');
             return `${day}/${month}/${year}`;
         }
-
-        
-
         // Apresentar a data formatada no HTML usando jQuery
-
-    })
+        })
     }
-                })
+})
 
     <?php
     $dados_user = $sql_user_query->fetch_assoc();
