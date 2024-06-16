@@ -49,6 +49,7 @@ img {
     /* Estilos adicionais quando houver conteúdo */
     border-color: #000;
     background-color: #f0f0f0;
+    scrollbar-color: #13294b #f1f1f1;
 }
 
 span>#nome,

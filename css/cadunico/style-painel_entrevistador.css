@@ -45,7 +45,6 @@ textarea {
     line-height: 2;
 }
 
-
 .tudo {
     display: flex;
     flex-direction: row;
@@ -129,7 +128,15 @@ a:hover {
 }
 
 .ocult2 {
-    width: 50%;
+    width: 95%;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    line-height: 2;
+    max-height: 200px; /* Altura máxima para a caixa de rolagem */
+    overflow-y: auto; /* Habilita a rolagem vertical */
+    border: 1px solid #13294b; /* Borda opcional para melhor visualização */
+    padding: 10px; /* Espaçamento interno opcional */
+    scrollbar-color: #13294b #f1f1f1;
 }
 
 input,
@@ -151,9 +158,11 @@ span,
 .ocult {
     display: none;
 }
+
 i.material-symbols-outlined {
     font-size: 14px;
 }
+
 .visible {
     display: block;
 }
@@ -172,7 +181,6 @@ i.material-symbols-outlined {
 .urg input[type="radio"] {
     display: none;
 }
-
 
 /* Estilizando o visual do checkbox */
 .urg .checkmark {

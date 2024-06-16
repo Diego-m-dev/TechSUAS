@@ -92,7 +92,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
         <div class="btn">
           <button type="submit">Cadastrar</button>
           <br><button type="button" onclick="voltaMenu()"><i class="fas fa-arrow-left"></i>Voltar ao menu</button>
-          </div>
+        </div>
       </form>
 
     </div>
@@ -134,47 +134,52 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const targets = [
-          document.getElementById('codfamiliar_print'),
-            document.getElementById('data_entrevista'),
-              document.getElementById('familia_show'),
-                document.getElementById('data_entre')
-        ]
+        document.getElementById('codfamiliar_print'),
+        document.getElementById('data_entrevista'),
+        document.getElementById('familia_show'),
+        document.getElementById('data_entre')
+      ];
 
-            // Função para alternar visibilidade
-            function toggleVisibility(target) {
-                if (target.innerHTML.trim() !== '') {
-                    target.classList.remove('ocult');
-                    target.classList.add('visible');
-                } else {
-                    target.classList.remove('visible');
-                    target.classList.add('ocult');
-                }
+      // Função para alternar visibilidade
+      function toggleVisibility(target) {
+        const ocult2 = document.querySelector('.ocult2');
+        if (target.innerHTML.trim() !== '') {
+          target.classList.remove('ocult');
+          target.classList.add('visible');
+          ocult2.classList.remove('ocult'); // Mostra a div ocult2 se houver conteúdo
+        } else {
+          target.classList.remove('visible');
+          target.classList.add('ocult');
+          if (Array.from(targets).every(t => t.innerHTML.trim() === '')) {
+            ocult2.classList.add('ocult'); // Oculta a div ocult2 se todos os alvos estiverem vazios
+          }
+        }
+      }
+
+      targets.forEach(target => {
+        // Observador de mutações para monitorar mudanças no conteúdo
+        const observer = new MutationObserver(function(mutationsList) {
+          for (const mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+              toggleVisibility(target);
             }
+          }
+        });
 
-            // Configura o observer para cada target
-            targets.forEach(targetNode => {
-              const observer = new MutationObserver(function(mutationsList, observer) {
-                for (const mutation of mutationsList) {
-                  if (mutation.type === 'childList') {
-                    toggleVisibility(targetNode)
-                  }
-                }
-              })
+        // Configurações do observer: observar mudanças nos filhos da div
+        const config = {
+          childList: true,
+          subtree: true
+        };
 
-                // Configurações do observer: observar mudanças nos filhos da div
-                const config = {
-                    childList: true,
-                    subtree: true
-                }
+        // Inicia o observer
+        observer.observe(target, config);
 
-                // Inicia o observer
-                observer.observe(targetNode, config)
-
-                // Verificação inicial para o caso de a div já ter conteúdo no carregamento
-                toggleVisibility(targetNode)
-            })
-        })
-    </script>
+        // Verificação inicial para o caso de a div já ter conteúdo no carregamento
+        toggleVisibility(target);
+      });
+    });
+  </script>
 </body>
 
 </html>
