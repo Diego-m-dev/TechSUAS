@@ -684,3 +684,6 @@ function dataHoje() {
 
     var dataFormatada = ano + '-' + mes + '-' + dia;
 }
+function recuperarSenha() {
+  window.location.href = "/TechSUAS/views/geral/recuperar_senha"
+}
