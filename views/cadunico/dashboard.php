@@ -87,6 +87,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           <div class="upl">
             <label for="arquivo">Arquivo:</label>
             <input type="file" id="arquivo" name="arquivo" accept=".pdf" required>
+            <label for="" class="coment">Arraste ou selecione o arquivo</label>
           </div>
         </div>
         <div class="btn">

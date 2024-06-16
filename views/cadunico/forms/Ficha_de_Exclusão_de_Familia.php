@@ -67,20 +67,20 @@ $sql_declar->execute();
             <input type="text" id="dataExclusao" name="dataExclusao" readonly>
 
             <label for="motivo">Motivo:</label>
-    <div class="impr">
-        <select id="motivo" class="parecer" name="motivo" onchange="buscarTextoMotivo()">
-            <option value="" disabled selected hidden>Selecione o motivo</option>
-            <option value="1">1 - Falecimento de toda...</option>
-            <option value="2">2 - Recusa da família em...</option>
-            <option value="3">3 - Omissão ou prestação...</option>
-            <option value="4">4 - Solicitação do RUF...</option>
-            <option value="5">5 - Decisão judicial...</option>
-            <option value="6">6 - Cadastros desatualizados...</option>
-            <option value="7">7 - Cadastros incluídos...</option>
-            <option value="8">8 - Cadastros incluídos ou alterados indevidamente...</option>
-            <option value="9">9 - Cadastros de famílias cuja renda mensal...</option>
-        </select>
-    </div>
+            <div class="impr">
+                <select id="motivo" class="parecer" name="motivo" onchange="buscarTextoMotivo()">
+                    <option value="" disabled selected hidden>Selecione o motivo</option>
+                    <option value="1">1 - Falecimento de toda...</option>
+                    <option value="2">2 - Recusa da família em...</option>
+                    <option value="3">3 - Omissão ou prestação...</option>
+                    <option value="4">4 - Solicitação do RUF...</option>
+                    <option value="5">5 - Decisão judicial...</option>
+                    <option value="6">6 - Cadastros desatualizados...</option>
+                    <option value="7">7 - Cadastros incluídos...</option>
+                    <option value="8">8 - Cadastros incluídos ou alterados indevidamente...</option>
+                    <option value="9">9 - Cadastros de famílias cuja renda mensal...</option>
+                </select>
+            </div>
             <div>
                 <span id="numeroMotivoSelecionado"></span>
                 <span id="textoMotivo" name="justified-text">Texto do motivo selecionado será exibido aqui.</span>
@@ -158,53 +158,53 @@ $sql_declar->execute();
     document.getElementById('dataExclusao').value = currentDate.toLocaleDateString('pt-BR', options);
     document.getElementById('dataExclusao2').textContent = currentDate.toLocaleDateString('pt-BR', options);
 
-  const motivoList = {
-      "1": {
-          oneMt: "- Falecimento de toda a família, mediante apresentação das certidões de óbito."
-      },
-      "2": {
-          twoMt: "- Recusa da família em prestar informações, mediante elaboração de parecer assinado por servidor municipal vinculado à gestão do CadÚnico."
-      },
-      "3": {
-          threeMt: "- Omissão ou prestação de informações inverídicas pela família, por comprovada má fé."
-      },
-      "4": {
-          fourMt: "- Solicitação do RUF."
-      },
-      "5": {
-          fiveMt: "- Decisão judicial."
-      },
-      "6": {
-          sixMt: "- Cadastros desatualizados cuja inclusão ou última atualização ocorreu há 48 (quarenta e oito) meses ou mais."
-      },
-      "7": {
-          sevenMt: "- Cadastros incluídos ou alterados em decorrência de fraude cibernética ou digital no(s) sistema(s) de entrada e manutenção de dados do CadÚnico, operado(s) pelas gestões municipais e do Distrito Federal, mediante elaboração de parecer assinado pelo Gestor do CadÚnico que ateste que a inclusão ou a alteração não foi realizada pelo Município ou pelo Distrito Federal."
-      },
-      "8": {
-          eightMt: "- Cadastros incluídos ou alterados indevidamente por agente público, por má fé, mediante elaboração de parecer assinado pelo Gestor do CadÚnico."
-      },
-      "9": {
-          nineMt: "- Cadastros de famílias cuja renda mensal per capita é superior à meio salário mínimo, ressalvados os casos cobertos pelo parágrafo único do art. 5º do Decreto nº 11.016, de 29 de março de 2022."
-      }
-  }
+    const motivoList = {
+        "1": {
+            oneMt: "- Falecimento de toda a família, mediante apresentação das certidões de óbito."
+        },
+        "2": {
+            twoMt: "- Recusa da família em prestar informações, mediante elaboração de parecer assinado por servidor municipal vinculado à gestão do CadÚnico."
+        },
+        "3": {
+            threeMt: "- Omissão ou prestação de informações inverídicas pela família, por comprovada má fé."
+        },
+        "4": {
+            fourMt: "- Solicitação do RUF."
+        },
+        "5": {
+            fiveMt: "- Decisão judicial."
+        },
+        "6": {
+            sixMt: "- Cadastros desatualizados cuja inclusão ou última atualização ocorreu há 48 (quarenta e oito) meses ou mais."
+        },
+        "7": {
+            sevenMt: "- Cadastros incluídos ou alterados em decorrência de fraude cibernética ou digital no(s) sistema(s) de entrada e manutenção de dados do CadÚnico, operado(s) pelas gestões municipais e do Distrito Federal, mediante elaboração de parecer assinado pelo Gestor do CadÚnico que ateste que a inclusão ou a alteração não foi realizada pelo Município ou pelo Distrito Federal."
+        },
+        "8": {
+            eightMt: "- Cadastros incluídos ou alterados indevidamente por agente público, por má fé, mediante elaboração de parecer assinado pelo Gestor do CadÚnico."
+        },
+        "9": {
+            nineMt: "- Cadastros de famílias cuja renda mensal per capita é superior à meio salário mínimo, ressalvados os casos cobertos pelo parágrafo único do art. 5º do Decreto nº 11.016, de 29 de março de 2022."
+        }
+    }
 
-  function buscarTextoMotivo() {
-      var motivoInput = document.getElementById("motivo");
-      var numeroMotivoSelecionado = document.getElementById("numeroMotivoSelecionado");
-      var textoMotivo = document.getElementById("textoMotivo");
+    function buscarTextoMotivo() {
+        var motivoInput = document.getElementById("motivo");
+        var numeroMotivoSelecionado = document.getElementById("numeroMotivoSelecionado");
+        var textoMotivo = document.getElementById("textoMotivo");
 
-      var selectedValue = motivoInput.value;
-      var selectedText = motivoList[selectedValue];
+        var selectedValue = motivoInput.value;
+        var selectedText = motivoList[selectedValue];
 
-      if (selectedText) {
-          numeroMotivoSelecionado.textContent = selectedValue;
-          textoMotivo.textContent = selectedText[Object.keys(selectedText)[0]];
-          $('#motivo').hide()
-      } else {
-          numeroMotivoSelecionado.textContent = "";
-          textoMotivo.textContent = "Texto do motivo selecionado será exibido aqui.";
-      }
-  }
+        if (selectedText) {
+            numeroMotivoSelecionado.textContent = selectedValue;
+            textoMotivo.textContent = selectedText[Object.keys(selectedText)[0]];
+            $('#motivo').hide()
+        } else {
+            numeroMotivoSelecionado.textContent = "";
+            textoMotivo.textContent = "Texto do motivo selecionado será exibido aqui.";
+        }
+    }
 </script>
 <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </body>
