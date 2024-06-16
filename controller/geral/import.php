@@ -15,7 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 <?php
 
 ini_set('memory_limit', '8192M');
-ini_set('max_execution_time', 300);
+ini_set('max_execution_time', 1000);
 
 if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
     $csv_tbl = $_POST['csv_tbl'];
