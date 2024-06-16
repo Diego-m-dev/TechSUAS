@@ -79,7 +79,11 @@ nav a:hover {
     background-color: #3b82f6;
     transform: scale(1.03);
 }
-
+input#arquivo{
+    display: block;
+    width: 400px;
+    height: 50px;
+}
 .cadastrar {
     margin-right: 40px;
 }
@@ -97,7 +101,7 @@ a {
     width: 40%;
     line-height: 2;
     border-left: 2px solid #13294b;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 button,
@@ -120,7 +124,14 @@ a {
 .bloc2 {
     margin-top: 20px;
 }
-
+.upload{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 50px;
+}
+.coment{
+    font-size: 12px;
+}
 button:hover,
 a:hover {
     background-color: #3b82f6;
