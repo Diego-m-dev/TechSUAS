@@ -101,7 +101,7 @@ a {
     width: 40%;
     line-height: 2;
     border-left: 2px solid #13294b;
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 button,
@@ -127,6 +127,7 @@ a {
 .upload{
     display: flex;
     justify-content: space-between;
+    margin-top: 50px;
 }
 .coment{
     font-size: 12px;
