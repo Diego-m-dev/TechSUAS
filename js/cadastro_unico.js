@@ -185,6 +185,10 @@ function voltarAoMenu() {
     window.history.back()
 }
 
+function voltarMenu(params) {
+    
+}
+
 function imprimirPagina() {
     window.print()
 }
