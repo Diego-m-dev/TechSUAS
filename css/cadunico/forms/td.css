@@ -5,6 +5,7 @@ body {
     padding: 0;
     text-align: justify;
     width: 80%;
+    overflow: auto;
 }
 .titulo{
     display: none;
