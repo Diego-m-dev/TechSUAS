@@ -77,6 +77,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
               Painel do Entrevistador
             </a>
           </div>
+
+          <div class="fichario">
+            <a class="menu-button" href="/TechSUAS/views/cadunico/fichario/fichario_home.php">
+              <span class="material-symbols-outlined">admin_panel_settings</span>
+              Fichario
+            </a>
+          </div>
 <?php
   if ($_SESSION['nivel_usuario'] != 'usuario') {
 ?>
