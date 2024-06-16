@@ -27,7 +27,4 @@ try {
     error_log($e->getMessage(), 3, '/path/to/your/logs/error.log');
     die("Erro ao conectar com o banco de dados! Por favor, tente novamente mais tarde.");
 }
-
-// Continue com o restante do seu código
-
 ?>
