@@ -13,7 +13,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
   <link rel="stylesheet" href="/TechSUAS/css/cadunico/style-painel_entrevistador.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -63,7 +64,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           </div>
           <div class="observ">
             <div><label for="resumo">Observação:</label></div>
-            <div><textarea name="resumo" id="resumo" placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
+            <div><textarea name="resumo" id="resumo"
+                placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
           </div>
           <br><input type="hidden" name="tipo_documento_hidden" id="tipo_documento_hidden" value=".pdf">
         </div>
@@ -86,7 +88,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           </div>
           <div class="upl">
             <label for="arquivo">Arquivo:</label>
-            <input type="file" id="arquivo" name="arquivo" accept=".pdf" required>
+            <input type="file" id="arquivo" name="arquivo" required><br><br>
           </div>
         </div>
         <div class="btn">
@@ -132,7 +134,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     </div>
   </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const targets = [
         document.getElementById('codfamiliar_print'),
         document.getElementById('data_entrevista'),
@@ -158,7 +160,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
       targets.forEach(target => {
         // Observador de mutações para monitorar mudanças no conteúdo
-        const observer = new MutationObserver(function(mutationsList) {
+        const observer = new MutationObserver(function (mutationsList) {
           for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
               toggleVisibility(target);

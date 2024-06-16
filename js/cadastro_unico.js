@@ -673,12 +673,10 @@ function mostrarCampoTexto() {
 //FUNÇÃO PARA APLICAR A DATA DA ENTREVISTA CASO SEJA NO MESMO DIA.
 
 function dataHoje() {
-    var hoje = new Date();
-    var dia = String(hoje.getDate()).padStart(2, '0')
-    var mes = String(hoje.getMonth() + 1).padStart(2, '0') // Janeiro é 0!
-    var ano = hoje.getFullYear()
-    var dataFormatada = dia + '/' + mes + '/' + ano
+    var data = new Date();
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = data.getFullYear();
 
-    $('#cont_data').hide()
-    $('#data_entre').text(dataFormatada)
+    var dataFormatada = ano + '-' + mes + '-' + dia;
 }

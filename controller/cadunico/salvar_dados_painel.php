@@ -15,69 +15,64 @@
 
 <body>
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php'; // Ajuste o caminho conforme necessário
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/models/cadunico/submit_model.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Verifica se há erros no upload do arquivo
-    if ($_FILES['arquivo']['error'] !== UPLOAD_ERR_OK) {
-        die("Erro no upload do arquivo. Código de erro: " . $_FILES['arquivo']['error']);
-    }
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  $cod_familiar_fam = $_POST['cod_fam'];
+  $data_entrevista = $_POST['data_entrevista'];
+  $sit_beneficio = $_POST['sit_beneficio'];
+  $resumo = $_POST['resumo']; 
+  $tipo_documento = implode(', ', $_POST['tipo_documento']);
+  $operador = $_SESSION['nome_usuario'];
 
-    $cod_familiar_fam = $_POST['cod_fam'];
-    $data_entrevista = $_POST['data_entrevista'] == "" ? date('Y-m-d') : $_POST['data_entrevista'];
-    $tipo_documento = implode(", ", $_POST['tipo_documento']); // Converte array para string, se necessário
-    $tipo_arquivo = '.pdf';
-    $arquivo = file_get_contents($_FILES['arquivo']['tmp_name']); // Lê o conteúdo do arquivo
-    
-    $tamanho = $_FILES['arquivo']['size'];
-    $verificado = 0;
+  if (isset($_FILES['arquivo']) && $_FILES['arquivo']['error'] == 0) {
+      $arquivo_tmp = $_FILES['arquivo']['tmp_name'];
+      $arquivo_nome = $_FILES['arquivo']['name'];
+      $arquivo_tamanho = $_FILES['arquivo']['size'];
+      $arquivo_tipo = $_FILES['arquivo']['type'];
 
-    // Prepara a declaração SQL
-    $stmt = $conn->prepare("INSERT INTO cadastro_forms (cod_familiar_fam, data_entrevista, tipo_documento, tipo_arquivo, arquivo, tamanho, verificado, obs_familia, sit_beneficio, operador) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-
-    // Verifica se a preparação da declaração teve êxito
-    if ($stmt === false) {
-        die('Erro na preparação da declaração SQL: ' . $conn->error);
-    }
-
-    // Faz o binding dos parâmetros e executa a declaração
-    $stmt->bind_param("ssssssisss", 
-        $cod_familiar_fam, 
-        $data_entrevista, 
-        $tipo_documento, 
-        $tipo_arquivo, 
-        $arquivo, 
-        $tamanho, 
-        $verificado, 
-        $_POST['resumo'], 
-        $_POST['sit_beneficio'], 
-        $_SESSION['nome_usuario']
-    );
-
-    // Executa a declaração SQL
-    if ($stmt->execute()) {
-?>
-  <script>
-    Swal.fire({
-      icon: "success",
-      title: "SALVO",
-      text: "Os dados foram salvos com sucesso!",
-      confirmButtonText: "OK"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        window.location.href = "/TechSUAS/views/cadunico/dashboard"
+      function getMimeType($filename) {
+          $extension = pathinfo($filename, PATHINFO_EXTENSION);
+          switch ($extension) {
+              case 'pdf':
+                  return 'application/pdf';
+              case 'jpg':
+              case 'jpeg':
+                  return 'image/jpeg';
+              default:
+                  return 'application/octet-stream';
+          }
       }
-    })
-  </script>
-<?php
-    } else {
-        echo "Erro ao cadastrar formulário: " . $stmt->error;
-    }
+      $arquivo_mime = getMimeType($arquivo_nome);
 
-    // Fecha a declaração e a conexão
-    $stmt->close();
-    $conn->close();
+      $arquivo_binario = file_get_contents($arquivo_tmp);
+
+      $model = new CadastroModel($conn);
+      $cadastro_adicionado = $model->adicionarCadastro(
+          $cod_familiar_fam,
+          $data_entrevista,
+          $tipo_documento, 
+          $arquivo_binario,
+          $arquivo_tamanho,
+          $arquivo_nome,
+          $arquivo_mime,
+          $resumo, 
+          $sit_beneficio,
+          $operador 
+      );
+      if ($cadastro_adicionado) {
+          echo "Cadastro adicionado com sucesso.";
+      } else {
+          echo "Erro ao adicionar o cadastro.";
+      }
+  } else {
+      echo "Erro no upload do arquivo.";
+  }
+
+  $conn->close();
 }
+
 ?>
 
 </body>
