@@ -169,7 +169,7 @@ i.material-symbols-outlined {
 }
 
 /* Estilizando o checkbox */
-.urg input[type="checkbox"] {
+.urg input[type="radio"] {
     display: none;
 }
 
@@ -191,7 +191,7 @@ i.material-symbols-outlined {
 }
 
 /* Altera o visual quando marcado */
-.urg input[type="checkbox"]:checked+.checkmark::after {
+.urg input[type="radio"]:checked+.checkmark::after {
     content: "X";
     display: block;
     position: absolute;
