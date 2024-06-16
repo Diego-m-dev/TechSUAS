@@ -30,7 +30,7 @@ if (isset($_POST['codFamiliar'])) {
                     <td>{$row['tipo_documento']}</td>
                     <td>{$row['nome_arquivo']}</td>
                     <td>" . round($row['tamanho'] / 1024, 2) . " KB</td>
-                    <td><a href='controller/download.php?id={$row['id']}'>Download</a></td>
+                    <td><a href='../../../controller/cadunico/fichario/download.php?id={$row['id']}'>Download</a></td>
                   </tr>";
         }
     } else {
