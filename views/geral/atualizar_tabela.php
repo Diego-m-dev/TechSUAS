@@ -26,12 +26,14 @@ if ($_SESSION['funcao'] != '1') {
     </div>
     <div class="container">
         <form action="/TechSUAS/controller/geral/import.php" method="POST" enctype="multipart/form-data">
-            <label>Qual tabela você pretende atualizar: </label>
+            <label>Informe a tabela: </label>
             <select name="csv_tbl" required>
                 <option value="" disabled selected hidden>Selecione</option>
                 <option value="tudo">Base de Dados do Cadastro Único</option>
                 <option value="folha">Folha de Pagamento</option>
-            </select>
+                <option value="unipessoal">Averiguação Unipessoal</option>
+                <option value="averenda">Averiguação por Renda</option>
+            </select><br>
             <label>Selecione o arquivo CSV: </label>
             <input type="file" name="arquivoCSV" id="arquivoCSV" accept=".csv" required>
             <button type="submit" value="Importar"> Importar </button>
