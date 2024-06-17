@@ -1,5 +1,4 @@
 <?php
-// Conecte-se ao seu banco de dados MySQL usando as credenciais armazenadas em variáveis de ambiente.
 $host = getenv('DB_HOST') ?:'localhost';
 $usuario = getenv('DB_USER') ?: 'root';
 $senha = getenv('DB_PASS') ?: '';
