@@ -10,12 +10,20 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link rel='website icon' type='png' href='/TechSUAS/img/geral/logo.png'>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="/TechSUAS/js/cadastro_unico.js"></script>
     <title>Importar CSV</title>
 </head>
+<body>
+  
 <?php
 
 ini_set('memory_limit', '8192M');
-ini_set('max_execution_time', 1000);
+ini_set('max_execution_time', 300);
 
 if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
     $csv_tbl = $_POST['csv_tbl'];
@@ -674,10 +682,18 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                     $linha_nao_importada = $linhas_n_importadas . ", " . ($linha[0] ?? "NULL");
                 }
             }
-            echo "$linhas_importadas linha(s) importadas, $linhas_n_importadas linha(s) não importada(s). ";
-            ?>
+?>
         <script>
-
+          Swal.fire({
+            icon: "success",
+            title: "IMPORTADO",
+            text: "<?php echo "$linhas_importadas linha(s) importadas, $linhas_n_importadas linha(s) não importada(s). "; ?>",
+            confirmButtonText: "OK"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+            }
+          })
         </script>
 <?php
 
@@ -811,11 +827,390 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                     $linha_nao_importada = $linhas_n_importadas . ", " . ($linha[0] ?? "NULL");
                 }
             }
-            echo "$linhas_importadas linha(s) importadas, $linhas_n_importadas linha(s) não importada(s). ";
+?>
+        <script>
+          Swal.fire({
+            icon: "success",
+            title: "IMPORTADO",
+            text: "<?php echo "$linhas_importadas linha(s) importadas, $linhas_n_importadas linha(s) não importada(s). "; ?>",
+            confirmButtonText: "OK"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+            }
+          })
+        </script>
+<?php
         } else {
             echo "Apenas arquivos CSV.";
         }
+    } elseif ($csv_tbl == 'averenda') {
+        //limpa os dados da tabela antes de repor os novos dados
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $limpTabela = "averenda";
+        $sqli = "TRUNCATE TABLE $limpTabela";
+        $pdo->exec($sqli);
+
+        if ($arquivo['type'] == 'text/csv') {
+          $dados = fopen($arquivo['tmp_name'], "r");
+          // Ignorar cabeçalho
+          fgetcsv($dados);
+
+          while ($linha = fgetcsv($dados, 1000, ";")) {
+
+              $query = "INSERT INTO averenda (co_ibge,
+                                              no_munic,
+                                              in_processo,
+                                              in_grupo,
+                                              dt_referencia,
+                                              in_inconsistencia,
+                                              co_familiar_fam,
+                                              no_pessoa_rf,
+                                              nu_nis_pessoa_rf,
+                                              nu_cpf_pessoa_rf,
+                                              dt_atualizacao_fam,
+                                              vl_renda_media_fam,
+                                              no_localidade_fam,
+                                              no_tip_logradouro_fam,
+                                              no_tit_logradouro_fam,
+                                              no_logradouro_fam,
+                                              nu_logradouro_fam,
+                                              ds_complemento_fam,
+                                              ds_complemento_adic_fam,
+                                              nu_cep_logradouro_fam,
+                                              co_utl_fam,
+                                              no_utl_fam,
+                                              ds_referencia_local_fam,
+                                              co_local_domic_fam,
+                                              nu_ddd_contato_1,
+                                              nu_tel_contato_1,
+                                              nu_ddd_contato_2,
+                                              nu_tel_contato_2,
+                                              ds_email_fam,
+                                              no_pessoa_pi,
+                                              nu_nis_pessoa_pi,
+                                              nu_cpf_pessoa_pi,
+                                              flag_vinculo_rgps,
+                                              flag_beneficio_inss,
+                                              flag_seguro_desemprego,
+                                              flag_sdpa,
+                                              flag_siape,
+                                              flag_estagiario_siape,
+                                              flag_residente_siape,
+                                              flag_rais,
+                                              flag_serv_cnj,
+                                              flag_defesa,
+                                              flag_cgu,
+                                              dt_limite_bloqpbf,
+                                              dt_limite_cancela,
+                                              dt_limite_exclusao,
+                                              in_pbf,
+                                              in_tsee,
+                                              in_bpc_idoso,
+                                              in_bpc_pcd,
+                                              in_fam_transferida,
+                                              in_situacao_pes,
+                                              in_situacao_fam
+            ) VALUE (:co_ibge,
+                    :no_munic,
+                    :in_processo,
+                    :in_grupo,
+                    :dt_referencia,
+                    :in_inconsistencia,
+                    :co_familiar_fam,
+                    :no_pessoa_rf,
+                    :nu_nis_pessoa_rf,
+                    :nu_cpf_pessoa_rf,
+                    :dt_atualizacao_fam,
+                    :vl_renda_media_fam,
+                    :no_localidade_fam,
+                    :no_tip_logradouro_fam,
+                    :no_tit_logradouro_fam,
+                    :no_logradouro_fam,
+                    :nu_logradouro_fam,
+                    :ds_complemento_fam,
+                    :ds_complemento_adic_fam,
+                    :nu_cep_logradouro_fam,
+                    :co_utl_fam,
+                    :no_utl_fam,
+                    :ds_referencia_local_fam,
+                    :co_local_domic_fam,
+                    :nu_ddd_contato_1,
+                    :nu_tel_contato_1,
+                    :nu_ddd_contato_2,
+                    :nu_tel_contato_2,
+                    :ds_email_fam,
+                    :no_pessoa_pi,
+                    :nu_nis_pessoa_pi,
+                    :nu_cpf_pessoa_pi,
+                    :flag_vinculo_rgps,
+                    :flag_beneficio_inss,
+                    :flag_seguro_desemprego,
+                    :flag_sdpa,
+                    :flag_siape,
+                    :flag_estagiario_siape,
+                    :flag_residente_siape,
+                    :flag_rais,
+                    :flag_serv_cnj,
+                    :flag_defesa,
+                    :flag_cgu,
+                    :dt_limite_bloqpbf,
+                    :dt_limite_cancela,
+                    :dt_limite_exclusao,
+                    :in_pbf,
+                    :in_tsee,
+                    :in_bpc_idoso,
+                    :in_bpc_pcd,
+                    :in_fam_transferida,
+                    :in_situacao_pes,
+                    :in_situacao_fam
+                    )";
+
+          $import_data = $pdo->prepare($query);
+          $import_data->bindValue(':co_ibge', ($linha[0] ?? "NULL"));
+          $import_data->bindValue(':no_munic', ($linha[1] ?? "NULL"));
+          $import_data->bindValue(':in_processo', ($linha[2] ?? "NULL"));
+          $import_data->bindValue(':in_grupo', ($linha[3] ?? "NULL"));
+          $import_data->bindValue(':dt_referencia', ($linha[4] ?? "NULL"));
+          $import_data->bindValue(':in_inconsistencia', ($linha[5] ?? "NULL"));
+          $import_data->bindValue(':co_familiar_fam', ($linha[6] ?? "NULL"));
+          $import_data->bindValue(':no_pessoa_rf', ($linha[7] ?? "NULL"));
+          $import_data->bindValue(':nu_nis_pessoa_rf', ($linha[8] ?? "NULL"));
+          $import_data->bindValue(':nu_cpf_pessoa_rf', ($linha[9] ?? "NULL"));
+          $import_data->bindValue(':dt_atualizacao_fam', ($linha[10] ?? "NULL"));
+          $import_data->bindValue(':vl_renda_media_fam', ($linha[11] ?? "NULL"));
+          $import_data->bindValue(':no_localidade_fam', ($linha[12] ?? "NULL"));
+          $import_data->bindValue(':no_tip_logradouro_fam', ($linha[13] ?? "NULL"));
+          $import_data->bindValue(':no_tit_logradouro_fam', ($linha[14] ?? "NULL"));
+          $import_data->bindValue(':no_logradouro_fam', ($linha[15] ?? "NULL"));
+          $import_data->bindValue(':nu_logradouro_fam', ($linha[16] ?? "NULL"));
+          $import_data->bindValue(':ds_complemento_fam', ($linha[17] ?? "NULL"));
+          $import_data->bindValue(':ds_complemento_adic_fam', ($linha[18] ?? "NULL"));
+          $import_data->bindValue(':nu_cep_logradouro_fam', ($linha[19] ?? "NULL"));
+          $import_data->bindValue(':co_utl_fam', ($linha[20] ?? "NULL"));
+          $import_data->bindValue(':no_utl_fam', ($linha[21] ?? "NULL"));
+          $import_data->bindValue(':ds_referencia_local_fam', ($linha[22] ?? "NULL"));
+          $import_data->bindValue(':co_local_domic_fam', ($linha[23] ?? "NULL"));
+          $import_data->bindValue(':nu_ddd_contato_1', ($linha[24] ?? "NULL"));
+          $import_data->bindValue(':nu_tel_contato_1', ($linha[25] ?? "NULL"));
+          $import_data->bindValue(':nu_ddd_contato_2', ($linha[26] ?? "NULL"));
+          $import_data->bindValue(':nu_tel_contato_2', ($linha[27] ?? "NULL"));
+          $import_data->bindValue(':ds_email_fam', ($linha[28] ?? "NULL"));
+          $import_data->bindValue(':no_pessoa_pi', ($linha[29] ?? "NULL"));
+          $import_data->bindValue(':nu_nis_pessoa_pi', ($linha[30] ?? "NULL"));
+          $import_data->bindValue(':nu_cpf_pessoa_pi', ($linha[31] ?? "NULL"));
+          $import_data->bindValue(':flag_vinculo_rgps', ($linha[32] ?? "NULL"));
+          $import_data->bindValue(':flag_beneficio_inss', ($linha[33] ?? "NULL"));
+          $import_data->bindValue(':flag_seguro_desemprego', ($linha[34] ?? "NULL"));
+          $import_data->bindValue(':flag_sdpa', ($linha[35] ?? "NULL"));
+          $import_data->bindValue(':flag_siape', ($linha[36] ?? "NULL"));
+          $import_data->bindValue(':flag_estagiario_siape', ($linha[37] ?? "NULL"));
+          $import_data->bindValue(':flag_residente_siape', ($linha[38] ?? "NULL"));
+          $import_data->bindValue(':flag_rais', ($linha[39] ?? "NULL"));
+          $import_data->bindValue(':flag_serv_cnj', ($linha[40] ?? "NULL"));
+          $import_data->bindValue(':flag_defesa', ($linha[41] ?? "NULL"));
+          $import_data->bindValue(':flag_cgu', ($linha[42] ?? "NULL"));
+          $import_data->bindValue(':dt_limite_bloqpbf', ($linha[43] ?? "NULL"));
+          $import_data->bindValue(':dt_limite_cancela', ($linha[44] ?? "NULL"));
+          $import_data->bindValue(':dt_limite_exclusao', ($linha[45] ?? "NULL"));
+          $import_data->bindValue(':in_pbf', ($linha[46] ?? "NULL"));
+          $import_data->bindValue(':in_tsee', ($linha[47] ?? "NULL"));
+          $import_data->bindValue(':in_bpc_idoso', ($linha[48] ?? "NULL"));
+          $import_data->bindValue(':in_bpc_pcd', ($linha[49] ?? "NULL"));
+          $import_data->bindValue(':in_fam_transferida', ($linha[50] ?? "NULL"));
+          $import_data->bindValue(':in_situacao_pes', ($linha[51] ?? "NULL"));
+          $import_data->bindValue(':in_situacao_fam', ($linha[52] ?? "NULL"));
+          $import_data->execute();
+
+          if ($import_data->rowCount()) {
+              $linhas_importadas++;
+          } else {
+              $linhas_n_importadas++;
+              $linha_nao_importada = $linhas_n_importadas . ", " . ($linha[0] ?? "NULL");
+          }
+      }
+?>
+  <script>
+    Swal.fire({
+      icon: "success",
+      title: "IMPORTADO",
+      text: "<?php echo "$linhas_importadas linha(s) importadas, $linhas_n_importadas linha(s) não importada(s). "; ?>",
+      confirmButtonText: "OK"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+      }
+    })
+  </script>
+<?php
+  } else {
+      echo "Apenas arquivos CSV.";
+  }
+      } elseif ($csv_tbl == 'unipessoal') {
+              //limpa os dados da tabela antes de repor os novos dados
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $limpTabela = "unipessoal";
+              $sqli = "TRUNCATE TABLE $limpTabela";
+              $pdo->exec($sqli);
+      
+              if ($arquivo['type'] == 'text/csv') {
+                  $dados = fopen($arquivo['tmp_name'], "r");
+                  // Ignorar cabeçalho
+                  fgetcsv($dados);
+      
+                  while ($linha = fgetcsv($dados, 1000, ";")) {
+
+                    $query = "INSERT INTO unipessoal (co_ibge,
+                                                      no_munic,
+                                                      in_processo,
+                                                      in_grupo,
+                                                      dt_referencia,
+                                                      in_inconsistencia_uni,
+                                                      co_familiar_fam,
+                                                      no_pessoa_rf,
+                                                      nu_nis_pessoa_rf,
+                                                      nu_cpf_pessoa_rf,
+                                                      dt_atualizacao_fam,
+                                                      vl_renda_media_fam,
+                                                      no_localidade_fam,
+                                                      no_tip_logradouro_fam,
+                                                      no_tit_logradouro_fam,
+                                                      no_logradouro_fam,
+                                                      nu_logradouro_fam,
+                                                      ds_complemento_fam,
+                                                      ds_complemento_adic_fam,
+                                                      nu_cep_logradouro_fam,
+                                                      co_utl_fam,
+                                                      no_utl_fam,
+                                                      ds_referencia_local_fam,
+                                                      co_local_domic_fam,
+                                                      nu_ddd_contato_1,
+                                                      nu_tel_contato_1,
+                                                      nu_ddd_contato_2,
+                                                      nu_tel_contato_2,
+                                                      ds_email_fam,
+                                                      dt_limite_bloqpbf,
+                                                      dt_limite_cancela,
+                                                      dt_limite_exclusao,
+                                                      in_pbf,
+                                                      in_tsee,
+                                                      in_bpc_idoso,
+                                                      in_bpc_pcd,
+                                                      in_fam_transferida,
+                                                      in_situacao,
+                                                      in_situacao_detalhe
+                                                      ) VALUE (:co_ibge,
+                          :no_munic,
+                          :in_processo,
+                          :in_grupo,
+                          :dt_referencia,
+                          :in_inconsistencia_uni,
+                          :co_familiar_fam,
+                          :no_pessoa_rf,
+                          :nu_nis_pessoa_rf,
+                          :nu_cpf_pessoa_rf,
+                          :dt_atualizacao_fam,
+                          :vl_renda_media_fam,
+                          :no_localidade_fam,
+                          :no_tip_logradouro_fam,
+                          :no_tit_logradouro_fam,
+                          :no_logradouro_fam,
+                          :nu_logradouro_fam,
+                          :ds_complemento_fam,
+                          :ds_complemento_adic_fam,
+                          :nu_cep_logradouro_fam,
+                          :co_utl_fam,
+                          :no_utl_fam,
+                          :ds_referencia_local_fam,
+                          :co_local_domic_fam,
+                          :nu_ddd_contato_1,
+                          :nu_tel_contato_1,
+                          :nu_ddd_contato_2,
+                          :nu_tel_contato_2,
+                          :ds_email_fam,
+                          :dt_limite_bloqpbf,
+                          :dt_limite_cancela,
+                          :dt_limite_exclusao,
+                          :in_pbf,
+                          :in_tsee,
+                          :in_bpc_idoso,
+                          :in_bpc_pcd,
+                          :in_fam_transferida,
+                          :in_situacao,
+                          :in_situacao_detalhe
+                          )";
+
+          $import_data = $pdo->prepare($query);
+          $import_data->bindValue(':co_ibge', ($linha[0] ?? "NULL"));
+          $import_data->bindValue(':no_munic', ($linha[1] ?? "NULL"));
+          $import_data->bindValue(':in_processo', ($linha[2] ?? "NULL"));
+          $import_data->bindValue(':in_grupo', ($linha[3] ?? "NULL"));
+          $import_data->bindValue(':dt_referencia', ($linha[4] ?? "NULL"));
+          $import_data->bindValue(':in_inconsistencia_uni', ($linha[5] ?? "NULL"));
+          $import_data->bindValue(':co_familiar_fam', ($linha[6] ?? "NULL"));
+          $import_data->bindValue(':no_pessoa_rf', ($linha[7] ?? "NULL"));
+          $import_data->bindValue(':nu_nis_pessoa_rf', ($linha[8] ?? "NULL"));
+          $import_data->bindValue(':nu_cpf_pessoa_rf', ($linha[9] ?? "NULL"));
+          $import_data->bindValue(':dt_atualizacao_fam', ($linha[10] ?? "NULL"));
+          $import_data->bindValue(':vl_renda_media_fam', ($linha[11] ?? "NULL"));
+          $import_data->bindValue(':no_localidade_fam', ($linha[12] ?? "NULL"));
+          $import_data->bindValue(':no_tip_logradouro_fam', ($linha[13] ?? "NULL"));
+          $import_data->bindValue(':no_tit_logradouro_fam', ($linha[14] ?? "NULL"));
+          $import_data->bindValue(':no_logradouro_fam', ($linha[15] ?? "NULL"));
+          $import_data->bindValue(':nu_logradouro_fam', ($linha[16] ?? "NULL"));
+          $import_data->bindValue(':ds_complemento_fam', ($linha[17] ?? "NULL"));
+          $import_data->bindValue(':ds_complemento_adic_fam', ($linha[18] ?? "NULL"));
+          $import_data->bindValue(':nu_cep_logradouro_fam', ($linha[19] ?? "NULL"));
+          $import_data->bindValue(':co_utl_fam', ($linha[20] ?? "NULL"));
+          $import_data->bindValue(':no_utl_fam', ($linha[21] ?? "NULL"));
+          $import_data->bindValue(':ds_referencia_local_fam', ($linha[22] ?? "NULL"));
+          $import_data->bindValue(':co_local_domic_fam', ($linha[23] ?? "NULL"));
+          $import_data->bindValue(':nu_ddd_contato_1', ($linha[24] ?? "NULL"));
+          $import_data->bindValue(':nu_tel_contato_1', ($linha[25] ?? "NULL"));
+          $import_data->bindValue(':nu_ddd_contato_2', ($linha[26] ?? "NULL"));
+          $import_data->bindValue(':nu_tel_contato_2', ($linha[27] ?? "NULL"));
+          $import_data->bindValue(':ds_email_fam', ($linha[28] ?? "NULL"));
+          $import_data->bindValue(':dt_limite_bloqpbf', ($linha[29] ?? "NULL"));
+          $import_data->bindValue(':dt_limite_cancela', ($linha[30] ?? "NULL"));
+          $import_data->bindValue(':dt_limite_exclusao', ($linha[31] ?? "NULL"));
+          $import_data->bindValue(':in_pbf', ($linha[32] ?? "NULL"));
+          $import_data->bindValue(':in_tsee', ($linha[33] ?? "NULL"));
+          $import_data->bindValue(':in_bpc_idoso', ($linha[34] ?? "NULL"));
+          $import_data->bindValue(':in_bpc_pcd', ($linha[35] ?? "NULL"));
+          $import_data->bindValue(':in_fam_transferida', ($linha[36] ?? "NULL"));
+          $import_data->bindValue(':in_situacao', ($linha[37] ?? "NULL"));
+          $import_data->bindValue(':in_situacao_detalhe', ($linha[38] ?? "NULL"));
+
+          $import_data->execute();
+
+                    if ($import_data->rowCount()) {
+                        $linhas_importadas++;
+                    } else {
+                        $linhas_n_importadas++;
+                        $linha_nao_importada = $linhas_n_importadas . ", " . ($linha[0] ?? "NULL");
+                    }
+                }
+          ?>
+            <script>
+              Swal.fire({
+                icon: "success",
+                title: "IMPORTADO",
+                text: "<?php echo "$linhas_importadas linha(s) importadas, $linhas_n_importadas linha(s) não importada(s). "; ?>",
+                confirmButtonText: "OK"
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+                }
+              })
+            </script>
+          <?php
+            } else {
+                echo "Apenas arquivos CSV.";
+            }
     }
 } else {
     echo "Erro: Campo 'csv_tbl' ou arquivo CSV não foram enviados.";
 }
+?>
+</body>
+</html>
