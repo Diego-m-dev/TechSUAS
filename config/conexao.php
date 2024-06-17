@@ -1,9 +1,9 @@
 <?php
 // Conecte-se ao seu banco de dados MySQL usando as credenciais armazenadas em variáveis de ambiente.
-$host = getenv('DB_HOST') ?:'localhost';
+$host = getenv('DB_HOST') ?:'techdb.czwe6wkuipiy.us-east-1.rds.amazonaws.com';
 $usuario = getenv('DB_USER') ?: 'root';
-$senha = getenv('DB_PASS') ?: '';
-$banco = getenv('DB_NAME') ?: 'cadunico';
+$senha = getenv('DB_PASS') ?: 'tech2024';
+$banco = getenv('DB_NAME') ?: 'test';
 $port = getenv('DB_PORT') ?: 3306;
 
 $raiz_dom = "/TechSUAS/";
