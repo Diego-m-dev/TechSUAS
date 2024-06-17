@@ -48,6 +48,7 @@ a {
     background-color: #13294b;
     color: white;
     cursor: pointer;
+    text-transform: capitalize;
 }
 button:hover,
 a:hover{
