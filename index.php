@@ -1,3 +1,5 @@
+<?php
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,6 +11,12 @@
     <link rel="shortcut icon" href="/TechSUAS/img/geral/logo.png" type="image/x-icon">
     <link rel="icon" href="" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </head>
 
 <body>
@@ -47,6 +55,7 @@
                 <!--<a data-toggle="modal" data-target="#modal-senha" class="float-right">Recuperar Senha</a>-->
             </div>
         </form>
+        <button onclick="recuperarSenha()">Recuperar senha</button>
     </div>
 
     <footer class="rodape">
@@ -74,6 +83,7 @@
             }
         })
     })
+
 </script>
 </body>
 </html>
