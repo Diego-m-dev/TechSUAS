@@ -25,9 +25,17 @@ if ($_SESSION['funcao'] != '1') {
 <body>
     <h1>AREA DO GESTOR</h1>
     <button type="button" id="btn_benef">Consultar Benefício</button>
-    <button type="button" id="btn_familia">Consultar Famílias</button>
     <button type="button" id="btn_entrevistadores">Entrevistadores</button>
+    <button type="button" onclick="atualizar()">Atualizar</button>
 
+<div class="btn">
+    <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/filtros_familia';">
+            <span class="material-symbols-outlined">
+                    library_add
+            </span>
+        Consultar Famílias
+    </a>
+</div>
 
 <div class="btn">
     <a class="menu-button" onclick="location.href='/TechSUAS/views/geral/atualizar_tabela';">
@@ -88,8 +96,6 @@ if (!isset($_POST['btn_filtro_familia']) && !isset($_POST['btn_filtro_benef']) &
         $resultado = $smtp_filtro->get_result(); // Obter o resultado da consulta
         $dados_filtros = $resultado->fetch_all(MYSQLI_ASSOC); // Obter todas as linhas como uma matriz associativa
 
-        echo $dados_filtros['cod_familiar_fam'];
-
     } elseif (isset($_POST['codigo_familia'])) {
         $filtro = $conn->real_escape_string($_POST['codigo_familia']);
     } else {
@@ -108,7 +114,7 @@ if (!isset($_POST['btn_filtro_familia']) && !isset($_POST['btn_filtro_benef']) &
     if (!empty($dados_filtro)) {
         // A contagem total estará na primeira linha da matriz
         $total_cadastros = $dados_filtro[0]['totais_cadastro'];
-        echo "Total de pessoas cadastradas: $total_cadastros";
+        echo "Total de famílias cadastradas: $total_cadastros";
         
     } else {
         echo "Nenhum resultado encontrado.";
