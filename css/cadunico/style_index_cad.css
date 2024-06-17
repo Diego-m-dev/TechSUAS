@@ -58,6 +58,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  text-transform: capitalize;
 }
 
 .menu-button i {
@@ -109,6 +110,7 @@ button[name="drop"] {
   position: relative;
   border-radius: 5px;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  text-transform: capitalize;
 }
 
 .drop-content {

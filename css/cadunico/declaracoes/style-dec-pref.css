@@ -38,6 +38,7 @@ a {
     color: white;
     cursor: pointer;
     margin-top: 10px;
+    text-transform: capitalize;
 }
 
 button:hover,
