@@ -35,9 +35,10 @@
                     <option value="CRAS ANTONIO MATIAS">CRAS ANTONIO MATIAS</option>
                     <option value="CRAS SANTO AFONSO">CRAS SANTO AFONSO</option>
                     <option value="CREAS GILDO SOARES">CREAS GILDO SOARES</option>
-                    <option value="CASA DOS CONSELHOS">CASA DOS CONSELHOR</option>
+                    <option value="CASA DOS CONSELHOS">CASA DOS CONSELHOS</option>
                     <option value="COZINHA COMUNITÁRIA">COZINHA COMUNITÁRIA</option>
                     <option value="CONSELHO TUTELAR">CONSELHO TUTELAR</option>
+                    <option value="CCI (AO LADO DA CRECHE)">CCI</option>
                 </select>
             </div>
             <div>
