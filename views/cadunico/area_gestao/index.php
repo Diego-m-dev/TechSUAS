@@ -29,7 +29,7 @@ if ($_SESSION['funcao'] != '1') {
     <button type="button" onclick="atualizar()">Atualizar</button>
 
 <div class="btn">
-    <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/filtros_familia';">
+    <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/filtros';">
             <span class="material-symbols-outlined">
                     library_add
             </span>
