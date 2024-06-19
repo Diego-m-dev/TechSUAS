@@ -727,3 +727,27 @@ function dataHoje() {
 function recuperarSenha() {
   window.location.href = "/TechSUAS/views/geral/recuperar_senha"
 }
+
+
+function toggleDetails(id) {
+  const details = document.getElementById(id);
+  const button = details.previousElementSibling;
+  if (details.style.display === "none" || details.style.display === "") {
+      details.style.display = "block";
+      button.textContent = "-";
+  } else {
+      details.style.display = "none";
+      button.textContent = "+";
+  }
+}
+
+// ====  DASH-GESTOR-REQUEST ==== //
+function loadDashboardData() {
+  document.getElementById('cadastros-atualizados').textContent = "120";
+  document.getElementById('cadastros-pendentes').textContent = "45";
+  document.getElementById('cadastros-sem-cpf').textContent = "10";
+  document.getElementById('num-beneficiarios').textContent = "2500";
+  document.getElementById('visitas-realizadas').textContent = "300";
+  document.getElementById('total-atendimentos').textContent = "500";
+}
+document.addEventListener('DOMContentLoaded', loadDashboardData);

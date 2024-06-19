@@ -19,6 +19,7 @@ img {
 }
 
 .container {
+    display: flex;
     padding: 10px;
     background-color: #ffffff;
     border-radius: 5px;
@@ -57,8 +58,9 @@ h3 {
 
 button,
 a {
+    font-size: 1.2em;
     border-radius: 5px;
-    padding: 4px 25px;
+    padding: 10px 25px;
     border: none;
     font-weight: 500;
     background-color: #13294b;
@@ -90,12 +92,26 @@ td {
     border-style: outset;
     width: 100%;
 }
-
+.cont-btns{
+    width: 34%;
+}
 .btns {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 20px;
     flex-direction: column;
+}
+
+.btns button{
+    margin-bottom: 10px;
+    width: 100%;
+}
+
+
+.menu-button{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    padding-right: 10px;
 }
 
 span.material-symbols-outlined {
@@ -117,3 +133,48 @@ label{
     padding: 1px 2px;
     border-style: outset;
 }  
+
+/**/
+.mural_stats{
+    width: 65%;
+    margin-left: 10px;
+}
+
+.header {
+    background-color: #13294b;
+    color: white;
+    padding: 10px;
+    text-align: center;
+  }
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .card {
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1;
+    margin: 0 10px;
+  }
+
+  
+.card-header {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .card-value {
+    font-size: 24px;
+  }
