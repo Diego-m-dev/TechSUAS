@@ -2,7 +2,7 @@
 $host = getenv('DB_HOST') ?: 'localhost';
 $usuario = getenv('DB_USER') ?: 'root';
 $senha = getenv('DB_PASS') ?: '';
-$banco = getenv('DB_NAME') ?: 'test';
+$banco = getenv('DB_NAME') ?: 'cadunico';
 $port = getenv('DB_PORT') ?: 3306;
 
 $raiz_dom = "/TechSUAS/";
