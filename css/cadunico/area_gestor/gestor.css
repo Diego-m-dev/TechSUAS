@@ -95,6 +95,7 @@ td {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
+    flex-direction: column;
 }
 
 span.material-symbols-outlined {

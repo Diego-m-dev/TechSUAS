@@ -32,6 +32,7 @@ if ($_SESSION['funcao'] != '1') {
         </h1>
     </div>
     <div class="container">
+
         <div class="btns">
 
             <button type="button" id="btn_benef">
@@ -74,6 +75,9 @@ if ($_SESSION['funcao'] != '1') {
             </button>
         </div>
 
+        <div class="mural_stats">
+            
+        </div>
 
         <!-- CADASTROS Formulário para filtrar informações do cadastro-->
         <form method="post" id="simples">
