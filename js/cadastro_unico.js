@@ -1,76 +1,116 @@
 //BOTÕES DA TELA DE AREA DO GESTOR
 $(document).ready(function () {
-    $('#simples').hide()
+  $('#simples').hide()
+  $('#beneficio').hide()
+  $('#entrevistadores').hide()
+
+  $('#btn_familia').click(function () {
+    $('#simples').show()
     $('#beneficio').hide()
     $('#entrevistadores').hide()
-
-    $('#btn_familia').click(function () {
-        $('#simples').show()
-        $('#beneficio').hide()
-        $('#entrevistadores').hide()
-        $('#btn_benef').hide()
-        $('#btn_entrevistadores').hide()
-    })
-    $('#btn_benef').click(function () {
-        $('#beneficio').show()
-        $('#simples').hide()
-        $('#entrevistadores').hide()
-    })
-    $('#btn_entrevistadores').click(function () {
-        $('#beneficio').hide()
-        $('#simples').hide()
-        $('#entrevistadores').show()
-    })
+    $('#btn_benef').hide()
+    $('#btn_entrevistadores').hide()
+  })
+  $('#btn_benef').click(function () {
+    $('#beneficio').show()
+    $('#simples').hide()
+    $('#entrevistadores').hide()
+  })
+  $('#btn_entrevistadores').click(function () {
+    $('#beneficio').hide()
+    $('#simples').hide()
+    $('#entrevistadores').show()
+  })
 })
 
 //BOTÕES PARA FILTROS
 $(document).ready(function () {
-    $('.filters-container').hide()
-    $('.table-container').hide()
+  $('.filters-container').hide()
+  $('.table-container').hide()
 
-    $('#btn_gepetees').click(function () {
-        $('.filters-container').show()
-        $('.table-container').show()
-        $('#btn_gepetees').hide()
-    })
+  $('#btn_gepetees').click(function () {
+    $('.filters-container').show()
+    $('.table-container').show()
+    $('#btn_gepetees').hide()
+  })
 })
 
 //FUNÇÃO PARA FILTRAR OS GPTE
 function filterGPTE() {
-    fetch("/TechSUAS/views/cadunico/area_gestao/filtro_gpte")
+  fetch("/TechSUAS/views/cadunico/area_gestao/filtro_gpte")
     .then(response => {
-        if (!response.ok) {
-            throw new Error('Erro na requisição: ' + response.status)
-        }
-        return response.json()
+      if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.status)
+      }
+      return response.json()
     })
     .then(data => {
-        console.log('Dados recebidos', data)
+
+      function renderTable(filteredData) {
+        const tableBody = document.getElementById('dataBody');
+        tableBody.innerHTML = '';
+        filteredData.forEach(row => {
+          const tr = document.createElement('tr');
+          for (let i = 0; i < 4; i++) {
+            const td = document.createElement('td');
+            td.textContent = row[i];
+            tr.appendChild(td);
+          }
+          tableBody.appendChild(tr);
+        });
+      }
+
+      function filterData() {
+        const nameFilter = document.getElementById('nameFilter').value.toLowerCase();
+        const startDateFilter = document.getElementById('startDateFilter').value;
+        const endDateFilter = document.getElementById('endDateFilter').value;
+        const statusFilter = document.getElementById('statusFilter').value;
+        const codigoFamiliar = document.getElementById('codigoFamiliar').value;
+
+        const filteredData = data.filter(row => {
+          const nameMatches = nameFilter ? row[1].toLowerCase().includes(nameFilter) : true;
+          const dateMatches = startDateFilter && endDateFilter ? (row[3] >= startDateFilter && row[3] <= endDateFilter) : true;
+          const statusMatches = statusFilter ? row[2] == statusFilter : true;
+          const codigoFamiliarMatches = codigoFamiliar ? row[0] == codigoFamiliar : true;
+
+          return nameMatches && dateMatches && statusMatches && codigoFamiliarMatches;
+        });
+
+        // Atualiza a contagem de resultados
+        document.getElementById('resultCount').textContent = `Total de resultados: ${filteredData.length}`;
+
+        // Renderiza a tabela com os dados filtrados
+        renderTable(filteredData);
+      }
+
+      renderTable(data);
+
+      console.log('Dados recebidos', data)
     })
     .catch(error => {
-        console.log('Erro ao buscar dados:', error)
+      console.log('Erro ao buscar dados:', error)
     })
 }
 
 function atualizar() {
-    window.location.reload()
+  window.location.reload()
 }
 
 $(document).ready(function () {
-    $('#btn_residencia').click(function () {
+  $('#btn_residencia').click(function () {
+    Swal.fire({
+      title: "Selecione a Opção",
+      showCancelButton: true,
+      showDenyButton: true,
+      confirmButtonText: 'Unipessoal',
+      denyButtonText: 'Família',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Se Unipessoal for selecionado
         Swal.fire({
-            title: "Selecione a Opção",
-            showCancelButton: true,
-            showDenyButton: true,
-            confirmButtonText: 'Unipessoal',
-            denyButtonText: 'Família',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                // Se Unipessoal for selecionado
-                Swal.fire({
-                    title: "TERMO DE RESPONSABILIDADE",
-                    html: `
+          title: "TERMO DE RESPONSABILIDADE",
+          html: `
                     <h6>para unipessoal</h6>
                     <h4>INFORME O CPF</h4>
                     <form method="POST" action="/TechSUAS/views/cadunico/forms/termo_responsabilidade_uni.php" id="form_residencia_uni">
@@ -79,20 +119,20 @@ $(document).ready(function () {
                         </label>
                     </form>
                     `,
-                    showCancelButton: true,
-                    confirmButtonText: 'Enviar',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const form = document.getElementById("form_residencia_uni")
-                        form.submit()
-                    }
-                })
-            } else if (result.isDenied) {
-                // Se Família for selecionado
-                Swal.fire({
-                    title: "TERMO DE RESPONSABILIDADE",
-                    html: `
+          showCancelButton: true,
+          confirmButtonText: 'Enviar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const form = document.getElementById("form_residencia_uni")
+            form.submit()
+          }
+        })
+      } else if (result.isDenied) {
+        // Se Família for selecionado
+        Swal.fire({
+          title: "TERMO DE RESPONSABILIDADE",
+          html: `
                     <h6>para famílias com duas pessoas ou mais</h6>
                     <h4>INFORME O CPF</h4>
                     <form method="POST" action="/TechSUAS/views/cadunico/forms/termo_responsabilidade.php" id="form_residencia_familia">
@@ -101,23 +141,23 @@ $(document).ready(function () {
                         </label>
                     </form>
                     `,
-                    showCancelButton: true,
-                    confirmButtonText: 'Enviar',
-                    cancelButtonText: 'Cancelar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const form = document.getElementById("form_residencia_familia")
-                        form.submit()
-                    }
-                })
-            }
+          showCancelButton: true,
+          confirmButtonText: 'Enviar',
+          cancelButtonText: 'Cancelar'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const form = document.getElementById("form_residencia_familia")
+            form.submit()
+          }
         })
+      }
     })
-        /* FORMULARIO RERNDA */
-    $('#btn_dec_renda').click(function () {
-        Swal.fire({
-            title: "TERMO DE DECLARAÇÃO",
-            html: `
+  })
+  /* FORMULARIO RERNDA */
+  $('#btn_dec_renda').click(function () {
+    Swal.fire({
+      title: "TERMO DE DECLARAÇÃO",
+      html: `
             <h4>INFORME O CPF</h4>
             <form method="POST" action="/TechSUAS/views/cadunico/forms/Termo_declaracao" id="form_dec_renda">
                 <label> CPF:
@@ -125,21 +165,21 @@ $(document).ready(function () {
                 </label>
             </form>
             `,
-            showCancelButton: true,
-            confirmButtonText: 'Enviar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.getElementById("form_dec_renda")
-                form.submit()
-            }
-        })
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const form = document.getElementById("form_dec_renda")
+        form.submit()
+      }
     })
+  })
 
-    $('#btn_fc_familia').click(function () {
-        Swal.fire({
-            title: "FICHA DE EXCLUSÃO DE FAMILIA",
-            html: `
+  $('#btn_fc_familia').click(function () {
+    Swal.fire({
+      title: "FICHA DE EXCLUSÃO DE FAMILIA",
+      html: `
             <h4>INFORME O NIS</h4>
             <form method="POST" action="/TechSUAS/views/cadunico/forms/Ficha_de_Exclusão_de_familia" id="form_fc_pessoa">
                 <label> NIS:
@@ -147,21 +187,21 @@ $(document).ready(function () {
                 </label>
             </form>
             `,
-            showCancelButton: true,
-            confirmButtonText: 'Enviar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.getElementById("form_fc_pessoa")
-                form.submit()
-            }
-        })
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const form = document.getElementById("form_fc_pessoa")
+        form.submit()
+      }
     })
+  })
 
-    $('#btn_fc_pessoa').click(function () {
-        Swal.fire({
-            title: "FICHA DE EXCLUSÃO DE PESSOA",
-            html: `
+  $('#btn_fc_pessoa').click(function () {
+    Swal.fire({
+      title: "FICHA DE EXCLUSÃO DE PESSOA",
+      html: `
             <h4>INFORME O NIS</h4>
             <form method="POST" action="/TechSUAS/views/cadunico/forms/Ficha_de_Exclusão_de_Pessoa" id="form_fc_pessoa">
                 <label> NIS:
@@ -169,289 +209,289 @@ $(document).ready(function () {
                 </label>
             </form>
             `,
-            showCancelButton: true,
-            confirmButtonText: 'Enviar',
-            cancelButtonText: 'Cancelar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.getElementById("form_fc_pessoa")
-                form.submit()
-            }
-        })
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const form = document.getElementById("form_fc_pessoa")
+        form.submit()
+      }
     })
+  })
 })
 
 function voltarAoMenu() {
-    window.history.back()
+  window.history.back()
 }
 
 function voltarMenu(params) {
-    
+
 }
 
 function imprimirPagina() {
-    window.print()
+  window.print()
 }
 
 function adicionarLinha() {
-    var tabela = document.getElementById("tabela_membros");
-    var novaLinha = tabela.insertRow(); // Adiciona uma nova linha ao final
+  var tabela = document.getElementById("tabela_membros");
+  var novaLinha = tabela.insertRow(); // Adiciona uma nova linha ao final
 
-    // Cria células para a nova linha
-    var celula1 = novaLinha.insertCell(0);
-    var celula2 = novaLinha.insertCell(1);
-    var celula3 = novaLinha.insertCell(2);
-    var celula4 = novaLinha.insertCell(3);
-    var celula5 = novaLinha.insertCell(4);
+  // Cria células para a nova linha
+  var celula1 = novaLinha.insertCell(0);
+  var celula2 = novaLinha.insertCell(1);
+  var celula3 = novaLinha.insertCell(2);
+  var celula4 = novaLinha.insertCell(3);
+  var celula5 = novaLinha.insertCell(4);
 
-    // Adiciona conteúdo às células
-    celula1.innerHTML = '<span class="editable-field" contenteditable="true"></span>';
-    celula2.innerHTML = '<span class="editable-field" contenteditable="true"></span>';
-    celula3.innerHTML = '<span class="editable-field" contenteditable="true"></span>';
-    celula4.innerHTML = 'R$ <span class="editable-field" contenteditable="true">,00</span>';
-    celula5.innerHTML = '<button onclick="removerLinha(this)">X</button>';
+  // Adiciona conteúdo às células
+  celula1.innerHTML = '<span class="editable-field" contenteditable="true"></span>';
+  celula2.innerHTML = '<span class="editable-field" contenteditable="true"></span>';
+  celula3.innerHTML = '<span class="editable-field" contenteditable="true"></span>';
+  celula4.innerHTML = 'R$ <span class="editable-field" contenteditable="true">,00</span>';
+  celula5.innerHTML = '<button onclick="removerLinha(this)">X</button>';
 }
 
 function removerLinha(botao) {
-    var linha = botao.parentNode.parentNode; // Encontra a linha do botão
-    var tabela = linha.parentNode; // Encontra a tabela
-    tabela.removeChild(linha); // Remove a linha
+  var linha = botao.parentNode.parentNode; // Encontra a linha do botão
+  var tabela = linha.parentNode; // Encontra a tabela
+  tabela.removeChild(linha); // Remove a linha
 }
 
 //função para apresentar dados da família na tela de registrar família
 $('#codfamiliar').on('change', function () {
-    consultarFamilia()
+  consultarFamilia()
 })
 
 function consultarFamilia() {
-    var codfam = $('#codfamiliar').val()
-    const input = document.getElementById('codfamiliar')
-    input.addEventListener('blur', function () {
-        if (input.value.trim() === '') {
-            setTimeout(function () {
-                input.focus()
-            }, 0)
-        } else {
+  var codfam = $('#codfamiliar').val()
+  const input = document.getElementById('codfamiliar')
+  input.addEventListener('blur', function () {
+    if (input.value.trim() === '') {
+      setTimeout(function () {
+        input.focus()
+      }, 0)
+    } else {
 
-    $.ajax({
+      $.ajax({
         type: 'POST',
         url: '/TechSUAS/controller/cadunico/parecer/busca_visita.php',
         data: {
-            codfam: codfam
+          codfam: codfam
         },
         dataType: 'json',
         success: function (response) {
-            if (response.encontrado){
-                if (response.nome) {
-                    $('#nome').text('NOME: ' + response.nome)
-                    $('#titulo_tela').text('VISITA(S) REALIZADA(S):')
+          if (response.encontrado) {
+            if (response.nome) {
+              $('#nome').text('NOME: ' + response.nome)
+              $('#titulo_tela').text('VISITA(S) REALIZADA(S):')
+            } else {
+              $('#nome').text('O código familiar digitado não existe no banco de dados atual')
+            }
+            if (response.visitas) {
+              var visitas = response.visitas
+              var visitasHtml = ''
+
+              visitas.forEach(function (visita) {
+                if (visita.acao == 1) {
+                  var acao = "ATUALIZAÇÃO REALIZADA"
+                } else if (visita.acao == 2) {
+                  var acao = "NÃO LOCALIZADO"
+                } else if (visita.acao == 3) {
+                  var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR"
+                } else if (visita.acao == 4) {
+                  var acao = "A FAMÍLIA RECUSOU ATUALIZAR"
+                } else if (visita.acao == 5) {
+                  var acao = "ATUALIZAÇÃO NÃO REALIZADA"
                 } else {
-                    $('#nome').text('O código familiar digitado não existe no banco de dados atual')
+                  var acao = ""
                 }
-                if (response.visitas) {
-                var visitas = response.visitas
-                var visitasHtml = ''
-                
-                visitas.forEach(function(visita) {
-                    if (visita.acao == 1) {
-                        var acao = "ATUALIZAÇÃO REALIZADA"
-                    } else if (visita.acao == 2) {
-                        var acao = "NÃO LOCALIZADO"
-                    } else if (visita.acao == 3) {
-                        var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR"
-                    } else if (visita.acao == 4) {
-                        var acao = "A FAMÍLIA RECUSOU ATUALIZAR"
-                    } else if (visita.acao == 5) {
-                        var acao = "ATUALIZAÇÃO NÃO REALIZADA"
-                    } else {
-                        var acao = ""
-                    }
-                    visitasHtml += '<div class="visita">'
-                    visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>'
-                    visitasHtml += '<span>Ação: ' + acao + '</span><br>'
-                    visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>'
-                    visitasHtml += '</div><br>'
-                })
-                $('#data_visita').html(visitasHtml)
+                visitasHtml += '<div class="visita">'
+                visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>'
+                visitasHtml += '<span>Ação: ' + acao + '</span><br>'
+                visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>'
+                visitasHtml += '</div><br>'
+              })
+              $('#data_visita').html(visitasHtml)
             } else if (response.data_visita) {
-                $('#data_visita').text(response.data_visita)
+              $('#data_visita').text(response.data_visita)
             }
 
-                /* $('#data_visita').text(response.data_visita)
-                if (response.acao == 1) {
-                    var acao = "ATUALIZAÇÃO REALIZADA";
-                } else if (response.acao == 2) {
-                    var acao = "NÃO LOCALIZADO";
-                } else if (response.acao == 3) {
-                    var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
-                } else if (response.acao == 4) {
-                    var acao = "A FAMÍLIA RECUSOU ATUALIZAR";
-                } else if (response.acao == 5) {
-                    var acao = "ATUALIZAÇÃO NÃO REALIZADA";
-                } else {
-                    var acao = "!"
-                }
-                $('#acao').text(acao)
-                $('#parecer_tec').text('Parecer do Entrevistador: ' + response.parecer_tec)
-                $('#entrevistador').text('Entrevistador: ' + response.entrevistador)*/
-                }
+            /* $('#data_visita').text(response.data_visita)
+            if (response.acao == 1) {
+                var acao = "ATUALIZAÇÃO REALIZADA";
+            } else if (response.acao == 2) {
+                var acao = "NÃO LOCALIZADO";
+            } else if (response.acao == 3) {
+                var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
+            } else if (response.acao == 4) {
+                var acao = "A FAMÍLIA RECUSOU ATUALIZAR";
+            } else if (response.acao == 5) {
+                var acao = "ATUALIZAÇÃO NÃO REALIZADA";
+            } else {
+                var acao = "!"
             }
-        })
+            $('#acao').text(acao)
+            $('#parecer_tec').text('Parecer do Entrevistador: ' + response.parecer_tec)
+            $('#entrevistador').text('Entrevistador: ' + response.entrevistador)*/
+          }
+        }
+      })
     }
-    })
+  })
 }
 
 //função para salvar dados da visita a família
 $(document).ready(function () {
-    $('#imprimir_parecer').click(function () {
-        //imprimirParecer()
-    })
+  $('#imprimir_parecer').click(function () {
+    //imprimirParecer()
+  })
 })
 
 //FUNÇÃO PARA IMPRIMIR QUANDO HOUVER REGISTRO NO TBL TUDO PRIMEIRA FASE NA TELA PRINT_VISITA EM SEGUIDA UMA REQUISIÇÃO AJAX PARA SALVAR QUALQUER ALTERAÇÃO QUE FOR FEITA NO CODIGO FAMILIAR 
 
 
 function imprimirParecer() {
-    window.print()
+  window.print()
 
-    setTimeout(function() {
+  setTimeout(function () {
 
     var dados = {
-        id_visita: document.getElementById("id_visita").innerText,
-        numero_parecer: document.getElementById("numero_parecer").innerText,
-        ano_parecer: document.getElementById("ano_parecer").innerText,
-        codigo_familiar: document.getElementById("codigo_familiar").innerText,
-        data_entrevista: document.getElementById("data_entrevista").innerText,
-        renda_per_capita: document.getElementById("renda_per_capita").innerText,
-        localidade: document.getElementById("localidade").innerText,
-        tipo: document.getElementById("tipo").innerText,
-        titulo: document.getElementById("titulo").innerText,
-        nome_logradouro: document.getElementById("nome_logradouro").innerText,
-        numero_logradouro: document.getElementById("numero_logradouro").innerText,
-        complemento_numero: document.getElementById("complemento_numero").innerText,
-        complemento_adicional: document.getElementById("complemento_adicional").innerText,
-        cep: document.getElementById("cep").innerText,
-        referencia_localizacao: document.getElementById("referencia_localizacao").innerText,
-        situacao: document.getElementById("situacao").innerText,
-        resumo_visita: document.getElementById("resumo_visita").innerText
+      id_visita: document.getElementById("id_visita").innerText,
+      numero_parecer: document.getElementById("numero_parecer").innerText,
+      ano_parecer: document.getElementById("ano_parecer").innerText,
+      codigo_familiar: document.getElementById("codigo_familiar").innerText,
+      data_entrevista: document.getElementById("data_entrevista").innerText,
+      renda_per_capita: document.getElementById("renda_per_capita").innerText,
+      localidade: document.getElementById("localidade").innerText,
+      tipo: document.getElementById("tipo").innerText,
+      titulo: document.getElementById("titulo").innerText,
+      nome_logradouro: document.getElementById("nome_logradouro").innerText,
+      numero_logradouro: document.getElementById("numero_logradouro").innerText,
+      complemento_numero: document.getElementById("complemento_numero").innerText,
+      complemento_adicional: document.getElementById("complemento_adicional").innerText,
+      cep: document.getElementById("cep").innerText,
+      referencia_localizacao: document.getElementById("referencia_localizacao").innerText,
+      situacao: document.getElementById("situacao").innerText,
+      resumo_visita: document.getElementById("resumo_visita").innerText
     }
 
     var membrosFamilia = []
     var membros = document.querySelectorAll('.parentesco')
-    membros.forEach(function(membro, index) {
-        var membroData = {
-            parentesco: membro.innerText,
-            nome_completo: document.querySelectorAll('.nome_completo')[index].innerText,
-            nis: document.querySelectorAll('.nis')[index].innerText,
-            data_nascimento: document.querySelectorAll('.data_nascimento')[index].innerText
-        };
-        membrosFamilia.push(membroData)
+    membros.forEach(function (membro, index) {
+      var membroData = {
+        parentesco: membro.innerText,
+        nome_completo: document.querySelectorAll('.nome_completo')[index].innerText,
+        nis: document.querySelectorAll('.nis')[index].innerText,
+        data_nascimento: document.querySelectorAll('.data_nascimento')[index].innerText
+      };
+      membrosFamilia.push(membroData)
     });
     dados.membros_familia = membrosFamilia
 
     $.ajax({
-        url: '/TechSUAS/controller/cadunico/parecer/salvar_dados_visita.php',
-        type: 'POST',
-        data: JSON.stringify(dados),
-        contentType: 'application/json',
-        success: function(response) {
-            Swal.fire({
-                icon: "success",
-                title: "SALVO",
-                text: "Dados salvos com sucesso!",
-                confirmButtonText: 'OK',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita"
-                }
-            })
-        },
-        error: function(xhr, status, error) {
-            console.error('Erro ao salvar os dados:', error)
-            console.log('Resposta do servidor:', xhr.responseText)
-            }
+      url: '/TechSUAS/controller/cadunico/parecer/salvar_dados_visita.php',
+      type: 'POST',
+      data: JSON.stringify(dados),
+      contentType: 'application/json',
+      success: function (response) {
+        Swal.fire({
+          icon: "success",
+          title: "SALVO",
+          text: "Dados salvos com sucesso!",
+          confirmButtonText: 'OK',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita"
+          }
         })
-    }, 300)
+      },
+      error: function (xhr, status, error) {
+        console.error('Erro ao salvar os dados:', error)
+        console.log('Resposta do servidor:', xhr.responseText)
+      }
+    })
+  }, 300)
 }
 //FUNÇÃO PARA SALVAR QUAIQUER ALTERAÇÃO NO CÓDIGO
 function salvaCodigoEditado() {
-    var conteudo = {
-        alterado_codigo: document.getElementById("codigo_familiar").innerText,
-        id_para_alterar: document.getElementById("id_visita").innerText
-    }
+  var conteudo = {
+    alterado_codigo: document.getElementById("codigo_familiar").innerText,
+    id_para_alterar: document.getElementById("id_visita").innerText
+  }
 
-    $.ajax({
-        url: "/TechSUAS/controller/cadunico/parecer/salvar_alt_parecer.php",
-        type: "POST",
-        data: JSON.stringify(conteudo),
-        contentType: 'application/json',
-        success:  function (response) {
-            console.log(response)
-        }
-    })
+  $.ajax({
+    url: "/TechSUAS/controller/cadunico/parecer/salvar_alt_parecer.php",
+    type: "POST",
+    data: JSON.stringify(conteudo),
+    contentType: 'application/json',
+    success: function (response) {
+      console.log(response)
+    }
+  })
 }
 
 //FUNÇÃO PARA IMPRIMIR QUANDO NÃO HOUVER REGISTRO NO TBL_TUDO
 function imprimirParecerPARTE() {
-    window.print()
+  window.print()
 
-    setTimeout(function() {
+  setTimeout(function () {
     var dados = {
-        id_visita: document.getElementById("id_visita").innerText,
-        numero_parecer: document.getElementById("numero_parecer").innerText,
-        ano_parecer: document.getElementById("ano_parecer").innerText,
-        codigo_familiar: document.getElementById("codigo_familiar").innerText,
-        data_entrevista: document.getElementById("data_entrevista").innerText,
-        renda_per_capita: document.getElementById("renda_per_capita").innerText,
-        localidade: document.getElementById("localidade").innerText,
-        tipo: document.getElementById("tipo").innerText,
-        titulo: document.getElementById("titulo").innerText,
-        nome_logradouro: document.getElementById("nome_logradouro").innerText,
-        numero_logradouro: document.getElementById("numero_logradouro").innerText,
-        complemento_numero: document.getElementById("complemento_numero").innerText,
-        complemento_adicional: document.getElementById("complemento_adicional").innerText,
-        cep: document.getElementById("cep").innerText,
-        referencia_localizacao: document.getElementById("referencia_localizacao").innerText,
-        situacao: document.getElementById("situacao").innerText,
-        resumo_visita: document.getElementById("resumo_visita").innerText
+      id_visita: document.getElementById("id_visita").innerText,
+      numero_parecer: document.getElementById("numero_parecer").innerText,
+      ano_parecer: document.getElementById("ano_parecer").innerText,
+      codigo_familiar: document.getElementById("codigo_familiar").innerText,
+      data_entrevista: document.getElementById("data_entrevista").innerText,
+      renda_per_capita: document.getElementById("renda_per_capita").innerText,
+      localidade: document.getElementById("localidade").innerText,
+      tipo: document.getElementById("tipo").innerText,
+      titulo: document.getElementById("titulo").innerText,
+      nome_logradouro: document.getElementById("nome_logradouro").innerText,
+      numero_logradouro: document.getElementById("numero_logradouro").innerText,
+      complemento_numero: document.getElementById("complemento_numero").innerText,
+      complemento_adicional: document.getElementById("complemento_adicional").innerText,
+      cep: document.getElementById("cep").innerText,
+      referencia_localizacao: document.getElementById("referencia_localizacao").innerText,
+      situacao: document.getElementById("situacao").innerText,
+      resumo_visita: document.getElementById("resumo_visita").innerText
     }
 
     var membrosFamilia = []
     var membros = document.querySelectorAll('.parentesco')
-    membros.forEach(function(membro, index) {
-        var membroData = {
-            parentesco: membro.innerText,
-            nome_completo: document.querySelectorAll('.nome_completo')[index].innerText,
-            nis: document.querySelectorAll('.nis')[index].innerText,
-            data_nascimento: document.querySelectorAll('.data_nascimento')[index].innerText
-        };
-        membrosFamilia.push(membroData)
+    membros.forEach(function (membro, index) {
+      var membroData = {
+        parentesco: membro.innerText,
+        nome_completo: document.querySelectorAll('.nome_completo')[index].innerText,
+        nis: document.querySelectorAll('.nis')[index].innerText,
+        data_nascimento: document.querySelectorAll('.data_nascimento')[index].innerText
+      };
+      membrosFamilia.push(membroData)
     });
     dados.membros_familia = membrosFamilia
 
     $.ajax({
-        url: '/TechSUAS/controller/cadunico/parecer/salvar_dados_visita.php',
-        type: 'POST',
-        data: JSON.stringify(dados),
-        contentType: 'application/json',
-        success: function(response) {
-            Swal.fire({
-                icon: "success",
-                title: "SALVO",
-                text: "Dados salvos com sucesso!",
-                confirmButtonText: 'OK',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                        window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita";
-                }
-            })
-        },
-        error: function(xhr, status, error) {
-            console.error('Erro ao salvar os dados:', error)
-            console.log('Resposta do servidor:', xhr.responseText)
-            }
+      url: '/TechSUAS/controller/cadunico/parecer/salvar_dados_visita.php',
+      type: 'POST',
+      data: JSON.stringify(dados),
+      contentType: 'application/json',
+      success: function (response) {
+        Swal.fire({
+          icon: "success",
+          title: "SALVO",
+          text: "Dados salvos com sucesso!",
+          confirmButtonText: 'OK',
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita";
+          }
         })
-    }, 300)
+      },
+      error: function (xhr, status, error) {
+        console.error('Erro ao salvar os dados:', error)
+        console.log('Resposta do servidor:', xhr.responseText)
+      }
+    })
+  }, 300)
 }
 
 /*
@@ -460,10 +500,10 @@ DECLARAÇÃO DE INSCRITO NO CADASTRO UNICO - FUNÇÕES PARA A TELA
 */
 
 $(document).ready(function () {
-    $('#btn_dec_cad').click(function () {
-        Swal.fire({
-            title: "DECLARAÇÃO DO CADASTRO ÚNICO",
-            html: `
+  $('#btn_dec_cad').click(function () {
+    Swal.fire({
+      title: "DECLARAÇÃO DO CADASTRO ÚNICO",
+      html: `
             <p>É importante conferir as informações no CadÚnico e SIBEC para certificar-se da situação recente da família.</p><br> 
             <h4>INFORME O CPF</h4>
             <form method="POST" action="/TechSUAS/views/cadunico/declaracoes/dec_cadunico" id="form_familia">
@@ -472,33 +512,33 @@ $(document).ready(function () {
                 </label>
             </form>
             `,
-            showCancelButton: true,
-            confirmButtonText: 'Enviar',
-            cancelButtonText: 'Cancelar',
-            didOpen: () => {
-                $('#cpf_dec_cad').mask('000.000.000-00')
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.getElementById("form_familia")
-                form.submit()
-            }
-        })
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      didOpen: () => {
+        $('#cpf_dec_cad').mask('000.000.000-00')
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const form = document.getElementById("form_familia")
+        form.submit()
+      }
     })
+  })
 })
 
 
 
 function voltar() {
-    window.location.href = "/TechSUAS/views/cadunico/declaracoes/index"
+  window.location.href = "/TechSUAS/views/cadunico/declaracoes/index"
 }
 
 function voltarMenu() {
-        window.location.href = "/TechSUAS/views/cadunico/index"
+  window.location.href = "/TechSUAS/views/cadunico/index"
 }
 
 function printWithFields() {
-    window.print()
+  window.print()
 }
 
 /*
@@ -506,10 +546,10 @@ DESLIGAMENTO VOLUNTÁRIO - FUNÇÕES PARA A TELA
 */
 
 $(document).ready(function () {
-    $('#btn_des_vol').click(function () {
-        Swal.fire({
-            title: "DECLARAÇÃO DE DESLIGAMENTO VOLUNTÁRIO",
-            html: `
+  $('#btn_des_vol').click(function () {
+    Swal.fire({
+      title: "DECLARAÇÃO DE DESLIGAMENTO VOLUNTÁRIO",
+      html: `
             <h4>INFORME O CPF</h4>
             <form method="POST" action="/TechSUAS/views/cadunico/declaracoes/desligamento_voluntario" id="form_familia">
                 <label> CPF:
@@ -517,19 +557,19 @@ $(document).ready(function () {
                 </label>
             </form>
             `,
-            showCancelButton: true,
-            confirmButtonText: 'Enviar',
-            cancelButtonText: 'Cancelar',
-            didOpen: () => {
-                $('#cpf_dec_cad').mask('000.000.000-00')
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.getElementById("form_familia")
-                form.submit()
-            }
-        })
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      didOpen: () => {
+        $('#cpf_dec_cad').mask('000.000.000-00')
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const form = document.getElementById("form_familia")
+        form.submit()
+      }
     })
+  })
 })
 
 /*
@@ -537,10 +577,10 @@ TROCA DE RF - FUNÇÕES PARA A TELA
 */
 
 $(document).ready(function () {
-    $('#btn_troca').click(function () {
-        Swal.fire({
-            title: "TROCA DE RF - C.E.F.",
-            html: `
+  $('#btn_troca').click(function () {
+    Swal.fire({
+      title: "TROCA DE RF - C.E.F.",
+      html: `
             <form method="POST" action="/TechSUAS/views/cadunico/declaracoes/novo_rf_pbf" id="form_familia">
                     <h4>INFORME O NIS DO RF ANTERIOR</h4>                    
                 <label>
@@ -552,19 +592,19 @@ $(document).ready(function () {
                 </label>
             </form>
             `,
-            showCancelButton: true,
-            confirmButtonText: 'Enviar',
-            cancelButtonText: 'Cancelar',
-            didOpen: () => {
-                $('#cpf_dec_cad').mask('000.000.000-00')
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.getElementById("form_familia")
-                form.submit()
-            }
-        })
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      didOpen: () => {
+        $('#cpf_dec_cad').mask('000.000.000-00')
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const form = document.getElementById("form_familia")
+        form.submit()
+      }
     })
+  })
 })
 
 /*
@@ -572,10 +612,10 @@ ENCAMINHAMENTOS - FUNÇÕES PARA A TELA
 */
 
 $(document).ready(function () {
-    $('#btn_encamnhamento').click(function () {
-        Swal.fire({
-            title: "ENCAMINHAMENTOS",
-            html: `
+  $('#btn_encamnhamento').click(function () {
+    Swal.fire({
+      title: "ENCAMINHAMENTOS",
+      html: `
             <form method="POST" action="/TechSUAS/views/cadunico/declaracoes/encaminhamento" id="form_familia">
             <h4>Por favor, preencha as informações abaixo</h4>
                 <label>
@@ -583,106 +623,106 @@ $(document).ready(function () {
                 </label>
             </form>
             `,
-            showCancelButton: true,
-            confirmButtonText: 'Enviar',
-            cancelButtonText: 'Cancelar',
-            didOpen: () => {
-                $('#cpf_dec_cad').mask('000.000.000-00')
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                const form = document.getElementById("form_familia")
-                form.submit()
-            }
-        })
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      didOpen: () => {
+        $('#cpf_dec_cad').mask('000.000.000-00')
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const form = document.getElementById("form_familia")
+        form.submit()
+      }
     })
+  })
 })
 
 // FUNÇÃO EMPREGADA NO BOTÃO DE IMPRIMIR DE ENCAMINHAMENTO
 
 function printWithFields_preper() {
-    var hide_show = $('#inputText').val();
-    var setor = $('#setor').val();
-    var retorna = setor == "3" ? $('#inputOutro').val() : setor;
+  var hide_show = $('#inputText').val();
+  var setor = $('#setor').val();
+  var retorna = setor == "3" ? $('#inputOutro').val() : setor;
 
-    $('#mostrarText').text(hide_show);
-    $('#mostrarDest').text(`Ao(A) responsável por ${retorna}`);
-    $('.esconder, .buttons').hide();
+  $('#mostrarText').text(hide_show);
+  $('#mostrarDest').text(`Ao(A) responsável por ${retorna}`);
+  $('.esconder, .buttons').hide();
 
-    window.print();
+  window.print();
 }
 
 //FUNÇÃO DA TELA DASHBOARD ENTREVISTADOR
 
 function buscarDadosFamily() {
-    var familia = $("#codfamiliar").val()
+  var familia = $("#codfamiliar").val()
 
-        // Remove todos os caracteres que não sejam números
-        let cpfLimpo = familia.replace(/\D/g, '');
-        // Preenche com zeros à esquerda para garantir que tenha 11 dígitos
-        let ajustandoCoda = cpfLimpo.padStart(11, '0');
-        let ajustandoCod = ajustandoCoda.replace(/^(\d{9})(\d{2})$/, '$1-$2')
+  // Remove todos os caracteres que não sejam números
+  let cpfLimpo = familia.replace(/\D/g, '');
+  // Preenche com zeros à esquerda para garantir que tenha 11 dígitos
+  let ajustandoCoda = cpfLimpo.padStart(11, '0');
+  let ajustandoCod = ajustandoCoda.replace(/^(\d{9})(\d{2})$/, '$1-$2')
 
-    $('#codfamiliar_print').text(ajustandoCod)
+  $('#codfamiliar_print').text(ajustandoCod)
 
-    $.ajax({
-        type: 'POST',
-        url: '/TechSUAS/controller/cadunico/busca_family.php',
-        data: {
-            codfam: familia
-        },
-        dataType: 'json',
-        success: function (response) {
-            if (response.encontrado){
-                $('#data_entrevista').text(`Data da ultima Atualização ${response.data_entrevista}`)
-                if (response.dados_familia) {
-                    var dados_familiap = response.dados_familia
-                    var visitasHtml = ''
-                    visitasHtml += '<table>'
-                    visitasHtml += '<tr><th>NIS</th><th></th><th>NOME</th><th></th><th>PARENTESCO</th></tr>'                    
-                    dados_familiap.forEach(function(familia_show) {
-                        visitasHtml += '<div class="visita">'
-                        visitasHtml += '<tr>'
-                        visitasHtml += '<td><span>' + familia_show.nis_atual + '</span></td><td></td>'
-                        visitasHtml += '<td><span>' + familia_show.nome + '</span></td><td></td>'
-                        visitasHtml += '<td><span>' + familia_show.parentesco    + '</span></td>'
-                        visitasHtml += '</tr>'
-                        visitasHtml += '</div>'
-                    })
-                    visitasHtml += '</table>'
-                    $('#familia_show').html(visitasHtml)
+  $.ajax({
+    type: 'POST',
+    url: '/TechSUAS/controller/cadunico/busca_family.php',
+    data: {
+      codfam: familia
+    },
+    dataType: 'json',
+    success: function (response) {
+      if (response.encontrado) {
+        $('#data_entrevista').text(`Data da ultima Atualização ${response.data_entrevista}`)
+        if (response.dados_familia) {
+          var dados_familiap = response.dados_familia
+          var visitasHtml = ''
+          visitasHtml += '<table>'
+          visitasHtml += '<tr><th>NIS</th><th></th><th>NOME</th><th></th><th>PARENTESCO</th></tr>'
+          dados_familiap.forEach(function (familia_show) {
+            visitasHtml += '<div class="visita">'
+            visitasHtml += '<tr>'
+            visitasHtml += '<td><span>' + familia_show.nis_atual + '</span></td><td></td>'
+            visitasHtml += '<td><span>' + familia_show.nome + '</span></td><td></td>'
+            visitasHtml += '<td><span>' + familia_show.parentesco + '</span></td>'
+            visitasHtml += '</tr>'
+            visitasHtml += '</div>'
+          })
+          visitasHtml += '</table>'
+          $('#familia_show').html(visitasHtml)
 
-                }
-            }
         }
-    })
+      }
+    }
+  })
 }
 
 //FUNÇÃO PARA MUDAR DE SELECT PARA INPUT 
 
 function mostrarCampoTexto() {
-    var select = document.getElementById("setor")
-    var campoTexto = document.getElementById("inputOutro")
+  var select = document.getElementById("setor")
+  var campoTexto = document.getElementById("inputOutro")
 
-    if (select.value === "3") {
-        // Se a opção 'Outros' for selecionada, mostra o campo de texto
-        campoTexto.style.display = "block"
-        select.style.display = "none"
-    } else {
-        // Caso contrário, oculta o campo de texto
-        campoTexto.style.display = "none"
-    }
+  if (select.value === "3") {
+    // Se a opção 'Outros' for selecionada, mostra o campo de texto
+    campoTexto.style.display = "block"
+    select.style.display = "none"
+  } else {
+    // Caso contrário, oculta o campo de texto
+    campoTexto.style.display = "none"
+  }
 }
 
 //FUNÇÃO PARA APLICAR A DATA DA ENTREVISTA CASO SEJA NO MESMO DIA.
 
 function dataHoje() {
-    var data = new Date();
-    var dia = String(data.getDate()).padStart(2, '0');
-    var mes = String(data.getMonth() + 1).padStart(2, '0');
-    var ano = data.getFullYear();
+  var data = new Date();
+  var dia = String(data.getDate()).padStart(2, '0');
+  var mes = String(data.getMonth() + 1).padStart(2, '0');
+  var ano = data.getFullYear();
 
-    var dataFormatada = ano + '-' + mes + '-' + dia;
+  var dataFormatada = ano + '-' + mes + '-' + dia;
 }
 function recuperarSenha() {
   window.location.href = "/TechSUAS/views/geral/recuperar_senha"
