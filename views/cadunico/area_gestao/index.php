@@ -35,23 +35,23 @@ if ($_SESSION['funcao'] != '1') {
         <div class="btns">
 
             <button type="button" id="btn_benef">
-                <span class="material-symbols-outlined">library_add</span>
+                <span class="material-symbols-outlined">quick_reference_all</span>
                 Consultar Benefício
             </button>
 
             <button type="button" id="btn_entrevistadores">
-                <span class="material-symbols-outlined">library_add</span>
+                <span class="material-symbols-outlined">group</span>
                 Entrevistadores
             </button>
 
             <button type="button" onclick="window.location.href = '/TechSUAS/views/cadunico/area_gestao/index';">
-                <span class="material-symbols-outlined">library_add</span>
+                <span class="material-symbols-outlined">frame_reload</span>
                 Atualizar
             </button>
 
             <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/filtros';">
                 <span class="material-symbols-outlined">
-                    library_add</span>
+                search_insights</span>
                 Consultar Famílias
             </button>
 
@@ -68,7 +68,7 @@ if ($_SESSION['funcao'] != '1') {
 
             <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/visitas/accompany_visits';">
                 <span class="material-symbols-outlined">
-                    library_add
+                preview
                 </span>
                 Acompanhar Visitas
             </button>
