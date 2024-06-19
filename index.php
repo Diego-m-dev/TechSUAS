@@ -48,14 +48,17 @@
             </div>
 
             <div class="clearfix">
-                <label class="float-left checkbox-inline">
-                    <input type="checkbox">
-                    Lembrar-me
-                </label>
+                <div>
+                    <label class="float-left checkbox-inline">
+                        <input type="checkbox">
+                        Lembrar-me
+                    </label>
+                </div>
                 <!--<a data-toggle="modal" data-target="#modal-senha" class="float-right">Recuperar Senha</a>-->
+                <div><a class="recuperar" onclick="recuperarSenha()">Recuperar senha</a></div>
             </div>
         </form>
-        <button onclick="recuperarSenha()">Recuperar senha</button>
+
     </div>
 
     <footer class="rodape">

@@ -80,14 +80,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
           <div class="fichario">
             <a class="menu-button" href="/TechSUAS/views/cadunico/fichario/fichario_home.php">
-              <span class="material-symbols-outlined">admin_panel_settings</span>
-              Fichario
+              <span class="material-symbols-outlined">folder_shared</span>
+              Fichário
             </a>
           </div>
 <?php
   if ($_SESSION['nivel_usuario'] != 'usuario') {
 ?>
-          <div class="peixe">
+          <div class="area_gestor">
             <a class="menu-button" href="/TechSUAS/views/cadunico/area_gestao/index">
               <span class="material-symbols-outlined">shield_person</span>
               Área do Gestor

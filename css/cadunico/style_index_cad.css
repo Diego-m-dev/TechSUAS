@@ -50,7 +50,7 @@ body {
   color: #fff;
   border-radius: 10px;
   padding: 6px 18px;
-  margin: 10px;
+  margin: 5px;
   cursor: pointer;
   transition: 0.3s;
   font-size: 20px;
@@ -60,7 +60,9 @@ body {
   justify-content: center;
   text-transform: capitalize;
 }
-
+nav{
+  z-index: 1;
+}
 .menu-button i {
   margin-right: 10px;
 }
