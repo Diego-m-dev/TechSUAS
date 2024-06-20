@@ -310,6 +310,8 @@ if ($_SESSION['funcao'] != '1') {
 
     ?>
     </div>
+
+    testando
 </body>
 
 </html>
