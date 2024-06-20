@@ -33,7 +33,7 @@ if ($_SESSION['funcao'] != '1') {
         </h1>
     </div>
     <div class="container">
-        <div class="cont-btns">
+        <!-- <div class="cont-btns">
             <div class="btns">
                 <div class="bt">
                     <button type="button" class="menu-button" id="btn_benef">
@@ -83,7 +83,7 @@ if ($_SESSION['funcao'] != '1') {
                     </button>
                 </div>
             </div>
-        </div>
+        </div> -->
         <div class="mural_stats">
             <div class="header">
                 <h1>Estatisticas Geral - Cadunico (cidade)</h1>
@@ -92,50 +92,48 @@ if ($_SESSION['funcao'] != '1') {
 
                 <div class="card">
                     <div class="card-header">
-                        INDICADOR 1
+                        <p>CADASTROS NO MUNICIPIO:</p>
                     </div>
 
                     <div class="card-content">
                         <div class="card-value">
-                            xxxx
+                            <p>CADASTROS DATA DIVERGENTE:</p>
+                            <p>CADASTROS SEM CPF:</p>
+                            <p>CADASTROS SEM RF:</p>
                         </div>
                     </div>
+                    <span> icon </span>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <p>FAMILIAS COM BENEFÍCIOS:</p>
+                    </div>
+
+                    <div class="card-content">
+                        <div class="card-value">
+                            <p>UNIPESSOAIS:</p>
+                            <p>PENDENCIAS:</p>
+                            <p>VALE GAS:</p>
+                            <p>PBF</p>
+                        </div>
+                    </div>
+                    <span> icon </span>
                 </div>
 
                 <div class="card">
                     <div class="card-header">
-                        INDICADOR 2
+                        TOTAL DE VISITAS:
                     </div>
 
                     <div class="card-content">
                         <div class="card-value">
-                            xxxx
+                            <p>PUBLICO 3:</p>
+                            <p>AV RENDA:</p>
+                            <p>REVISAO:</p>
+                            <p>EXCLUSAO:</p>
                         </div>
                     </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        INDICADOR 3
-                    </div>
-
-                    <div class="card-content">
-                        <div class="card-value">
-                            xxxx
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        INDICADOR 4
-                    </div>
-
-                    <div class="card-content">
-                        <div class="card-value">
-                            xxxx
-                        </div>
-                    </div>
+                    <span> icon </span>
                 </div>
             </div>
             <div class="row">
@@ -179,139 +177,137 @@ if ($_SESSION['funcao'] != '1') {
                     <div class="card-header">
                         INDICADOR 8
 
-                    <div class="card-content">
-                        <div class="card-value">
-                            xxxx
+                        <div class="card-content">
+                            <div class="card-value">
+                                xxxx
+                            </div>
                         </div>
                     </div>
-                </div>
 
+                </div>
             </div>
         </div>
-    </div>
 
-    <!-- CADASTROS Formulário para filtrar informações do cadastro-->
-    <form method="post" id="simples">
-        <label for="">NOME:</label>
-        <input type="text" name="nome_pessoa" />
-        <label for="">Código Familiar</label>
-        <input type="text" name="codigo_familia">
-        <button type="submit" name="btn_filtro_familia">Buscar</button>
-    </form>
+        <!-- CADASTROS Formulário para filtrar informações do cadastro-->
+        <form method="post" id="simples">
+            <label for="">NOME:</label>
+            <input type="text" name="nome_pessoa" />
+            <label for="">Código Familiar</label>
+            <input type="text" name="codigo_familia">
+            <button type="submit" name="btn_filtro_familia">Buscar</button>
+        </form>
 
-    <!-- BENEFÍCIOS Formulário para filtrar informações do beneficiário-->
-    <form action="" method="post" id="beneficio">
-        <label for="">NIS:</label>
-        <input type="text" name="nis_benef" />
-        <button type="submit" name="btn_filtro_benef">Buscar</button>
-    </form>
+        <!-- BENEFÍCIOS Formulário para filtrar informações do beneficiário-->
+        <form action="" method="post" id="beneficio">
+            <label for="">NIS:</label>
+            <input type="text" name="nis_benef" />
+            <button type="submit" name="btn_filtro_benef">Buscar</button>
+        </form>
 
-    <!-- ENTREVISTADORES Formulário para filtrar Entrevistadores -->
-    <form action="" method="post" id="entrevistadores">
-        <label for="">
-            NOME Entrevistador(a):
-            <input type="text" name="nome_entrev" />
-        </label>
-        <button type="submit" name="btn_filtro_entrev">Buscar</button>
-    </form>
+        <!-- ENTREVISTADORES Formulário para filtrar Entrevistadores -->
+        <form action="" method="post" id="entrevistadores">
+            <label for="">
+                NOME Entrevistador(a):
+                <input type="text" name="nome_entrev" />
+            </label>
+            <button type="submit" name="btn_filtro_entrev">Buscar</button>
+        </form>
 
-    <?php
+        <?php
 
-    if (!isset($_POST['btn_filtro_familia']) && !isset($_POST['btn_filtro_benef']) && !isset($_POST['btn_filtro_entrev'])) {
-    } elseif (isset($_POST['btn_filtro_familia']) && !isset($_POST['btn_filtro_benef']) && !isset($_POST['btn_filtro_entrev'])) {
+        if (!isset($_POST['btn_filtro_familia']) && !isset($_POST['btn_filtro_benef']) && !isset($_POST['btn_filtro_entrev'])) {
+        } elseif (isset($_POST['btn_filtro_familia']) && !isset($_POST['btn_filtro_benef']) && !isset($_POST['btn_filtro_entrev'])) {
 
-        //TRATANDO OS DADOS DA FAMILIA
-        if (isset($_POST['nome_pessoa'])) {
-            $filtro = $conn->real_escape_string($_POST['nome_pessoa']);
+            //TRATANDO OS DADOS DA FAMILIA
+            if (isset($_POST['nome_pessoa'])) {
+                $filtro = $conn->real_escape_string($_POST['nome_pessoa']);
 
-            $smtp_filtro = $conn->prepare("SELECT * FROM tbl_tudo
+                $smtp_filtro = $conn->prepare("SELECT * FROM tbl_tudo
         WHERE nom_pessoa LIKE '%$filtro%'");
-            $smtp_filtro->execute();
-            $resultado = $smtp_filtro->get_result(); // Obter o resultado da consulta
-            $dados_filtros = $resultado->fetch_all(MYSQLI_ASSOC); // Obter todas as linhas como uma matriz associativa
-    
-        } elseif (isset($_POST['codigo_familia'])) {
-            $filtro = $conn->real_escape_string($_POST['codigo_familia']);
-        } else {
-            // Se nenhum dos campos estiver definido, você pode definir um valor padrão para $filtro ou tomar outra ação adequada.
-        }
-        $smtp_filtros = $conn->prepare("SELECT COUNT(*) AS totais_cadastro
+                $smtp_filtro->execute();
+                $resultado = $smtp_filtro->get_result(); // Obter o resultado da consulta
+                $dados_filtros = $resultado->fetch_all(MYSQLI_ASSOC); // Obter todas as linhas como uma matriz associativa
+        
+            } elseif (isset($_POST['codigo_familia'])) {
+                $filtro = $conn->real_escape_string($_POST['codigo_familia']);
+            } else {
+                // Se nenhum dos campos estiver definido, você pode definir um valor padrão para $filtro ou tomar outra ação adequada.
+            }
+            $smtp_filtros = $conn->prepare("SELECT COUNT(*) AS totais_cadastro
                                     FROM tbl_tudo
                                     WHERE cod_parentesco_rf_pessoa = 1");
-        $smtp_filtros->execute();
+            $smtp_filtros->execute();
 
-        $result = $smtp_filtros->get_result(); // Obter o resultado da consulta
-        $dados_filtro = $result->fetch_all(MYSQLI_ASSOC); // Obter todas as linhas como uma matriz associativa
-    
+            $result = $smtp_filtros->get_result();
+            $dados_filtro = $result->fetch_all(MYSQLI_ASSOC);
 
 
-        if (!empty($dados_filtro)) {
-            // A contagem total estará na primeira linha da matriz
-            $total_cadastros = $dados_filtro[0]['totais_cadastro'];
-            echo "Total de famílias cadastradas: $total_cadastros";
-        } else {
-            echo "Nenhum resultado encontrado.";
-        }
-    } elseif (!isset($_POST['btn_filtro_familia']) && !isset($_POST['btn_filtro_benef']) && isset($_POST['btn_filtro_entrev'])) {
 
-        //TRATANDO COM OS ENTREVISTADORES
-        $entrevistador = $_POST['nome_entrev'];
-        if ($entrevistador == "") {
-            $smtp_filtros = "SELECT COUNT(*) AS soma_entrev_cad, nom_entrevistador_fam 
+            if (!empty($dados_filtro)) {
+                // A contagem total estará na primeira linha da matriz
+                $total_cadastros = $dados_filtro[0]['totais_cadastro'];
+                echo "Total de famílias cadastradas: $total_cadastros";
+            } else {
+                echo "Nenhum resultado encontrado.";
+            }
+        } elseif (!isset($_POST['btn_filtro_familia']) && !isset($_POST['btn_filtro_benef']) && isset($_POST['btn_filtro_entrev'])) {
+
+            //TRATANDO COM OS ENTREVISTADORES
+            $entrevistador = $_POST['nome_entrev'];
+            if ($entrevistador == "") {
+                $smtp_filtros = "SELECT COUNT(*) AS soma_entrev_cad, nom_entrevistador_fam 
         FROM tbl_tudo 
         WHERE cod_parentesco_rf_pessoa = 1 
         GROUP BY nom_entrevistador_fam 
         ORDER BY nom_entrevistador_fam ASC";
 
-            $resultado_entrev = $conn->query($smtp_filtros);
+                $resultado_entrev = $conn->query($smtp_filtros);
 
-            if ($resultado_entrev->num_rows > 0) {
+                if ($resultado_entrev->num_rows > 0) {
 
-                ?>
-                <table border="1">
-                    <tr>
-                        <th>Entrevistador</th>
-                        <th>Quantidade total</th>
-                        <th>Ação</th>
-                    </tr>
-                    <?php
-                    while ($linha = $resultado_entrev->fetch_assoc()) {
-                        ?>
+                    ?>
+                    <table border="1">
                         <tr>
-                            <td><?php $entrev = $linha['nom_entrevistador_fam'];
-                            if ($entrev == null) {
-                                $entrevis = "Origem Cadastro: APP";
-                            } else {
-                                $entrevis = $linha['nom_entrevistador_fam'];
-                            }
-                            echo $entrevis;
-                            ?></td>
-                            <td><?php echo $linha['soma_entrev_cad']; ?></td>
-                            <td>
-                                <form action="/TechSUAS/controller/cadunico/area_gestor/detalhe_entrevistador" method="post"
-                                    style="display:inline;">
-                                    <input type="hidden" name="detalhe" value="<?php echo $linha['nom_entrevistador_fam']; ?>">
-                                    <button type="submit" target="_blank">VER</button>
-                                </form>
-                            </td>
+                            <th>Entrevistador</th>
+                            <th>Quantidade total</th>
+                            <th>Ação</th>
                         </tr>
                         <?php
-                    }
-                    ?>
-                </table>
-                <?php
+                        while ($linha = $resultado_entrev->fetch_assoc()) {
+                            ?>
+                            <tr>
+                                <td><?php $entrev = $linha['nom_entrevistador_fam'];
+                                if ($entrev == null) {
+                                    $entrevis = "Origem Cadastro: APP";
+                                } else {
+                                    $entrevis = $linha['nom_entrevistador_fam'];
+                                }
+                                echo $entrevis;
+                                ?></td>
+                                <td><?php echo $linha['soma_entrev_cad']; ?></td>
+                                <td>
+                                    <form action="/TechSUAS/controller/cadunico/area_gestor/detalhe_entrevistador" method="post"
+                                        style="display:inline;">
+                                        <input type="hidden" name="detalhe" value="<?php echo $linha['nom_entrevistador_fam']; ?>">
+                                        <button type="submit" target="_blank">VER</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </table>
+                    <?php
+                }
             }
+        } elseif (!isset($_POST['btn_filtro_familia']) && isset($_POST['btn_filtro_benef']) && !isset($_POST['btn_filtro_entrev'])) {
+
+            //BENEFÍCIOS
+            echo $_POST['nis_benef'];
         }
-    } elseif (!isset($_POST['btn_filtro_familia']) && isset($_POST['btn_filtro_benef']) && !isset($_POST['btn_filtro_entrev'])) {
 
-        //BENEFÍCIOS
-        echo $_POST['nis_benef'];
-    }
-
-    ?>
+        ?>
     </div>
-
-    testando
 </body>
 
 </html>
