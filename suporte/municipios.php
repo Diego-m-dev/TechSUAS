@@ -23,9 +23,9 @@ if ($_SESSION['setor'] != "SUPORTE") {
 
 <body>
     <h1>MUNICÍPIOS</h1>
-    <button id="btn_cadastrar_municipio">Cadastrar Novo</button>
-    <button id="btn_cadastrar_sistema">Cadastrar sistema</button>
+    <button id="btn_cadastrar_municipio">Cadastrar Município</button>
     <button id="btn_cadastrar_setor">Cadastrar setor</button>
+    <button id="btn_cadastrar_sistema">Cadastrar sistema</button>
     <button id="btn_cadastrar_operador">Cadastrar operador</button>
 
     <body>
@@ -33,7 +33,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
 <div class="hideall">
   <div id="formCadMunicipio">
     <h2>Cadastro de Municípios</h2>
-    <form action="cadastrar_municipio.php" method="POST">
+    <form action="cadastrar_municipio.php" method="POST" id="form_municipio" class="esconde_form">
     Código IBGE:
     <input type="number" id="cod_ibge" name="cod_ibge"/>
 
@@ -82,9 +82,9 @@ if ($_SESSION['setor'] != "SUPORTE") {
 
         <!--CADASTRO DE SETORES-->
         <h2>Cadastro de Setores</h2>
-    <form action="cadastrar_setor.php" method="POST" id="formCadSetor">
-        <label for="cod_contrato">Código do Contrato:</label>
-        <input type="text" id="cod_contrato" name="cod_contrato" required>
+    <form action="cadastrar_setor.php" method="POST" id="formCadSetor" class="esconde_form">
+        <label for="cod_ibge_2">Código IBGE:</label>
+        <input type="text" id="cod_ibge_2" name="cod_ibge_2" required>
 
         <label for="instituicao">Instituição:</label>
         <input type="text" id="instituicao" name="instituicao" required>
@@ -121,7 +121,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
 
         <!--CADASTRO DE SISTEMA-->
     <h2>Cadastro de Sistemas</h2>
-    <form action="cadastrar_sistema.php" method="POST" id="formCadSistemas">
+    <form action="cadastrar_sistema.php" method="POST" id="formCadSistemas" class="esconde_form">
         <label for="nome_sistema">Nome do Sistema:</label>
         <input type="text" id="nome_sistema" name="nome_sistema" required>
 
@@ -145,51 +145,38 @@ if ($_SESSION['setor'] != "SUPORTE") {
 
         <!--CADASTRO DE OPERADORES-->
         <h2>Cadastro de Operadores</h2>
-    <form action="cadastrar_operador.php" method="POST" id="formCadoperador">
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome" required>
+    <form action="cadastrar_operador.php" method="POST" id="formCadoperador" class="esconde_form">
+      <label>Nome completo:</label>
+      <input type="text" class="nome" name="nome_user" placeholder="Sem Abreviação." required style="width: 300px;">
 
-        <label for="apelido">Apelido:</label>
-        <input type="text" id="apelido" name="apelido" required>
+      <label>E-mail:</label>
+      <input type="email" name="email" placeholder="Digite aqui seu e-mail." required style="width: 300px;">
 
-        <label for="usuario">Usuário:</label>
-        <input type="text" id="usuario" name="usuario" required>
+      <label>Tipo de acesso: </label>
+        <select name="nivel" required>
+          <option value="" disabled selected hidden>Selecione</option>
+          <option value="admin">Administrador</option>
+          <option value="tec">Ag Técnicos</option>
+          <option value="usuer">Usuário</option>
+        </select>
 
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha" required>
+        <label>Setor:</label>
+    <select name="setor" required>
+        <option value="" disabled selected hidden>Selecione</option>
+        <?php
 
-        <label for="nivel">Nível:</label>
-        <input type="text" id="nivel" name="nivel" required>
+$consultaSetores = $conn->query("SELECT instituicao, nome_instit FROM setores");
 
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" required>
+// Verifica se há resultados na consulta
+if ($consultaSetores->num_rows > 0) {
 
-        <label for="setor">Setor:</label>
-        <input type="text" id="setor" name="setor" required>
-
-        <label for="funcao">Função:</label>
-        <input type="number" id="funcao" name="funcao" required>
-
-        <label for="dt_nasc">Data de Nascimento:</label>
-        <input type="date" id="dt_nasc" name="dt_nasc" required>
-
-        <label for="telefone">Telefone:</label>
-        <input type="text" id="telefone" name="telefone" required>
-
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email" required>
-
-        <label for="cargo">Cargo:</label>
-        <input type="text" id="cargo" name="cargo" required>
-
-        <label for="id_cargo">ID do Cargo:</label>
-        <input type="text" id="id_cargo" name="id_cargo" required>
-
-        <label for="acesso">Acesso:</label>
-        <input type="text" id="acesso" name="acesso" required>
-
-        <label for="sistema_id">ID do Sistema:</label>
-        <input type="number" id="sistema_id" name="sistema_id" required>
+    // Loop para criar as opções do select
+    while ($setor = $consultaSetores->fetch_assoc()) {
+        echo '<option value="' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '">' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '</option>';
+    }
+}
+?>
+    </select>
 
         <button type="submit">Cadastrar</button>
     </form><hr>
