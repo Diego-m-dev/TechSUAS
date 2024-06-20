@@ -1,9 +1,9 @@
 <?php
-$host = getenv('DB_HOST') ?: 'localhost';
-$usuario = getenv('DB_USER') ?: 'root';
-$senha = getenv('DB_PASS') ?: '';
-$banco = getenv('DB_NAME') ?: 'cadunico';
-$port = getenv('DB_PORT') ?: 3306;
+$host = '89.117.7.52';
+$usuario = 'u198416735_root';
+$senha = '@Tech2024';
+$banco = 'u198416735_cadunico_test';
+$port = 3306;
 
 $raiz_dom = "/TechSUAS/";
 
@@ -14,10 +14,13 @@ try {
     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
     PDO::ATTR_EMULATE_PREPARES => false,
+
+    
   ]);
   // conexão mysql para o backup
   $conn = new mysqli($host, $usuario, $senha, $banco, $port);
 
+  echo "conexão com sucesso";
   // Verifique a conexão.
   if ($conn->connect_error) {
     throw new Exception("Falha na conexão com o banco de dados: " . $conn->connect_error);
