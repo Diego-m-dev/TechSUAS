@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `fichario` (
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `operador` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_german2_ci;
 
 --
 -- Dumping data for table `fichario`

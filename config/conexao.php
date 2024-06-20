@@ -19,8 +19,6 @@ try {
   ]);
   // conexão mysql para o backup
   $conn = new mysqli($host, $usuario, $senha, $banco, $port);
-
-  echo "conexão com sucesso";
   // Verifique a conexão.
   if ($conn->connect_error) {
     throw new Exception("Falha na conexão com o banco de dados: " . $conn->connect_error);
