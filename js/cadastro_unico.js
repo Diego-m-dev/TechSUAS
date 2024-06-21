@@ -259,10 +259,6 @@ function removerLinha(botao) {
 }
 
 //função para apresentar dados da família na tela de registrar família
-$('#codfamiliar').on('change', function () {
-  consultarFamilia()
-})
-
 function consultarFamilia() {
   var codfam = $('#codfamiliar').val()
   const input = document.getElementById('codfamiliar')
@@ -742,6 +738,7 @@ function toggleDetails(id) {
 }
 
 // ====  DASH-GESTOR-REQUEST ==== //
+/*
 function loadDashboardData() {
   document.getElementById('cadastros-atualizados').textContent = "120";
   document.getElementById('cadastros-pendentes').textContent = "45";
@@ -751,3 +748,4 @@ function loadDashboardData() {
   document.getElementById('total-atendimentos').textContent = "500";
 }
 document.addEventListener('DOMContentLoaded', loadDashboardData);
+*/

@@ -1,4 +1,5 @@
 <?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao_acesso.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 if ($_SESSION['setor'] != "SUPORTE") {
     echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR AQUI!";
@@ -27,13 +28,14 @@ if ($_SESSION['setor'] != "SUPORTE") {
     <button id="btn_cadastrar_setor">Cadastrar setor</button>
     <button id="btn_cadastrar_sistema">Cadastrar sistema</button>
     <button id="btn_cadastrar_operador">Cadastrar operador</button>
+    <button id="btn_cadastrar_bd">Base de Dados</button>
 
     <body>
         <!--CADASTRO DE MUNICÍPIOS-->
 <div class="hideall">
   <div id="formCadMunicipio">
     <h2>Cadastro de Municípios</h2>
-    <form action="cadastrar_municipio.php" method="POST" id="form_municipio" class="esconde_form">
+    <form action="/TechSUAS/suporte/controller/salva_mun.php" method="POST" id="form_municipio" class="esconde_form">
     Código IBGE:
     <input type="number" id="cod_ibge" name="cod_ibge"/>
 
@@ -82,9 +84,10 @@ if ($_SESSION['setor'] != "SUPORTE") {
 
         <!--CADASTRO DE SETORES-->
         <h2>Cadastro de Setores</h2>
-    <form action="cadastrar_setor.php" method="POST" id="formCadSetor" class="esconde_form">
+    <form action="/TechSUAS/suporte/controller/salva_setor" method="POST" id="formCadSetor" class="esconde_form">
         <label for="cod_ibge_2">Código IBGE:</label>
-        <input type="text" id="cod_ibge_2" name="cod_ibge_2" required>
+        <input type="text" id="cod_ibge_2" name="cod_ibge_2" placeholder="Digite o código IBGE" onblur="buscarMunicipio()">
+      <div id="municipio-info"></div>
 
         <label for="instituicao">Instituição:</label>
         <input type="text" id="instituicao" name="instituicao" required>
@@ -104,61 +107,51 @@ if ($_SESSION['setor'] != "SUPORTE") {
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
 
-        <label for="cod_instit">Código da Instituição:</label>
-        <input type="text" id="cod_instit" name="cod_instit" required>
-
         <label for="responsavel">Responsável:</label>
         <input type="text" id="responsavel" name="responsavel" required>
 
         <label for="cpf_coord">CPF do Coordenador:</label>
         <input type="text" id="cpf_coord" name="cpf_coord" required>
 
-        <label for="municipio_id">ID do Município:</label>
-        <input type="number" id="municipio_id" name="municipio_id" required>
-
         <button type="submit">Cadastrar</button>
     </form><hr>
 
         <!--CADASTRO DE SISTEMA-->
     <h2>Cadastro de Sistemas</h2>
-    <form action="cadastrar_sistema.php" method="POST" id="formCadSistemas" class="esconde_form">
-        <label for="nome_sistema">Nome do Sistema:</label>
-        <input type="text" id="nome_sistema" name="nome_sistema" required>
+    <form action="/TechSUAS/suporte/controller/salva_sys.php" method="POST" id="formCadSistemas" class="esconde_form">
 
-        <label for="data_aquisicao">Data de Aquisição:</label>
-        <input type="text" id="data_aquisicao" name="data_aquisicao" required>
+      <label for="cpf">CPF do Responsável:</label>
+      <input type="text" id="cpf" name="cpf" onblur="buscarResponsavel()" required>
+      <div id="responsavel-info"></div>
 
-        <label for="setores_id">ID do Setor:</label>
-        <input type="number" id="setores_id" name="setores_id" required>
+      <label for="nome_sistema">Nome do Sistema:</label>
+      <input type="text" id="nome_sistema" name="nome_sistema" required>
 
-        <label for="secretaria">Secretaria:</label>
-        <input type="text" id="secretaria" name="secretaria" required>
+      <label for="data_aquisicao">Data de Aquisição:</label>
+      <input type="date" id="data_aquisicao" name="data_aquisicao" required>
 
-        <label for="responsavel">Responsável:</label>
-        <input type="text" id="responsavel" name="responsavel" required>
+      <label for="validade">Validade:</label>
+      <input type="number" id="validade" name="validade" required>
 
-        <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" required>
+      <label for="secretaria">Secretaria:</label>
+      <input type="text" id="secretaria" name="secretaria" required>
 
-        <button type="submit">Cadastrar</button>
+      <button type="submit">Cadastrar</button>
     </form><hr>
 
         <!--CADASTRO DE OPERADORES-->
         <h2>Cadastro de Operadores</h2>
-    <form action="cadastrar_operador.php" method="POST" id="formCadoperador" class="esconde_form">
+    <form action="/TechSUAS/controller/geral/processo_cad_user" method="POST" id="formCadoperador" class="esconde_form">
+
+    <label for="cpf">CPF do Responsável:</label>
+      <input type="text" id="cpf" name="cpf" required>
+
       <label>Nome completo:</label>
       <input type="text" class="nome" name="nome_user" placeholder="Sem Abreviação." required style="width: 300px;">
 
       <label>E-mail:</label>
       <input type="email" name="email" placeholder="Digite aqui seu e-mail." required style="width: 300px;">
 
-      <label>Tipo de acesso: </label>
-        <select name="nivel" required>
-          <option value="" disabled selected hidden>Selecione</option>
-          <option value="admin">Administrador</option>
-          <option value="tec">Ag Técnicos</option>
-          <option value="usuer">Usuário</option>
-        </select>
 
         <label>Setor:</label>
     <select name="setor" required>
@@ -178,8 +171,34 @@ if ($consultaSetores->num_rows > 0) {
 ?>
     </select>
 
+    <label>Função: </label>
+      <select name="funcao" id="funcao" required onchange="mostrarCampoTexto()">
+        <option value="" disabled selected hidden>Selecione</option>
+        <option value="1">Gestão</option>
+        <option value="2">Tecnico(a)</option>
+        <option value="3">Outros</option>
+      </select>
+
+          <input type="text" name="funcao_outros" id="funcao_outros" style="display: none;" placeholder="Digite a função">
+
         <button type="submit">Cadastrar</button>
     </form><hr>
-</div>
+
+<!-- BASE DE DADOS -->
+  <form action="/TechSUAS/suporte/controller/bd" method="POST" class="esconde_form" id="form_bd">
+  <input type="text" id="cod_ibge_3" name="cod_ibge_3" placeholder="Digite o código IBGE" onblur="buscarMunicipiobd()">
+  <div id="municipio-infobd"></div>
+  <label for="">Nome base de dados</label>
+    <input type="text" name="nome_bd"/>
+
+    <label for="">Nome usuario</label>
+    <input type="text" name="nome_user"/>
+
+    <label for="">Nome senha</label>
+    <input type="text" name="senha_bd"/>
+
+    <button type="submit">salvar</button>
+  </form>
+  </div>
 </body>
 </html>

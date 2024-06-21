@@ -38,6 +38,31 @@ if ($_SESSION['setor'] != "SUPORTE") {
     $cod_ibge = $_POST['cod_ibge'];
     $uf = $_POST['uf'];
 
+  // Verifica se o nome de usuário já existe no banco de dados
+  $verifica_municipio = $conn->prepare("SELECT cod_ibge FROM municipios WHERE cod_ibge = ?");
+  $verifica_municipio->bind_param("s", $cod_ibge);
+  $verifica_municipio->execute();
+  $verifica_municipio->store_result();
+
+  if ($verifica_municipio->num_rows > 0) {
+    // Se o município já está cadastrado, exibe uma mensagem e volta a pagina
+?>
+    <script>
+      Swal.fire({
+      icon: "info",
+      title: "JÁ CADASTRADO",
+      text: "Município já cadastrado.",
+      confirmButtonText: 'OK',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = "/TechSUAS/suporte/municipios";
+        }
+      })
+    </script>
+<?php
+    exit();
+  }
+
     $query = "INSERT INTO municipios (cod_ibge, municipio, estado, cnpj, prefeito, vice_prefeito) VALUE (:cod_ibge, :municipio, :estado, :cnpj, :prefeito, :vice_prefeito)";
 
     $salva_dados = $pdo->prepare($query);

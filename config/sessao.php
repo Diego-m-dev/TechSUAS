@@ -1,12 +1,12 @@
 <?php
 session_start();
-include "conexao.php";
+include "conexao_acesso.php";
 
 // Verifica se o usuário está autenticado como admin ou usuário ou suporte
 if (!isset($_SESSION['nome_usuario'])) {
     // Configurar a mensagem do SweetAlert
     $mensagem = "Você não está logado. Por favor, faça login.";
-
+    $sistemando = "";
     // Configurar o tipo de alerta (success, error, warning, etc.)
     $tipo_alerta = "error";
     ?>
@@ -44,4 +44,22 @@ if (!isset($_SESSION['nome_usuario'])) {
     </html>
     <?php
     exit; // Encerra o script após exibir o alerta
+} else {
+    $stmt_sistma = $pdo->prepare("SELECT * FROM sistemas WHERE id = :sis_id");
+    $stmt_sistma->bindValue(":sis_id", $_SESSION['sistema_id'], PDO::PARAM_INT);
+    $stmt_sistma->execute();
+
+    if ($dado_sys = $stmt_sistma->fetch(PDO::FETCH_ASSOC)) {
+        $sistema = $dado_sys['id'];
+
+        $stmt_setor = $pdo->prepare("SELECT * FROM setores WHERE id = :sis_id");
+        $stmt_setor->bindValue(":sis_id", $sistema, PDO::PARAM_INT);
+        $stmt_setor->execute();
+
+        if ($dados_sys = $stmt_setor->fetch(PDO::FETCH_ASSOC)) {
+            $sistemando = $dados_sys['instituicao']. ' - '. $dados_sys['nome_instit'];
+        }
+        $poxa = $sistemando;
+    }
+    $sistemando = $poxa;
 }

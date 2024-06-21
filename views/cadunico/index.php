@@ -85,7 +85,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </a>
           </div>
 <?php
-  if ($_SESSION['nivel_usuario'] != 'usuario') {
+  if ($_SESSION['funcao'] != '3') {
 ?>
           <div class="area_gestor">
             <a class="menu-button" href="/TechSUAS/views/cadunico/area_gestao/index">
@@ -124,7 +124,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         <a title="Alterar Usuário" href="/TechSUAS/views/geral/conta">
           <span class="material-symbols-outlined">manage_accounts</span>
         </a>
-        <?php if ($_SESSION['nivel_usuario'] == 'suport') { ?>
+        <?php if ($_SESSION['funcao'] == '0') { ?>
           <a title="Suporte" href="/TechSUAS/config/back">
             <span class="material-symbols-outlined">rule_settings</span>
           </a>

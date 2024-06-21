@@ -4,14 +4,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 header('Content-Type: application/json'); // Define o tipo de conteúdo como JSON
 
 if (isset($_POST['codfam'])) {
-    $codfamiliar = $conn->real_escape_string($_POST['codfam']);
+    $codfamiliar = $conn_1->real_escape_string($_POST['codfam']);
     $cpf_limpo = preg_replace('/\D/', '', $_POST['codfam']);
     $ajustando_cod = str_pad($cpf_limpo, 11,'0',STR_PAD_LEFT);
     // Inicializa o array de resposta
     $response = array('encontrado' => false);
 
     // Consulta na tabela visitas_feitas
-    $stmt_visita = $pdo->prepare("SELECT * FROM visitas_feitas WHERE cod_fam = :codfamiliar");
+    $stmt_visita = $pdo_1->prepare("SELECT * FROM visitas_feitas WHERE cod_fam = :codfamiliar");
     $stmt_visita->execute(array(':codfamiliar' => $cpf_limpo));
     
 
@@ -52,7 +52,7 @@ if (isset($_POST['codfam'])) {
 
     // Consulta na tabela tbl_tudo
     $stmt_tudo = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$ajustando_cod' AND cod_parentesco_rf_pessoa = 1";
-    $sql_query = $conn->query($stmt_tudo) or die("ERRO ao consultar !" . $conn->error);
+    $sql_query = $conn_1->query($stmt_tudo) or die("ERRO ao consultar !" . $conn_1->error);
 
     if ($sql_query->num_rows > 0) {
         $dados_tudo = $sql_query->fetch_assoc();

@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -65,6 +66,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         </div>
       </nav>
       <?php
+      include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/basedata.php';
+
 
   // Consulta SQL
   $sql_ano = 'SELECT YEAR(dat_atual_fam) AS ano, COUNT(*) AS quantidade
@@ -72,7 +75,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
   WHERE cod_parentesco_rf_pessoa = 1
   GROUP BY YEAR(dat_atual_fam)
   ORDER BY ano DESC';
-  $resultado_p_ano = $conn->query($sql_ano);
+  $resultado_p_ano = $conn_1->query($sql_ano);
 
   // Crie arrays para armazenar os anos e quantidades
   $anos = [];
@@ -85,7 +88,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
   //dados totais dos registros de visitas
   $sqlr = "SELECT COUNT(*) as total_visitas FROM visitas_feitas";
-  $result = $pdo->query($sqlr);
+  $result = $pdo_1->query($sqlr);
   $row = $result->fetch(PDO::FETCH_ASSOC);
   $totalRegistros = $row['total_visitas'];
   $numero_parecer = $totalRegistros;

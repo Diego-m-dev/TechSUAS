@@ -54,23 +54,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Obtém o nome do usuário da sessão
 
-    $smtp = $conn->prepare("UPDATE usuarios SET nome=?, apelido=?, senha=?, cpf=?, dt_nasc=?, telefone=?, email=?, cargo=?, id_cargo=?, acesso=? WHERE usuario=?");
+    $smtp = $conn->prepare("UPDATE operadores SET nome=?, apelido=?, senha=?, cpf=?, dt_nasc=?, telefone=?, email=?, cargo=?, id_cargo=?, acesso=? WHERE usuario=?");
 
     if (!$smtp) {
         die('Erro na preparação da consulta: ' . $conn->error);
     }
 
     $smtp->bind_param("sssssssssss", $nome_completo, $apelido, $senha_hashed, $cpf, $data_nascimento, $telefone, $email, $cargo, $id_cargo, $acesso, $nome_user);
-    
-
-    echo "Nome Completo: " . $nome_completo . "<br>";
-    echo "Senha Hashed: " . $senha_hashed . "<br>";
-    echo "Data Nascimento: " . $data_nascimento . "<br>";
-    echo "Telefone: " . $telefone . "<br>";
-    echo "Email: " . $email . "<br>";
-    echo "Cargo: " . $cargo . "<br>";
-    echo "ID: " . $id_cargo . "<br><br>";
-    echo "Nome de Usuário: " . $nome_user . "<br>";
 
     if ($smtp->execute()) {
         ?>

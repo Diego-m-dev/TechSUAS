@@ -1,5 +1,5 @@
 <?php
-require ('secret.php');
+require 'secret.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -19,18 +19,18 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
 // Verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $tpacesso = $_POST['nivel'];
+    $cpf_coord = $_POST['cpf'];
+    $funcao = $_POST['funcao'];
     $senha_hashed = password_hash($mddrRfc1nkKKKdsad56, PASSWORD_DEFAULT);
     $user_name = $_POST['nome_user'];
     $user_maiusc = strtoupper($user_name);
     $setor = $_POST['setor'];
-    $funcao = $_POST['funcao'];
 
     $email = $_POST['email'];
     $nomeUsuario = gerarNomeUsuario($user_name);
 
     // Verifica se o nome de usuário já existe no banco de dados
-    $verifica_usuario = $conn->prepare("SELECT usuario FROM usuarios WHERE usuario = ?");
+    $verifica_usuario = $conn->prepare("SELECT usuario FROM operadores WHERE usuario = ?");
     $verifica_usuario->bind_param("s", $nomeUsuario);
     $verifica_usuario->execute();
     $verifica_usuario->store_result();
@@ -51,36 +51,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             })
         </script>
             <?php
-        exit();
+exit();
     }
 
+    if ($_SESSION['setor'] == "SUPORTE") {
+    // Busca o id do setor na tabela setores baseado no cpf do responsável
+    $stmt_munic = $pdo->prepare("SELECT id FROM sistemas WHERE cpf = :cpf_coord");
+    $stmt_munic->bindValue(":cpf_coord", $cpf_coord);
+    $stmt_munic->execute();
+
+    if ($stmt_munic->rowCount() != 0) {
+        $dados_munic = $stmt_munic->fetch(PDO::FETCH_ASSOC);
+        $municipio_id = $dados_munic['id'];
+    } else {
+        // Trate o caso em que o município não foi encontrado
+        die("Sistema não encontrado.");
+    }
+  } else {
+    $stmt_munic = $pdo->prepare("SELECT id FROM sistemas WHERE cpf = :cpf_coord");
+    $stmt_munic->bindValue(":cpf_coord", $_SESSION['cpf']);
+    $stmt_munic->execute();
+
+    if ($stmt_munic->rowCount() != 0) {
+      $dados_munic = $stmt_munic->fetch(PDO::FETCH_ASSOC);
+      $municipio_id = $dados_munic['id'];
+  } else {
+      // Trate o caso em que o município não foi encontrado
+      die("Sistema não encontrado.");
+  }
+  }
     // Caso o Nome do Usuário seja unico será adicionado ao SQL
-    $smtp = $conn->prepare("INSERT INTO usuarios (nome, usuario, senha, nivel, setor, funcao, email, acesso, data_registro) VALUES (?,?,?,?,?,?, ?, ?, NOW())");
+    $smtp = $conn->prepare("INSERT INTO operadores (nome, usuario, senha, setor, funcao, email, acesso, sistema_id) VALUES (?,?,?,?,?,?,?,?)");
 
     // Verifica se a preparação foi bem-sucedida
     if ($smtp === false) {
         die('Erro na preparação SQL: ' . $conn->error);
     }
     $acesso = "1";
-    $smtp->bind_param("ssssssss", $user_maiusc, $nomeUsuario, $senha_hashed, $tpacesso, $setor, $funcao, $email, $acesso);
+    $smtp->bind_param("ssssssss", $user_maiusc, $nomeUsuario, $senha_hashed, $setor, $funcao, $email, $acesso, $municipio_id);
 
     if ($smtp->execute()) {
-// Redireciona para a página DE CADASTRAR NOVO USUÁRIO após ALGUNS segundos
-?>
-<script>
-    Swal.fire({
-    icon: "success",
-    title: "CADASTRADO",
-    text: "Cadastro realizado com sucesso!",
-    confirmButtonText: 'OK',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = "/TechSUAS/views/geral/cadastro_user";
-        }
-    })
-</script>
-    <?php
-    } else {
+      if ($_SESSION['setor'] == "SUPORTE") {
+        ?>
+        <script>
+            Swal.fire({
+            icon: "success",
+            title: "CADASTRADO",
+            text: "Cadastro realizado com sucesso!",
+            confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/TechSUAS/suporte/municipios";
+                }
+            })
+        </script>
+            <?php
+      } else {
+        ?>
+        <script>
+            Swal.fire({
+            icon: "success",
+            title: "CADASTRADO",
+            text: "Cadastro realizado com sucesso!",
+            confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/TechSUAS/views/geral/cadastro_user";
+                }
+            })
+        </script>
+            <?php
+      }
+} else {
         echo "ERRO no envio dos DADOS: " . $smtp->error;
     }
     $smtp->close();

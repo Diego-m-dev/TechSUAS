@@ -2,10 +2,12 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/basedata.php';
+
 
 $cpf_declar = $_POST['cpf_declar'];
 
-$sql_declar = $pdo->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_declar");
+$sql_declar = $pdo_1->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_declar");
 $sql_declar->bindParam(':cpf_declar', $cpf_declar, PDO::PARAM_STR);
 $sql_declar->execute();
 ?>
@@ -49,7 +51,7 @@ if ($sql_declar->rowCount() > 0) {
 $cod_familia = $dados_declar['cod_familiar_fam'];
 
     $sql_membros_familia = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam = ? ORDER BY cod_parentesco_rf_pessoa ASC";
-    $stmt = $conn->prepare($sql_membros_familia);
+    $stmt = $conn_1->prepare($sql_membros_familia);
     $stmt->bind_param('s', $cod_familia);
     $stmt->execute();
     $resultado_valor_total = $stmt->get_result();
@@ -70,10 +72,7 @@ $cod_familia = $dados_declar['cod_familiar_fam'];
 while ($membros = $resultado_valor_total->fetch_assoc()) {
 
         //formatando data de nascimento
-        $data_nascimento = $membros['dta_nasc_pessoa'];
-        $dataNasc_formatando = new DateTime($data_nascimento);
-        $dataNasc_formatada = $dataNasc_formatando->format('d/m/Y');
-
+        $dataNasc_formatada = $membros['dta_nasc_pessoa'];
         ?>
         <tr>
             <td><span id="nome" class="editable-field" contenteditable="true"><?php echo $membros['nom_pessoa']; ?></span></td>

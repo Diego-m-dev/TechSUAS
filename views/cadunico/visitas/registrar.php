@@ -42,7 +42,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         <form method="post" action="/TechSUAS/controller/cadunico/parecer/processo">
             <div class="codfamiliar">
                 <label>CÓDIGO FAMILIAR: </label>
-                <input type="text" id="codfamiliar" name="codigo_familiar" placeholder="Digite o CÓDIGO FAMILIAR." required>
+                <input type="text" id="codfamiliar" onblur="consultarFamilia()" name="codigo_familiar" placeholder="Digite o CÓDIGO FAMILIAR." required>
             </div>
             <div class="data">
                 <label>DATA DA VISITA: </label>
