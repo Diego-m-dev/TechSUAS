@@ -1,11 +1,11 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/basedata.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/basedata.php';
 $cpf_residencia = $_POST['cpf_residencia'];
 
-$sql_reside = $pdo_1->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_residencia");
+$sql_reside = $pdo->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_residencia");
 $sql_reside->bindParam(':cpf_residencia', $cpf_residencia, PDO::PARAM_STR);
 $sql_reside->execute();
 ?>
