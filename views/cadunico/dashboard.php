@@ -56,6 +56,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             <label for="sit_beneficio">Selecione a situação do benefício:</label>
             <select name="sit_beneficio" id="sit_beneficio" required>
               <option value="" disabled selected hidden>Escolha</option>
+              <option value="BENEFICIO NORMALIZADO">BENEFÍCIO NORMALIZADO</option>
+              <option value="NÃO TEM BENEFÍCIO">NÃO TEM BENEFÍCIO</option>
               <option value="FIM DE RESTRIÇÃO ESPECIFICA">FIM DE RESTRIÇÃO ESPECIFICA</option>
               <option value="CANCELADO">CANCELADO</option>
               <option value="BLOQUEADO">BLOQUEADO</option>
