@@ -17,7 +17,7 @@ session_set_cookie_params(['httponly' => true]);
 </head>
 <body>
 <?php
-require_once "conexao.php";
+require_once "conexao_acesso.php";
 session_start();
 
 session_regenerate_id(true);
@@ -25,7 +25,7 @@ session_regenerate_id(true);
 $usuario = $_POST['usuario'];
 $senha_login = $_POST['senha'];
 
-$stmt_login = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :usuario");
+$stmt_login = $pdo->prepare("SELECT * FROM operadores WHERE usuario = :usuario");
 $stmt_login->bindValue(":usuario", $usuario);
 $stmt_login->execute();
 
@@ -35,14 +35,33 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
     $senhalogin = $dados['senha'];
 
     if ($usuario == $dados['usuario'] && password_verify($senha_login, $dados['senha'])) {
+        $_SESSION['sistema_id'] = $dados['sistema_id'];
         $_SESSION['user_usuario'] = $dados['usuario'];
-        $_SESSION['nivel_usuario'] = $dados['nivel'];
         $_SESSION['cargo_usuario'] = $dados['cargo'];
+				$_SESSION['municipio'] = $dados['municipio'];
         $_SESSION['nome_usuario'] = $dados['nome'];
         $_SESSION['id_cargo'] = $dados['id_cargo'];
         $_SESSION['apelido'] = $dados['apelido'];
         $_SESSION['funcao'] = $dados['funcao'];
         $_SESSION['setor'] = $dados['setor'];
+        $_SESSION['cpf'] = $dados['cpf'];
+
+        $stmt_sistma = $pdo->prepare("SELECT * FROM sistemas WHERE id = :sis_id");
+        $stmt_sistma->bindValue(":sis_id", $_SESSION['sistema_id'], PDO::PARAM_INT);
+        $stmt_sistma->execute();
+
+        if ($dado_sys = $stmt_sistma->fetch(PDO::FETCH_ASSOC)) {
+            $sistema = $dado_sys['id'];
+
+            $stmt_setor = $pdo->prepare("SELECT * FROM setores WHERE id = :sis_id");
+            $stmt_setor->bindValue(":sis_id", $sistema, PDO::PARAM_INT);
+            $stmt_setor->execute();
+
+            if ($dados_sys = $stmt_setor->fetch(PDO::FETCH_ASSOC)) {
+                $sistemando = $dados_sys['instituicao']. ' - '. $dados_sys['nome_instit'];
+            }
+
+        }
 
         if ($dados['acesso'] == 1) {
             header("location:/TechSUAS/views/geral/primeiro_acesso");
@@ -50,21 +69,41 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
         }
 
         // Redirecione com base no nível de acesso
-        if ($_SESSION['nivel_usuario'] == 'suport') {
-            header("location:/TechSUAS/suporte/");
+        if ($_SESSION['funcao'] == '0') {
+            header("location:/TechSUAS/suporte/index");
             exit();
-        } elseif ($_SESSION['nivel_usuario'] == 'admin') {
-            if ($_SESSION['setor'] == "CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL") {
-                header("location:/TechSUAS/views/cadunico/");
-            } elseif ($_SESSION['setor'] == "SUPORTE") {
-                header("location:/TechSUAS/suporte/");
+        } elseif ($_SESSION['funcao'] == '1') {
+            if ($_SESSION['setor'] == $sistemando) {
+							require_once "basedata.php";
+							$basedata = "SELECT * FROM tbl_tudo";
+							$basedata_query = $conn_1->query($basedata) or die("Erro ". $conn_1 - error);
+							if ($basedata_query->num_rows == 0) {
+?>
+							<script>
+								Swal.fire({
+									icon: "info",
+									title: "ATENÇÃO <?php echo $_SESSION['municipio']; ?>",
+									text: "Seu banco de dados está vazio, você precisa importar o arquivo CSV extraído do CECAD",
+									confirmButtonText: "OK"
+								}).then((result) => {
+									if (result.isConfirmed) {
+										window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+									}
+								})
+							</script>
+<?php
+							} else {
+                header("location:/TechSUAS/views/cadunico/area_gestao/index");
+							}
+            } elseif ($_SESSION['setor'] == "0") {
+                header("location:/TechSUAS/suporte/index");
             }
             exit();
-        } elseif ($_SESSION['nivel_usuario'] == 'usuario') {
-            if ($_SESSION['setor'] == "CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL") {
-                header("location:/TechSUAS/views/cadunico/");
+        } elseif ($_SESSION['funcao'] == '3') {
+            if ($_SESSION['setor'] == $sistemando) {
+                header("location:/TechSUAS/views/cadunico/index");
             } elseif ($_SESSION['setor'] == "CONCESSÃO") {
-                header("location:/TechSUAS/views/concessao/");
+                header("location:/TechSUAS/views/concessao/index");
             } elseif ($_SESSION['setor'] == 'ADMINISTRATIVO E CONCESSÃO') {
                 ?>
                     <script>
@@ -72,13 +111,13 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
                             html:`
             <h2>OPERADOR PERMISSIONADO PARA DOIS SETORES</h2>
             <div class="visitas">
-                <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/';">
+                <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/index';">
                     CONCESSÃO
                 </a>
             </div>
 
             <div class="folha">
-                <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/';">
+                <a class="menu-button" onclick="location.href='#';">
                     ADMINISTRATIVO
                 </a>
             </div>
@@ -92,9 +131,9 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
             })
         </script>
                 <?php
-            } elseif ($_SESSION['setor'] == 'FICHARIO') {
+							} elseif ($_SESSION['setor'] == 'FICHARIO') {
                 header("location:/TechSUAS/views/cras/test_comparativo");
-            }
+            	}
             exit();
         } else {
             ?>
