@@ -1,0 +1,38 @@
+<?php
+if (isset($_SESSION['municipio'])) {
+    $cod_ibge = $_SESSION['municipio'];
+    $stmt_bd = "SELECT * FROM municipios WHERE cod_ibge = '$cod_ibge'";
+    $stmt_bd_query = $conn_1->query($stmt_bd) or die("Erro " . $conn_1 - error);
+    if ($stmt_bd_query->num_rows != 0) {
+        $dados_credenciais = $stmt_bd_query->fetch_assoc();
+        $host = '89.117.7.52';
+        $usuario_bd = $dados_credenciais['usuario'];
+        $senha_bd = $dados_credenciais['senha_bd'];
+        $banco = $dados_credenciais['nome_bd'];
+        $port = 3306;
+    }
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Invalid request']);
+}
+
+$raiz_dom = "/TechSUAS/";
+
+date_default_timezone_set('America/Sao_Paulo');
+
+try {
+    $pdo = new PDO("mysql:dbname=$banco;host=$host;port=$port", $usuario_bd, $senha_bd, [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+        PDO::ATTR_EMULATE_PREPARES => false,
+
+    ]);
+    // conexão mysql para o backup
+    $conn = new mysqli($host, $usuario_bd, $senha_bd, $banco, $port);
+    // Verifique a conexão.
+    if ($conn->connect_error) {
+        throw new Exception("Falha na conexão com o banco de dados: " . $conn->connect_error);
+    }
+} catch (Exception $e) {
+    error_log($e->getMessage(), 3, '/path/to/your/logs/error.log');
+    die("Erro ao conectar com o banco de dados! Por favor, tente novamente mais tarde.");
+}
