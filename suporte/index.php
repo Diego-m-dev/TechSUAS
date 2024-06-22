@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-if ($_SESSION['setor'] != "SUPORTE") {
+if ($_SESSION['funcao'] != "0") {
     echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR AQUI!";
     exit();
 }
