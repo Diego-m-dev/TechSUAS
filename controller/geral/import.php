@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/basedata.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/basedata.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 
 
@@ -42,7 +42,7 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $limpTabela = "tbl_tudo";
         $sqli = "TRUNCATE TABLE $limpTabela";
-        $pdo_1->exec($sqli);
+        $pdo->exec($sqli);
 
         if ($arquivo['type'] == 'text/csv') {
             $dados = fopen($arquivo['tmp_name'], "r");
@@ -467,7 +467,7 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                 :ref_pbf_
                         )";
 
-                $import_data = $pdo_1->prepare($query);
+                $import_data = $pdo->prepare($query);
                 $import_data->bindValue(':cd_ibge', ($linha[0] ?? "NULL"));
                 $import_data->bindValue(':cod_familiar_fam', ($linha[1] ?? "NULL"));
                 $import_data->bindValue(':dat_cadastramento_fam', ($linha[2] ?? "NULL"));
@@ -705,10 +705,10 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
     } elseif ($csv_tbl == 'folha') {
 
         //limpa os dados da tabela antes de repor os novos dados
-        $pdo_1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $limpTabela = "folha_pag";
         $sqli = "DELETE FROM $limpTabela";
-        $pdo_1->exec($sqli);
+        $pdo->exec($sqli);
 
         if ($arquivo['type'] == 'text/csv') {
             $dados = fopen($arquivo['tmp_name'], "r");
@@ -785,7 +785,7 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                         :telefone1,
                         :telefone2)";
 
-                $import_data = $pdo_1->prepare($query);
+                $import_data = $pdo->prepare($query);
                 $import_data->bindValue(':prog', ($linha[0] ?? "NULL"));
                 $import_data->bindValue(':ref_folha', ($linha[1] ?? "NULL"));
                 $import_data->bindValue(':uf', ($linha[2] ?? "NULL"));
@@ -848,10 +848,10 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
         }
     } elseif ($csv_tbl == 'averenda') {
         //limpa os dados da tabela antes de repor os novos dados
-        $pdo_1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $limpTabela = "averenda";
         $sqli = "TRUNCATE TABLE $limpTabela";
-        $pdo_1->exec($sqli);
+        $pdo->exec($sqli);
 
         if ($arquivo['type'] == 'text/csv') {
           $dados = fopen($arquivo['tmp_name'], "r");
@@ -968,7 +968,7 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                     :in_situacao_fam
                     )";
 
-          $import_data = $pdo_1->prepare($query);
+          $import_data = $pdo->prepare($query);
           $import_data->bindValue(':co_ibge', ($linha[0] ?? "NULL"));
           $import_data->bindValue(':no_munic', ($linha[1] ?? "NULL"));
           $import_data->bindValue(':in_processo', ($linha[2] ?? "NULL"));
@@ -1050,10 +1050,10 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
   }
       } elseif ($csv_tbl == 'unipessoal') {
               //limpa os dados da tabela antes de repor os novos dados
-              $pdo_1->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+              $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
               $limpTabela = "unipessoal";
               $sqli = "TRUNCATE TABLE $limpTabela";
-              $pdo_1->exec($sqli);
+              $pdo->exec($sqli);
 
               if ($arquivo['type'] == 'text/csv') {
                   $dados = fopen($arquivo['tmp_name'], "r");
@@ -1142,7 +1142,7 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                           :in_situacao_detalhe
                           )";
 
-          $import_data = $pdo_1->prepare($query);
+          $import_data = $pdo->prepare($query);
           $import_data->bindValue(':co_ibge', ($linha[0] ?? "NULL"));
           $import_data->bindValue(':no_munic', ($linha[1] ?? "NULL"));
           $import_data->bindValue(':in_processo', ($linha[2] ?? "NULL"));
