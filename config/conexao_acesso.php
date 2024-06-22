@@ -11,15 +11,15 @@ $raiz_dom= "/TechSUAS/";
 date_default_timezone_set('America/Sao_Paulo');
 try {
     // Adicione a porta à string DSN
-    $pdo = new PDO("mysql:dbname=$banco;host=$host;port=$port", "$usuario", "$senha", array(
+    $pdo_1 = new PDO("mysql:dbname=$banco;host=$host;port=$port", "$usuario", "$senha", array(
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
     ));
     // Conexão MySQLi para o backup
-    $conn = mysqli_connect($host, $usuario, $senha, $banco, $port);
+    $conn_1 = mysqli_connect($host, $usuario, $senha, $banco, $port);
     
-    if ($conn->connect_error) {
-        die("Falha na conexão com o banco de dados: " . $conn->connect_error);
+    if ($conn_1->connect_error) {
+        die("Falha na conexão com o banco de dados: " . $conn_1->connect_error);
     } else {
     }
 } catch (Exception $e) {
