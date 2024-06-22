@@ -23,22 +23,21 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
         </h1>
     </div>
 
-    <div class="container">
-        <form method="post" action="/TechSUAS/controller/geral/processo_cad_user.php">
-            <div class="nome">
-                <label>Nome completo:</label>
-                <input type="text" class="nome" name="nome_user" placeholder="Sem Abreviação." required style="width: 300px;">
-            </div>
-            <div class="email">
-                <label>E-mail:</label>
-                <input type="email" name="email" placeholder="Digite aqui seu e-mail." required style="width: 300px;">
-            </div>
-            <div class="setor">
+  <div class="container">
+    <form method="post" action="/TechSUAS/controller/geral/processo_cad_user.php">
+      <div class="nome">
+          <label>Nome completo:</label>
+          <input type="text" class="nome" name="nome_user" placeholder="Sem Abreviação." required style="width: 300px;">
+      </div>
+      <div class="email">
+          <label>E-mail:</label>
+          <input type="email" name="email" placeholder="Digite aqui seu e-mail." required style="width: 300px;">
+      </div>
+      <div class="setor">
     <label>Setor:</label>
     <select name="setor" required>
-        <option value="" disabled selected hidden>Selecione</option>
-        <?php
-
+      <option value="" disabled selected hidden>Selecione</option>
+<?php
 $consultaSetores = $conn->query("SELECT instituicao, nome_instit FROM setores");
 
 // Verifica se há resultados na consulta
@@ -52,16 +51,16 @@ if ($consultaSetores->num_rows > 0) {
 ?>
     </select>
 </div>
-      <div class="tipodeacesso">
-          <label>Função: </label>
-          <select name="funcao" id="funcao" required onchange="mostrarCampoTexto()">
-              <option value="" disabled selected hidden>Selecione</option>
-              <option value="1">Gestão</option>
-              <option value="2">Tecnico(a)</option>
-              <option value="3">Outros</option>
-          </select>
+  <div class="tipodeacesso">
+    <label>Função: </label>
+      <select name="funcao" id="funcao" required onchange="mostrarCampoTexto()">
+        <option value="" disabled selected hidden>Selecione</option>
+        <option value="1">Gestão</option>
+        <option value="2">Tecnico(a)</option>
+        <option value="3">Outros</option>
+      </select>
 
-          <input type="text" name="funcao_outros" id="funcao_outros" style="display: none;" placeholder="Digite a função">
+        <input type="text" name="funcao_outros" id="funcao_outros" style="display: none;" placeholder="Digite a função">
       <div class="btns">
           <button type="submit">Cadastrar</button>
           <a href="/TechSUAS/config/back">
@@ -69,7 +68,7 @@ if ($consultaSetores->num_rows > 0) {
           </a>
       </div>
       </div>
-        </form>
+  </form>
     </div>
     <script>
     function mostrarCampoTexto() {
