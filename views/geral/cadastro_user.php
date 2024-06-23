@@ -1,4 +1,5 @@
 <?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
 ?>
@@ -38,7 +39,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
     <select name="setor" required>
       <option value="" disabled selected hidden>Selecione</option>
 <?php
-$consultaSetores = $conn->query("SELECT instituicao, nome_instit FROM setores");
+$idSistema = $_SESSION['sistema_id'];
+  $sql_setor = "SELECT * FROM sistemas WHERE id = '$idSistema'";
+  $sql_setor_query = $conn_1->query($sql_setor) or die("Erro ". $conn_1 - error);
+
+  if ($sql_setor_query->num_rows > 0 ) {
+    $bds = $sql_setor_query->fetch_assoc();
+    $idSetor = $bds['setores_id'];
+    $consultaSetores = $conn->query("SELECT instituicao, nome_instit FROM setores WHERE municipio_id = '$idSetor'");
 
 // Verifica se há resultados na consulta
 if ($consultaSetores->num_rows > 0) {
@@ -48,6 +56,19 @@ if ($consultaSetores->num_rows > 0) {
         echo '<option value="' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '">' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '</option>';
     }
 }
+  } elseif ($_SESSION['funcao'] == "0") {
+    $consultaSetores = $conn->query("SELECT instituicao, nome_instit FROM setores ");
+
+// Verifica se há resultados na consulta
+  if ($consultaSetores->num_rows > 0) {
+
+      // Loop para criar as opções do select
+      while ($setor = $consultaSetores->fetch_assoc()) {
+          echo '<option value="' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '">' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '</option>';
+      }
+  }
+  }
+
 ?>
     </select>
 </div>
