@@ -35,8 +35,8 @@ if ($_SESSION['setor'] != "SUPORTE") {
         <!--CADASTRO DE MUNICÍPIOS-->
 <div class="hideall">
   <div id="formCadMunicipio">
-    <h2>Cadastro de Municípios</h2>
     <form action="/TechSUAS/suporte/controller/salva_mun.php" method="POST" id="form_municipio" class="esconde_form">
+    <h2>Cadastro de Municípios</h2>
     Código IBGE:
     <input type="number" id="cod_ibge" name="cod_ibge"/>
 
@@ -84,9 +84,9 @@ if ($_SESSION['setor'] != "SUPORTE") {
     </div>
 
         <!--CADASTRO DE SETORES-->
-        <h2>Cadastro de Setores</h2>
     <form action="/TechSUAS/suporte/controller/salva_setor" method="POST" id="formCadSetor" class="esconde_form">
-        <label for="cod_ibge_2">Código IBGE:</label>
+    <h2>Cadastro de Setores</h2>
+    <label for="cod_ibge_2">Código IBGE:</label>
         <input type="text" id="cod_ibge_2" name="cod_ibge_2" placeholder="Digite o código IBGE" onblur="buscarMunicipio()">
       <div id="municipio-info"></div>
 
@@ -118,8 +118,8 @@ if ($_SESSION['setor'] != "SUPORTE") {
     </form><hr>
 
         <!--CADASTRO DE SISTEMA-->
-    <h2>Cadastro de Sistemas</h2>
     <form action="/TechSUAS/suporte/controller/salva_sys.php" method="POST" id="formCadSistemas" class="esconde_form">
+    <h2>Cadastro de Sistemas</h2>
 
       <label for="cpf">CPF do Responsável:</label>
       <input type="text" id="cpf" name="cpf" onblur="buscarResponsavel()" required>
@@ -141,8 +141,8 @@ if ($_SESSION['setor'] != "SUPORTE") {
     </form><hr>
 
         <!--CADASTRO DE OPERADORES-->
-        <h2>Cadastro de Operadores</h2>
     <form action="/TechSUAS/controller/geral/processo_cad_user" method="POST" id="formCadoperador" class="esconde_form">
+    <h2>Cadastro de Operadores</h2>
 
     <label for="cpf">CPF do Responsável:</label>
       <input type="text" id="cpf" name="cpf" required>
