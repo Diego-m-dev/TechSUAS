@@ -1,12 +1,11 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/basedata.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
 $nis_from = $_POST['nis_exc_pessoa'];
 
-$sql_declar = $pdo_1->prepare("SELECT * FROM tbl_tudo WHERE num_nis_pessoa_atual = :nis_exc_pessoa");
+$sql_declar = $pdo->prepare("SELECT * FROM tbl_tudo WHERE num_nis_pessoa_atual = :nis_exc_pessoa");
 $sql_declar->bindParam(':nis_exc_pessoa', $nis_from, PDO::PARAM_STR);
 $sql_declar->execute();
 ?>
@@ -48,13 +47,15 @@ $sql_declar->execute();
             $cod_familiar_formatado = substr_replace(str_pad($cod_familiar, 11, "0", STR_PAD_LEFT), '-', 9, 0);
 
             $sql_rf = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam = '$cod_familiar' AND cod_parentesco_rf_pessoa = '1'";
-            $resultado_rf = $conn_1->query($sql_rf);
+            $resultado_rf = $conn->query($sql_rf) or die("Erro ". $conn - error);
 
             if ($resultado_rf->num_rows > 0) {
                 $row = $resultado_rf->fetch_assoc();
 
                 $nis_rf = $row['num_nis_pessoa_atual'];
                 $nis_responsavel_formatado = substr_replace(str_pad($nis_rf, 11, "0", STR_PAD_LEFT), '-', 10, 0);
+            } else {
+                $nis_responsavel_formatado = "Cadastro sem Responsável Familiar";
             }
         ?>
 
