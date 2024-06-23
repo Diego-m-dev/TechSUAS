@@ -1,6 +1,6 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 
 $nis_from = $_POST['nis_exc_pessoa'];
@@ -44,6 +44,8 @@ $sql_declar->execute();
             $row = $resultado_rf->fetch_assoc();
             $nis_rf = $row['num_nis_pessoa_atual'];
             $nis_responsavel_formatado = substr_replace(str_pad($nis_rf, 11, "0", STR_PAD_LEFT), '-', 10, 0);
+        }  else {
+            $nis_responsavel_formatado = "Cadastro sem Responsável Familiar";
         }
     ?>
     <label for="codigoFamiliar">CODIGO FAMILIAR:</label>
