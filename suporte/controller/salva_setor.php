@@ -1,5 +1,7 @@
 <?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao_acesso.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+
 if ($_SESSION['setor'] != "SUPORTE") {
     echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR AQUI!";
     exit();
@@ -42,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $cpf_coord = $_POST['cpf_coord'];
 
   // Busca o id do município na tabela municipios baseado no cod_ibge
-  $stmt_munic = $pdo->prepare("SELECT id FROM municipios WHERE cod_ibge = :cod_ibge");
+  $stmt_munic = $pdo_1->prepare("SELECT id FROM municipios WHERE cod_ibge = :cod_ibge");
   $stmt_munic->bindValue(":cod_ibge", $cod_ibge);
   $stmt_munic->execute();
 
@@ -58,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $query = "INSERT INTO setores (instituicao, nome_instit, rua, numero, bairro, email, responsavel, cpf_coord, municipio_id) 
             VALUES (:instituicao, :nome_instit, :rua, :numero, :bairro, :email, :responsavel, :cpf_coord, :municipio_id)";
 
-  $salva_dados = $pdo->prepare($query);
+  $salva_dados = $pdo_1->prepare($query);
 
   // Vincula os valores aos parâmetros da consulta
   $salva_dados->bindValue(":instituicao", $instituicao);
@@ -88,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </script>
       <?php
   } else {
-      echo "Erro ao salvar os dados: " . $pdo->errorInfo()[2];
+      echo "Erro ao salvar os dados: " . $pdo_1->errorInfo()[2];
   }
 }
 ?>
