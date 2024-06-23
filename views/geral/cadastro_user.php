@@ -46,7 +46,7 @@ $idSistema = $_SESSION['sistema_id'];
   if ($sql_setor_query->num_rows > 0 ) {
     $bds = $sql_setor_query->fetch_assoc();
     $idSetor = $bds['setores_id'];
-    $consultaSetores = $conn->query("SELECT instituicao, nome_instit FROM setores WHERE municipio_id = '$idSetor'");
+    $consultaSetores = $conn_1->query("SELECT instituicao, nome_instit FROM setores WHERE municipio_id = '$idSetor'");
 
 // Verifica se há resultados na consulta
 if ($consultaSetores->num_rows > 0) {
@@ -57,17 +57,17 @@ if ($consultaSetores->num_rows > 0) {
     }
 }
   } elseif ($_SESSION['funcao'] == "0") {
-    $consultaSetores = $conn->query("SELECT instituicao, nome_instit FROM setores ");
+    $consultaSetores = $conn_1->query("SELECT instituicao, nome_instit FROM setores ");
 
 // Verifica se há resultados na consulta
   if ($consultaSetores->num_rows > 0) {
 
       // Loop para criar as opções do select
-      while ($setor = $consultaSetores->fetch_assoc()) {
-          echo '<option value="' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '">' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '</option>';
-      }
+    while ($setor = $consultaSetores->fetch_assoc()) {
+      echo '<option value="' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '">' . $setor['instituicao'] . ' - ' . $setor['nome_instit'] . '</option>';
+    }
   }
-  }
+}
 
 ?>
     </select>
