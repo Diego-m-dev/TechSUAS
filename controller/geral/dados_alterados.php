@@ -1,3 +1,7 @@
+<?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,27 +19,6 @@
 </head>
 <body>
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-
-
-// Verifique se a sessão foi iniciada
-if (!isset($_SESSION['nome_usuario'])) {
-    ?>
-    <script>
-    Swal.fire({
-    icon: "error",
-    title: "ERRO",
-    text: "A variável de sessão não está definida.",
-    confirmButtonText: 'OK',
-    }).then((result) => {
-        if (result.isConfirmed) {
-            window.location.href = "/TechSUAS/";
-        }
-    })
-    </script>
-    <?php
-    exit();
-}
 
 $nome_user = $_SESSION['user_usuario'];
 // Verifique se o formulário foi enviado
@@ -54,15 +37,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // Obtém o nome do usuário da sessão
 
-    $smtp = $conn->prepare("UPDATE operadores SET nome=?, apelido=?, senha=?, cpf=?, dt_nasc=?, telefone=?, email=?, cargo=?, id_cargo=?, acesso=? WHERE usuario=?");
+    $smtp = $conn_1->prepare("UPDATE operadores SET nome=?, apelido=?, senha=?, cpf=?, dt_nasc=?, telefone=?, email=?, cargo=?, id_cargo=?, acesso=? WHERE usuario=?");
 
     if (!$smtp) {
-        die('Erro na preparação da consulta: ' . $conn->error);
+        die('Erro na preparação da consulta: ' . $conn_1->error);
     }
 
     $smtp->bind_param("sssssssssss", $nome_completo, $apelido, $senha_hashed, $cpf, $data_nascimento, $telefone, $email, $cargo, $id_cargo, $acesso, $nome_user);
 
     if ($smtp->execute()) {
+      require_once "create_bd.php";
+      foreach ($sql_create as $sql_pass) {
+        $pdo->exec($sql_pass);
+      }
         ?>
         <script>
         Swal.fire({
@@ -83,6 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $smtp->close();
+    $conn_1->close();
 }
 ?>
 </body>
