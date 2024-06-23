@@ -21,9 +21,9 @@ if ($_SESSION['funcao'] != "0") {
 
 <body>
 <div class="img">
-        <h1 class="titulo-com-imagem">
-                <img class="titulo-com-imagem" src="/TechSUAS/img/suporte/h1-ddv.png" alt="Titulocomimagem">
-        </h1>
+  <h1 class="titulo-com-imagem">
+    <img class="titulo-com-imagem" src="/TechSUAS/img/suporte/h1-ddv.png" alt="Titulocomimagem">
+  </h1>
 </div>
 <div class="container">
   <div class="menu">
