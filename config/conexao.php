@@ -1,4 +1,6 @@
 <?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+
 if (isset($_SESSION['municipio'])) {
     $cod_ibge = $_SESSION['municipio'];
     $stmt_bd = "SELECT * FROM municipios WHERE cod_ibge = '$cod_ibge'";
