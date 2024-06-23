@@ -72,23 +72,37 @@ exit();
         $stmt_munic->bindValue(":cpf_coord", $_SESSION['cpf']);
         $stmt_munic->execute();
 
+        $stmt_municipio = $pdo_1->prepare("SELECT id FROM municipios WHERE id = :idm");
+        $stmt_municipio->bindValue(":idm", $id_muncipio);
+        $stmt_municipio->execute();
+
+        if ($stmt_municipio->rowCount() != 0) {
+            $dados_municipio = $stmt_municipio->fetch(PDO::FETCH_ASSOC);
+            $municipio = $dados_municipio['cod_ibge'];
+
+        } else {
+            // Trate o caso em que o município não foi encontrado
+            die("Sistema não encontrado.");
+        }
+
         if ($stmt_munic->rowCount() != 0) {
             $dados_munic = $stmt_munic->fetch(PDO::FETCH_ASSOC);
-            $municipio_id = $dados_munic['id'];
+            $municipio_id = $dados_munic['setores_id'];
+
         } else {
             // Trate o caso em que o município não foi encontrado
             die("Sistema não encontrado.");
         }
     }
     // Caso o Nome do Usuário seja unico será adicionado ao SQL
-    $smtp = $conn_1->prepare("INSERT INTO operadores (nome, usuario, senha, setor, funcao, email, acesso, sistema_id) VALUES (?,?,?,?,?,?,?,?)");
+    $smtp = $conn_1->prepare("INSERT INTO operadores (municipio, nome, usuario, senha, setor, funcao, email, acesso, sistema_id) VALUES (?,?,?,?,?,?,?,?,?)");
 
     // Verifica se a preparação foi bem-sucedida
     if ($smtp === false) {
         die('Erro na preparação SQL: ' . $conn_1->error);
     }
     $acesso = "1";
-    $smtp->bind_param("ssssssss", $user_maiusc, $nomeUsuario, $senha_hashed, $setor, $funcao, $email, $acesso, $municipio_id);
+    $smtp->bind_param("sssssssss", $municipio, $user_maiusc, $nomeUsuario, $senha_hashed, $setor, $funcao, $email, $acesso, $municipio_id);
 
     if ($smtp->execute()) {
         if ($_SESSION['setor'] == "SUPORTE") {
