@@ -1,6 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao_acesso.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+
 if ($_SESSION['setor'] != "SUPORTE") {
     echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR AQUI!";
     exit();
@@ -152,13 +153,12 @@ if ($_SESSION['setor'] != "SUPORTE") {
       <label>E-mail:</label>
       <input type="email" name="email" placeholder="Digite aqui seu e-mail." required style="width: 300px;">
 
-
         <label>Setor:</label>
-    <select name="setor" required>
+      <select name="setor" required>
         <option value="" disabled selected hidden>Selecione</option>
         <?php
 
-$consultaSetores = $conn->query("SELECT instituicao, nome_instit FROM setores");
+$consultaSetores = $conn_1->query("SELECT instituicao, nome_instit FROM setores");
 
 // Verifica se há resultados na consulta
 if ($consultaSetores->num_rows > 0) {
@@ -172,16 +172,16 @@ if ($consultaSetores->num_rows > 0) {
     </select>
 
     <label>Função: </label>
-      <select name="funcao" id="funcao" required onchange="mostrarCampoTexto()">
-        <option value="" disabled selected hidden>Selecione</option>
-        <option value="1">Gestão</option>
-        <option value="2">Tecnico(a)</option>
-        <option value="3">Outros</option>
-      </select>
+    <select name="funcao" id="funcao" required onchange="mostrarCampoTexto()">
+      <option value="" disabled selected hidden>Selecione</option>
+      <option value="1">Gestão</option>
+      <option value="2">Tecnico(a)</option>
+      <option value="3">Outros</option>
+    </select>
 
-          <input type="text" name="funcao_outros" id="funcao_outros" style="display: none;" placeholder="Digite a função">
+    <input type="text" name="funcao_outros" id="funcao_outros" style="display: none;" placeholder="Digite a função">
 
-        <button type="submit">Cadastrar</button>
+  <button type="submit">Cadastrar</button>
     </form><hr>
 
 <!-- BASE DE DADOS -->
