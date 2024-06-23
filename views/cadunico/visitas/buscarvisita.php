@@ -1,5 +1,8 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
+
 ?>
 
 <!DOCTYPE html>
@@ -47,11 +50,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $sql_visita = $conn->real_escape_string($_POST['codfam']);
 
+
         $cpf_limpo = preg_replace('/\D/', '', $_POST['codfam']);
         $cpf_already = ltrim($cpf_limpo, '0');
         $cpf_zero = str_pad($cpf_already, 11, "0", STR_PAD_LEFT);
 
-        $sql_dados_visitas = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$cpf_zero' AND cod_parentesco_rf_pessoa = 1";
+        $sql_dados_visitas = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$cpf_already' AND cod_parentesco_rf_pessoa = 1";
         $sql_query = $conn->query($sql_dados_visitas) or die("ERRO ao consultar! " . $conn->error);
 
         $dados_form = "SELECT * FROM visitas_feitas WHERE cod_fam LIKE '$cpf_already' ORDER BY id DESC";
