@@ -35,10 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $senha = $_POST['senha_bd'];
 
     // Busca o id do setor na tabela setores baseado no cpf do responsável
-    $stmt_munic = $conn->prepare("UPDATE municipios SET nome_bd=?, usuario=?, senha_bd=? WHERE cod_ibge=?");
+    $stmt_munic = $conn_1->prepare("UPDATE municipios SET nome_bd=?, usuario=?, senha_bd=? WHERE cod_ibge=?");
 
     if (!$stmt_munic) {
-      die('Erro na preparação da consulta: ' . $conn->error);
+      die('Erro na preparação da consulta: ' . $conn_1->error);
   }
 
     $stmt_munic->bind_param("ssss", $nome_bd, $nome_user, $senha, $cod_ibge);
