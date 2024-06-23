@@ -1,13 +1,12 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/basedata.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
 
 $cpf_declar = $_POST['cpf_declar'];
 
-$sql_declar = $pdo_1->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_declar");
+$sql_declar = $pdo->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_declar");
 $sql_declar->bindParam(':cpf_declar', $cpf_declar, PDO::PARAM_STR);
 $sql_declar->execute();
 ?>
@@ -51,7 +50,7 @@ if ($sql_declar->rowCount() > 0) {
 $cod_familia = $dados_declar['cod_familiar_fam'];
 
     $sql_membros_familia = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam = ? ORDER BY cod_parentesco_rf_pessoa ASC";
-    $stmt = $conn_1->prepare($sql_membros_familia);
+    $stmt = $conn->prepare($sql_membros_familia);
     $stmt->bind_param('s', $cod_familia);
     $stmt->execute();
     $resultado_valor_total = $stmt->get_result();
