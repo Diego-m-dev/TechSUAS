@@ -11,62 +11,44 @@
 </head>
 <body>
 <?php
-// Inclui o arquivo de configuração da sessão
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
-// Verifica o setor do usuário logado e redireciona para a página correspondente
+
+
 if ($_SESSION['funcao'] == '0') {
-
-    // Redireciona para a página de suporte
     echo '<script>window.location.href = "/TechSUAS/suporte/index"</script>';
-
-} else if ($_SESSION['setor'] == $sistemando) {
-
-    // Redireciona para a página do Cadastro Único
-    echo '<script>window.location.href = "/TechSUAS/views/cadunico/"</script>';
-
-} else if ($_SESSION['setor'] == 'COZINHA COMUNITARIA - MARIA NEUMA DA SILVA') {
-
-    // Redireciona para a página da Cozinha Comunitária
+} elseif ($_SESSION['setor'] == $sistemando) {
+    header("location:/TechSUAS/views/cadunico/index");
+    exit();
+} elseif ($_SESSION['setor'] == 'COZINHA COMUNITARIA - MARIA NEUMA DA SILVA') {
     echo '<script>window.location.href = "/TechSUAS/views/cozinha_comunitaria/"</script>';
-
 } elseif ($_SESSION['setor'] == 'CONCESSÃO') {
-
-    // Redireciona para a página de Concessão
     echo '<script>window.location.href = "/TechSUAS/views/concessao/"</script>';
-
 } elseif ($_SESSION['setor'] == 'ADMINISTRATIVO - SECRETÁRIA DE ASSISTÊNCIA SOCIAL') {
-
-    // Redireciona para a página Administrativa
     echo '<script>window.location.href = "/TechSUAS/views/administrativo/"</script>';
-
 } elseif ($_SESSION['setor'] == 'ADMINISTRATIVO E CONCESSÃO') {
-
-    // Exibe uma mensagem de perfil com permissão para dois setores e oferece opções de redirecionamento
     ?>
-        <script>
-            // Exibe um pop-up com as opções de redirecionamento
-            Swal.fire({
-                html:`
-                <h2>PERFIL PERMISSIONADO PARA DOIS SETORES</h2>
-                <div class="visitas">
-                    <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/';">
-                        CONCESSÃO
-                    </a>
-                </div>
-
-                <div class="folha">
-                    <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/';">
-                        ADMINISTRATIVO
-                    </a>
-                </div>
-                `,
-            }).then((result) => {
-                if(result.isConfirmed) {
-                    window.location.href = "/TechSUAS/config/logout"
-                }
-            })
-        </script>
+    <script>
+        Swal.fire({
+            html:`
+            <h2>PERFIL PERMISSIONADO PARA DOIS SETORES</h2>
+            <div class="visitas">
+                <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/';">
+                    CONCESSÃO
+                </a>
+            </div>
+            <div class="folha">
+                <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/';">
+                    ADMINISTRATIVO
+                </a>
+            </div>
+            `,
+        }).then((result) => {
+            if(result.isConfirmed) {
+                window.location.href = "/TechSUAS/config/logout"
+            }
+        })
+    </script>
     <?php
 }
 ?>
