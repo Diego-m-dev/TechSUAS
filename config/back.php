@@ -15,10 +15,10 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
 // Verifica o setor do usuário logado e redireciona para a página correspondente
-if ($_SESSION['setor'] === 'SUPORTE') {
+if ($_SESSION['funcao'] == '0') {
 
     // Redireciona para a página de suporte
-    echo '<script>window.location.href = "/TechSUAS/suporte/"</script>';
+    echo '<script>window.location.href = "/TechSUAS/suporte/index"</script>';
 
 } else if ($_SESSION['setor'] == $sistemando) {
 
