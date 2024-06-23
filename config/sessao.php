@@ -1,14 +1,10 @@
 <?php
 session_start();
 include "conexao_acesso.php";
-
 // Verifica se o usuário está autenticado como admin ou usuário ou suporte
 if (!isset($_SESSION['nome_usuario'])) {
-    // Configurar a mensagem do SweetAlert
-    $mensagem = "Você não está logado. Por favor, faça login.";
     $sistemando = "";
     // Configurar o tipo de alerta (success, error, warning, etc.)
-    $tipo_alerta = "error";
     ?>
 
     <!DOCTYPE html>
@@ -26,23 +22,21 @@ if (!isset($_SESSION['nome_usuario'])) {
 
     <body>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // Exemplo de uso do SweetAlert2
-                Swal.fire({
-                    title: '<?php echo $mensagem; ?>',
-                    icon: '<?php echo $tipo_alerta; ?>',
-                    confirmButtonText: 'OK',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = '/TechSUAS/'
-                    }
-                })
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Exemplo de uso do SweetAlert2
+            Swal.fire({
+                title: 'Você não está logado. Por favor, faça login.',
+                icon: 'error',
+                confirmButtonText: 'OK',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/TechSUAS/'
+                }
             })
-        </script>
-    </body>
-    </html>
-    <?php
+        })
+    </script>
+<?php
     exit; // Encerra o script após exibir o alerta
 } else {
     $stmt_sistma = $pdo_1->prepare("SELECT * FROM sistemas WHERE id = :sis_id");
@@ -61,3 +55,4 @@ if (!isset($_SESSION['nome_usuario'])) {
         }
     }
 }
+?>
