@@ -26,6 +26,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
   <div class="container">
     <form method="post" action="/TechSUAS/controller/geral/processo_cad_user.php">
+
+    <input type="hidden" name="cpf" value="<?php echo $_SESSION['municipio']; ?>">
       <div class="nome">
           <label>Nome completo:</label>
           <input type="text" class="nome" name="nome_user" placeholder="Sem Abreviação." required style="width: 300px;">
