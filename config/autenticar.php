@@ -18,8 +18,8 @@ session_set_cookie_params(['httponly' => true]);
 <body>
 <?php
 require_once "conexao_acesso.php";
-  session_start();
-  session_regenerate_id(true);
+session_start();
+session_regenerate_id(true);
 
 $usuario = $_POST['usuario'];
 $senha_login = $_POST['senha'];
@@ -34,44 +34,43 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
     $senhalogin = $dados['senha'];
 
     if ($usuario == $dados['usuario'] && password_verify($senha_login, $dados['senha'])) {
-      $_SESSION['sistema_id'] = $dados['sistema_id'];
-      $_SESSION['user_usuario'] = $dados['usuario'];
-      $_SESSION['cargo_usuario'] = $dados['cargo'];
-      $_SESSION['municipio'] = $dados['municipio'];
-      $_SESSION['nome_usuario'] = $dados['nome'];
-      $_SESSION['id_cargo'] = $dados['id_cargo'];
-      $_SESSION['apelido'] = $dados['apelido'];
-      $_SESSION['funcao'] = $dados['funcao'];
-      $_SESSION['setor'] = $dados['setor'];
-      $_SESSION['cpf'] = $dados['cpf'];
+        $_SESSION['sistema_id'] = $dados['sistema_id'];
+        $_SESSION['user_usuario'] = $dados['usuario'];
+        $_SESSION['cargo_usuario'] = $dados['cargo'];
+        $_SESSION['municipio'] = $dados['municipio'];
+        $_SESSION['nome_usuario'] = $dados['nome'];
+        $_SESSION['id_cargo'] = $dados['id_cargo'];
+        $_SESSION['apelido'] = $dados['apelido'];
+        $_SESSION['funcao'] = $dados['funcao'];
+        $_SESSION['setor'] = $dados['setor'];
+        $_SESSION['cpf'] = $dados['cpf'];
 
-      require_once "conexao.php";
+        if ($dados['acesso'] == 1) {
+            header("location:/TechSUAS/views/geral/primeiro_acesso");
+            exit();
+        }
 
-  if ($dados['acesso'] == 1) {
-    header("location:/TechSUAS/views/geral/primeiro_acesso");
-    exit();
-  }
+        $stmt_sistma = $pdo_1->prepare("SELECT * FROM sistemas WHERE id = :sis_id");
+        $stmt_sistma->bindValue(":sis_id", $_SESSION['sistema_id'], PDO::PARAM_INT);
+        $stmt_sistma->execute();
 
-  $stmt_sistma = $pdo_1->prepare("SELECT * FROM sistemas WHERE id = :sis_id");
-  $stmt_sistma->bindValue(":sis_id", $_SESSION['sistema_id'], PDO::PARAM_INT);
-  $stmt_sistma->execute();
+        if ($dado_sys = $stmt_sistma->fetch(PDO::FETCH_ASSOC)) {
+            $sistema = $dado_sys['id'];
 
-  if ($dado_sys = $stmt_sistma->fetch(PDO::FETCH_ASSOC)) {
-    $sistema = $dado_sys['id'];
+            $stmt_setor = $pdo_1->prepare("SELECT * FROM setores WHERE id = :sis_id");
+            $stmt_setor->bindValue(":sis_id", $sistema, PDO::PARAM_INT);
+            $stmt_setor->execute();
 
-  $stmt_setor = $pdo_1->prepare("SELECT * FROM setores WHERE id = :sis_id");
-  $stmt_setor->bindValue(":sis_id", $sistema, PDO::PARAM_INT);
-  $stmt_setor->execute();
+            if ($dados_sys = $stmt_setor->fetch(PDO::FETCH_ASSOC)) {
+                $sistemando = $dados_sys['instituicao'] . ' - ' . $dados_sys['nome_instit'];
+            }
 
-    if ($dados_sys = $stmt_setor->fetch(PDO::FETCH_ASSOC)) {
-      $sistemando = $dados_sys['instituicao'] . ' - ' . $dados_sys['nome_instit'];
-    }
-
-    if ($_SESSION['funcao'] == "0") {
-      $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
-      $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
-      if ($sql_tbl_tudo_query->num_rows == 0) {
-?>
+            if ($_SESSION['funcao'] == "0") {
+                require_once "conexao.php";
+                $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
+                $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
+                if ($sql_tbl_tudo_query->num_rows == 0) {
+                    ?>
 <script>
   Swal.fire({
     icon: "warning",
@@ -87,15 +86,40 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
   })
 </script>
 <?php
-      } else {
-        header("location:/TechSUAS/suporte/index");
-        exit();
-      }
+} else {
+                    header("location:/TechSUAS/suporte/index");
+                    exit();
+                }
+            } elseif ($_SESSION['funcao'] == "1") {
+              require_once "conexao.php";
+              $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
+              $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
+              if ($sql_tbl_tudo_query->num_rows == 0) {
+                  ?>
+<script>
+Swal.fire({
+  icon: "warning",
+  title: "ATENÇÃO",
+  html: `
+  <p>O seu banco de dados está vazio, aperte em OK e faça a importação do arquivo CSV extraído do CECAD 2.0.</p>
+  <p>Se ainda não extraiu <a href="https://cecad.cidadania.gov.br/painel03.php">clique aqui</a>. </p>
+  `,
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+  }
+})
+</script>
+<?php
+} else {
+                  header("location:/TechSUAS/views/cadunico/index");
+                  exit();
+              }
+            }
+
+        }
+
     }
-
-  }
-
-  }
 }
 ?>
 </body>
