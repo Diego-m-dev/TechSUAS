@@ -36,23 +36,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $secretaria = $_POST['secretaria'];
 
   // Busca o id do setor na tabela setores baseado no cpf do responsável
-  $stmt_munic = $pdo->prepare("SELECT id FROM setores WHERE cpf_coord = :cpf_coord");
+  $stmt_munic = $pdo_1->prepare("SELECT id FROM setores WHERE cpf_coord = :cpf_coord");
   $stmt_munic->bindValue(":cpf_coord", $cpf_coord);
   $stmt_munic->execute();
 
   if ($stmt_munic->rowCount() != 0) {
       $dados_munic = $stmt_munic->fetch(PDO::FETCH_ASSOC);
       $municipio_id = $dados_munic['id'];
+      $responsavel = $dados_munic['responsavel'];
   } else {
       // Trate o caso em que o município não foi encontrado
       die("Município não encontrado.");
   }
 
   // Consulta de inserção na tabela setores
-  $query = "INSERT INTO sistemas (nome_sistema, data_aquisicao, setores_id, validade, secretaria, cpf) 
-            VALUES (:nome_sistema, :data_aquisicao, :setores_id, :validade, :secretaria, :cpf)";
+  $query = "INSERT INTO sistemas (nome_sistema, data_aquisicao, setores_id, validade, secretaria, responsavel, cpf)
+          VALUES (:nome_sistema, :data_aquisicao, :setores_id, :validade, :secretaria, :responsavel, :cpf)";
 
-  $salva_dados = $pdo->prepare($query);
+  $salva_dados = $pdo_1->prepare($query);
 
   // Vincula os valores aos parâmetros da consulta
   $salva_dados->bindValue(":nome_sistema", $nome_sistema);
@@ -60,26 +61,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $salva_dados->bindValue(":setores_id", $municipio_id);
   $salva_dados->bindValue(":validade", $validade);
   $salva_dados->bindValue(":secretaria", $secretaria);
+  $salva_dados->bindValue(":responsavel", $responsavel);
   $salva_dados->bindValue(":cpf", $cpf_coord);
 
   // Executa a consulta de inserção
   if ($salva_dados->execute()) {
       ?>
-      <script>
-          Swal.fire({
-              icon: "success",
-              title: "SALVO",
-              text: "Os dados foram salvos com sucesso!",
-              confirmButtonText: "OK"
-          }).then((result) => {
-              if (result.isConfirmed) {
-                  window.location.href = "/TechSUAS/suporte/municipios"
-              }
-          })
-      </script>
-      <?php
-  } else {
-      echo "Erro ao salvar os dados: " . $pdo->errorInfo()[2];
+    <script>
+        Swal.fire({
+            icon: "success",
+            title: "SALVO",
+            text: "Os dados foram salvos com sucesso!",
+            confirmButtonText: "OK"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/TechSUAS/suporte/municipios"
+            }
+        })
+    </script>
+    <?php
+} else {
+    echo "Erro ao salvar os dados: " . $pdo_1->errorInfo()[2];
   }
 }
 ?>
