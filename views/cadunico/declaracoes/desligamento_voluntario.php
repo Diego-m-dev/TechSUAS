@@ -1,10 +1,12 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 
 //REQUISIÇÃO PARA DADOS DOS USUÁRIOS CREDENCIADOS COM ACESSO ADMINISTRATIVO
-$sql_user = "SELECT * FROM usuarios WHERE cargo = 'COORDENAÇÃO' AND setor = 'CADASTRO UNICO - SECRETARIA DE ASSISTENCIA SOCIAL'";
-$sql_user_query = $conn->query($sql_user) or die("ERRO ao consultar! " . $conn - error);
+$setorizado = $_SESSION['setor'];
+$sql_user = "SELECT * FROM operadores WHERE funcao = '1' AND setor = '$setorizado'";
+$sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn_1 - error);
 ?>
 
 <!DOCTYPE html>
