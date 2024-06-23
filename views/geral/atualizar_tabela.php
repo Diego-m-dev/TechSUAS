@@ -1,6 +1,8 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-if ($_SESSION['funcao'] != '1') {
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+
+if ($_SESSION['funcao'] != '1' && $_SESSION['funcao'] != '0') {
     echo '<script>window.history.back()</script>';
     exit();
 }
