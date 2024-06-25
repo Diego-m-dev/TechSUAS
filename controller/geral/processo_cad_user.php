@@ -69,6 +69,7 @@ exit();
         }
     } else {
         $municipio = $cpf_coord;
+        $municipio_id = $_SESSION['sistema_id'];
     }
     
     // Caso o Nome do Usuário seja unico será adicionado ao SQL
