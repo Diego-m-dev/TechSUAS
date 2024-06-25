@@ -13,15 +13,11 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
-
-
 if ($_SESSION['funcao'] == '0') {
     echo '<script>window.location.href = "/TechSUAS/suporte/index"</script>';
 } elseif ($_SESSION['setor'] == $sistemando) {
     header("location:/TechSUAS/views/cadunico/index");
     exit();
-} elseif ($_SESSION['setor'] == 'COZINHA COMUNITARIA - MARIA NEUMA DA SILVA') {
-    echo '<script>window.location.href = "/TechSUAS/views/cozinha_comunitaria/"</script>';
 } elseif ($_SESSION['setor'] == 'CONCESSÃO') {
     echo '<script>window.location.href = "/TechSUAS/views/concessao/"</script>';
 } elseif ($_SESSION['setor'] == 'ADMINISTRATIVO - SECRETÁRIA DE ASSISTÊNCIA SOCIAL') {
