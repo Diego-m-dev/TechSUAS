@@ -112,14 +112,30 @@ Swal.fire({
 </script>
 <?php
 } else {
-                  header("location:/TechSUAS/views/cadunico/index");
-                  exit();
-              }
-            }
-
+  header("location:/TechSUAS/views/cadunico/index");
+  exit();
         }
-
+      } elseif ($_SESSION['funcao'] == "2") {
+        header("location:/TechSUAS/views/cadunico/index");
+        exit();
+      }
     }
+  } else {
+?>
+<script>
+  Swal.fire({
+    icon: "error",
+    title: "ERRO",
+    text: "Senha ou nome de usuário incorreto!",
+    confirmButtonText: "OK",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "/TechSUAS/"
+    }
+  })
+</script>
+<?php
+  }
 }
 ?>
 </body>
