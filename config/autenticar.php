@@ -10,10 +10,10 @@ session_set_cookie_params(['httponly' => true]);
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-		<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-		<script src="/TechSUAS/js/suporte.js"></script>
+    <script src="/TechSUAS/js/suporte.js"></script>
 </head>
 <body>
 <?php
@@ -30,10 +30,7 @@ $stmt_login->execute();
 
 $dados = $stmt_login->fetch(PDO::FETCH_ASSOC);
 if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
-    $setor_ = $dados['setor'];
-    $senhalogin = $dados['senha'];
-
-    if ($usuario == $dados['usuario'] && password_verify($senha_login, $dados['senha'])) {
+    if (password_verify($senha_login, $dados['senha'])) {
         $_SESSION['sistema_id'] = $dados['sistema_id'];
         $_SESSION['user_usuario'] = $dados['usuario'];
         $_SESSION['cargo_usuario'] = $dados['cargo'];
@@ -70,7 +67,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
                 $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
                 $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
                 if ($sql_tbl_tudo_query->num_rows == 0) {
-                    ?>
+?>
 <script>
   Swal.fire({
     icon: "warning",
@@ -86,7 +83,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
   })
 </script>
 <?php
-} else {
+                } else {
                     header("location:/TechSUAS/suporte/index");
                     exit();
                 }
@@ -95,7 +92,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
               $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
               $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
               if ($sql_tbl_tudo_query->num_rows == 0) {
-                  ?>
+?>
 <script>
 Swal.fire({
   icon: "warning",
@@ -111,31 +108,46 @@ Swal.fire({
 })
 </script>
 <?php
-} else {
-  header("location:/TechSUAS/views/cadunico/index");
-  exit();
+              } else {
+                  header("location:/TechSUAS/views/cadunico/index");
+                  exit();
+              }
+            } elseif ($_SESSION['funcao'] == "2") {
+                header("location:/TechSUAS/views/cadunico/index");
+                exit();
+            }
         }
-      } elseif ($_SESSION['funcao'] == "2") {
-        header("location:/TechSUAS/views/cadunico/index");
-        exit();
-      }
-    }
-  } else {
+    } else {
 ?>
 <script>
-  Swal.fire({
-    icon: "error",
-    title: "ERRO",
-    text: "Senha ou nome de usuário incorreto!",
-    confirmButtonText: "OK",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      window.location.href = "/TechSUAS/"
-    }
-  })
+Swal.fire({
+  icon: "error",
+  title: "ERRO",
+  text: "Senha ou nome de usuário incorreto!",
+  confirmButtonText: "OK",
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.href = "/TechSUAS/"
+  }
+})
 </script>
 <?php
+    }
+} else {
+?>
+<script>
+Swal.fire({
+  icon: "error",
+  title: "ERRO",
+  text: "Senha ou nome de usuário incorreto!",
+  confirmButtonText: "OK",
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.href = "/TechSUAS/"
   }
+})
+</script>
+<?php
 }
 ?>
 </body>
