@@ -145,7 +145,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
     <form action="/TechSUAS/controller/geral/processo_cad_user" method="POST" id="formCadoperador" class="esconde_form">
     <h2>Cadastro de Operadores</h2>
 
-    <label for="cpf">CPF do Responsável:</label>
+    <label for="cpf">CPF:</label>
       <input type="text" id="cpf" name="cpf" required>
 
       <label>Nome completo:</label>

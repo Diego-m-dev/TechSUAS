@@ -4,14 +4,17 @@ require 'secret.php';
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" href="/TechSUAS/img/geral/logo.png" type="image/png">
-    <link rel="stylesheet"  type="text/css" href="/TechSUAS/css/geral/style-processo.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    <title>Cadastro Salvo</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="shortcut icon" href="/TechSUAS/img/geral/logo.png" type="image/png">
+  <link rel="stylesheet"  type="text/css" href="/TechSUAS/css/geral/style-processo.css">
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+  <title>Cadastro Salvo</title>
 </head>
 <body>
 <?php
@@ -37,20 +40,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($verifica_usuario->num_rows > 0) {
         // Se o nome de usuário já está em uso, exibe uma mensagem e redirecione de volta ao login
-        ?>
-        <script>
-            Swal.fire({
-            icon: "info",
-            title: "JÁ CADASTRADO",
-            text: "Nome de usuário já em uso. Por favor, consulte o SUPORTE DDV",
-            confirmButtonText: 'OK',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "/TechSUAS/views/geral/cadastro_user";
-                }
-            })
-        </script>
-            <?php
+?>
+<script>
+  Swal.fire({
+  icon: "info",
+  title: "JÁ CADASTRADO",
+  text: "Nome de usuário já em uso. Por favor, consulte o SUPORTE DDV",
+  confirmButtonText: 'OK',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "/TechSUAS/views/geral/cadastro_user";
+    }
+  })
+</script>
+<?php
 exit();
     }
 

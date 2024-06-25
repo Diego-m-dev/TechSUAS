@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 if ($_SESSION['funcao'] != '1') {
     echo '<script>window.history.back()</script>';
@@ -33,7 +34,7 @@ if ($_SESSION['funcao'] != '1') {
         </h1>
     </div>
     <div class="container">
-        <!-- <div class="cont-btns">
+        <div class="cont-btns">
             <div class="btns">
                 <div class="bt">
                     <button type="button" class="menu-button" id="btn_benef">
@@ -83,7 +84,7 @@ if ($_SESSION['funcao'] != '1') {
                     </button>
                 </div>
             </div>
-        </div> -->
+        </div> 
         <div class="mural_stats">
             <div class="header">
                 <h1>Estatisticas Geral - Cadunico (cidade)</h1>
@@ -223,7 +224,7 @@ if ($_SESSION['funcao'] != '1') {
                 $filtro = $conn->real_escape_string($_POST['nome_pessoa']);
 
                 $smtp_filtro = $conn->prepare("SELECT * FROM tbl_tudo
-        WHERE nom_pessoa LIKE '%$filtro%'");
+                    WHERE nom_pessoa LIKE '%$filtro%'");
                 $smtp_filtro->execute();
                 $resultado = $smtp_filtro->get_result(); // Obter o resultado da consulta
                 $dados_filtros = $resultado->fetch_all(MYSQLI_ASSOC); // Obter todas as linhas como uma matriz associativa
@@ -234,8 +235,8 @@ if ($_SESSION['funcao'] != '1') {
                 // Se nenhum dos campos estiver definido, você pode definir um valor padrão para $filtro ou tomar outra ação adequada.
             }
             $smtp_filtros = $conn->prepare("SELECT COUNT(*) AS totais_cadastro
-                                    FROM tbl_tudo
-                                    WHERE cod_parentesco_rf_pessoa = 1");
+              FROM tbl_tudo
+              WHERE cod_parentesco_rf_pessoa = 1");
             $smtp_filtros->execute();
 
             $result = $smtp_filtros->get_result();
