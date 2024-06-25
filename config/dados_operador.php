@@ -1,4 +1,5 @@
 <?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
 if(!isset($_SESSION )){
@@ -7,7 +8,7 @@ if(!isset($_SESSION )){
     $data_hoje = date('d/m/Y H:i');
     $user_name = $_SESSION['user_usuario'];
 
-$sql = $pdo->prepare("SELECT * FROM usuarios WHERE usuario = :user_usuario");
+$sql = $pdo_1->prepare("SELECT * FROM operadores WHERE usuario = :user_usuario");
 $sql->execute(array(':user_usuario' => $user_name));
 
 if ($sql->rowCount() > 0) {
@@ -32,7 +33,7 @@ if ($sql->rowCount() > 0) {
     $email = $dados['email'];
     $cargo = $dados['cargo'];
     $idcargo = $dados['id_cargo'];
-    $nivel = $dados['nivel'];
+
 }
 
 ?>

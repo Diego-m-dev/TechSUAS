@@ -14,9 +14,8 @@ if (isset($_SESSION['municipio'])) {
         $port = 3306;
     }
 } else {
-
+  exit();
 }
-
 $raiz_dom = "/TechSUAS/";
 
 date_default_timezone_set('America/Sao_Paulo');

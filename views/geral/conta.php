@@ -1,5 +1,4 @@
 <?php
-
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
@@ -52,8 +51,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
             <input type="text" id="apelido" name="apelido" value="<?php echo $apelido; ?>" oninput="sempre_maiusculo(this)" required>
         </div>
 
-<?php echo "CPF: " . $cpf . "<br>";
-echo "Data de Nascimento: " . $dtNasc . "<br>"; ?>
+      <?php echo "CPF: " . $cpf . "<br>";
+      echo "Data de Nascimento: " . $dtNasc . "<br>"; ?>
 
         <div id="teleVisual">
             Contato: <?php echo $telefone; ?>
@@ -94,18 +93,36 @@ echo "Data de Nascimento: " . $dtNasc . "<br>"; ?>
             <label for="idcargo">Certificado ou Matricula: </label>
             <input type="text" id="idcargo" name="idcargo" value="<?php echo $idcargo; ?>" required>
         </div>
+<?php
+if ($_SESSION['funcao'] == "0"){
+  ?>
+      <label for="">Banco de Dados:</label>
+      <select name="ibge" required>
+      <option value="" disabled selected hidden>Selecione</option>
+<?php
+    $consultaSetores = $conn_1->query("SELECT cod_ibge, municipio FROM municipios WHERE id != 4");
+// Verifica se há resultados na consulta
+  if ($consultaSetores->num_rows > 0) {
+      // Loop para criar as opções do select
+    while ($setor = $consultaSetores->fetch_assoc()) {
+?>
+<option value="<?php echo $setor['cod_ibge']; ?>"><?php echo $setor['municipio']; ?></option>
+<?php
+    }
+  }
 
-        <button type="submit">Salvar Alterações</button>
-        
-        <a href="/TechSUAS/config/back.php">
+?>
+    </select>
+<?php
+}
+?>
+    <button type="submit">Salvar Alterações</button>
+      <a href="/TechSUAS/config/back.php">
         <i class="fas fa-arrow-left"></i> Voltar ao menu
-        </a>
-    </form>
-
+      </a>
+  </form>
 
 </div>
-    
-        <script src='/TechSUAS/js/personalise.js'></script>
+    <script src='/TechSUAS/js/personalise.js'></script>
 </body>
-
 </html>
