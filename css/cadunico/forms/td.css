@@ -90,6 +90,11 @@ a:hover {
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }
+.editable-field{
+    border: 1px solid #13294b;
+    padding: 2px 20px;
+    border-radius: 3px;
+}
 @media print {
     button {
         display: none;
@@ -137,4 +142,12 @@ a:hover {
     .tech {
         padding-right: 5px;
     }
+    th.impr{
+        display: none;
+    }
+    .editable-field{
+        border: none;
+        padding: 0px;
+    }
+
 }
