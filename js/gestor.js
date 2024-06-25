@@ -120,27 +120,27 @@ function filtroCriaIdos() {
 
 // Função para aplicar filtros na tabela
 function aplicarFiltros() {
-    var filtroStatus = document.getElementById('filtro_status').value
-    var filtroGrupo = document.getElementById('filtro-grupo').value
-    var filtroOtherGrupo = document.getElementById('filtro-other-grupo').value
-    var filtroParent = document.getElementById('filtro-parent').value
-    var filtroSexo = document.getElementById('filtro-mh').value
-    var cod_fam = document.getElementById('cod_fam').value
-    const filtroIdade = document.getElementById('filtro-idade').value.trim()
+  var filtroStatus = document.getElementById('filtro_status').value
+  var filtroGrupo = document.getElementById('filtro-grupo').value
+  var filtroOtherGrupo = document.getElementById('filtro-other-grupo').value
+  var filtroParent = document.getElementById('filtro-parent').value
+  var filtroSexo = document.getElementById('filtro-mh').value
+  var cod_fam = document.getElementById('cod_fam').value
+  var filtroIdade = document.getElementById('filtro-idade').value
 
-    var dadosFiltrados = dados.filter(function(row) {
-        return (filtroStatus === '' || row[7].toLowerCase().includes(filtroStatus.toLowerCase())) &&
-              (filtroGrupo === '' || row[8].toLowerCase().includes(filtroGrupo.toLowerCase())) && 
-              (cod_fam === '' || row[0].toLowerCase().includes(cod_fam.toLowerCase())) && 
-              (filtroOtherGrupo === '' || row[9].toLowerCase().includes(filtroOtherGrupo.toLowerCase())) &&
-              (filtroSexo === '' || row[10].toLowerCase().includes(filtroSexo.toLowerCase())) &&
-              (filtroParent === '' || row[11].toLowerCase().includes(filtroParent.toLowerCase())) &&
-              (filtroIdade === '' || row[4].includes(filtroIdade.toLowerCase()))
+  var dadosFiltrados = dados.filter(function(row) {
+    return (filtroStatus === '' || (row[7] && row[7].toLowerCase().includes(filtroStatus.toLowerCase()))) &&
+      (filtroGrupo === '' || (row[8] && row[8].toLowerCase().includes(filtroGrupo.toLowerCase()))) && 
+      (cod_fam === '' || (row[0] && row[0].toLowerCase().includes(cod_fam.toLowerCase()))) && 
+      (filtroOtherGrupo === '' || (row[9] && row[9].toLowerCase().includes(filtroOtherGrupo.toLowerCase()))) &&
+      (filtroSexo === '' || (row[10] && row[10].toLowerCase().includes(filtroSexo.toLowerCase()))) &&
+      (filtroParent === '' || (row[11] && row[11].toLowerCase().includes(filtroParent.toLowerCase()))) &&
+      (filtroIdade === '' || (row[4] && row[4] === filtroIdade))
+  })
 
-    });
-
-    criarTabelaFiltrada(dadosFiltrados);
+  criarTabelaFiltrada(dadosFiltrados)
 }
+
 
 // Função para criar a tabela filtrada
 function criarTabelaFiltrada(dadosFiltrados) {
