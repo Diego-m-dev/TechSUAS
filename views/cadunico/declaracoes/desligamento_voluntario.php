@@ -98,9 +98,9 @@ $sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn
 					<p>Dados do(a) coordenador(a) municipal do Programa Bolsa Família:</p>
 
 					<?php
-
-					$mysql = "SELECT * FROM usuarios WHERE setor LIKE '%CADASTRO ÚNICO%' AND cargo LIKE '%COORD%'";
-					$mysqlq = $conn->query($mysql) or die("ERRO ao consultar!" . $conn - error);
+  $sistema_id = $_SESSION['sistema_id'];
+					$mysql = "SELECT * FROM operadores WHERE funcao LIKE 1 AND sistema_id LIKE '$sistema_id'";
+					$mysqlq = $conn_1->query($mysql) or die("ERRO ao consultar!" . $conn_1 - error);
 
 					if ($mysqlq->num_rows == 0) {
 						echo "COORDENAÇÃO NÃO IDENTIFICADA.";
