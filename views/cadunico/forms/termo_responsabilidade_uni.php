@@ -17,19 +17,35 @@ $sql_reside->execute();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termo de Responsabilidade</title>
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/tr.css">
+    <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/tr.css"> -->
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
+
+<?php
+    if ($_SESSION['name_sistema'] == "SUPORTE"){
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
+<?php
+
+    } elseif ($_SESSION['municipio'] == "2613008") {
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
+<?php
+    }
+    ?>
+
+
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 
 <body>
-    <div class="titulo">
+<div class="titulo">
         <div class="tech">
             <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
         </div>
     </div>
     <div class="container">
-        <h1 class="center">ANEXO II - TERMO DE RESPONSABILIDADE</h1>
+        <h1 class="center">ANEXO II - TERMO DE RESPONSABILIDADE</h1><br><br><br>
 <?php
 if ($sql_reside->rowCount() > 0) {
     $dados_reside = $sql_reside->fetch(PDO::FETCH_ASSOC);
@@ -72,8 +88,8 @@ if ($sql_reside->rowCount() > 0) {
                 <li class="topic">A prestação de informações falsas ao Programa Bolsa Família é motivo de cancelamento do benefício, e pode gerar processo administrativo para ressarcimento dos valores recebidos indevidamente, nos termos do art. 18 da Medida Provisória nº 1.164, de 2 de março de 2023. Pode também ocasionar processo penal e cível nos termos da legislação geral brasileira.</li>
             </ul>
             <div class="right">São Bento do Una - PE, <?php echo $data_formatada; ?>.</div>
-            <br>
-            <p class="center ass">______________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</p>
+            <br><br><br>
+            <div class="assinatura">_________________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</div>
 
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
             <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>

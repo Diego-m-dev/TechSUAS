@@ -21,23 +21,37 @@ $sql_declar->execute();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_fami.css">
+    <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_fami.css"> -->
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
+    
+<?php
+    if ($_SESSION['name_sistema'] == "SUPORTE"){
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
+<?php
 
+    } elseif ($_SESSION['name_sistema'] == "CADUNICO") {
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
+<?php
+    }
+    ?>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
 
 <body>
-    <div class="titulo">
-        <div class="tech">
-            <span>TechSUAS-Cadastro Único </span><?php echo $data_cabecalho; ?>
-        </div>
+<div class="titulo">
+    <div class="tech">
+        <span>TechSUAS-Cadastro Único </span><?php echo $data_cabecalho; ?>
     </div>
-    <div class="container" id="form-container">
-        <div id="title">ANEXO III - FICHA DE EXCLUSÃO DE FAMÍLIA</div>
+</div>
+<div class="container" >
+<h1 class="center1">ANEXO III - FICHA DE EXCLUSÃO DE FAMÍLIA</h1>
 
         <?php
         if ($sql_declar->rowCount() > 0) {
@@ -88,21 +102,23 @@ $sql_declar->execute();
                 <span id="textoMotivo" name="justified-text">Texto do motivo selecionado será exibido aqui.</span>
             </div>
 
-            <label for="parecer">PARECER TECNICO:</label>
-            <textarea id="parecer" name="parecer"></textarea>
-            <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
-            <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
+      <label for="parecer">PARECER TECNICO:</label>
+      <textarea id="parecer" name="parecer" onblur="showParecer()"></textarea>
+      <p><span id="show_parecer"></span></p>
+          <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
+          <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
 
-            <div id="right-align">São Bento do Una - PE, <span id="dataExclusao2"></span>.</div>
+            <br><br>
+    <div class="cidade_data">
+      <p style="text-align: left;"><?php echo $cidade; ?><?php echo $data_formatada; ?></p>.
+  </div><br><br><br>
+    <div class="assinatura">_________________________________________________________________<br>Assinatura do Responsável pela Unidade Familiar (RUF) (exceto no caso 3)</div>
+    <div class="assinatura">_________________________________________________________________<br>Assinatura do entrevistador</div>
+    <div class="assinatura">_________________________________________________________________<br>Assinatura do responsável pelo cadastramento</div>
+    <div class="assinatura">_________________________________________________________________<br>Assinatura do Gestor do CadÚnico (nos casos 4 e 5)</div>
 
-            <div class="signature-line">______________________________________________________________<br>Assinatura do Responsável pela Unidade Familiar (RUF) (exceto no caso 3)</div>
-            <div class="signature-line">______________________________________________________________<br>Assinatura do entrevistador</div>
-            <div class="signature-line">______________________________________________________________<br>Assinatura do responsável pelo cadastramento</div>
-            <div class="signature-line">______________________________________________________________<br>Assinatura do Gestor do CadÚnico (nos casos 4 e 5)</div>
+    <p>Caso o RF não saiba assinar, o entrevistador registra a expressão "A ROGO" e, a seguir, o nome do RF. (A ROGO é a expressão jurídica utilizada para indicar que a identificação, substituindo a assinatura, foi delegada a outra pessoa).</p>
 
-            <div id="justified-text">
-                <p>Caso o RF não saiba assinar, o entrevistador registra a expressão "A ROGO" e, a seguir, o nome do RF. (A ROGO é a expressão jurídica utilizada para indicar que a identificação, substituindo a assinatura, foi delegada a outra pessoa).</p>
-            </div>
     </div>
 <?php
         } else {
@@ -207,6 +223,13 @@ $sql_declar->execute();
             textoMotivo.textContent = "Texto do motivo selecionado será exibido aqui.";
         }
     }
+
+    function showParecer() {
+    var parecer = document.getElementById('parecer').value; // Obtém o valor do elemento parecer
+    $('#parecer').hide(); // Esconde o elemento parecer
+    $('#show_parecer').text(parecer); // Define o texto do elemento show_parecer como o valor de parecer
+    console.log(parecer); // Exibe o valor de parecer no console
+}
 </script>
 <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </body>

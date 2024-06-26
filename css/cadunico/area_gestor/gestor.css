@@ -137,35 +137,44 @@ label{
 
 /* Mural de Pendências Gerais */
 .mural_stats {
+    background-color: #13294b;
     padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    margin-top: 20px;
-    width: 100%;
+    border-radius: 5px;
     margin-left: 10px;
-}
-
-.pendencias-gerais {
-    padding: 20px;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.pendencias-gerais h2 {
-    font-size: 24px;
+    width: 64%;
+  }
+  
+  .mural_stats h2 {
+    color: #ffffff;
     margin-bottom: 10px;
-    color: #333;
-    text-align: center;
-}
+  }
+  
 
-.pendencias-gerais ul {
+  .cont-a {
+    display: flex;
+    flex-direction: column;
+  }
+  .cont-a a {
     list-style-type: none;
     padding: 0;
-}
+  }
+  
+  .cont-a a{
+    font-weight: 1oo;
+    border-bottom: 2px solid #fff;
+    color: #ffffff;
+    padding: 10px 15px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+  }
 
-.pendencias-gerais ul li {
+  .plus-btn {
+    background-color: white; /* Cor de fundo do botão */
+    color: #0011BB; /* Cor do texto do botão */
+    border: none; 
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
     font-size: 16px;
-    margin-bottom: 10px;
-    color: #666;
+    cursor: pointer; 
 }

@@ -46,10 +46,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $smtp->bind_param("sssssssssss", $nome_completo, $apelido, $senha_hashed, $cpf, $data_nascimento, $telefone, $email, $cargo, $id_cargo, $acesso, $nome_user);
 
     if ($smtp->execute()) {
+      if ($_SESSION['funcao'] == "1") {
       require_once "create_bd.php";
       foreach ($sql_create as $sql_pass) {
         $pdo->exec($sql_pass);
       }
+    }
         ?>
         <script>
         Swal.fire({

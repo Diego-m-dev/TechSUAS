@@ -45,6 +45,9 @@ a {
 .cidade_data{
   display: none;
 }
+.assinatura{
+  display: none;
+}
 .signature-line {
   width: 600px;
   /* Largura da linha */
@@ -79,9 +82,11 @@ a {
   }
   .cidade_data{
     display: block; /* ou inline-block, dependendo do contexto */
-    
     text-align: left;
 }
+  .assinatura{
+    display: block;
+  }
 
   .editable-field{
     border: none;
