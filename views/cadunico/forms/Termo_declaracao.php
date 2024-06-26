@@ -18,7 +18,23 @@ $sql_declar->execute();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termo de delcaração de renda</title>
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/td.css">
+    <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/t  d.css"> -->
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
+    
+<?php
+    if ($_SESSION['name_sistema'] == "SUPORTE"){
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
+<?php
+
+    } elseif ($_SESSION['municipio'] == "2613008") {
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
+<?php
+    }
+    ?>
+
+
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -30,7 +46,7 @@ $sql_declar->execute();
         </div>
     </div>
     <div class="container">
-        <h1 class="center1">ANEXO I TERMO DE DECLARAÇÃO</h1>
+        <h1 class="center1">ANEXO I TERMO DE DECLARAÇÃO</h1><br><br>
 
     <?php
 if ($sql_declar->rowCount() > 0) {
@@ -41,13 +57,10 @@ if ($sql_declar->rowCount() > 0) {
     $cpf_formatado = substr($cpf_formatado, 0, 3) . '.' . substr($cpf_formatado, 3, 3) . '.' . substr($cpf_formatado, 6, 3) . '-' . substr($cpf_formatado, 9, 2);
 
     ?>
-                    <p class="paragraph">Eu, <span class="editable-field"><?php echo $dados_declar['nom_pessoa']; ?></span>, NIS: <span class="editable-field"><?php echo $dados_declar['num_nis_pessoa_atual']; ?></span>, CPF: <span class="editable-field"><?php echo $cpf_formatado; ?></span>,
-                declaro, sob as penas da lei, que todas as pessoas listadas abaixo moram no meu domicílio e possuem o
-                seguinte rendimento total detalhado para cada pessoa, incluindo remuneração de doação, de trabalho ou de
-                outras fontes:</p>
+                <p class="paragraph">Eu, <span class="editable-field"><?php echo $dados_declar['nom_pessoa'].","; ?></span> NIS: <span class="editable-field"><?php echo $dados_declar['num_nis_pessoa_atual'].","; ?></span> CPF: <span class="editable-field"><?php echo $cpf_formatado.","; ?></span> declaro, sob as penas da lei, que todas as pessoas listadas abaixo moram no meu domicílio e possuem o seguinte rendimento total detalhado para cada pessoa, incluindo remuneração de doação, de trabalho ou de outras fontes:</p><br>
             <p class="paragraph"><strong>RELAÇÃO DOS COMPONENTES DA UNIDADE FAMILIAR MORADORES DO DOMICÍLIO:</strong></p>
             <?php
-$cod_familia = $dados_declar['cod_familiar_fam'];
+    $cod_familia = $dados_declar['cod_familiar_fam'];
 
     $sql_membros_familia = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam = ? ORDER BY cod_parentesco_rf_pessoa ASC";
     $stmt = $conn->prepare($sql_membros_familia);
@@ -102,7 +115,7 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
             <button onclick="adicionarLinha()">Adicionar Linha</button>
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
             <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
-
+<br>
             <p class="paragraph1">Declaro ter clareza de que:</p>
             <ul>
                 <li class="topic">É ilegal deixar de declarar informações ou prestar informações falsas para o Cadastro
@@ -116,10 +129,10 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
                     Único. Assumo o compromisso de atualizar o cadastro sempre que ocorrer alguma mudança nas informações de
                     minha família, como endereço, renda e trabalho, nascimento ou óbito, entre outras.</li>
             </ul>
-            <p class="right">São Bento do Una - PE, <?php echo $data_formatada; ?>.</p>
-            <p class="center">______________________________________________________________<br>Assinatura do Responsável
-                pela Unidade Familiar</p>
-
+            <div class="cidade_data">
+              <p style="text-align: left;"><?php echo $cidade; ?><?php echo $data_formatada; ?></p>.
+            </div><br><br>
+            <div class="assinatura">_________________________________________________________________<br>Assinatura do Responsável pela Unidade Familiar (RUF) (exceto no caso 3)</div>
         <?php
 } else {
     ?>
@@ -171,7 +184,7 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
             <button class="impr" onclick="voltarAoMenu()">Voltar</button>
             <button type="button" onclick="adicionarLinha()">Adicionar Linha</button>
-
+<br>
             <p class="paragraph1">Declaro ter clareza de que:</p>
             <ul>
                 <li class="topic">É ilegal deixar de declarar informações ou prestar informações falsas para o Cadastro
@@ -185,9 +198,10 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
                     Único. Assumo o compromisso de atualizar o cadastro sempre que ocorrer alguma mudança nas informações de
                     minha família, como endereço, renda e trabalho, nascimento ou óbito, entre outras.</li>
             </ul>
-            <p class="right">São Bento do Una - PE, <?php echo $data_formatada; ?>.</p>
-            <p class="center">______________________________________________________________<br>Assinatura do Responsável
-                pela Unidade Familiar</p>
+            <div class="cidade_data">
+              <p style="text-align: left;"><?php echo $cidade; ?><?php echo $data_formatada; ?></p>.
+            </div><br><br>
+            <div class="assinatura">_________________________________________________________________<br>Assinatura do Responsável pela Unidade Familiar (RUF) (exceto no caso 3)</div>
         </form>
 <?php
 }
