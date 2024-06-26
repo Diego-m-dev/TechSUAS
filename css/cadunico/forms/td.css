@@ -12,7 +12,7 @@ body {
 }
 .container {
     width: 90%;
-    position: fixed;
+    position: absolute;
     left: 50%;
     transform: translate(-50%);
     padding-top: 100px;
@@ -48,6 +48,7 @@ body {
 table {
     width: 100%;
     border-collapse: collapse;
+    overflow: scroll;
 }
 
 .impr {
@@ -89,6 +90,11 @@ a:hover {
     background-color: #3b82f6;
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
+}
+.editable-field{
+    border: 1px solid #13294b;
+    padding: 2px 20px;
+    border-radius: 3px;
 }
 @media print {
     button {
@@ -137,4 +143,12 @@ a:hover {
     .tech {
         padding-right: 5px;
     }
+    th.impr{
+        display: none;
+    }
+    .editable-field{
+        border: none;
+        padding: 0px;
+    }
+
 }

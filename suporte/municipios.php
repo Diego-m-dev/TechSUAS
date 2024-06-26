@@ -14,6 +14,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="stylesheet" href="./css/style_municipios.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -24,7 +25,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
 </head>
 
 <body>
-    <h1>MUNICÍPIOS</h1>
+
     <button id="btn_cadastrar_municipio">Cadastrar Município</button>
     <button id="btn_cadastrar_setor">Cadastrar setor</button>
     <button id="btn_cadastrar_sistema">Cadastrar sistema</button>
@@ -200,5 +201,6 @@ if ($consultaSetores->num_rows > 0) {
     <button type="submit">salvar</button>
   </form>
   </div>
+
 </body>
 </html>

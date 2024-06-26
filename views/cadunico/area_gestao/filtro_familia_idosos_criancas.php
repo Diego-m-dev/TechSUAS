@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 if ($_SESSION['funcao'] != '1') {
@@ -65,7 +66,6 @@ if ($_SESSION['funcao'] != '1') {
 <input type="text" id="filtro-grupo" onchange="aplicarFiltros()" placeholder="Filtro por Escola"/>
 
 <!--INPUT ESCONDIDOS PRA MANTER AS VARIÁVEIS DA FUNÇÃO aplicarFiltros FUNCIONANDO-->
-<input type="hidden" id="filtro-grupo" value="" onkeyup="aplicarFiltros()">
 <input type="hidden" id="filtro-other-grupo" value="" onkeyup="aplicarFiltros()">
 
 <label for="filtro-idade">Filtrar por Idade:</label>

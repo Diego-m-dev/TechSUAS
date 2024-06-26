@@ -1,0 +1,33 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+body {
+    background-image: url(/TechSUAS/img/concessao/fundo_conc.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    font-family: "Inter", sans-serif;
+}
+
+* {
+    margin-top: 0px;
+}
+
+img {
+    justify-content: center;
+    width: 100%;
+    max-height: 120px
+}
+input,
+select,
+option,
+label,
+span {
+    font-size: 14px;
+    font-weight: 700;
+    background-color: #ffffff;
+    color: #13294b;
+    border-radius: 5px;
+    padding: 1px 2px;
+    border-style: outset;
+}

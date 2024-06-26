@@ -12,10 +12,17 @@ session_set_cookie_params(['httponly' => true]);
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
+<<<<<<< HEAD
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <script src="/TechSUAS/js/suporte.js"></script>
+=======
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+    <script src="/TechSUAS/js/suporte.js"></script>
+>>>>>>> 4dd675896316f0d4654c8d93cb961a2b9490c04e
 </head>
 
 <body>
@@ -31,6 +38,7 @@ session_set_cookie_params(['httponly' => true]);
   $stmt_login->bindValue(":usuario", $usuario);
   $stmt_login->execute();
 
+<<<<<<< HEAD
   $dados = $stmt_login->fetch(PDO::FETCH_ASSOC);
   if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
     $setor_ = $dados['setor'];
@@ -144,3 +152,134 @@ session_set_cookie_params(['httponly' => true]);
 </body>
 
 </html>
+=======
+$dados = $stmt_login->fetch(PDO::FETCH_ASSOC);
+if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
+    if (password_verify($senha_login, $dados['senha'])) {
+      $_SESSION['name_sistema'] = $dados['name_sistema'];
+        $_SESSION['sistema_id'] = $dados['sistema_id'];
+        $_SESSION['user_usuario'] = $dados['usuario'];
+        $_SESSION['cargo_usuario'] = $dados['cargo'];
+        $_SESSION['municipio'] = $dados['municipio'];
+        $_SESSION['nome_usuario'] = $dados['nome'];
+        $_SESSION['id_cargo'] = $dados['id_cargo'];
+        $_SESSION['apelido'] = $dados['apelido'];
+        $_SESSION['funcao'] = $dados['funcao'];
+        $_SESSION['setor'] = $dados['setor'];
+        $_SESSION['cpf'] = $dados['cpf'];
+
+        if ($dados['acesso'] == 1) {
+            header("location:/TechSUAS/views/geral/primeiro_acesso");
+            exit();
+        }
+
+        $stmt_sistma = $pdo_1->prepare("SELECT * FROM sistemas WHERE id = :sis_id");
+        $stmt_sistma->bindValue(":sis_id", $_SESSION['sistema_id'], PDO::PARAM_INT);
+        $stmt_sistma->execute();
+
+        if ($dado_sys = $stmt_sistma->fetch(PDO::FETCH_ASSOC)) {
+            $sistema = $dado_sys['id'];
+
+            $stmt_setor = $pdo_1->prepare("SELECT * FROM setores WHERE id = :sis_id");
+            $stmt_setor->bindValue(":sis_id", $sistema, PDO::PARAM_INT);
+            $stmt_setor->execute();
+
+            if ($dados_sys = $stmt_setor->fetch(PDO::FETCH_ASSOC)) {
+                $sistemando = $dados_sys['instituicao'] . ' - ' . $dados_sys['nome_instit'];
+            }
+
+            if ($_SESSION['funcao'] == "0") {
+                require_once "conexao.php";
+                $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
+                $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
+                if ($sql_tbl_tudo_query->num_rows == 0) {
+                    ?>
+<script>
+  Swal.fire({
+    icon: "warning",
+    title: "ATENÇÃO",
+    html: `
+    <p>O seu banco de dados está vazio, aperte em OK e faça a importação do arquivo CSV extraído do CECAD 2.0.</p>
+    <p>Se ainda não extraiu <a href="https://cecad.cidadania.gov.br/painel03.php">clique aqui</a>. </p>
+    `,
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+    }
+  })
+</script>
+<?php
+} else {
+                    header("location:/TechSUAS/suporte/index");
+                    exit();
+                }
+            } elseif ($_SESSION['funcao'] == "1") {
+                require_once "conexao.php";
+                $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
+                $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
+                if ($sql_tbl_tudo_query->num_rows == 0) {
+                    ?>
+<script>
+Swal.fire({
+  icon: "warning",
+  title: "ATENÇÃO",
+  html: `
+  <p>O seu banco de dados está vazio, aperte em OK e faça a importação do arquivo CSV extraído do CECAD 2.0.</p>
+  <p>Se ainda não extraiu <a href="https://cecad.cidadania.gov.br/painel03.php">clique aqui</a>. </p>
+  `,
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+  }
+})
+</script>
+<?php
+} else {
+                    header("location:/TechSUAS/views/cadunico/index");
+                    exit();
+                }
+            } elseif ($_SESSION['funcao'] == "3") {
+              if ($_SESSION['name_sistema'] == "CONCESSAO"){
+                header("location:/TechSUAS/views/concessao/index");
+                exit();
+              }
+                header("location:/TechSUAS/views/cadunico/index");
+                exit();
+            }
+        }
+    } else {
+        ?>
+<script>
+Swal.fire({
+  icon: "error",
+  title: "ERRO",
+  text: "Senha ou nome de usuário incorreto!",
+  confirmButtonText: "OK",
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.href = "/TechSUAS/"
+  }
+})
+</script>
+<?php
+}
+} else {
+    ?>
+<script>
+Swal.fire({
+  icon: "error",
+  title: "ERRO",
+  text: "Senha ou nome de usuário incorreto!",
+  confirmButtonText: "OK",
+}).then((result) => {
+  if (result.isConfirmed) {
+    window.location.href = "/TechSUAS/"
+  }
+})
+</script>
+<?php
+}
+?>
+</body>
+</html>
+>>>>>>> 4dd675896316f0d4654c8d93cb961a2b9490c04e
