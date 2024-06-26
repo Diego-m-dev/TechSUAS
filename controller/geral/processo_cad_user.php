@@ -40,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if ($verifica_usuario->num_rows > 0) {
         // Se o nome de usuário já está em uso, exibe uma mensagem e redirecione de volta ao login
-?>
+        ?>
 <script>
   Swal.fire({
   icon: "info",
@@ -74,16 +74,16 @@ exit();
         $municipio = $cpf_coord;
         $municipio_id = $_SESSION['sistema_id'];
     }
-    
+
     // Caso o Nome do Usuário seja unico será adicionado ao SQL
-    $smtp = $conn_1->prepare("INSERT INTO operadores (municipio, nome, usuario, senha, setor, funcao, email, acesso, sistema_id) VALUES (?,?,?,?,?,?,?,?,?)");
+    $smtp = $conn_1->prepare("INSERT INTO operadores (municipio, nome, usuario, senha, setor, funcao, email, acesso) VALUES (?,?,?,?,?,?,?,?)");
 
     // Verifica se a preparação foi bem-sucedida
     if ($smtp === false) {
         die('Erro na preparação SQL: ' . $conn_1->error);
     }
     $acesso = "1";
-    $smtp->bind_param("sssssssss", $municipio, $user_maiusc, $nomeUsuario, $senha_hashed, $setor, $funcao, $email, $acesso, $municipio_id);
+    $smtp->bind_param("ssssssss", $municipio, $user_maiusc, $nomeUsuario, $senha_hashed, $setor, $funcao, $email, $acesso);
 
     if ($smtp->execute()) {
         if ($_SESSION['setor'] == "SUPORTE") {
