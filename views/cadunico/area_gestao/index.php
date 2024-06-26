@@ -86,106 +86,15 @@ if ($_SESSION['funcao'] != '1') {
             </div>
         </div> 
         <div class="mural_stats">
-            <div class="header">
-                <h1>Estatisticas Geral - Cadunico (cidade)</h1>
-            </div>
-            <div class="row">
-
-                <div class="card">
-                    <div class="card-header">
-                        <p>CADASTROS NO MUNICIPIO:</p>
-                    </div>
-
-                    <div class="card-content">
-                        <div class="card-value">
-                            <p>CADASTROS DATA DIVERGENTE:</p>
-                            <p>CADASTROS SEM CPF:</p>
-                            <p>CADASTROS SEM RF:</p>
-                        </div>
-                    </div>
-                    <span> icon </span>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <p>FAMILIAS COM BENEFÍCIOS:</p>
-                    </div>
-
-                    <div class="card-content">
-                        <div class="card-value">
-                            <p>UNIPESSOAIS:</p>
-                            <p>PENDENCIAS:</p>
-                            <p>VALE GAS:</p>
-                            <p>PBF</p>
-                        </div>
-                    </div>
-                    <span> icon </span>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        TOTAL DE VISITAS:
-                    </div>
-
-                    <div class="card-content">
-                        <div class="card-value">
-                            <p>PUBLICO 3:</p>
-                            <p>AV RENDA:</p>
-                            <p>REVISAO:</p>
-                            <p>EXCLUSAO:</p>
-                        </div>
-                    </div>
-                    <span> icon </span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="card">
-                    <div class="card-header">
-                        INDICADOR 5
-                    </div>
-
-                    <div class="card-content">
-                        <div class="card-value">
-                            xxxx
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        INDICADOR 6
-                    </div>
-
-                    <div class="card-content">
-                        <div class="card-value">
-                            xxxx
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        INDICADOR 7
-                    </div>
-
-                    <div class="card-content">
-                        <div class="card-value">
-                            xxxx
-                        </div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <div class="card-header">
-                        INDICADOR 8
-
-                        <div class="card-content">
-                            <div class="card-value">
-                                xxxx
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
+            <div class="pendencias-gerais">
+                <h2>PENDENCIAS GERAIS</h2>
+                <ul>
+                    <li>CADASTROS ATUALIZADOS COM DATAS DIVERGENTES</li>
+                    <li>CADASTROS SEM RESPONSAVEL FAMILIAR</li>
+                    <li>CADASTROS SEM CPF</li>
+                    <li>VISITAS REALIZADAS SEM RELATORIO</li>
+                    <li>AVERIGUAÇÕES (UNIPESSOAIS - RENDA - P3)</li>
+                </ul>
             </div>
         </div>
 
@@ -283,32 +192,69 @@ if ($_SESSION['funcao'] != '1') {
                                 } else {
                                     $entrevis = $linha['nom_entrevistador_fam'];
                                 }
-                                echo $entrevis;
-                                ?></td>
+                                echo $entrevis; ?>
+                                </td>
                                 <td><?php echo $linha['soma_entrev_cad']; ?></td>
-                                <td>
-                                    <form action="/TechSUAS/controller/cadunico/area_gestor/detalhe_entrevistador" method="post"
-                                        style="display:inline;">
-                                        <input type="hidden" name="detalhe" value="<?php echo $linha['nom_entrevistador_fam']; ?>">
-                                        <button type="submit" target="_blank">VER</button>
-                                    </form>
+                                <td><a
+                                        href="resultado?nome_entrevistador=<?php echo $linha['nom_entrevistador_fam']; ?>">Filtrar</a>
                                 </td>
                             </tr>
-                            <?php
-                        }
-                        ?>
+
+                        <?php } ?>
                     </table>
-                    <?php
-                }
+                <?php }
+            } else {
+                $smtp_filtros = "SELECT COUNT(*) AS soma_entrev_cad, nom_entrevistador_fam 
+        FROM tbl_tudo 
+        WHERE nom_entrevistador_fam LIKE '%$entrevistador%'
+        GROUP BY nom_entrevistador_fam 
+        ORDER BY nom_entrevistador_fam ASC";
+
+                $resultado_entrev = $conn->query($smtp_filtros);
+
+                if ($resultado_entrev->num_rows > 0) {
+
+                    ?>
+                    <table border="1">
+                        <tr>
+                            <th>Entrevistador</th>
+                            <th>Quantidade total</th>
+                            <th>Ação</th>
+                        </tr>
+                        <?php
+                        while ($linha = $resultado_entrev->fetch_assoc()) {
+                            ?>
+                            <tr>
+                                <td><?php echo $linha['nom_entrevistador_fam']; ?></td>
+                                <td><?php echo $linha['soma_entrev_cad']; ?></td>
+                                <td><a
+                                        href="resultado?nome_entrevistador=<?php echo $linha['nom_entrevistador_fam']; ?>">Filtrar</a>
+                                </td>
+                            </tr>
+
+                        <?php } ?>
+                    </table>
+                <?php }
+
             }
-        } elseif (!isset($_POST['btn_filtro_familia']) && isset($_POST['btn_filtro_benef']) && !isset($_POST['btn_filtro_entrev'])) {
-
-            //BENEFÍCIOS
-            echo $_POST['nis_benef'];
         }
-
         ?>
     </div>
+    <script>
+        $(document).ready(function () {
+            $('#btn_benef').on('click', function () {
+                $('#simples').hide();
+                $('#beneficio').show();
+                $('#entrevistadores').hide();
+            });
+
+            $('#btn_entrevistadores').on('click', function () {
+                $('#simples').hide();
+                $('#beneficio').hide();
+                $('#entrevistadores').show();
+            });
+        });
+    </script>
 </body>
 
 </html>
