@@ -7,6 +7,7 @@ body {
     background-attachment: fixed;
     overflow: auto;
     font-family: "Inter", sans-serif;
+    color: #13294b;
 }
 
 * {
@@ -30,4 +31,7 @@ span {
     border-radius: 5px;
     padding: 1px 2px;
     border-style: outset;
+}
+h2{
+    color: #13294b;
 }

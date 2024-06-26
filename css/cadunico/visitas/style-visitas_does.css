@@ -8,7 +8,7 @@ body {
 }
 
 button,a{
-    text-transform: uppercase;
+    text-transform:capitalize;
     text-decoration: none;
     font-size: 13px;
     border-radius: 5px;
@@ -32,10 +32,12 @@ button:hover
 }
 table {
     width: 100%;
-    border-collapse: collapse;
     page-break-inside: avoid; /* Evita quebra de página dentro da tabela */
+    line-height: 1.5;
 }
-
+.titulo{
+    display: none;
+}
 @media print {
     body::after {
         content: none !important;
@@ -52,5 +54,30 @@ table {
     button,a{
         display: none;
     }
+    .titulo {
+        font-size: 10px;
+        position: fixed; /* Posicionamento fixo */
+        top: 30px; /* Posição no topo */
+        right: 20px; /* Distância da direita */
+        transform: translateY(50%); /* Ajuste para o centro vertical */
+        display: block; /* Garante que seja exibido como bloco */
+        white-space: nowrap; /* Impede que o texto quebre a linha */
+    }
+    .rodape {
+        font-family: "Inter", sans-serif;
+        font-size: 10px;
+        color: #666;
+        position: fixed;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    body {
+        counter-reset: page;
+    }
 
+    .rodape::after {
+        content: "Página " counter(page);
+        counter-increment: page;
+    }
 }

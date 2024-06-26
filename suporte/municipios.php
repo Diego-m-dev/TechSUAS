@@ -21,7 +21,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/suporte.js"></script>
-    <title>Suporte</title>
+    <title>Cadastros Iniciais</title>
 </head>
 
 <body>
@@ -38,7 +38,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
   <div id="formCadMunicipio">
     <form action="/TechSUAS/suporte/controller/salva_mun.php" method="POST" id="form_municipio" class="esconde_form">
     <h2>Cadastro de Municípios</h2>
-    Código IBGE:
+    <label for="">Código IBGE:</label>
     <input type="number" id="cod_ibge" name="cod_ibge"/>
 
     <select name="uf" id="uf" required>
@@ -71,13 +71,13 @@ if ($_SESSION['setor'] != "SUPORTE") {
       <option value="SE">Sergipe</option>
       <option value="TO">Tocantins</option>
     </select>
-    Nome do Município:
+    <label for="">Nome do Município:</label>
     <input type="text" name="nome_mun" class="maiusculo" id="nome_mun" oninput="sempre_maiusculo(this)" />
-    CNPJ Prefeitura:
+    <label for="">CNPJ Prefeitura:</label>
     <input type="text" name="cnpj_prefeitura" id="cnpj_prefeitura"/>
-    Nome Prefeito:
+    <label for="">Nome Prefeito:</label>
     <input type="text" name="nome_prefeito" id="nome_prefeito" class="maiusculo"  oninput="sempre_maiusculo(this)" />
-    Nome Vice-Prefeito:
+    <label for="">Nome Vice-Prefeito:</label>
     <input type="text" name="nome_vice" id="nome_vice" class="maiusculo"  oninput="sempre_maiusculo(this)" />
 
         <button type="submit">Cadastrar</button>
