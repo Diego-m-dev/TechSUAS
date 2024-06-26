@@ -1,6 +1,7 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 
 $nis_from = $_POST['nis_exc_pessoa'];
@@ -13,11 +14,30 @@ $sql_declar->execute();
 <html>
 <head>
     <title>Ficha de exclusão de pessoa</title>
+
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_pesso.css">
+    <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_pesso.css"> -->
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
+
+    
+<?php
+    if ($_SESSION['name_sistema'] == "SUPORTE"){
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
+<?php
+
+    } elseif ($_SESSION['name_sistema'] == "CADUNICO") {
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
+<?php
+    }
+    ?>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
@@ -26,10 +46,9 @@ $sql_declar->execute();
         <span>TechSUAS-Cadastro Único </span><?php echo $data_cabecalho; ?>
     </div>
 </div>
-<div id="form-container">
-    <div id="title">ANEXO II - FICHA DE EXCLUSÃO DE PESSOA</div>
-    <div id="subtitle">(Redação dada pela Portaria MDS nº 860, de 14 de fevereiro de 2023)</div>
-
+  <div class="container" >
+<h1 class="center1">ANEXO II - FICHA DE EXCLUSÃO DE PESSOA</h1>
+<div class="assinatura">(Redação dada pela Portaria MDS nº 860, de 14 de fevereiro de 2023)</div>
     <?php
     if ($sql_declar->rowCount() > 0) {
         $dados_declar = $sql_declar->fetch(PDO::FETCH_ASSOC);
@@ -50,19 +69,19 @@ $sql_declar->execute();
     ?>
     <label for="codigoFamiliar">CODIGO FAMILIAR:</label>
     <input type="text" id="codigoFamiliar" name="codigoFamiliar" value="<?php echo $cod_familiar_formatado; ?>" readonly>
-
+  <br>
     <label for="nisResponsavel">NIS DO RESPONSÁVEL FAMILIAR:</label>
     <input type="text" id="nisResponsavel" value="<?php echo $nis_responsavel_formatado; ?>" name="nisResponsavel">
-    
+    <br>
     <label for="nomePessoa">NOME DA PESSOA:</label>
     <input type="text" id="nomePessoa" name="nomePessoa" value="<?php echo $dados_declar['nom_pessoa']; ?>" readonly>
-
+<br>
     <label for="nisPessoa">NIS DA PESSOA:</label>
     <input type="text" id="nisPessoa" value="<?php echo $dados_declar['num_nis_pessoa_atual']; ?>" name="nisPessoa">
-    
+    <br>
     <label for="dataExclusao">DATA DA EXCLUSÃO:</label>
     <input type="text" id="dataExclusao" name="dataExclusao" readonly>
-
+<br><br>
     <label for="motivo">Motivo:</label>
     <div class="impr">
         <select id="motivo" class="parecer" name="motivo" onchange="buscarTextoMotivo()">
@@ -78,22 +97,25 @@ $sql_declar->execute();
         <span id="numeroMotivoSelecionado"></span>
         <span id="textoMotivo" name="justified-text">Texto do motivo selecionado será exibido aqui.</span>
     </div>
-
+<br>
     <label for="parecer">PARECER TECNICO:</label>
-    <textarea id="parecer" name="parecer"></textarea>
+    <textarea id="parecer" name="parecer" onblur="showParecer()"></textarea>
+    <p><span id="show_parecer"></span></p>
     <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
     <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
-
-    <div id="right-align">São Bento do Una - PE, <?php echo $data_formatada; ?>.</div>
-
-    <div class="signature-line">_______________________________________________________<br>Assinatura do Responsável pela Unidade Familiar (RUF) (exceto no caso 3)</div>
-    <div class="signature-line">_______________________________________________________<br>Assinatura do entrevistador</div>
-    <div class="signature-line">_______________________________________________________<br>Assinatura do responsável pelo cadastramento</div>
-    <div class="signature-line">_______________________________________________________<br>Assinatura do Gestor do CadÚnico (nos casos 4 e 5)</div>
-
+<br>
+    <div class="cidade_data">
+      <?php echo $cidade; ?><?php echo $data_formatada; ?>.
+  </div><br><br><br>
+    <div class="assinatura">_________________________________________________________________<br>Assinatura do Responsável pela Unidade Familiar (RUF) (exceto no caso 3)</div>
+    <div class="assinatura">_________________________________________________________________<br>Assinatura do entrevistador</div>
+    <div class="assinatura">_________________________________________________________________<br>Assinatura do responsável pelo cadastramento</div>
+    <div class="assinatura">_________________________________________________________________<br>Assinatura do Gestor do CadÚnico (nos casos 4 e 5)</div>
+<br><br>
     <div id="justified-text">
         <p>Caso o RF não saiba assinar, o entrevistador registra a expressão "A ROGO" e, a seguir, o nome do RF. (A ROGO é a expressão jurídica utilizada para indicar que a identificação, substituindo a assinatura, foi delegada a outra pessoa).</p>
     </div>
+  </div>
     <?php
     } else {
     ?>
@@ -183,6 +205,14 @@ $sql_declar->execute();
         textoMotivo.textContent = "Texto do motivo selecionado será exibido aqui."
     }
   }
+
+  function showParecer() {
+    var parecer = document.getElementById('parecer').value; // Obtém o valor do elemento parecer
+    $('#parecer').hide(); // Esconde o elemento parecer
+    $('#show_parecer').text(parecer); // Define o texto do elemento show_parecer como o valor de parecer
+    console.log(parecer); // Exibe o valor de parecer no console
+}
+
   </script>
   <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </body>
