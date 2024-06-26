@@ -31,6 +31,7 @@ $stmt_login->execute();
 $dados = $stmt_login->fetch(PDO::FETCH_ASSOC);
 if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
     if (password_verify($senha_login, $dados['senha'])) {
+      $_SESSION['name_sistema'] = $dados['name_sistema'];
         $_SESSION['sistema_id'] = $dados['sistema_id'];
         $_SESSION['user_usuario'] = $dados['usuario'];
         $_SESSION['cargo_usuario'] = $dados['cargo'];
@@ -67,7 +68,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
                 $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
                 $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
                 if ($sql_tbl_tudo_query->num_rows == 0) {
-?>
+                    ?>
 <script>
   Swal.fire({
     icon: "warning",
@@ -83,16 +84,16 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
   })
 </script>
 <?php
-                } else {
+} else {
                     header("location:/TechSUAS/suporte/index");
                     exit();
                 }
             } elseif ($_SESSION['funcao'] == "1") {
-              require_once "conexao.php";
-              $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
-              $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
-              if ($sql_tbl_tudo_query->num_rows == 0) {
-?>
+                require_once "conexao.php";
+                $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
+                $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
+                if ($sql_tbl_tudo_query->num_rows == 0) {
+                    ?>
 <script>
 Swal.fire({
   icon: "warning",
@@ -108,17 +109,21 @@ Swal.fire({
 })
 </script>
 <?php
-              } else {
-                  header("location:/TechSUAS/views/cadunico/index");
-                  exit();
+} else {
+                    header("location:/TechSUAS/views/cadunico/index");
+                    exit();
+                }
+            } elseif ($_SESSION['funcao'] == "3") {
+              if ($_SESSION['name_sistema'] == "CONCESSAO"){
+                header("location:/TechSUAS/views/concessao/index");
+                exit();
               }
-            } elseif ($_SESSION['funcao'] == "2") {
                 header("location:/TechSUAS/views/cadunico/index");
                 exit();
             }
         }
     } else {
-?>
+        ?>
 <script>
 Swal.fire({
   icon: "error",
@@ -132,9 +137,9 @@ Swal.fire({
 })
 </script>
 <?php
-    }
+}
 } else {
-?>
+    ?>
 <script>
 Swal.fire({
   icon: "error",
