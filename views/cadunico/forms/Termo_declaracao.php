@@ -71,8 +71,19 @@ $cod_familia = $dados_declar['cod_familiar_fam'];
 while ($membros = $resultado_valor_total->fetch_assoc()) {
 
         //formatando data de nascimento
-        $dataNasc_formatada = $membros['dta_nasc_pessoa'];
-        ?>
+        $dataNasc = $membros['dta_nasc_pessoa'];
+            if (!empty($dataNasc)) {
+                $formatando_data = DateTime::createFromFormat('Y-m-d', $dataNasc);
+                // Verifica se a data foi criada corretamente
+                if ($formatando_data) {
+                    $dataNasc_formatada = $formatando_data->format('d/m/Y');
+                } else {
+                    $dataNasc_formatada = "Data inválida.";
+                }
+            } else {
+                $dataNasc_formatada = "Data não fornecida.";
+            }
+?>
         <tr>
             <td><span id="nome" class="editable-field" contenteditable="true"><?php echo $membros['nom_pessoa']; ?></span></td>
             <td><span id="nome" class="editable-field" contenteditable="true"><?php echo $dataNasc_formatada; ?></span></td>
@@ -82,9 +93,9 @@ while ($membros = $resultado_valor_total->fetch_assoc()) {
                 <button onclick="removerLinha(this)">X</button>
             </td>
         </tr>
-        <?php
+<?php
 }
-    ?>
+?>
                 </tbody>
 
             </table>
