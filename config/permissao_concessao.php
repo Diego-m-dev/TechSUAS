@@ -1,5 +1,5 @@
 <?php
-    if ($_SESSION['setor'] != "CONCESSÃO" && $_SESSION['setor'] != "ADMINISTRATIVO E CONCESSÃO" && $_SESSION['setor'] != "SUPORTE") {
+    if ($_SESSION['name_sistema'] != "CONCESSAO" && $_SESSION['funcao'] != "0") {
         echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR ESSA TELA.";
         exit();
     }
