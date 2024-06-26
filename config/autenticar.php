@@ -65,7 +65,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
 
             if ($_SESSION['funcao'] == "0") {
                 require_once "conexao.php";
-                $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
+                $sql_tbl_tudo = "SELECT cod_familiar_fam FROM tbl_tudo";
                 $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
                 if ($sql_tbl_tudo_query->num_rows == 0) {
                     ?>
