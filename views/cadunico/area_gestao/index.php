@@ -2,7 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
-if ($_SESSION['funcao'] != '1') {
+if ($_SESSION['funcao'] != '0') {
     echo '<script>window.history.back()</script>';
     exit();
 }
@@ -18,6 +18,7 @@ if ($_SESSION['funcao'] != '1') {
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -84,17 +85,15 @@ if ($_SESSION['funcao'] != '1') {
                     </button>
                 </div>
             </div>
-        </div> 
+        </div>
         <div class="mural_stats">
-            <div class="pendencias-gerais">
-                <h2>PENDENCIAS GERAIS</h2>
-                <ul>
-                    <li>CADASTROS ATUALIZADOS COM DATAS DIVERGENTES</li>
-                    <li>CADASTROS SEM RESPONSAVEL FAMILIAR</li>
-                    <li>CADASTROS SEM CPF</li>
-                    <li>VISITAS REALIZADAS SEM RELATORIO</li>
-                    <li>AVERIGUAÇÕES (UNIPESSOAIS - RENDA - P3)</li>
-                </ul>
+            <h2>PENDENCIAS GERAIS</h2>
+            <div class="cont-a">
+                <a>CADASTROS ATUALIZADOS COM DATAS DIVERGENTES</a>
+                <a>CADASTROS SEM RESPONSAVEL FAMILIAR </a>
+                <a>CADASTROS SEM CPF </a>
+                <a>VISITAS RELIZADAS SEM RELATORIO</a>
+                <a>AVERIGUAÇÕES (UNIPESSOAIS - RENDA - P3)</a>
             </div>
         </div>
 
@@ -195,8 +194,7 @@ if ($_SESSION['funcao'] != '1') {
                                 echo $entrevis; ?>
                                 </td>
                                 <td><?php echo $linha['soma_entrev_cad']; ?></td>
-                                <td><a
-                                        href="resultado?nome_entrevistador=<?php echo $linha['nom_entrevistador_fam']; ?>">Filtrar</a>
+                                <td><a href="resultado?nome_entrevistador=<?php echo $linha['nom_entrevistador_fam']; ?>">Filtrar</a>
                                 </td>
                             </tr>
 
@@ -227,8 +225,7 @@ if ($_SESSION['funcao'] != '1') {
                             <tr>
                                 <td><?php echo $linha['nom_entrevistador_fam']; ?></td>
                                 <td><?php echo $linha['soma_entrev_cad']; ?></td>
-                                <td><a
-                                        href="resultado?nome_entrevistador=<?php echo $linha['nom_entrevistador_fam']; ?>">Filtrar</a>
+                                <td><a href="resultado?nome_entrevistador=<?php echo $linha['nom_entrevistador_fam']; ?>">Filtrar</a>
                                 </td>
                             </tr>
 
