@@ -14,39 +14,17 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
 if ($_SESSION['funcao'] == '0') {
-    echo '<script>window.location.href = "/TechSUAS/suporte/index"</script>';
-} elseif ($_SESSION['setor'] == $sistemando) {
+    header("location:/TechSUAS/suporte/index");
+    exit();
+} elseif ($_SESSION['name_sistema'] == "CADUNICO") {
     header("location:/TechSUAS/views/cadunico/index");
     exit();
-} elseif ($_SESSION['setor'] == 'CONCESSÃO') {
-    echo '<script>window.location.href = "/TechSUAS/views/concessao/"</script>';
-} elseif ($_SESSION['setor'] == 'ADMINISTRATIVO - SECRETÁRIA DE ASSISTÊNCIA SOCIAL') {
-    echo '<script>window.location.href = "/TechSUAS/views/administrativo/"</script>';
-} elseif ($_SESSION['setor'] == 'ADMINISTRATIVO E CONCESSÃO') {
-    ?>
-    <script>
-        Swal.fire({
-            html:`
-            <h2>PERFIL PERMISSIONADO PARA DOIS SETORES</h2>
-            <div class="visitas">
-                <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/';">
-                    CONCESSÃO
-                </a>
-            </div>
-            <div class="folha">
-                <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/';">
-                    ADMINISTRATIVO
-                </a>
-            </div>
-            `,
-        }).then((result) => {
-            if(result.isConfirmed) {
-                window.location.href = "/TechSUAS/config/logout"
-            }
-        })
-    </script>
-    <?php
-}
+} elseif ($_SESSION['name_sistema'] == 'CONCESSAO') {
+    header("location:/TechSUAS/views/concessao/index");
+    exit();
+} else {
+    header("location:/TechSUAS/config/logout");
+} 
 ?>
 </body>
 </html>
