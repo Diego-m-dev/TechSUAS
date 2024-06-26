@@ -1,6 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -19,6 +20,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
+<div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único </span><?php echo $data_cabecalho; ?><span>Página</span><span class="page-number"></span>
+        </div>
+    </div>
 <?php
 if (!isset($_POST['excluir'])) {
     ?>
@@ -191,6 +197,29 @@ if (!isset($_POST['excluir'])) {
 }
 echo '</div>';
 ?>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Cria um elemento span para armazenar o número da página
+        var pageNumber = document.createElement("span");
+        pageNumber.classList.add("page-number");
+        
+        // Encontra o rodapé e adiciona o span do número da página a ele
+        var footer = document.querySelector(".rodape");
+        if (footer) {
+            footer.appendChild(pageNumber);
+        }
+    });
+
+    window.addEventListener("beforeprint", function() {
+        var totalPages = document.querySelectorAll('.page').length;
+        var pageNumbers = document.querySelectorAll('.page-number');
+
+        pageNumbers.forEach((pageNumber, index) => {
+            pageNumber.textContent = (index + 1) + " de " + totalPages;
+        });
+    });
+</script>
 <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </body>
 </html>
