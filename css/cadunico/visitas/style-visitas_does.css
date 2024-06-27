@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 body {
     font-family: "Inter", sans-serif;
     font-size: 14px;
@@ -7,8 +8,8 @@ body {
     padding: 20px;
 }
 
-button,a{
-    text-transform:capitalize;
+button, a {
+    text-transform: capitalize;
     text-decoration: none;
     font-size: 13px;
     border-radius: 5px;
@@ -21,63 +22,48 @@ button,a{
     margin-top: 10px;
     margin-right: 20px;
 }
-.tudo{
-    padding: 10px;
-}
-button:hover
-,a:hover{
+
+button:hover, a:hover {
     background-color: #3b82f6;
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }
+
 table {
     width: 100%;
     page-break-inside: avoid; /* Evita quebra de página dentro da tabela */
     line-height: 1.5;
 }
-.titulo{
+
+.titulo {
     display: none;
 }
+
 @media print {
     body::after {
         content: none !important;
         /* Oculta o conteúdo após o corpo do documento */
-        
     }
+
     @page {
-        size: auto;
-        /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
-        margin: 0;
-        padding: 5px;
-        /* opcional: define margens da página */
+        size: A4; /* Define o tamanho da página como A4 */
+        margin: 5mm 0mm;
+        padding: 0px 0px;
+        page-break-after: always;
     }
+
     button,a{
         display: none;
     }
     .titulo {
+        display: block;
         font-size: 10px;
-        position: fixed; /* Posicionamento fixo */
-        top: 30px; /* Posição no topo */
-        right: 20px; /* Distância da direita */
-        transform: translateY(50%); /* Ajuste para o centro vertical */
-        display: block; /* Garante que seja exibido como bloco */
-        white-space: nowrap; /* Impede que o texto quebre a linha */
-    }
-    .rodape {
-        font-family: "Inter", sans-serif;
-        font-size: 10px;
-        color: #666;
-        position: fixed;
-        bottom: 10px;
-        left: 50%;
-        transform: translateX(-50%);
-    }
-    body {
-        counter-reset: page;
-    }
-
-    .rodape::after {
-        content: "Página " counter(page);
-        counter-increment: page;
+        position: absolute;
+        /* Posicionamento fixo */
+        top: 30px;
+        /* Posição no topo */
+        right: 20px;
+        /* Distância da direita */
+        transform: translateY(50%);
     }
 }
