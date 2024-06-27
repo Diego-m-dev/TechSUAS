@@ -1,3 +1,9 @@
+<?php
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declaracao/create_moth.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -6,8 +12,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <style>
+    #noformat, #noformat * {
+      all: unset;
+      display: revert; /* Reverte o display ao valor padrão para cada elemento */
+  }
+    </style>
+
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_print_visita.css">
+<?php
+    if ($_SESSION['name_sistema'] == "SUPORTE"){
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
+<?php
+
+    } elseif ($_SESSION['municipio'] == "2613008") {
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
+<?php
+    }
+?>
+
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -21,12 +48,15 @@
 </head>
 
 <body>
-    <div class="tudo">
-    <h3>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h3>
-    <?php
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declaracao/create_moth.php';
+<div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único</span> - <?php echo $data_cabecalho; ?>
+        </div>
+    </div>
 
+    <div class="tudo">
+    <h1>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h1><br>
+    <?php
     $id_visita = $_POST["id_visita"];
 
     //data criada com formato 'DD de mmmm de YYYY'
@@ -73,7 +103,7 @@
                     <span class="cidade_data">São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</span>
 
             <!-- MOSTRAR OS DADOS DA FAMÍLIA DE ACORDO COM A TBL_TUDO-->
-            <h4>DADOS DA FAMÍLIA</h4>
+            <h3>DADOS DA FAMÍLIA</h3>
 <?php
             //CÓDIGO FAMILIAR SENDO FORMATADO E EXIBIDO
             $codigo_formatado = substr_replace(str_pad($dados_tudo['cod_familiar_fam'], 11, '0',STR_PAD_LEFT), '-', 9, 0);
@@ -99,9 +129,9 @@
             $cep = substr_replace($dados_tudo['num_cep_logradouro_fam'], '-', 5, 0);
 ?>
             <!--ENDEREÇO DA FAMÍLIA-->
-            <h4>ENDEREÇO DA FAMÍLIA</h4>
+            <h3>ENDEREÇO DA FAMÍLIA</h3><br>
             <?php echo '<div class="end_familia">'; ?>
-            <table class="table_alin">
+            <table class="table_alin" id="noformat" style="margin: -0.8cm">
         <tr>
             <td class="title_line" colspan="8">1.11 - Localidade:</td>
             <td colspan="17"><?php echo '<span id="localidade">'. $dados_tudo['nom_localidade_fam'] . '</span>'; ?></td>
@@ -123,89 +153,88 @@
             <td colspan="5"><?php echo '<span id="complemento_numero">'. $dados_tudo['des_complemento_fam'] . '</span>'; ?></td>
         </tr>
         <tr>
-            <td colspan="8">1.17 - Complemento Adicional:</td>
-            <td colspan="5"><?php echo '<span id="complemento_adicional">'. $dados_tudo['des_complemento_adic_fam'] . '</span>'; ?></td>
-            <td colspan="5">1.18 - CEP:</td>
-            <td colspan="7"><?php echo '<span id="cep">'. $cep . '</span>'; ?></td>
+            <td colspan="12">1.17 - Complemento Adicional:</td>
+            <td colspan="8"><?php echo '<span id="complemento_adicional">'. $dados_tudo['des_complemento_adic_fam'] . '</span>'; ?></td>
+            <td colspan="2">1.18 - CEP:</td>
+            <td colspan="3"><?php echo '<span id="cep">'. $cep . '</span>'; ?></td>
         </tr>
         <tr>
-            <td colspan="10">1.20 - Referência para Localização:</td>
-            <td colspan="15"><?php echo '<span id="referencia_localizacao">'. $dados_tudo['txt_referencia_local_fam'] . '</span>'; ?></td>
+            <td colspan="12">1.20 - Referência para Localização:</td>
+            <td colspan="13"><?php echo '<span id="referencia_localizacao">'. $dados_tudo['txt_referencia_local_fam'] . '</span>'; ?></td>
         </tr>
-    </table>
+    </table><br>
             <?php echo '</div>'; ?>
             <!-- EXIBIR CADA MEMBRO DA FAMÍLIA-->
-            <h4>COMPONENTES DA FAMÍLIA</h4><hr>
+            <h3>COMPONENTES DA FAMÍLIA</h3><hr>
 <?php
             if ($sql_familia_pessoa_query->num_rows == 0) {
                 //NENHUM MEMBRO FAMILIAR ENCONTRADO
             } else {
                 while ($member = $sql_familia_pessoa_query->fetch_assoc()) {
 
-                                $parentesco_map = [
-                                    1 => "RESPONSAVEL FAMILIAR",
-                                    2 => "CONJUGE OU COMPANHEIRO",
-                                    3 => "FILHO(A)",
-                                    4 => "ENTEADO(A)",
-                                    5 => "NETO(A) OU BISNETO(A)",
-                                    6 => "PAI OU MÃE",
-                                    7 => "SOGRO(A)",
-                                    8 => "IRMÃO OU IRMÃ",
-                                    9 => "GENRO OU NORA",
-                                    10 => "OUTROS PARENTES",
-                                    11 => "NÃO PARENTE"
-                                ];
+  $parentesco_map = [
+    1 => "RESPONSAVEL FAMILIAR",
+    2 => "CONJUGE OU COMPANHEIRO",
+    3 => "FILHO(A)",
+    4 => "ENTEADO(A)",
+    5 => "NETO(A) OU BISNETO(A)",
+    6 => "PAI OU MÃE",
+    7 => "SOGRO(A)",
+    8 => "IRMÃO OU IRMÃ",
+    9 => "GENRO OU NORA",
+    10 => "OUTROS PARENTES",
+    11 => "NÃO PARENTE"
+  ];
 
-                                echo '<span class="parentesco">' . $parentesco_map[$member['cod_parentesco_rf_pessoa']] . '</span><br>' ?? "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
-                                echo '4.02 - Nome Completo: <span class="nome_completo">' . $member['nom_pessoa'] . '</span><br>';
-                                echo '4.03 - NIS: <span class="nis">' . $member['num_nis_pessoa_atual'] . '</span>';
+          echo '<span class="parentesco">' . $parentesco_map[$member['cod_parentesco_rf_pessoa']] . '</span><br>' ?? "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
+          echo '4.02 - Nome Completo: <span class="nome_completo">' . $member['nom_pessoa'] . '</span><br>';
+          echo '4.03 - NIS: <span class="nis">' . $member['num_nis_pessoa_atual'] . '</span>';
 
-                                $data_nasc = $member['dta_nasc_pessoa'];
-                                if (!empty($data_nasc)) {
-                                    $formatando_data = DateTime::createFromFormat('Y-m-d', $data_nasc);
-                                    // Verifica se a data foi criada corretamente
-                                    if ($formatando_data) {
-                                        $data_formatada_nasc = $formatando_data->format('d/m/Y');
-                                    } else {
-                                        $data_formatada_nasc = "Data inválida.";
-                                    }
-                                } else {
-                                    $data_formatada_nasc = "Data não fornecida.";
-                                }
-                                echo '4.06 - Data de Nascimento: <span class="data_nascimento">' . $data_formatada_nasc . '<hr></span>';
-                }
-            }
+          $data_nasc = $member['dta_nasc_pessoa'];
+          if (!empty($data_nasc)) {
+            $formatando_data = DateTime::createFromFormat('Y-m-d', $data_nasc);
+            // Verifica se a data foi criada corretamente
+          if ($formatando_data) {
+            $data_formatada_nasc = $formatando_data->format('d/m/Y');
+          } else {
+            $data_formatada_nasc = "Data inválida.";
+          }
+        } else {
+          $data_formatada_nasc = "Data não fornecida.";
+        }
+          echo '4.06 - Data de Nascimento: <span class="data_nascimento">' . $data_formatada_nasc . '<hr></span>';
+      }
+    }
 ?>
             <!--AREA DAS INFORMAÇÕES DO ENTREVISTADOR-->
-            <h4>OBSERVAÇÕES DO ENTREVISTADOR</h4>
+            <h3>OBSERVAÇÕES DO ENTREVISTADOR</h3>
             <h4>Situação</h4>
 <?php
-        $acao_map = [
-            1 => "ATUALIZAÇÃO REALIZADA",
-            2 => "NÃO LOCALIZADO",
-            3 => "FALECIMENTO DO RESPONSÁVEL FAMILIAR",
-            4 => "A FAMÍLIA RECUSOU ATUALIZAR",
-            5 => "ATUALIZAÇÃO NÃO REALIZADA"
-        ];
+    $acao_map = [
+        1 => "ATUALIZAÇÃO REALIZADA",
+        2 => "NÃO LOCALIZADO",
+        3 => "FALECIMENTO DO RESPONSÁVEL FAMILIAR",
+        4 => "A FAMÍLIA RECUSOU ATUALIZAR",
+        5 => "ATUALIZAÇÃO NÃO REALIZADA"
+    ];
 
-        echo '<span id="situacao">'. $acao_map[$dadosv['acao']]. '</span>' ?? "SEM MOTIVO";
+    echo '<span id="situacao">'. $acao_map[$dadosv['acao']]. '</span>' ?? "SEM MOTIVO";
 ?>
 
-            <h4>Resumo da visita</h4>
+    <h4>Resumo da visita</h4>
 <?php
-        $texto_paragrafo = str_replace("<br />", '</p><p id="resumo_visita">', $dadosv['parecer_tec']);
-        echo '<p id="resumo_visita">' . $texto_paragrafo . '</p>';
+    $texto_paragrafo = str_replace("<br />", '</p><p id="resumo_visita">', $dadosv['parecer_tec']);
+    echo '<p id="resumo_visita">' . $texto_paragrafo . '</p>';
 ?>
-                </form>
+    </form>
         <script>
         document.addEventListener('DOMContentLoaded', function () {
             imprimirParecer()
         })
         </script>
 <?php
-        } else {
-
-            //CASO NÃO HAJA DADOS DA FAMÍLIA EM TBL_TUDO UM FORMULÁRIO PARA PREENCHIMENTO MANUAL SERÁ EXIBIDO
+    } else {
+    //CASO NÃO HAJA DADOS DA FAMÍLIA EM TBL_TUDO UM FORMULÁRIO PARA PREENCHIMENTO MANUAL SERÁ EXIBIDO
 ?>
             <!-- INICIA O FORMULÁRIO PARA CONFERIR OS DADOS E POSTERIORMENTE IMPRIMIR -->
             <form id="visitaForm">
@@ -215,7 +244,7 @@
             <span class="cidade_data">São Bento do Una - PE, <?php echo $data_formatada_at; ?>.</span>
 
             <!-- MOSTRAR OS DADOS DA FAMÍLIA DE ACORDO COM A TBL_TUDO-->
-            <h4>DADOS DA FAMÍLIA</h4>
+            <h3>DADOS DA FAMÍLIA</h3>
 <?php
             $codigo_fami = substr_replace(str_pad($codfam, 11, "0", STR_PAD_LEFT), '-', 9, 0);
             echo 'Código familiar: <span id="codigo_familiar"><span id="titulo" class="editable-field" contenteditable="true" >'.$codigo_fami.'</span></span>';
@@ -239,7 +268,7 @@
                 echo 'Renda per capita da família: <span id="renda_per_capita">R$ <span class="editable-field" contenteditable="true" ></span>,00 </span>';
 
 ?>
-            <h4>ENDEREÇO DA FAMÍLIA</h4>
+            <h3>ENDEREÇO DA FAMÍLIA</h3>
     <table>
 <!--L1--><tr>
             <td class="title_line" colspan="5">1.11 - Localidade:</td>
@@ -272,14 +301,14 @@
             <td colspan="9"><?php echo '<span id="referencia_localizacao" class="editable-field" contenteditable="true" ></span>'; ?></td>
         </tr>
     </table>
-            <h4>INFORMAÇÕES DO RESPONSÁVEL PELA UNIDADE FAMILIAR</h4>
+            <h3>INFORMAÇÕES DO RESPONSÁVEL PELA UNIDADE FAMILIAR</h3>
 <?php
         echo '<hr>4.02 - Nome Completo: <span id="nome_completo" class="editable-field" contenteditable="true" ></span>';
         echo '4.03 - NIS: <span id="nis" class="editable-field" contenteditable="true" ></span>';
         echo '4.06 - Data de Nascimento: <span id="data_nascimento" class="editable-field" contenteditable="true" ></span><hr>';
         
 ?>
-            <h4>OBSERVAÇÕES DO ENTREVISTADOR</h4>
+            <h3>OBSERVAÇÕES DO ENTREVISTADOR</h3>
             <h4>Situação</h4>
 <?php
         $acao_map = [
@@ -295,7 +324,7 @@
             <h5>Resumo da visita</h5>
 <?php   
             echo '<div">';
-            echo '<span id="resumo_visita">'. $dadosv['parecer_tec']. '</span>';
+            echo '<p><span id="resumo_visita">'. $dadosv['parecer_tec']. '</span></p>';
             echo '</div">';
 ?>
 <button type="button" onclick="salvaCodigoEditado(); imprimirParecer()">IMPRIMIR</button>
@@ -306,7 +335,12 @@
 <?php
 
         }
+?>
+<br><br>
+      <div class="assinatura">_________________________________________________________________<br>Assinatura do Entrevistador</div><br><br>
+      <div class="assinatura">_________________________________________________________________<br>Assinatura do Responsável</div>
 
+<?php
     } else {
 
     }
