@@ -46,13 +46,13 @@ while ($d = $result_sql_ano->fetch_assoc()) {
     $anos[] = $d['ano_form'];
 }
 ?>
-            <div id="somaCaracteristicas"></div>
+  <div id="somaCaracteristicas"></div>
 
-            <form method="POST" id="filtroForm">
-                <label for="ano">Ano:</label>
-                <select name="ano" id="ano" required>
-                    <option value="" disabled selected hidden>Selecione</option>
-                    <?php
+  <form method="POST" id="filtroForm">
+      <label for="ano">Ano:</label>
+      <select name="ano" id="ano" required>
+          <option value="" disabled selected hidden>Selecione</option>
+          <?php
 foreach ($anos as $ano) {
     echo "<option value='$ano'>$ano</option>";
 }
@@ -175,7 +175,7 @@ foreach ($valor_total_mes as $total_concessao_mes) {
                         </thead>
 
                         <?php
-while ($row = $result->fetch_assoc()) {
+                while ($row = $result->fetch_assoc()) {
                     $valor_formatado1 = number_format($row['valor_total'], 2, ',', '.');
                     echo "<tbody>";
                     echo "<td>" . $row['num_form'] . "/" . $row['ano_form'] . "</td>";
