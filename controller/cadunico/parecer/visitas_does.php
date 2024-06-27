@@ -23,7 +23,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 <body>
 <div class="titulo">
         <div class="tech">
-            <span>TechSUAS-Cadastro Único </span><?php echo $data_cabecalho; ?><span>Página</span><span class="page-number"></span>
+            <span>TechSUAS-Cadastro Único </span><?php echo $data_cabecalho; ?>
         </div>
     </div>
 <?php
