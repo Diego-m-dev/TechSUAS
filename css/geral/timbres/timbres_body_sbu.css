@@ -1,5 +1,12 @@
   @media print {
     body {
+      position: absolute;
+      top: 0;
+      left: 0;
       background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+      background-repeat: repeat-y;
+      background-position: top left;
+      background-size: cover;
+      z-index: -1;
     }
   }
