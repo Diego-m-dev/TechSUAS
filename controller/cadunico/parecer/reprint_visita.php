@@ -1,3 +1,9 @@
+<?php
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declaracao/create_moth.php';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -5,9 +11,33 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+    #noformat, #noformat * {
+      all: unset;
+      display: revert; /* Reverte o display ao valor padrão para cada elemento */
+  }
+    #noformat2, #noformat2 * {
+      all: unset;
+      display: revert; /* Reverte o display ao valor padrão para cada elemento */
+    }
+</style>
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+    <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_print_visita.css"> -->
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_print_visita.css">
+<?php
+    if ($_SESSION['name_sistema'] == "SUPORTE"){
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
+<?php
+
+    } elseif ($_SESSION['municipio'] == "2613008") {
+?>
+<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
+<?php
+    }
+?>
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -21,10 +51,15 @@
 </head>
 
 <body>
+<div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único</span> - <?php echo $data_cabecalho; ?>
+        </div>
+    </div>
+
     <div class="tudo">
-    <h3>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h3>
+    <h1>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h1><br>
     <?php
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
     $id_visita = $_POST["id_visita"];
 
@@ -44,33 +79,15 @@
             $ano_parecer = $dadosv['ano_parecer'];
             $carimbo = $dadosv['created_at'];
             $date = new DateTime($carimbo);
-
-            $monthNames = [
-                'January' => 'janeiro',
-                'February' => 'fevereiro',
-                'March' => 'março',
-                'April' => 'abril',
-                'May' => 'maio',
-                'June' => 'junho',
-                'July' => 'julho',
-                'August' => 'agosto',
-                'September' => 'setembro',
-                'October' => 'outubro',
-                'November' => 'novembro',
-                'December' => 'dezembro'
-            ];
-            
-            $day = $date->format('d');
-            $month = $monthNames[$date->format('F')];
-            $year = $date->format('Y');
-            
-            $formattedDateManual = "$day de $month de $year"; // Saída: 01 de junho de 2024
-            
 ?>
                 <!-- INICIA O FORMULÁRIO PARA CONFERIR OS DADOS E POSTERIORMENTE IMPRIMIR -->
                     <label for="">Nº Documento:</label>
                     <span ><?php echo $num_parecer. '/'. $ano_parecer; ?></span><br>
-                    <span class="cidade_data">São Bento do Una - PE, <?php echo $formattedDateManual; ?>.</span>
+                    <span class="cidade_data"><?php echo $cidade; ?><?php echo $data_formatada_extenso; ?>.</span>
+
+                    <div class="cidade_data">
+        <p style="text-align: left;"><?php  ?></p>.
+      </div><br>
 
             <!-- MOSTRAR OS DADOS DA FAMÍLIA DE ACORDO COM A TBL_TUDO-->
             <h4>DADOS DA FAMÍLIA</h4>
@@ -89,20 +106,20 @@
             <!--ENDEREÇO DA FAMÍLIA-->
             <h4>ENDEREÇO DA FAMÍLIA</h4>
 <?php echo '<div class="end_familia" class="tabela">'; ?>
-        <table>
+        <table id="noformat" style="margin: -0.5cm">
         <tr>
-            <td class="title_line" colspan="5">1.11 - Localidade:</td>
-            <td colspan="20"><?php echo '<span id="localidade">'. $dadosv['localidade'] . '</span>'; ?></td>
+            <td class="title_line" colspan="8">1.11 - Localidade:</td>
+            <td colspan="17"><?php echo '<span id="localidade">'. $dadosv['localidade'] . '</span>'; ?></td>
         </tr>
         <tr>
-            <td class="title_line" colspan="4">1.12 - Tipo:</td>
-            <td colspan="16"><?php echo '<span id="tipo">'. $dadosv['tipo'] . '</span>'; ?></td>
-            <td class="title_line" colspan="2">1.13 - Título:</td>
-            <td colspan="3"><?php echo '<span id="titulo">'. $dadosv['titulo'] . '</span>'; ?></td>
+            <td class="title_line" colspan="8">1.12 - Tipo:</td>
+            <td colspan="6"><?php echo '<span id="tipo">'. $dadosv['tipo'] . '</span>'; ?></td>
+            <td class="title_line" colspan="3">1.13 - Título:</td>
+            <td colspan="8"><?php echo '<span id="titulo">'. $dadosv['titulo'] . '</span>'; ?></td>
         </tr>
         <tr>
-            <td class="title_line" colspan="4">1.14 - Nome:</td>
-            <td colspan="21"><?php echo '<span id="nome_logradouro">'. $dadosv['nome_logradouro'] . '</span>'; ?></td>
+            <td class="title_line" colspan="5">1.14 - Nome:</td>
+            <td colspan="20"><?php echo '<span id="nome_logradouro">'. $dadosv['nome_logradouro'] . '</span>'; ?></td>
         </tr>
         <tr>
             <td class="title_line" colspan="8">1.15 - Número:</td>
@@ -120,8 +137,8 @@
             <td colspan="12">1.20 - Referência para Localização:</td>
             <td colspan="13"><?php echo '<span id="referencia_localizacao">'. $dadosv['referencia_localizacao'] . '</span>'; ?></td>
         </tr>
-<?php echo '</div>'; ?>
-        </table>
+    </div>
+        </table><br><br>
             <!-- EXIBIR CADA MEMBRO DA FAMÍLIA-->
             <h4>COMPONENTES DA FAMÍLIA</h4><hr>
 <?php
@@ -133,22 +150,12 @@
                 //NENHUM MEMBRO FAMILIAR ENCONTRADO
             } else {
                 while ($member = $sql_membro_familia_query->fetch_assoc()) {
+                  echo '<span class="parentesco">' . $member['parentesco'] . '</span><br>' ?? "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
+                  echo '4.02 - Nome Completo: <span class="nome_completo">' . $member['nome_completo'] . '</span><br>';
+                  echo '4.03 - NIS: <span class="nis">' . $member['nis'] . '</span>';
+                  echo '4.06 - Data de Nascimento: <span class="data_nascimento">' . $member['data_nascimento'] . '<hr></span>';
+  
 ?>
-    <table width="800">
-        <tr>
-            <td colspan="8"><?php echo '<span class="parentesco">' . $member['parentesco']. '</span>:<br>'; ?></td>
-        </tr>
-        <tr>
-            <td colspan="2">4.02 - Nome:</td>
-            <td colspan="6"><?php echo ' <span class="nome_completo">' . $member['nome_completo'] . '</span><br>'; ?></td>
-        </tr>
-        <tr>
-        <td colspan="3">4.03 - NIS:</td>
-        <td colspan="3"><?php echo '<span class="nis">' . $member['nis'] . '</span>'; ?></td>
-        <td colspan="1">4.06 - Data De Nascimento:</td>
-        <td colspan="1"><?php echo '<span class="data_nascimento">' . $member['data_nascimento'] . '</span>'; ?></td>
-        </tr>
-    </table><hr>
 <?php
                 }
             }
@@ -169,6 +176,10 @@
 }
 ?>
     </div>
+<br><br>
+      <div class="assinatura">_________________________________________________________________<br>Assinatura do Entrevistador</div><br><br>
+      <div class="assinatura">_________________________________________________________________<br>Assinatura do Responsável</div>
+
 <script>
         
             window.print()
