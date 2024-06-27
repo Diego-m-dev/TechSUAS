@@ -109,7 +109,7 @@ a {
   body {
     font-family: 'Times New Roman', Times, serif;
     font-size: 12pt;
-    margin: 2.5cm; /* Margem de 2,5 cm em todos os lados */
+    margin: 1.8cm; /* Margem de 2,5 cm em todos os lados */
     line-height: 1.5; /* Espaçamento de 1,5 entre linhas */
   }
 
@@ -118,31 +118,31 @@ a {
     font-weight: bold;
     text-align: center;
     margin-top: 0;
-    margin-bottom: 1.5cm; /* Espaçamento após o título */
+    margin-bottom: 0.5cm; /* Espaçamento após o título */
   }
 
   h1 {
     font-size: 14pt;
-    margin-top: 0;
+    margin-top: 10px;
     margin-bottom: 0;
   }
 
   h2 {
     font-size: 12pt;
-    margin-top: 1.5cm;
+    margin-top: 0.5cm;
     margin-bottom: 0;
   }
 
   h3 {
     font-size: 12pt;
-    margin-top: 1.5cm;
+    margin-top: 0.5cm;
     margin-bottom: 0;
   }
 
   /* Estilo para parágrafos */
   p {
     text-align: justify;
-    text-indent: 1.25cm; /* Recuo de 1,25 cm na primeira linha do parágrafo */
+    text-indent: 1cm; /* Recuo de 1,25 cm na primeira linha do parágrafo */
     margin: 0;
     padding: 0;
   }
