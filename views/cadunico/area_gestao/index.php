@@ -18,7 +18,7 @@ if ($_SESSION['funcao'] != '0') {
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -36,6 +36,9 @@ if ($_SESSION['funcao'] != '0') {
     </div>
     <div class="container">
         <div class="cont-btns">
+            <div class="header_cont_buttom">
+                <h2> MENU DE GESTÃO </h2>
+            </div>
             <div class="btns">
                 <div class="bt">
                     <button type="button" class="menu-button" id="btn_benef">
@@ -89,11 +92,19 @@ if ($_SESSION['funcao'] != '0') {
         <div class="mural_stats">
             <h2>PENDENCIAS GERAIS</h2>
             <div class="cont-a">
-                <a>CADASTROS ATUALIZADOS COM DATAS DIVERGENTES</a>
-                <a>CADASTROS SEM RESPONSAVEL FAMILIAR </a>
-                <a>CADASTROS SEM CPF </a>
-                <a>VISITAS RELIZADAS SEM RELATORIO</a>
-                <a>AVERIGUAÇÕES (UNIPESSOAIS - RENDA - P3)</a>
+                <a href="#" class="modal-trigger">CADASTROS ATUALIZADOS COM DATAS DIVERGENTES</a>
+                <a href="#" class="modal-trigger">CADASTROS SEM RESPONSAVEL FAMILIAR </a>
+                <a href="#" class="modal-trigger">CADASTROS SEM CPF </a>
+                <a href="#" class="modal-trigger">VISITAS RELIZADAS SEM RELATORIO</a>
+                <a href="#" class="modal-trigger">AVERIGUAÇÕES (UNIPESSOAIS - RENDA - P3)</a>
+            </div>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p id="modalText">Some text in the Modal..</p>
             </div>
         </div>
 
@@ -251,6 +262,30 @@ if ($_SESSION['funcao'] != '0') {
                 $('#entrevistadores').show();
             });
         });
+
+        var modal = document.getElementById("myModal");
+        var span = document.getElementsByClassName("close")[0];
+        var modalTriggers = document.querySelectorAll(".modal-trigger");
+
+        modalTriggers.forEach(function (trigger) {
+            trigger.addEventListener("click", function (event) {
+                event.preventDefault();
+                document.getElementById("modalText").innerText = this.innerText;
+                modal.style.display = "block";
+            });
+        });
+
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
     </script>
 </body>
 
