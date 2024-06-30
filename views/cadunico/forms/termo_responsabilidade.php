@@ -25,7 +25,7 @@ $sql_reside->execute();
 <link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
 <?php
 
-    } elseif ($_SESSION['muunicipio'] == "2613008") {
+    } elseif ($_SESSION['municipio'] == "2613008") {
 ?>
 <link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
 <?php
