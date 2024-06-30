@@ -30,7 +30,7 @@ $sql_reside->execute();
 <link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
 <?php
     }
-    ?>
+?>
 
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
