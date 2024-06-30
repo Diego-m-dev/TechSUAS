@@ -29,6 +29,9 @@ $sql_reside->execute();
 ?>
 <link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
 <?php
+    } else {
+      echo "Municipio sem timbre para o documento. Acione o SUPORTE!";
+      exit();
     }
 ?>
 
