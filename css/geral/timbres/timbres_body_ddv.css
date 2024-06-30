@@ -9,6 +9,5 @@
     background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
     background-repeat: repeat-y;
     z-index: -1;
-    opacity: 0.2; /* Ajuste a opacidade conforme necessário */
   }
 }
