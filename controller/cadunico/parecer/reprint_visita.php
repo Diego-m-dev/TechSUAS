@@ -23,21 +23,7 @@
 </style>
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_print_visita.css"> -->
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_print_visita.css">
-<?php
-    if ($_SESSION['name_sistema'] == "SUPORTE"){
-?>
-<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
-<?php
-
-    } elseif ($_SESSION['municipio'] == "2613008") {
-?>
-<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
-<?php
-    }
-?>
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_reprint_visita.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -50,7 +36,7 @@
 
 </head>
 
-<body>
+<body class="<?php echo 'background-' . $_SESSION['estilo']; ?>">
 <div class="titulo">
         <div class="tech">
             <span>TechSUAS-Cadastro Único</span> - <?php echo $data_cabecalho; ?>
