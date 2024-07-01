@@ -75,7 +75,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </a>
           </div>
 <?php
-  if ($_SESSION['funcao'] != '3') {
+  if ($_SESSION['funcao'] == '1' && $_SESSION['funcao'] == '0') {
 ?>
           <div class="area_gestor">
             <a class="menu-button" href="/TechSUAS/views/cadunico/area_gestao/index">
@@ -98,10 +98,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     </div>
   </div>
   
-  <footer>
-    <div class="municipio"><img src="../../img/cadunico/logo_municipios/sbu.png" alt=""></div>
-    <div class="rodape"></div>
-  </footer>
+  <!-- FOOTER DA PAGINA -->
+  <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/footer.php'; ?>
 
   <div class="drop-all">
     <div class="menu-drop">
