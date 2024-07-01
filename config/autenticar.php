@@ -31,7 +31,8 @@ $stmt_login->execute();
 $dados = $stmt_login->fetch(PDO::FETCH_ASSOC);
 if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
     if (password_verify($senha_login, $dados['senha'])) {
-      $_SESSION['name_sistema'] = $dados['name_sistema'];
+        $_SESSION['estilo'] = $dados['municipio']. "-". $dados['name_sistema'];
+        $_SESSION['name_sistema'] = $dados['name_sistema'];
         $_SESSION['sistema_id'] = $dados['sistema_id'];
         $_SESSION['user_usuario'] = $dados['usuario'];
         $_SESSION['cargo_usuario'] = $dados['cargo'];
