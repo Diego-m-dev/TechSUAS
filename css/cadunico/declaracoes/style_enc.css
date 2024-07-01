@@ -26,6 +26,9 @@ body {
 .cidade_data{
     display: none;
 }
+#inputOutro{
+    width: 300px;
+}
 button,
 a {
     text-decoration: none;
@@ -72,7 +75,16 @@ textarea{
         /* Oculta o conteúdo após o corpo do documento */
     }
 
-    body {
+    .background-9876543-SUPORTE {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .background-2613008-CADUNICO {
         margin: 0;
         padding: 0;
         background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
@@ -148,6 +160,7 @@ textarea{
     .cidade_data{
         display: block; /* ou inline-block, dependendo do contexto */
         margin-left: 320px;
+        white-space: nowrap;
     }
     .titulo {
         font-size: 10px;

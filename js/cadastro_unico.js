@@ -643,7 +643,7 @@ function printWithFields_preper() {
 
   $('#mostrarText').text(hide_show);
   $('#mostrarDest').text(`Ao(A) responsável por ${retorna}`);
-  $('.esconder, .buttons').hide();
+  $('.esconder').hide();
 
   window.print();
 }

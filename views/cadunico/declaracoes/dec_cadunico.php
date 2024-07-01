@@ -29,9 +29,9 @@ $setorizado = $_SESSION['setor'];
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
 
-    <title>Declaração CadÚnico</title>
+    <title>Declaração Cadastro Único</title>
 </head>
-<body class="<?php echo 'background' . $_SESSION['estilo']; ?>">
+<body class="<?php echo 'background-' . $_SESSION['estilo']; ?>">
     <div class="titulo">
         <div class="tech">
             <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
@@ -214,8 +214,8 @@ $setorizado = $_SESSION['setor'];
                 </div>
                 <div class="assinatura">
                     <p class="signature-line"></p>
-                    <p><?php echo $_SESSION['funcao'] == 1 ? $_SESSION['nome_usuario'] : $dados_user['nome']; ?><br>
-                    <?php echo $_SESSION['funcao'] == 1 ? $_SESSION['id_cargo'] : $dados_user['id_cargo']; ?></p>
+                    <p><?php echo $_SESSION['funcao'] == 1 ? $_SESSION['nome_usuario'] : $dados_user['nome']; ?><br></P>
+                    <P><?php echo $_SESSION['funcao'] == 1 ? $_SESSION['id_cargo'] : $dados_user['id_cargo']; ?></p>
                 </div>
                 <?php
                 }
