@@ -97,9 +97,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
       <img class="calendario" src="/TechSUAS/img/cadunico/calend.svg" alt="Calendário">
     </div>
   </div>
-
+  
   <footer>
-    <img src="/TechSUAS/img/geral/footer.svg" alt="Rodapé">
+    <div class="municipio"><img src="../../img/cadunico/logo_municipios/sbu.png" alt=""></div>
+    <div class="rodape"></div>
   </footer>
 
   <div class="drop-all">

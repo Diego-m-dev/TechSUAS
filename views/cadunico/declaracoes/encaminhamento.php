@@ -31,7 +31,7 @@ $sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn
 
 </head>
 
-<body>
+<body class="<?php echo 'background-' . $_SESSION['estilo']; ?>">
 <div class="titulo">
         <div class="tech">
             <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
@@ -126,7 +126,7 @@ if (isset($_POST['cpf_dec_cad'])) {
 }
         ?>
                                 </select>
-                                <input type="text" name="funcao_outros" id="inputOutro" style="display: none;" placeholder="Digite a para quem você quer encaminhas">
+                                <input type="text" name="funcao_outros" id="inputOutro" style="display: none;" placeholder="Digite a para quem você quer encaminhar">
                             </label>
                         </div>
                         <p><span id="mostrarDest"></span></p>
@@ -167,7 +167,7 @@ if (isset($_POST['cpf_dec_cad'])) {
 
                         <!--CARIMBO DO DOCUMENTO-->
                         <div class="cidade_data">
-                            <?php echo $cidade; ?><?php echo $data_formatada; ?>.
+                            <?php echo $cidade; ?><?php echo $data_formatada_extenso; ?>.
                         </div>
                         <?php
 
@@ -248,16 +248,17 @@ if ($sql_user_query->num_rows == 0) {
         ?>
 
                             </div>
-                            <div class="no-print">
-                                <button class="buttons" onclick="printWithSignature()">Imprimir com Assinatura Eletrônica</button>
-                                <button class="buttons" onclick="printWithFields_preper()">Imprimir com Campos de Assinatura</button>
-                                <button class="buttons" onclick="voltar()"><i class="fas fa-arrow-left"></i>Voltar</button>
-                            </div>
+
 
                     <?php
 }
 }
 ?>
+                            <div class="no-print">
+                                <button class="buttons" onclick="printWithSignature()">Imprimir com Assinatura Eletrônica</button>
+                                <button class="buttons" onclick="printWithFields_preper()">Imprimir com Campos de Assinatura</button>
+                                <button class="buttons" onclick="voltar()"><i class="fas fa-arrow-left"></i>Voltar</button>
+                            </div>
                         </div>
 </body>
 

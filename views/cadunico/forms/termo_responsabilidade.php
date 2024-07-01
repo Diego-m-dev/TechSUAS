@@ -25,12 +25,15 @@ $sql_reside->execute();
 <link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
 <?php
 
-    } elseif ($_SESSION['muunicipio'] == "2613008") {
+    } elseif ($_SESSION['municipio'] == "2613008") {
 ?>
 <link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
 <?php
+    } else {
+      echo "Municipio sem timbre para o documento. Acione o SUPORTE!";
+      exit();
     }
-    ?>
+?>
 
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
@@ -107,7 +110,9 @@ if ($sql_reside->rowCount() > 0) {
             <li class="topic">A qualquer tempo poderei ser convocado pelo município ou por órgãos federais de controle e fiscalização, para avaliar se as informações que prestei ao Cadastro Único estão de acordo com a realidade.</li>
             <li class="topic">A prestação de informações falsas ao Programa Bolsa Família é motivo de cancelamento do benefício, e pode gerar processo administrativo para ressarcimento dos valores recebidos indevidamente, nos termos do art. 18 da Medida Provisória nº 1.164, de 2 de março de 2023. Pode também ocasionar processo penal e cível nos termos da legislação geral brasileira.</li>
         </ul>
-        <div class="right">São Bento do Una - PE, <?php echo $data_formatada; ?>.</div>
+    <div class="cidade_data">
+      <?php echo $cidade; ?><?php echo $data_formatada; ?>.
+    </div>
         <br>
         <p class="center ass">______________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</p>
 

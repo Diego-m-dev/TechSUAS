@@ -22,6 +22,10 @@ body {
     /* Cor e espessura da linha */
     margin: 0px;
     /* Espaçamento acima e abaixo da linha */
+    text-align: center;
+}
+.assinatura{
+    text-align: center;
 }
 .cidade_data{
     display: none;
@@ -61,7 +65,16 @@ a:hover {
         /* Oculta o conteúdo após o corpo do documento */
     }
 
-    body {
+    .background-9876543-SUPORTE {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .background-2613008-CADUNICO {
         margin: 0;
         padding: 0;
         background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
@@ -112,6 +125,7 @@ a:hover {
         align-items: center;
         margin-top: 350px;
         font-weight: bold;
+        text-align: center;
     }
 
     h1 {
@@ -120,7 +134,7 @@ a:hover {
     }
 
     p {
-        text-align: center;
+        text-align: justify;
     }
 
     .signature-line {
@@ -131,6 +145,7 @@ a:hover {
         margin: 0px;
         /* Espaçamento acima e abaixo da linha */
         text-indent: none;
+        text-align: center;
     }
     p .cont{
         text-indent: 1.25cm;

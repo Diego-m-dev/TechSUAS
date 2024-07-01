@@ -643,7 +643,7 @@ function printWithFields_preper() {
 
   $('#mostrarText').text(hide_show);
   $('#mostrarDest').text(`Ao(A) responsável por ${retorna}`);
-  $('.esconder, .buttons').hide();
+  $('.esconder').hide();
 
   window.print();
 }
@@ -749,3 +749,14 @@ function loadDashboardData() {
 }
 document.addEventListener('DOMContentLoaded', loadDashboardData);
 */
+
+//FUNÇÃO DE BUSCAR O FICHARIO
+
+function buscaFicharo() {
+  window.location.href = "/TechSUAS/fichario_test/allFichario"
+}
+
+
+function printTiq() {
+  window.location.href = "/TechSUAS/fichario_test/print_etiqueta"
+}
