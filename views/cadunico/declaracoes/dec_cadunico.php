@@ -1,6 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 
 //REQUISIÇÃO PARA DADOS DOS USUÁRIOS CREDENCIADOS COM ACESSO ADMINISTRATIVO
@@ -17,9 +18,11 @@ $setorizado = $_SESSION['setor'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="stylesheet" type="text/css" href="/TechSUAS/css/cadunico/declaracoes/style-dec-pref.css">
+    
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -28,7 +31,7 @@ $setorizado = $_SESSION['setor'];
 
     <title>Declaração CadÚnico</title>
 </head>
-<body>
+<body class="<?php echo 'background' . $_SESSION['estilo']; ?>">
     <div class="titulo">
         <div class="tech">
             <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
@@ -56,7 +59,7 @@ $setorizado = $_SESSION['setor'];
 
                     $dt_atualizacao = DateTime::createFromFormat('Y-m-d', $dt_atualizacao_str);
                     $data_atual_ = DateTime::createFromFormat('Y-m-d', $data_atual_str);
-        ?>
+?>
                     <p style="text-indent: 1.25cm;">Para os devidos fins, confirmo que  
                     <?php echo $sexo_pessoa_ == "1" ? " o Sr. " : " a Sra. "; ?>
                     <strong><?php echo $dados_tbl['nom_pessoa']; ?></strong>, CPF: <strong><?php echo $_POST['cpf_dec_cad']; ?></strong>,
@@ -65,7 +68,7 @@ $setorizado = $_SESSION['setor'];
                     <?php echo $sexo_pessoa_ == "1" ? " inscrito " : " inscrita "; ?>
                     no Cadastro Único para Programas do Governo Federal. 
 
-                    <?php
+<?php
                     if ($dt_atualizacao instanceof DateTime && $data_atual_ instanceof DateTime) {
                         $diferenca = $data_atual_->diff($dt_atualizacao)->days;
 
@@ -73,7 +76,7 @@ $setorizado = $_SESSION['setor'];
                     } else {
                         echo "Formato de data incorreto!";
                     }
-                    ?> 
+?> 
                     com uma renda per capita de <strong>R$ <?php echo $dados_tbl['vlr_renda_media_fam']; ?>,00</strong>.
                     <?php
                     echo $dados_tbl['vlr_renda_media_fam'] > 218 ? " Conforme o artigo 5° da lei 14.601 de 19 de junho de 2023, a família não se enquadra no perfil para o Programa Bolsa Família." : " Conforme o artigo 5° da lei 14.601 de 19 de junho de 2023, a família se enquadra no perfil para o Programa Bolsa Família.";
@@ -114,7 +117,7 @@ $setorizado = $_SESSION['setor'];
                     ?>
                     </div>
                     <div class="cidade_data">
-                        <?php echo $cidade; ?><?php echo $data_formatada; ?>.
+                        <?php echo $cidade; ?><?php echo $data_formatada_extenso; ?>.
                     </div>
                     <div class="assinatura">
                         <p class="signature-line"></p>
