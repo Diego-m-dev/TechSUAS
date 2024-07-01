@@ -102,9 +102,70 @@ if ($_SESSION['funcao'] != '0') {
 
         <!-- Modal Structure -->
         <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p id="modalText">Some text in the Modal..</p>
+
+            <div class="container_modal">
+                <div class="header-title">
+                    <h1 id="modalTitle">Famílias unipessoais com upload</h1>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="header">
+                    <div class="icon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <p id="modalDescription"></p>
+
+                </div>
+                <div class="body-cont">
+                    <div class="search-results">
+                        <h2>Resultado da pesquisa</h2>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Código familiar</th>
+                                    <th>Endereço</th>
+                                    <th>Nome do RUF</th>
+                                    <th>CPF do RUF</th>
+                                    <th>Tipo de RUF</th>
+                                    <th>Estado Cadastral</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>156644304</td>
+                                    <td>COLONIA - SITIO COLONIA, 2001</td>
+                                    <td>ZENILDA FERREIRA RODRIGUES</td>
+                                    <td>769.190.134-87</td>
+                                    <td>Responsável Familiar</td>
+                                    <td>
+                                        <button class="action">Cadastrado</button>
+                                    </td>
+                                    <td>
+                                        <button class="action">
+                                            <i class="fa fa-eye"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="pagination">
+                        <div class="page-item">
+                            <a href="#">&lt;</a>
+                        </div>
+                        <div class="page-item active">
+                            <a href="#">1</a>
+                        </div>
+                        <div class="page-item">
+                            <a href="#">&gt;</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="footer">
+                    <button class="close">Voltar</button>
+                </div>
+
             </div>
         </div>
 
@@ -264,21 +325,25 @@ if ($_SESSION['funcao'] != '0') {
         });
 
         var modal = document.getElementById("myModal");
-        var span = document.getElementsByClassName("close")[0];
+        var closeButtons = document.querySelectorAll(".close");
         var modalTriggers = document.querySelectorAll(".modal-trigger");
+
 
         modalTriggers.forEach(function (trigger) {
             trigger.addEventListener("click", function (event) {
                 event.preventDefault();
-                document.getElementById("modalText").innerText = this.innerText;
+                document.getElementById("modalTitle").innerText = this.innerText;
+                document.getElementById("modalDescription").innerText = "Descrição para " + this.innerText;
                 modal.style.display = "block";
             });
         });
 
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
 
+        closeButtons.forEach(function (button) {
+            button.addEventListener("click", function () {
+                modal.style.display = "none";
+            });
+        });
 
         window.onclick = function (event) {
             if (event.target == modal) {
