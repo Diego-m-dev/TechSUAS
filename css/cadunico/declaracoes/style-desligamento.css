@@ -87,7 +87,17 @@ p .declar{
         /* Oculta o conteúdo após o corpo do documento */
     }
 
-    body {
+    .background-9876543-SUPORTE {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        font-family: 'Times New Roman', Times, serif;
+        text-align: justify;
+    }
+    .background-2613008-CADUNICO {
         margin: 0;
         padding: 0;
         background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
@@ -97,6 +107,7 @@ p .declar{
         font-family: 'Times New Roman', Times, serif;
         text-align: justify;
     }
+    
 
     @page {
         size: auto;

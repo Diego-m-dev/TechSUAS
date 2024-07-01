@@ -108,12 +108,23 @@ a:hover {
         padding: 80px 20px 20px 20px;
     }
 
-    body {
+    .background-9876543-SUPORTE {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
         background-size: cover;
         background-repeat: no-repeat;
-        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        font-size: 16px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .background-2613008-CADUNICO {
         margin: 0;
-        /* Define margem zero para a impressão */
+        padding: 0;
+        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-size: 16px;
+        font-family: 'Times New Roman', Times, serif;
     }
 
     body::after {
