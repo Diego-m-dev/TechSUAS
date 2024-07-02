@@ -1,44 +1,31 @@
 body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: Arial, sans-serif;
     font-size: 16px;
-    margin: 2;
-    padding: 0;
-    text-align: justify;
-    width: 80%;
     overflow: auto;
 }
-.titulo{
-    display: none;
-}
+
 .container {
+    display: flex;
+    flex-direction: column; 
+    align-items:stretch;
+    justify-content: center;
+    align-content: center;
     width: 90%;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%);
-    padding-top: 100px;
+    margin: 0;
 }
-
-.center1 {
+h1{
     text-align: center;
 }
-
-.center {
+.signature-line{
     text-align: center;
 }
-
-.right {
-    text-align: right;
-}
-
-.editable-field {
-    border: none;
-    background-color: transparent;
-    text-transform: uppercase;
-    font-weight: bold;
-}
-
-.paragraph1 {
-    margin-bottom: 20px;
+.paragraph {
+    text-indent: 1.25cm;
+    text-align: justify;
+    margin: 0px;
 }
 
 .topic {
@@ -64,12 +51,14 @@ td {
 }
 
 .topic,
-.center,
 .right,
-.paragraph1 {
+.paragraph1,
+.cidade_data{
     display: none;
 }
-
+.titulo{
+    display: none;
+}
 button,
 a {
     text-decoration: none;
@@ -91,11 +80,30 @@ a:hover {
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }
-.editable-field{
+
+.editable-field {
     border: 1px solid #13294b;
     padding: 2px 20px;
     border-radius: 3px;
 }
+
+.signature-line {
+    width: 600px;
+    border-bottom: 1px solid #000;
+    margin: 0px;
+    text-align: center;
+}
+
+.cidade_data {
+    align-self: flex-end;
+    margin-left: 0;
+}
+p.paragraph1 {
+    text-align: left;
+    margin-left: 0;
+    margin-top: 10px;
+}
+
 @media print {
     button {
         display: none;
@@ -110,6 +118,7 @@ a:hover {
         font-size: 16px;
         font-family: 'Times New Roman', Times, serif;
     }
+
     .background-2613008-CADUNICO {
         margin: 0;
         padding: 0;
@@ -119,46 +128,75 @@ a:hover {
         font-size: 16px;
         font-family: 'Times New Roman', Times, serif;
     }
+
     body::after {
         content: none !important;
-        /* Oculta o conteúdo após o corpo do documento */
     }
 
     @page {
         size: auto;
-        /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
         margin: 3mm 0mm 0mm 0mm;
-        /* Define margens da página */
     }
-    
+
     .topic,
     .center,
     .right,
-    .paragraph1 {
-        display:block;
+    .paragraph1,
+    .cidade_data{
+        display: block;
     }
     label,
-    input{
+    input {
         display: none;
     }
+
     .titulo {
         font-size: 10px;
-        position: fixed; /* Posicionamento fixo */
-        top: 30px; /* Posição no topo */
-        right: 20px; /* Distância da direita */
-        transform: translateY(50%); /* Ajuste para o centro vertical */
-        display: block; /* Garante que seja exibido como bloco */
-        white-space: nowrap; /* Impede que o texto quebre a linha */
+        position: fixed;
+        top: 30px;
+        right: 20px;
+        transform: translateY(50%);
+        display: block;
+        white-space: nowrap;
     }
+
     .tech {
         padding-right: 5px;
     }
-    th.impr{
+
+    th.impr {
         display: none;
     }
-    .editable-field{
+
+    td.impr {
+        display: none;
+    }
+
+    .editable-field {
         border: none;
         padding: 0px;
     }
 
+    .cidade_data {
+        margin-left: 0;
+    }
+    div.paragraph1 {
+        text-align: right;
+        margin-right: 0;
+        margin-top: 200px;
+    }
+    .signature-line {
+        margin: 0;
+    }
+    .container {
+        margin-top: 100px;
+    }
+    .assinatura {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: 50px;
+    }
 }
