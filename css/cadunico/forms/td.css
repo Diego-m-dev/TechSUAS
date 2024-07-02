@@ -53,7 +53,8 @@ td {
 .topic,
 .right,
 .paragraph1,
-.cidade_data{
+.cidade_data,
+.assinatura{
     display: none;
 }
 .titulo{
