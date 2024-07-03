@@ -112,6 +112,7 @@ if (!isset($_POST['beneficio'])) {
         $num_form = $result['total_registros'] + 1;
 
         $situation = "EM PROCESSO";
+        
         $stmt = $conn->prepare('INSERT INTO beneficiario (beneficiario, naturalidade, nome_mae_benef, renda_media, endereco_resp, cpf_beneficio, te_beneficio, rg_beneficio, operador, data_registro) VALUES (?,?,?,?,?,?,?,?,?,?)');
 
         // Verifique se a preparação foi bem-sucedida
@@ -130,14 +131,14 @@ if (!isset($_POST['beneficio'])) {
             if ($sql_query_resp->rowCount() > 0) {
                 $dados_resp = $sql_query_resp->fetch(PDO::FETCH_ASSOC);
 
-                $smtp_conc = $conn->prepare("INSERT INTO concessao_historico (id_concessao, num_form, ano_form, cpf_resp, nome_benef, cpf_benef, rg_benef, tit_benef, endereco, renda_media, data_registro, parentesco, operador, situacao_concessao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
+                $smtp_conc = $conn->prepare("INSERT INTO concessao_historico (id_concessao, num_form, ano_form, nome_resp, cpf_resp, nome_benef, cpf_benef, rg_benef, tit_benef, endereco, renda_media, data_registro, parentesco, operador, situacao_concessao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
                 // Verifica se a preparação foi bem-sucedida
                 if ($smtp_conc === false) {
                     die('Erro na preparação SQL: ' . $conn->error);
                 }
 
-                $smtp_conc->bind_param("ssssssssssssss", $dados_resp['id_concessao'], $num_form, $data_atual, $cpf_resp, $_POST['beneficio'], $_POST['cpf_beneficio'], $_POST['rg_beneficio'], $_POST['te_beneficio'], $_POST['endereco_resp'], $_POST['renda_media'], $hoje_, $_POST['parentesco'], $nome, $situation);
+                $smtp_conc->bind_param("sssssssssssssss", $dados_resp['id_concessao'], $num_form, $data_atual, $dados_resp['nome'], $cpf_resp, $_POST['beneficio'], $_POST['cpf_beneficio'], $_POST['rg_beneficio'], $_POST['te_beneficio'], $_POST['endereco_resp'], $_POST['renda_media'], $hoje_, $_POST['parentesco'], $nome, $situation);
 
                 if ($smtp_conc->execute()) {
 ?>
