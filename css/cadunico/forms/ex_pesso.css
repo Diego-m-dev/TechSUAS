@@ -1,8 +1,3 @@
-#form-container {
-    width: 600px;
-    margin: 0 auto;
-}
-
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -23,16 +18,15 @@ label {
     text-transform: uppercase;
 }
 
-.assinatura,.cidade_data {
-display: none;
-}
-
-#form {
-    margin-top: 10px;
-}
-.titulo{
+.assinatura,
+.cidade_data {
     display: none;
 }
+
+.titulo {
+    display: none;
+}
+
 label {
     display: block;
     margin-top: 10px;
@@ -51,18 +45,9 @@ textarea {
     height: 100px;
 }
 
-#right-align {
-    text-align: right;
-}
-
 .signature-line {
     margin-top: 20px;
     text-align: center;
-}
-
-#justified-text {
-    text-align: justify;
-    margin-top: 10px;
 }
 
 #subtitle,
@@ -93,6 +78,7 @@ a:hover {
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }
+
 @media print {
     button {
         display: none;
@@ -107,6 +93,7 @@ a:hover {
         font-size: 14px;
         font-family: 'Times New Roman', Times, serif;
     }
+
     .background-2613008-CADUNICO {
         margin: 0;
         padding: 0;
@@ -136,26 +123,36 @@ a:hover {
     .cidade_data {
         display: block;
     }
-    h1{
+
+    h1 {
         text-align: center;
         white-space: nowrap;
     }
+
     .titulo {
         font-size: 10px;
-        position: fixed; /* Posicionamento fixo */
-        top: 30px; /* Posição no topo */
-        right: 20px; /* Distância da direita */
-        transform: translateY(50%); /* Ajuste para o centro vertical */
-        display: block; /* Garante que seja exibido como bloco */
-        white-space: nowrap; /* Impede que o texto quebre a linha */
+        position: fixed;
+        /* Posicionamento fixo */
+        top: 30px;
+        /* Posição no topo */
+        right: 20px;
+        /* Distância da direita */
+        transform: translateY(50%);
+        /* Ajuste para o centro vertical */
+        display: block;
+        /* Garante que seja exibido como bloco */
+        white-space: nowrap;
+        /* Impede que o texto quebre a linha */
     }
+
     .container {
         width: 600px;
         margin: 0 auto;
         padding: 90px 20px 20px 20px;
         /* Adicione um fundo branco semitransparente ao formulário */
     }
-    .assinatura{
+
+    .assinatura {
         display: flex;
         justify-content: center;
         text-align: center;
