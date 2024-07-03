@@ -21,22 +21,7 @@ $sql_declar->execute();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_fami.css"> -->
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
-    
-<?php
-    if ($_SESSION['name_sistema'] == "SUPORTE"){
-?>
-<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
-<?php
-
-    } elseif ($_SESSION['name_sistema'] == "CADUNICO") {
-?>
-<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
-<?php
-    }
-    ?>
-
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_fami.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
@@ -44,14 +29,14 @@ $sql_declar->execute();
 
 </head>
 
-<body>
-<div class="titulo">
-    <div class="tech">
-        <span>TechSUAS-Cadastro Único </span><?php echo $data_cabecalho; ?>
+<body class="<?php echo 'background-' . $_SESSION['estilo']; ?>">
+    <div class="titulo">
+        <div class="tech">
+            <span>TechSUAS-Cadastro Único </span><?php echo $data_cabecalho; ?>
+        </div>
     </div>
-</div>
-<div class="container" >
-<h1 class="center1">ANEXO III - FICHA DE EXCLUSÃO DE FAMÍLIA</h1>
+    <div class="container">
+        <h1 class="center1">ANEXO III - FICHA DE EXCLUSÃO DE FAMÍLIA</h1>
 
         <?php
         if ($sql_declar->rowCount() > 0) {
@@ -61,7 +46,7 @@ $sql_declar->execute();
             $cod_familiar_formatado = substr_replace(str_pad($cod_familiar, 11, "0", STR_PAD_LEFT), '-', 9, 0);
 
             $sql_rf = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam = '$cod_familiar' AND cod_parentesco_rf_pessoa = '1'";
-            $resultado_rf = $conn->query($sql_rf) or die("Erro ". $conn - error);
+            $resultado_rf = $conn->query($sql_rf) or die("Erro " . $conn - error);
 
             if ($resultado_rf->num_rows > 0) {
                 $row = $resultado_rf->fetch_assoc();
@@ -102,22 +87,21 @@ $sql_declar->execute();
                 <span id="textoMotivo" name="justified-text">Texto do motivo selecionado será exibido aqui.</span>
             </div>
 
-      <label for="parecer">PARECER TECNICO:</label>
-      <textarea id="parecer" name="parecer" onblur="showParecer()"></textarea>
-      <p><span id="show_parecer"></span></p>
-          <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
-          <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
+            <label for="parecer">PARECER TECNICO:</label>
+            <textarea id="parecer" name="parecer" onblur="showParecer()"></textarea>
+            <p><span id="show_parecer"></span></p>
+            <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
+            <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
 
-            <br><br>
-    <div class="cidade_data">
-      <p style="text-align: left;"><?php echo $cidade; ?><?php echo $data_formatada; ?></p>.
-  </div><br><br><br>
-    <div class="assinatura">_________________________________________________________________<br>Assinatura do Responsável pela Unidade Familiar (RUF) (exceto no caso 3)</div>
-    <div class="assinatura">_________________________________________________________________<br>Assinatura do entrevistador</div>
-    <div class="assinatura">_________________________________________________________________<br>Assinatura do responsável pelo cadastramento</div>
-    <div class="assinatura">_________________________________________________________________<br>Assinatura do Gestor do CadÚnico (nos casos 4 e 5)</div>
+            <div class="cidade_data">
+                <p style="text-align: left;"><?php echo $cidade; ?><?php echo $data_formatada_extenso; ?></p>
+            </div>
+            <div class="assinatura">_________________________________________________________________<br>Assinatura do Responsável pela Unidade Familiar (RUF) (exceto no caso 3)</div>
+            <div class="assinatura">_________________________________________________________________<br>Assinatura do entrevistador</div>
+            <div class="assinatura">_________________________________________________________________<br>Assinatura do responsável pelo cadastramento</div>
+            <div class="assinatura">_________________________________________________________________<br>Assinatura do Gestor do CadÚnico (nos casos 4 e 5)</div>
 
-    <p>Caso o RF não saiba assinar, o entrevistador registra a expressão "A ROGO" e, a seguir, o nome do RF. (A ROGO é a expressão jurídica utilizada para indicar que a identificação, substituindo a assinatura, foi delegada a outra pessoa).</p>
+            <p>Caso o RF não saiba assinar, o entrevistador registra a expressão "A ROGO" e, a seguir, o nome do RF. (A ROGO é a expressão jurídica utilizada para indicar que a identificação, substituindo a assinatura, foi delegada a outra pessoa).</p>
 
     </div>
 <?php
@@ -225,11 +209,11 @@ $sql_declar->execute();
     }
 
     function showParecer() {
-    var parecer = document.getElementById('parecer').value; // Obtém o valor do elemento parecer
-    $('#parecer').hide(); // Esconde o elemento parecer
-    $('#show_parecer').text(parecer); // Define o texto do elemento show_parecer como o valor de parecer
-    console.log(parecer); // Exibe o valor de parecer no console
-}
+        var parecer = document.getElementById('parecer').value; // Obtém o valor do elemento parecer
+        $('#parecer').hide(); // Esconde o elemento parecer
+        $('#show_parecer').text(parecer); // Define o texto do elemento show_parecer como o valor de parecer
+        console.log(parecer); // Exibe o valor de parecer no console
+    }
 </script>
 <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </body>
