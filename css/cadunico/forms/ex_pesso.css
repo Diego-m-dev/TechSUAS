@@ -9,28 +9,22 @@ body {
     padding: 20px;
 }
 
-#parecer {
-    text-transform: uppercase;
-    font-weight: bold;
-    text-align: justify;
-}
-
-#form-container {
-    width: 600px;
+.container {
+    width: 700px;
     margin: 0 auto;
+    padding: 0px 20px 20px 20px;
 }
 
-#title {
-    font-size: 26px;
-    font-weight: bold;
+h1 {
     text-align: center;
 }
 
-#subtitle {
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 10px;
+label {
+    text-transform: uppercase;
+}
+
+.assinatura,.cidade_data {
+display: none;
 }
 
 #form {
@@ -104,17 +98,13 @@ a:hover {
         display: none;
     }
 
-    #form-container {
-        padding: 80px 20px 20px 20px;
-    }
-
     .background-9876543-SUPORTE {
         margin: 0;
         padding: 0;
         background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
         background-size: cover;
         background-repeat: no-repeat;
-        font-size: 16px;
+        font-size: 14px;
         font-family: 'Times New Roman', Times, serif;
     }
     .background-2613008-CADUNICO {
@@ -123,7 +113,7 @@ a:hover {
         background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
         background-size: cover;
         background-repeat: no-repeat;
-        font-size: 16px;
+        font-size: 14px;
         font-family: 'Times New Roman', Times, serif;
     }
 
@@ -142,8 +132,13 @@ a:hover {
     #subtitle,
     #right-align,
     #justified-text,
-    .signature-line {
+    .signature-line,
+    .cidade_data {
         display: block;
+    }
+    h1{
+        text-align: center;
+        white-space: nowrap;
     }
     .titulo {
         font-size: 10px;
@@ -154,7 +149,16 @@ a:hover {
         display: block; /* Garante que seja exibido como bloco */
         white-space: nowrap; /* Impede que o texto quebre a linha */
     }
-    .tech {
-        padding-right: 5px;
+    .container {
+        width: 600px;
+        margin: 0 auto;
+        padding: 90px 20px 20px 20px;
+        /* Adicione um fundo branco semitransparente ao formulário */
+    }
+    .assinatura{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-top: 20px;
     }
 }

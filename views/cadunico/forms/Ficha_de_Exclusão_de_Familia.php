@@ -128,38 +128,6 @@ $sql_declar->execute();
         }
 ?>
 <script>
-    // Função para obter a data e hora atual e exibir na página
-    function mostrarDataHoraAtual() {
-        let dataAtual = new Date();
-
-        let dia = formatarNumero(dataAtual.getDate());
-        let mes = formatarNumero(dataAtual.getMonth() + 1);
-        let ano = dataAtual.getFullYear();
-
-        let horas = formatarNumero(dataAtual.getHours());
-        let minutos = formatarNumero(dataAtual.getMinutes());
-        let segundos = formatarNumero(dataAtual.getSeconds());
-
-        let dataHoraFormatada = `${dia}/${mes}/${ano} ${horas}:${minutos}:${segundos}`;
-
-        document.getElementById('dataHora').textContent = " - " + dataHoraFormatada;
-    }
-
-    // Chamando a função para exibir a data e hora atual quando a página carrega
-    window.onload = function() {
-        mostrarDataHoraAtual();
-        // Atualizar a cada segundo
-        setInterval(mostrarDataHoraAtual, 1000);
-    }
-    const currentDate = new Date();
-    const options = {
-        day: '2-digit',
-        month: 'long',
-        year: 'numeric'
-    };
-    document.getElementById('dataExclusao').value = currentDate.toLocaleDateString('pt-BR', options);
-    document.getElementById('dataExclusao2').textContent = currentDate.toLocaleDateString('pt-BR', options);
-
     const motivoList = {
         "1": {
             oneMt: "- Falecimento de toda a família, mediante apresentação das certidões de óbito."
