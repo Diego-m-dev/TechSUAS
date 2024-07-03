@@ -165,7 +165,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
               <a href="http://cadastrounico.caixa.gov.br" target="_blank" class="cadunico">CADASTRO ÚNICO</a>
 
-              <a href="https://aplicacoes.cidadania.gov.br/sagi/autenticacao/login.php" target="_blank" class="cecad">CECAD</a>
+              <a href="https://cecad.cidadania.gov.br/painel03.php" target="_blank" class="cecad">CECAD</a>
 
             </nav>
           </div>    
