@@ -32,10 +32,6 @@ display: none;
     display: none;
 }
 
-#form {
-    margin-top: 20px;
-}
-
 label {
     display: block;
     margin-top: 10px;
@@ -54,19 +50,11 @@ textarea {
     height: 100px;
 }
 
-#right-align {
-    text-align: right;
-}
-
 .signature-line {
     margin-top: 20px;
     text-align: center;
 }
 
-#justified-text {
-    text-align: justify;
-    margin-top: 20px;
-}
 
 .justified-text,
 #right-align,
@@ -152,9 +140,6 @@ a:hover {
         display: block;
     }
 
-    #right-align {
-        text-align: right;
-    }
 
     .titulo {
         font-size: 10px;
@@ -172,9 +157,6 @@ a:hover {
         /* Impede que o texto quebre a linha */
     }
 
-    .tech {
-        padding-right: 5px;
-    }
     .assinatura{
         display: flex;
         justify-content: center;
