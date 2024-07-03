@@ -22,7 +22,7 @@
     <nav>
         <a href="https://www.beneficiossociais.caixa.gov.br" target="_blank">SIBEC</a></div>
         <a href="http://cadastrounico.caixa.gov.br" target="_blank" class="cadunico">CADASTRO ÚNICO</a>
-        <a href="https://aplicacoes.cidadania.gov.br/sagi/autenticacao/login.php" target="_blank" class="cecad">CECAD</a>
+        <a href="https://cecad.cidadania.gov.br/painel03.php" target="_blank" class="cecad">CECAD</a>
         <a href="https://www.mds.gov.br/mds-sigpbf-web/carregarTelaLogin.jsf;jsessionid=fdL4CJM3HzqgPmqgvb3i9aKrL02hrOuEBCb9dQo9.susigpbfpd01" target="_blank" class="sigpbf">SIGPBF</a>
         <a href="https://cadunico.dataprev.gov.br/portal/" target="_blank" class="pcadunico">PORTAL CADASTRO ÚNICO</a>
         <a href="https://falemds.centralit.com.br/formulario/" target="_blank" class="pcadunico">FORMULÁRIO ELETRÔNICO DO MDS</a>
