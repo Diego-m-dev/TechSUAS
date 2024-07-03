@@ -516,12 +516,14 @@ $(document).ready(function () {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        const form = document.getElementById("form_familia")
-        form.submit()
+        const form = document.getElementById("form_familia");
+        form.target = "_blank"; 
+        form.submit();
       }
-    })
-  })
-})
+    });
+  });
+});
+
 
 
 
