@@ -67,8 +67,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           </div>
           <div class="observ">
             <div><label for="resumo">Observação:</label></div>
-            <div><textarea name="resumo" id="resumo"
-                placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
+            <div><textarea name="resumo" id="resumo" placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
           </div>
           <br><input type="hidden" name="tipo_documento_hidden" id="tipo_documento_hidden" value=".pdf">
         </div>
@@ -97,6 +96,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
         </div>
         <div class="btn">
           <button type="submit">Cadastrar</button>
+          <div id="success-icon" style="display: none;">
+            <span class="material-symbols-outlined">
+              check
+            </span>
+          </div>
           <br><button type="button" onclick="voltaMenu()"><i class="fas fa-arrow-left"></i>Voltar ao menu</button>
         </div>
       </form>
@@ -130,9 +134,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
               </a>
 
             </nav>
-          </div>    
+          </div>
           <div class="bloco2">
-          <nav>
+            <nav>
               <a type="button" id="btn_dec_cad">
                 <i class="material-symbols-outlined">assignment_add</i> Declaração Cadastro Único
               </a>
@@ -168,9 +172,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
               <a href="https://cecad.cidadania.gov.br/painel03.php" target="_blank" class="cecad">CECAD</a>
 
             </nav>
-          </div>    
+          </div>
           <div class="bloco2">
-          <nav>
+            <nav>
               <a href="https://cadunico.dataprev.gov.br/portal/" target="_blank" class="pcadunico">PORTAL CADASTRO ÚNICO</a>
 
               <a href="https://falemds.centralit.com.br/formulario/" target="_blank" class="pcadunico">FORMULÁRIO ELETRÔNICO DO MDS</a>
@@ -184,7 +188,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     </div>
   </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const targets = [
         document.getElementById('codfamiliar_print'),
         document.getElementById('data_entrevista'),
@@ -210,7 +214,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
       targets.forEach(target => {
         // Observador de mutações para monitorar mudanças no conteúdo
-        const observer = new MutationObserver(function (mutationsList) {
+        const observer = new MutationObserver(function(mutationsList) {
           for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
               toggleVisibility(target);
@@ -232,6 +236,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
       });
     });
   </script>
+
 </body>
 
 </html>
