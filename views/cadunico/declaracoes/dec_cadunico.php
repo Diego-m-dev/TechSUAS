@@ -210,12 +210,12 @@ $setorizado = $_SESSION['setor'];
                     <p class="cont">Para os devidos fins, confirmo que <span id="sDDr"></span> <strong><span class="maiusculo" id="nome_1"></span></strong>, CPF: <strong><span id="cpf_1"></span></strong>, <span id="sDnC"></span> no dia <strong><span id="dataNascimento"></span></strong>, não é <span id="sDEv"></span> no Cadastro Único para Programas do Governo Federal.</p>
                 </div>
                 <div class="cidade_data">
-                    <?php echo $cidade; ?><?php echo $data_formatada; ?>.
+                    <?php echo $cidade; ?><?php echo $data_formatada_extenso; ?>.
                 </div>
                 <div class="assinatura">
                     <p class="signature-line"></p>
-                    <p><?php echo $_SESSION['funcao'] == 1 ? $_SESSION['nome_usuario'] : $dados_user['nome']; ?><br></P>
-                    <P><?php echo $_SESSION['funcao'] == 1 ? $_SESSION['id_cargo'] : $dados_user['id_cargo']; ?></p>
+                    <p><?php echo $_SESSION['funcao'] == 1 ? $_SESSION['nome_usuario'] : $dados_user['nome']; ?><br>
+                    <?php echo $_SESSION['funcao'] == 1 ? $_SESSION['id_cargo'] : $dados_user['id_cargo']; ?></p>
                 </div>
                 <?php
                 }

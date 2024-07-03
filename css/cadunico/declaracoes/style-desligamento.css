@@ -128,7 +128,7 @@ p .declar{
     .tudo {
         display: flex;
         flex-direction: column;
-        margin-top: 50px;
+        margin-top: 70px;
     }
 
     .conteudo {
@@ -168,11 +168,13 @@ p .declar{
         display: block; /* ou inline-block, dependendo do contexto */
         margin-left: 320px;
         margin-bottom: 30px;
+        white-space: nowrap;
     }
     .cidade_data2{
         display: block; /* ou inline-block, dependendo do contexto */
         margin-left: 320px;
         margin-bottom: 70px;
+        white-space: nowrap;
     }
     .titulo {
         font-size: 10px;
