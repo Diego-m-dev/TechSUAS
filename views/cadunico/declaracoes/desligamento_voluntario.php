@@ -32,7 +32,7 @@ $sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn
 
 </head>
 
-<body>
+<body class="<?php echo 'background-' . $_SESSION['estilo']; ?>">
 <div class="titulo">
 		<div class="tech">
 			<span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
@@ -84,7 +84,7 @@ $sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn
 					</ul>
 				</div>
 				<div class="cidade_data">
-					<?php echo $cidade; ?><?php echo $data_formatada; ?>.
+					<?php echo $cidade; ?><?php echo $data_formatada_extenso; ?>.
 				</div>
 				<div class="signature-line"></div>
 				<p style='text-align:center;'>Assinatura do(a) Responsável Familiar</p>
@@ -112,7 +112,7 @@ $sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn
 							<li>CPF: <strong><?php echo $dados['cpf']; ?></strong></li>
 						</div>
 						<div class="cidade_data2">
-							<?php echo $cidade; ?><?php echo $data_formatada; ?>.
+							<?php echo $cidade; ?><?php echo $data_formatada_extenso; ?>.
 						</div>
 						<div class="signature-line"></div>
 						<p style='text-align:center;'>Assinatura do(a) coordenador(a) municipal do Programa Bolsa Família</p>

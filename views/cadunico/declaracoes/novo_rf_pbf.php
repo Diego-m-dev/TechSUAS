@@ -36,7 +36,7 @@ $data_prazo = $data_hj_modufy->format('d/m/Y');
     <title>Declaração de Substituição de Responsável Legal</title>
 
 </head>
-<body>
+<body class="<?php echo 'background-' . $_SESSION['estilo']; ?>">
 <div class="titulo">
         <div class="tech">
             <span>TechSUAS-Cadastro Único - </span><?php echo $data_cabecalho; ?>
@@ -131,7 +131,7 @@ if (isset($_POST['nis_tc_new']) && isset($_POST['nis_tc_old'])) {
             <p class="cont"> Informamos que se encontra em andamento a devida substituição do novo Resposánvel  Legal, acima identificado, nos sistemas computacionais do Cadastro Único do Governo Federeal, visando á atualização dos dados cadastrais da Família e a emissão definitiva do cartão ao novo Responsável Legal da Família.</p>
             <p class="cont">No período de validade abaixo definido, será permitido saques de todas as parcelas de pagamento disponíveis, desde que dentro da validade, para todos os benefícios sociais vinculados a essa Família na agência da Caixa Econômica Federal denominada CAIXA ECONOMICA FEDERAL AG. BELO JARDIM, situada no endereço: RUA JOSE ROBALINHO NUM 106 - CENTRO, durante o período de validade abaixo definido.</p>
 
-            <p style='text-align:right;'>São Bento do Una, <?php echo $data_formatada; ?></p>
+            <p style='text-align:right;'>São Bento do Una, <?php echo $data_formatada_extenso; ?></p>
             <p style='text-align:center;'>__________________________________________________________________________</p>
             <p style='text-align:center;'>Assinatura e carimbo do(a) gestor(a) municipal do Programa Bolsa Família</p>
 

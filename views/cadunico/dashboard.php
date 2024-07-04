@@ -67,8 +67,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           </div>
           <div class="observ">
             <div><label for="resumo">Observação:</label></div>
-            <div><textarea name="resumo" id="resumo"
-                placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
+            <div><textarea name="resumo" id="resumo" placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
           </div>
           <br><input type="hidden" name="tipo_documento_hidden" id="tipo_documento_hidden" value=".pdf">
         </div>
@@ -97,48 +96,99 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
         </div>
         <div class="btn">
           <button type="submit">Cadastrar</button>
+          <div id="success-icon" style="display: none;">
+            <span class="material-symbols-outlined">
+              check
+            </span>
+          </div>
           <br><button type="button" onclick="voltaMenu()"><i class="fas fa-arrow-left"></i>Voltar ao menu</button>
         </div>
       </form>
 
     </div>
-    <!--BOTÕES PARA FÁCIL ACESSO AOS FORMULÁRIO E DECLARAÇÕES-->
-    <div class="btns">
-      <div><label for="">Botões de fácil acesso:</label></div>
-      <nav>
-        <a type="button" id="btn_residencia">
-          <i class="fas fa-home icon"></i> Termo de Declaração de Residência
-        </a>
-        <a type="button" id="btn_dec_renda">
-          <i class="fas fa-file-invoice-dollar icon"></i> Termo de Declaração de Renda
-        </a>
-        <a type="button" id="btn_fc_familia">
-          <i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Familia
-        </a>
-        <a type="button" id="btn_fc_pessoa">
-          <i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Pessoa
-        </a>
-        <!--DECLARAÇÃO PARA INFORMAR SE A PESSOA É INSCRITA NO CADASTRO ÚNICO E/OU TEM BENEFÍCIO-->
-        <a type="button" id="btn_dec_cad">
-          <i class="material-symbols-outlined">assignment_add</i> Declaração Cadastro Único
-        </a>
-        <!--ENCAMINHAMENTO ELABORAÇÃO DE INFORMATIVO PARA ENCAMINHAR O USUÁRIO PARA OUTROS SERVIÇOS-->
-        <a type="button" id="btn_encamnhamento">
-          <i class="material-symbols-outlined">export_notes</i> Encaminhamentos
-        </a>
-        <!--DOCUMENTO PARA FIRMAR O DESLIGAMENTO VOLUNTÁRIO-->
-        <a type="button" id="btn_des_vol">
-          <i class="material-symbols-outlined">contract_delete</i> Desligamento Voluntário
-        </a>
-        <!--DOCUMENTO PARA CAIXA REALIZAR UM PAGAMENTO CASO A TROCA DE RF NÃO TENHA SIDO REFLETIDO NO SIBEC OU NOS SISTEMAS CAIXA-->
-        <a type="button" id="btn_troca">
-          <i class="material-symbols-outlined">quick_reference</i> Troca de RF - C.E.F.
-        </a>
-      </nav>
+    <div class="btns_tudo">
+      <!--BOTÕES PARA FÁCIL ACESSO AOS FORMULÁRIO E DECLARAÇÕES-->
+      <div class="btns">
+        <div><label for="">Botões de fácil acesso:</label></div>
+        <div class="nav">
+          <div class=bloco1>
+            <nav>
+
+              <a type="button" id="btn_residencia">
+                <i class="fas fa-home icon"></i> Termo de Declaração de Residência
+              </a>
+
+
+              <a type="button" id="btn_dec_renda">
+                <i class="fas fa-file-invoice-dollar icon"></i> Termo de Declaração de Renda
+              </a>
+
+
+              <a type="button" id="btn_fc_familia">
+                <i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Familia
+              </a>
+
+
+              <a type="button" id="btn_fc_pessoa">
+                <i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Pessoa
+              </a>
+
+            </nav>
+          </div>
+          <div class="bloco2">
+            <nav>
+              <a type="button" id="btn_dec_cad">
+                <i class="material-symbols-outlined">assignment_add</i> Declaração Cadastro Único
+              </a>
+
+
+              <a type="button" id="btn_encamnhamento">
+                <i class="material-symbols-outlined">export_notes</i> Encaminhamentos
+              </a>
+
+
+              <a type="button" id="btn_des_vol">
+                <i class="material-symbols-outlined">contract_delete</i> Desligamento Voluntário
+              </a>
+
+
+              <a type="button" id="btn_troca">
+                <i class="material-symbols-outlined">quick_reference</i> Troca de RF - C.E.F.
+              </a>
+            </nav>
+          </div>
+        </div>
+      </div>
+      <div class="btns">
+        <div><label for="">Links de fácil acesso:</label></div>
+        <div class="nav">
+          <div class=bloco1>
+            <nav>
+
+              <a href="https://www.beneficiossociais.caixa.gov.br" target="_blank">SIBEC</a>
+
+              <a href="http://cadastrounico.caixa.gov.br" target="_blank" class="cadunico">CADASTRO ÚNICO</a>
+
+              <a href="https://cecad.cidadania.gov.br/painel03.php" target="_blank" class="cecad">CECAD</a>
+
+            </nav>
+          </div>
+          <div class="bloco2">
+            <nav>
+              <a href="https://cadunico.dataprev.gov.br/portal/" target="_blank" class="pcadunico">PORTAL CADASTRO ÚNICO</a>
+
+              <a href="https://falemds.centralit.com.br/formulario/" target="_blank" class="pcadunico">FORMULÁRIO ELETRÔNICO DO MDS</a>
+
+              <a href="https://www.mds.gov.br/mds-sigpbf-web/carregarTelaLogin.jsf;jsessionid=fdL4CJM3HzqgPmqgvb3i9aKrL02hrOuEBCb9dQo9.susigpbfpd01" target="_blank" class="sigpbf">SIGPBF</a>
+
+            </nav>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
       const targets = [
         document.getElementById('codfamiliar_print'),
         document.getElementById('data_entrevista'),
@@ -164,7 +214,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
       targets.forEach(target => {
         // Observador de mutações para monitorar mudanças no conteúdo
-        const observer = new MutationObserver(function (mutationsList) {
+        const observer = new MutationObserver(function(mutationsList) {
           for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
               toggleVisibility(target);
@@ -186,6 +236,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
       });
     });
   </script>
+
 </body>
 
 </html>

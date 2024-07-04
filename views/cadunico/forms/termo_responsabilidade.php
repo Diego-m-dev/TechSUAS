@@ -1,6 +1,7 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 
 $cpf_residencia = $_POST['cpf_residencia'];
@@ -18,7 +19,6 @@ $sql_reside->execute();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termo de Responsabilidade</title>
     <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/tr.css"> -->
-
 <?php
     if ($_SESSION['name_sistema'] == "SUPORTE"){
 ?>
@@ -89,15 +89,6 @@ if ($sql_reside->rowCount() > 0) {
                 <li class="topic">A qualquer tempo poderei ser convocado pelo município ou por órgãos federais de controle e fiscalização, para avaliar se as informações que prestei ao Cadastro Único estão de acordo com a realidade.</li>
                 <li class="topic">A prestação de informações falsas ao Programa Bolsa Família é motivo de cancelamento do benefício, e pode gerar processo administrativo para ressarcimento dos valores recebidos indevidamente, nos termos do art. 18 da Medida Provisória nº 1.164, de 2 de março de 2023. Pode também ocasionar processo penal e cível nos termos da legislação geral brasileira.</li>
             </ul>
-    <div class="cidade_data">
-      <?php echo $cidade; ?><?php echo $data_formatada; ?>.
-    </div>
-    <br><br><br>
-
-            <p class="center ass">______________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</p>
-
-            <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
-            <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
 <?php
 } else {
 
@@ -110,17 +101,17 @@ if ($sql_reside->rowCount() > 0) {
             <li class="topic">A qualquer tempo poderei ser convocado pelo município ou por órgãos federais de controle e fiscalização, para avaliar se as informações que prestei ao Cadastro Único estão de acordo com a realidade.</li>
             <li class="topic">A prestação de informações falsas ao Programa Bolsa Família é motivo de cancelamento do benefício, e pode gerar processo administrativo para ressarcimento dos valores recebidos indevidamente, nos termos do art. 18 da Medida Provisória nº 1.164, de 2 de março de 2023. Pode também ocasionar processo penal e cível nos termos da legislação geral brasileira.</li>
         </ul>
-    <div class="cidade_data">
-      <?php echo $cidade; ?><?php echo $data_formatada; ?>.
-    </div>
-        <br>
-        <p class="center ass">______________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</p>
-
-            <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
-            <button class="impr" onclick="voltarAoMenu()">Voltar</button>
-    <?php
+<?php
 }
 ?>
+    <div class="cidade_data">
+      <?php echo $cidade; ?><?php echo $data_formatada_extenso; ?>.
+    </div>
+        <br><br><br><br>
+        <p class="center ass">______________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</p>
+    <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
+    <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
+
     </div>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </body>

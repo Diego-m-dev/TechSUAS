@@ -59,20 +59,32 @@ p.cont{
 .titulo{
     display: none;
 }
-
+table{
+    justify-content: center;
+    margin: 0;
+}
 @media print {
     body::after {
         content: none !important;
         /* Oculta o conteúdo após o corpo do documento */
     }
 
-    body {
+    .background-9876543-SUPORTE {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-size: 14px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+    .background-2613008-CADUNICO {
         margin: 0;
         padding: 0;
         background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
         background-size: cover;
         background-repeat: no-repeat;
-        font-size: 13px;
+        font-size: 14px;
         font-family: 'Times New Roman', Times, serif;
     }
 
@@ -126,11 +138,11 @@ p.cont{
         margin-left: auto;
     }
     table{
-        font-size: 14px;
+        font-size: 13px;
     }
     td{
         margin: 0px;
-        padding: 5px;
+        padding: 3px;
     }
     .titulo {
         font-size: 10px;

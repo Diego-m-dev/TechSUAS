@@ -516,12 +516,14 @@ $(document).ready(function () {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        const form = document.getElementById("form_familia")
-        form.submit()
+        const form = document.getElementById("form_familia");
+        form.target = "_blank"; 
+        form.submit();
       }
-    })
-  })
-})
+    });
+  });
+});
+
 
 
 
@@ -710,20 +712,9 @@ function mostrarCampoTexto() {
   }
 }
 
-//FUNÇÃO PARA APLICAR A DATA DA ENTREVISTA CASO SEJA NO MESMO DIA.
-
-function dataHoje() {
-  var data = new Date();
-  var dia = String(data.getDate()).padStart(2, '0');
-  var mes = String(data.getMonth() + 1).padStart(2, '0');
-  var ano = data.getFullYear();
-
-  var dataFormatada = ano + '-' + mes + '-' + dia;
-}
 function recuperarSenha() {
   window.location.href = "/TechSUAS/views/geral/recuperar_senha"
 }
-
 
 function toggleDetails(id) {
   const details = document.getElementById(id);
@@ -759,4 +750,8 @@ function buscaFicharo() {
 
 function printTiq() {
   window.location.href = "/TechSUAS/fichario_test/print_etiqueta"
+}
+
+function voltaMenu() {
+    window.location.href = "/TechSUAS/views/cadunico/index"
 }

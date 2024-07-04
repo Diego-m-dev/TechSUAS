@@ -118,9 +118,10 @@ Swal.fire({
               if ($_SESSION['name_sistema'] == "CONCESSAO"){
                 header("location:/TechSUAS/views/concessao/index");
                 exit();
-              }
+              } else {
                 header("location:/TechSUAS/views/cadunico/index");
                 exit();
+              }
             }
         }
     } else {

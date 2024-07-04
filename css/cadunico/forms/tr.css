@@ -8,23 +8,42 @@ body {
     /* Centraliza horizontalmente */
     width: 80%;
 }
-.titulo{
+
+.titulo {
     display: none;
 }
+
 .right {
     text-align: right;
+}
+
+h1 {
+    margin: 40px 0px;
+    padding: 0px;
 }
 
 .center {
     text-align: center;
 }
 
+.signature-line {
+    width: 600px;
+    /* Largura da linha */
+    border-bottom: 1px solid #000;
+    /* Cor e espessura da linha */
+    margin: 0px;
+    /* Espaçamento acima e abaixo da linha */
+    text-align: center;
+}
+
 .paragraph {
     margin-bottom: 20px;
+    text-indent: 1.25cm;
+    text-align: justify;
 }
 
 .topic {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .editable-field {
@@ -35,9 +54,24 @@ body {
     font-weight: bold;
 }
 
+.nome,
+.cpf,
+.nis {
+    font-weight: bold;
+}
+
 .right,
 .ass {
     display: none;
+}
+
+.assinatura {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 50px;
 }
 
 button,
@@ -55,23 +89,42 @@ a {
     text-transform: capitalize;
 }
 
+.editable-field {
+    border: 1px solid #000;
+    padding: 1px 10px;
+    border-radius: 5px;
+}
+
 button:hover,
 a:hover {
     background-color: #3b82f6;
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }
+
 @media print {
     button {
         display: none;
     }
 
-    body {
+    .background-9876543-SUPORTE {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
         background-size: cover;
         background-repeat: no-repeat;
-        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        font-size: 18px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .background-2613008-CADUNICO {
         margin: 0;
-        /* Define margem zero para a impressão */
+        padding: 0;
+        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-size: 18px;
+        font-family: 'Times New Roman', Times, serif;
     }
 
     body::after {
@@ -98,24 +151,38 @@ a:hover {
         margin: 0 auto;
         /* Centraliza horizontalmente */
     }
+
     label,
-    input{
+    input {
         display: none;
     }
+
     .right,
     .ass {
         display: block;
     }
+
     .titulo {
         font-size: 10px;
-        position: fixed; /* Posicionamento fixo */
-        top: 30px; /* Posição no topo */
-        right: 20px; /* Distância da direita */
-        transform: translateY(50%); /* Ajuste para o centro vertical */
-        display: block; /* Garante que seja exibido como bloco */
-        white-space: nowrap; /* Impede que o texto quebre a linha */
+        position: fixed;
+        /* Posicionamento fixo */
+        top: 30px;
+        /* Posição no topo */
+        right: 20px;
+        /* Distância da direita */
+        transform: translateY(50%);
+        /* Ajuste para o centro vertical */
+        display: block;
+        /* Garante que seja exibido como bloco */
+        white-space: nowrap;
+        /* Impede que o texto quebre a linha */
     }
+
     .tech {
         padding-right: 5px;
+    }
+
+    .editable-field {
+        border: none;
     }
 }

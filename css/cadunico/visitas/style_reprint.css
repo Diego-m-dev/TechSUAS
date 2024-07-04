@@ -1,16 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-body {
+.background-9876543-SUPORTE {
+    margin: 0;
+    padding: 0;
+    background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
+    background-size: cover;
+    background-repeat: no-repeat;
     font-family: 'Times New Roman', Times, serif;
+    overflow: auto;
+    height: auto;
+    text-transform: capitalize;
+    font-size: 13px;
+}
+.background-2613008-CADUNICO {
     margin: 0;
     padding: 0;
     background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
     background-size: cover;
     background-repeat: no-repeat;
+    font-family: 'Times New Roman', Times, serif;
     overflow: auto;
-    font-family: "Inter", sans-serif;
     height: auto;
     text-transform: capitalize;
     font-size: 13px;
+    
 }
 .editable-field {
     border: none;

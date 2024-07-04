@@ -4,49 +4,32 @@ body {
     padding: 0;
 }
 
-#parecer {
-    text-transform: uppercase;
-    font-weight: bold;
-    text-align: justify;
-}
-
 select {
     width: auto;
     /* Define a largura para automática */
 }
 
-/* Seu estilo adicional aqui */
-
-#form-container {
-    width: 600px;
+.container {
+    width: 700px;
     margin: 0 auto;
-    padding: 50px 20px 20px 20px;
-    /* Adicione um fundo branco semitransparente ao formulário */
-}
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
 }
 
-
-#title {
-    font-size: 26px;
-    font-weight: bold;
+h1 {
     text-align: center;
 }
 
-#subtitle {
-    font-size: 16px;
-    font-weight: bold;
-    text-align: center;
-    margin-top: 10px;
+label {
+    text-transform: uppercase;
 }
-.titulo{
+
+.assinatura {
+display: none;
+}
+
+
+.titulo {
     display: none;
-}
-#form {
-    margin-top: 20px;
 }
 
 label {
@@ -67,19 +50,11 @@ textarea {
     height: 100px;
 }
 
-#right-align {
-    text-align: right;
-}
-
 .signature-line {
     margin-top: 20px;
     text-align: center;
 }
 
-#justified-text {
-    text-align: justify;
-    margin-top: 20px;
-}
 
 .justified-text,
 #right-align,
@@ -109,19 +84,41 @@ a:hover {
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }
+
 @media print {
-    button{
+    button {
         display: none;
     }
-    #form-container{
-        padding: 100px 20px 20px 20px;
-    }
-    body {
+
+    .background-9876543-SUPORTE {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
         background-size: cover;
         background-repeat: no-repeat;
-        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        font-size: 14px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .background-2613008-CADUNICO {
         margin: 0;
-        /* Define margem zero para a impressão */
+        padding: 0;
+        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-size: 14px;
+        font-family: 'Times New Roman', Times, serif;
+    }
+
+    .container {
+        width: 600px;
+        margin: 0 auto;
+        padding: 90px 20px 20px 20px;
+        /* Adicione um fundo branco semitransparente ao formulário */
+    }
+
+    h1 {
+        white-space: nowrap;
     }
 
     body::after {
@@ -142,19 +139,28 @@ a:hover {
     p {
         display: block;
     }
-    #right-align {
-        text-align: right;
-    }
+
+
     .titulo {
         font-size: 10px;
-        position: fixed; /* Posicionamento fixo */
-        top: 30px; /* Posição no topo */
-        right: 20px; /* Distância da direita */
-        transform: translateY(50%); /* Ajuste para o centro vertical */
-        display: block; /* Garante que seja exibido como bloco */
-        white-space: nowrap; /* Impede que o texto quebre a linha */
+        position: fixed;
+        /* Posicionamento fixo */
+        top: 30px;
+        /* Posição no topo */
+        right: 20px;
+        /* Distância da direita */
+        transform: translateY(50%);
+        /* Ajuste para o centro vertical */
+        display: block;
+        /* Garante que seja exibido como bloco */
+        white-space: nowrap;
+        /* Impede que o texto quebre a linha */
     }
-    .tech {
-        padding-right: 5px;
+
+    .assinatura{
+        display: flex;
+        justify-content: center;
+        text-align: center;
+        margin-top: 30px;
     }
 }
