@@ -69,7 +69,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
           </div>
 
           <div class="fichario">
-            <a class="menu-button" href="/TechSUAS/views/cadunico/fichario/fichario_home.php">
+            <a class="menu-button" href="/TechSUAS/views/cadunico/fichario/index.php">
               <span class="material-symbols-outlined">folder_shared</span>
               Fichário
             </a>
