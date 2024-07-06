@@ -97,7 +97,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
       <img class="calendario" src="/TechSUAS/img/cadunico/calend.svg" alt="Calendário">
     </div>
   </div>
-  
+</div>
   <!-- FOOTER DA PAGINA -->
   <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/footer.php'; ?>
 
