@@ -1,37 +1,77 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+* {
+    margin-top: 0px;
+}
+
 body {
-    background-image: url(/TechSUAS/img/concessao/fundo_conc.svg);
+    background-image: url(/TechSUAS/img/geral/background-suporte.svg);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     overflow: auto;
     font-family: "Inter", sans-serif;
+    height: auto;
+    font-weight: bold;
+    text-transform: uppercase;  
     color: #13294b;
-}
-
-* {
-    margin-top: 0px;
 }
 
 img {
-    justify-content: center;
+    display: flex;
     width: 100%;
     max-height: 120px
 }
+
+.container {
+background-color: #ffffff;
+border-radius: 5px;
+padding: 20px;
+line-height: 2;
+}
+hr,h2{
+    margin-top: 20px;
+}
+button,
+a {
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+    text-transform: capitalize;
+}
+
+button:hover,
+a:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}
+
+a {
+    text-decoration: none;
+    text-transform: none;
+}
+
+.btn {
+    padding-top: 25px;
+}
+
 input,
 select,
-option,
-label,
-span {
-    font-size: 14px;
-    font-weight: 700;
+option {
     background-color: #ffffff;
     color: #13294b;
+    font-size: 13px;
+    font-family: "Inter", sans-serif;
     border-radius: 5px;
     padding: 1px 2px;
     border-style: outset;
 }
-h2{
-    color: #13294b;
+label{
+    white-space: nowrap;
 }
