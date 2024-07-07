@@ -74,10 +74,18 @@ nav{
 
 .tudo {
 display:flex;
-flex-direction:column;
+flex-direction:row;
+justify-content: space-between;
 }
 a span{
   margin-right: 5px;
+}
+.calend{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content:space-between;
+ margin: 20px;
 }
 .calendario {
   max-width: 500px;

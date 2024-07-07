@@ -1,6 +1,14 @@
 <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-    
+
+if ($_SESSION['acesso'] == 0) {
+  ?>
+  <script>
+    window.history.back()
+  </script>
+  <?php
+  exit();
+}
 
 ?>
 <!DOCTYPE html>
@@ -79,17 +87,17 @@
 
     <script src="/TechSUAS/js/personalise.js"></script>
     <script>document.addEventListener('DOMContentLoaded', function() {
-    const togglePassword = document.getElementById('togglePassword');
-    const senhaInput = document.getElementById('senha');
+    const togglePassword = document.getElementById('togglePassword')
+    const senhaInput = document.getElementById('senha')
 
-    togglePassword.addEventListener('click', function() {
-        const type = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        senhaInput.setAttribute('type', type);
-        this.classList.toggle('fa-eye');
-        this.classList.toggle('fa-eye-slash');
-    });
-});
-</script>
+      togglePassword.addEventListener('click', function() {
+          const type = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password'
+          senhaInput.setAttribute('type', type)
+          this.classList.toggle('fa-eye')
+          this.classList.toggle('fa-eye-slash')
+      })
+    })
+    </script>
 </body>
 
 </html>

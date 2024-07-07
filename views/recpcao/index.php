@@ -1,8 +1,8 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
-if ($_SESSION['funcao'] != '0') {
+
+if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
     echo '<script>window.history.back()</script>';
     exit();
 }
@@ -16,8 +16,7 @@ if ($_SESSION['funcao'] != '0') {
 
     <link rel="stylesheet" href="/TechSUAS/css/recepcao/style.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -91,6 +90,25 @@ if ($_SESSION['funcao'] != '0') {
             </div>
         </div>
 
+        <div class="drop-all">
+    <div class="menu-drop">
+      <button class="logout" type="button" name="drop">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+      <div class="drop-content">
+        <a title="Sair" href="/TechSUAS/config/logout">
+          <span title="Sair" class="material-symbols-outlined">logout</span>
+        </a>
+        <a title="Alterar Usuário" href="/TechSUAS/views/geral/conta">
+          <span class="material-symbols-outlined">manage_accounts</span>
+        </a>
+        <?php if ($_SESSION['funcao'] == '0') { ?>
+          <a title="Suporte" href="/TechSUAS/config/back">
+            <span class="material-symbols-outlined">rule_settings</span>
+          </a>
+        <?php } ?>
+      </div>
+    </div>
 
 
         <script>

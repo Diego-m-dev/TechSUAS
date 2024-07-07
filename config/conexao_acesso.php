@@ -1,12 +1,12 @@
 <?php
 // Conecte-se ao seu banco de dados MySQL usando as credenciais adequadas.
 $host = '89.117.7.52';
-$usuario = 'u198416735_suporte_ddv';
-$senha = '#Tech2024';
-$banco = 'u198416735_ddv_cont';
+$usuario = 'u198416735_acesso';
+$senha = '9+A$=XeE';
+$banco = 'u198416735_acesso';
 $port = 3306;
 
-$raiz_dom= "/TechSUAS/";
+$raiz_dom = "/TechSUAS/";
 
 date_default_timezone_set('America/Sao_Paulo');
 try {
@@ -24,5 +24,6 @@ try {
     }
 } catch (Exception $e) {
     echo "Erro ao conectar com o banco de dados! " . $e->getMessage();
+    exit();
 }
 ?>

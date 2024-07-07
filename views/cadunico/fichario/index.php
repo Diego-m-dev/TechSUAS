@@ -42,7 +42,7 @@ if ($_SESSION['funcao'] != '0') {
                 </div>
                 
                 <div class="bt">
-                    <a type="button" class="menu-button" id="menu-button">
+                    <a type="button" href="/TechSUAS/fichario_test/form_fichario" class="menu-button" id="menu-button">
                         <span class="material-symbols-outlined"></span>
                         FICHARIO FISICO
                     </a>
