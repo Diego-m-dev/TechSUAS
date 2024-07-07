@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       confirmButtonText: 'OK',
       }).then((result) => {
           if (result.isConfirmed) {
-              window.location.href = "/TechSUAS/suporte/index";
+              window.location.href = "/TechSUAS/config/logout";
           }
       });
       </script>
