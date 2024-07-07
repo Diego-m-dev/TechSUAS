@@ -85,7 +85,7 @@ a span{
   flex-direction: row;
   align-items: center;
   justify-content:space-between;
-
+ margin: 20px;
 }
 .calendario {
   max-width: 500px;
