@@ -752,6 +752,10 @@ function printTiq() {
   window.location.href = "/TechSUAS/fichario_test/print_etiqueta"
 }
 
+function cadastroFichario() {
+  window.location.href = "/TechSUAS/fichario_test/cadastrar_fichario"
+}
+
 function voltaMenu() {
     window.location.href = "/TechSUAS/views/cadunico/index"
 }
