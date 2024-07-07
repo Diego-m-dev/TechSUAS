@@ -57,33 +57,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 exit();
     }
 
-    if ($_SESSION['setor'] == "SUPORTE") {
-        // Busca o id do setor na tabela setores baseado no cpf do responsável
-        $stmt_munic = $pdo_1->prepare("SELECT id FROM sistemas WHERE cpf = :cpf_coord");
-        $stmt_munic->bindValue(":cpf_coord", $cpf_coord);
-        $stmt_munic->execute();
+    if ($_SESSION['funcao'] == "1") {
 
-        if ($stmt_munic->rowCount() != 0) {
-            $dados_munic = $stmt_munic->fetch(PDO::FETCH_ASSOC);
-            $municipio_id = $dados_munic['id'];
-        } else {
-            // Trate o caso em que o município não foi encontrado
-            die("Sistema não encontrado.");
-        }
+      $nome_bd = $_SESSION['nome_bd'];
+      $user_bd = $_SESSION['user_bd'];
+      $pass_bd = $_SESSION['pass_bd'];
+      $municipio = $_SESSION['municipio'];
+      $sistema = $_SESSION['name_sistema'];
+
     } else {
-        $municipio = $cpf_coord;
-        $municipio_id = $_SESSION['sistema_id'];
-    }
+      $sistema = $_POST['sistema'];
+      // Busca o id do setor na tabela setores baseado no cpf do responsável
+      $stmt_munic = $pdo_1->prepare("SELECT cod_ibge, nome_bd, user_bd, pass_bd FROM municipios WHERE cod_ibge = :ibgeCOD");
+      $stmt_munic->bindValue(":ibgeCOD", $cpf_coord);
+      $stmt_munic->execute();
+
+      if ($stmt_munic->rowCount() != 0) {
+          $dados_munic = $stmt_munic->fetch(PDO::FETCH_ASSOC);
+
+            $municipio = $dados_munic['cod_ibge'];
+            $nome_bd = $dados_munic['nome_bd'];
+            $user_bd = $dados_munic['user_bd'];
+            $pass_bd = $dados_munic['pass_bd'];
+          } else {
+          // Trate o caso em que o município não foi encontrado
+          die("Município não encontrado.");
+      }
+  }
 
     // Caso o Nome do Usuário seja unico será adicionado ao SQL
-    $smtp = $conn_1->prepare("INSERT INTO operadores (municipio, nome, usuario, senha, setor, funcao, email, acesso) VALUES (?,?,?,?,?,?,?,?)");
+    $smtp = $conn_1->prepare("INSERT INTO operadores (municipio, nome, usuario, senha, setor, funcao, email, name_sistema, acesso, nome_bd, user_bd, pass_bd) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
 
     // Verifica se a preparação foi bem-sucedida
     if ($smtp === false) {
         die('Erro na preparação SQL: ' . $conn_1->error);
     }
     $acesso = "1";
-    $smtp->bind_param("ssssssss", $municipio, $user_maiusc, $nomeUsuario, $senha_hashed, $setor, $funcao, $email, $acesso);
+    $smtp->bind_param("ssssssssssss", $municipio, $user_maiusc, $nomeUsuario, $senha_hashed, $setor, $funcao, $email, $sistema, $acesso, $nome_bd, $user_bd, $pass_bd);
 
     if ($smtp->execute()) {
         if ($_SESSION['setor'] == "SUPORTE") {
