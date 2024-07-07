@@ -1,18 +1,14 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
+
 if (isset($_SESSION['municipio'])) {
-    $cod_ibge = $_SESSION['municipio'];
-    $stmt_bd = "SELECT * FROM municipios WHERE cod_ibge = '$cod_ibge'";
-    $stmt_bd_query = $conn_1->query($stmt_bd) or die("Erro " . $conn_1 - error);
-    if ($stmt_bd_query->num_rows != 0) {
-        $dados_credenciais = $stmt_bd_query->fetch_assoc();
-        $host = '89.117.7.52';
-        $usuario_bd = $dados_credenciais['usuario'];
-        $senha_bd = $dados_credenciais['senha_bd'];
-        $banco = $dados_credenciais['nome_bd'];
-        $port = 3306;
-    }
+      $host = '89.117.7.52';
+      $usuario_bd = $_SESSION['user_bd'];
+      $senha_bd = $_SESSION['pass_bd'];
+      $banco = $_SESSION['nome_bd'];
+      $port = 3306;
+
 } else {
   exit();
 }
