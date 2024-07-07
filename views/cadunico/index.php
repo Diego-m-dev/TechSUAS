@@ -75,7 +75,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </a>
           </div>
 <?php
-  if ($_SESSION['funcao'] == '1' && $_SESSION['funcao'] == '0') {
+  if ($_SESSION['funcao'] == '1' || $_SESSION['funcao'] == '0') {
 ?>
           <div class="area_gestor">
             <a class="menu-button" href="/TechSUAS/views/cadunico/area_gestao/index">
