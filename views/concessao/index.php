@@ -38,6 +38,17 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
         <div class="container">
             <div class="menu">
                 <nav>
+<?php
+  if ($_SESSION['funcao'] == '1') {
+?>
+      <div class="btn">
+        <a class="menu-button" href="/TechSUAS/views/geral/cadastro_user">
+          Cadastrar Operador
+        </a>
+      </div>
+<?php
+  }
+?>
                     <div class="btn">
                         <a class="menu-button" id="cadastrar_contrato" onclick="location.href='cadastro_pessoa';">
                             <span class="material-symbols-outlined">
@@ -86,6 +97,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
         </div>
 
         </div>
+
         <footer><img src="/TechSUAS/img/geral/footer.svg" alt=""></footer>
         <div class="drop-all">
             <div class="menu-drop">
