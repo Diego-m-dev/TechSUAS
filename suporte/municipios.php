@@ -129,9 +129,10 @@ if ($_SESSION['setor'] != "SUPORTE") {
       <form action="/TechSUAS/suporte/controller/salva_sys.php" method="POST" id="formCadSistemas" class="esconde_form">
         <h2>Cadastro de Sistemas</h2>
 
+        <div id="responsavel-info"></div>
+
         <label for="cpf">CPF do Responsável</label>
         <input type="text" id="cpf" name="cpf" onblur="buscarResponsavel()" required>
-        <div id="responsavel-info"></div>
 
         <label for="nome_sistema">Nome do Sistema:</label>
         <input type="text" id="nome_sistema" name="nome_sistema" required>
@@ -139,7 +140,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
         <label for="data_aquisicao">Data de Aquisição:</label>
         <input type="date" id="data_aquisicao" name="data_aquisicao" required>
 
-        <label for="validade">Validade:</label>
+        <br><label for="validade">Validade:</label>
         <input type="number" id="validade" name="validade" required>
 
         <label for="secretaria">Secretaria:</label>

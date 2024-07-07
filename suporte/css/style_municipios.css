@@ -13,7 +13,7 @@ body {
     font-family: "Inter", sans-serif;
     height: auto;
     font-weight: bold;
-    text-transform: uppercase;  
+    text-transform: uppercase;
     color: #13294b;
 }
 
@@ -24,14 +24,18 @@ img {
 }
 
 .container {
-background-color: #ffffff;
-border-radius: 5px;
-padding: 20px;
-line-height: 2;
+    background-color: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
+    line-height: 2;
+    width: auto;
 }
-hr,h2{
+
+hr,
+h2 {
     margin-top: 20px;
 }
+
 button,
 a {
     font-size: 14px;
@@ -72,6 +76,7 @@ option {
     padding: 1px 2px;
     border-style: outset;
 }
-label{
+
+label {
     white-space: nowrap;
 }
