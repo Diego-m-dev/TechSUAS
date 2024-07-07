@@ -103,7 +103,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
         <label for="nome_instit">Nome da Instituição:</label>
         <input type="text" id="nome_instit" name="nome_instit" required>
 
-        <label for="rua">Rua:</label>
+        <br><label for="rua">Rua:</label>
         <input type="text" id="rua" name="rua">
 
         <label for="numero">Número:</label>
@@ -115,7 +115,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
 
-        <label for="responsavel">Responsável:</label>
+        <br><label for="responsavel">Responsável:</label>
         <input type="text" id="responsavel" name="responsavel" required>
 
         <label for="cpf_coord">CPF do Coordenador:</label>
