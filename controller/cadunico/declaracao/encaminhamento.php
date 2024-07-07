@@ -12,6 +12,7 @@
         <?php
 
         // Inclui o arquivo "conexao.php" que deve conter a configuração da conexão com o banco de dados
+        include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
         include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
         include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
 
