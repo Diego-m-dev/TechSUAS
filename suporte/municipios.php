@@ -1,5 +1,4 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao_acesso.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
 if ($_SESSION['setor'] != "SUPORTE") {
@@ -122,7 +121,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
     <form action="/TechSUAS/suporte/controller/salva_sys.php" method="POST" id="formCadSistemas" class="esconde_form">
     <h2>Cadastro de Sistemas</h2>
 
-      <label for="cpf">CPF do Responsável:</label>
+      <label for="cpf">CPF do Responsável</label>
       <input type="text" id="cpf" name="cpf" onblur="buscarResponsavel()" required>
       <div id="responsavel-info"></div>
 
@@ -145,7 +144,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
     <form action="/TechSUAS/controller/geral/processo_cad_user" method="POST" id="formCadoperador" class="esconde_form">
     <h2>Cadastro de Operadores</h2>
 
-    <label for="cpf">CPF:</label>
+    <label for="cpf">Código IBGE:</label>
       <input type="text" id="cpf" name="cpf" required>
 
       <label>Nome completo:</label>
@@ -153,6 +152,27 @@ if ($_SESSION['setor'] != "SUPORTE") {
 
       <label>E-mail:</label>
       <input type="email" name="email" placeholder="Digite aqui seu e-mail." required style="width: 300px;">
+
+      <label for="">Sistema:</label>
+
+      <select name="sistema" required>
+        <option value="" disabled selected hidden>Selecione</option>
+        <?php
+
+$consultaSetores = $conn_1->query("SELECT nome_sistema FROM sistemas");
+
+// Verifica se há resultados na consulta
+if ($consultaSetores->num_rows > 0) {
+
+    // Loop para criar as opções do select
+    while ($system = $consultaSetores->fetch_assoc()) {
+?>
+  <option value="<?php echo $system['nome_sistema'] ?>"><?php echo $system['nome_sistema'] ?></option>
+<?php
+    }
+}
+?>
+    </select>
 
         <label>Setor:</label>
       <select name="setor" required>
@@ -201,6 +221,8 @@ if ($consultaSetores->num_rows > 0) {
     <button type="submit">salvar</button>
   </form>
   </div>
-
+<script>
+  $('#cpf').mask('000.000.000-00')
+</script>
 </body>
 </html>
