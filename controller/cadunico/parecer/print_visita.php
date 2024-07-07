@@ -32,9 +32,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
             <span>TechSUAS-Cadastro Único</span> - <?php echo $data_cabecalho; ?>
         </div>
     </div>
-
+    <h1>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h1>
     <div class="tudo">
-        <h1>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h1><br>
+
         <?php
         $id_visita = $_POST["id_visita"];
 
@@ -323,14 +323,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
                 }
 ?>
 <br><br>
-<div class="assinatura">
-    <p class="signature-line"></p>
-    <p>Assinatura do Entrevistador</p>
-</div>
-<div class="assinatura">
-    <p class="signature-line"></p>
-    <p>Assinatura do Responsável</p>
-</div>
+<div class="assinatura">_______________________________________________________________________<br>Assinatura do Entrevistador</div><br><br>
+<div class="assinatura">_______________________________________________________________________<br>Assinatura do Responsável</div>
 
 <?php
             } else {

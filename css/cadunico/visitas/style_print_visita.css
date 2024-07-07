@@ -1,48 +1,95 @@
-@media print {
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
+.tudo {
+    margin: 0px 0px 0px 50px;
+}
+
+.titulo {
+    display: none;
+}
+
+h1 {
+    text-align: center;
+    margin: 100px 20px 20px 20px !important;
+}
+
+.assinatura {
+    display: none;
+}
+
+button,
+a {
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 5px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover,
+button:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}
+
+@media print {
     body::after {
         content: none !important;
         /* Oculta o conteúdo após o corpo do documento */
     }
 
+    h1 {
+        text-align: center;
+        margin: 100px 20px 20px 20px !important;
+    }
+
+    .assinatura {
+        text-align: center;
+    }
+
+    .tudo {
+        margin: 0px 0px 0px 50px;
+    }
+
     @page {
         size: auto;
         /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
-        margin: 3mm 0mm 0mm 0mm;
-        /* Define margens da página */
+        margin: 0;
+        /* opcional: define margens da página */
     }
 
     .background-9876543-SUPORTE {
-
+        margin: 0;
+        padding: 0;
         background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
         background-size: cover;
         background-repeat: no-repeat;
-        font-size: 12px;
         font-family: 'Times New Roman', Times, serif;
+        overflow: auto;
+        height: auto;
+        text-transform: capitalize;
+        font-size: 13px;
     }
 
     .background-2613008-CADUNICO {
-
+        margin: 0;
+        padding: 0;
         background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
         background-size: cover;
         background-repeat: no-repeat;
-        font-size: 12px;
         font-family: 'Times New Roman', Times, serif;
+        overflow: auto;
+        height: auto;
+        text-transform: capitalize;
+        font-size: 13px;
+
     }
-.tudo{
-    margin-top: 100px;
-    width: 90%;
-    margin-left: 40px;
-}
-.signature-line {
-    width: 600px;
-    border-bottom: 1px solid #000;
-    margin: 0px;
-    text-align: center;
-}
-h1{
-    text-align: center;
-}
+
     .titulo {
         font-size: 10px;
         position: fixed;
@@ -57,5 +104,18 @@ h1{
         /* Garante que seja exibido como bloco */
         white-space: nowrap;
         /* Impede que o texto quebre a linha */
+    }
+
+    .assinatura {
+        display: block;
+    }
+
+    button,
+    a {
+        display: none;
+    }
+
+    hr {
+        width: 100%;
     }
 }
