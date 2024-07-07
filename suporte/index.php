@@ -35,17 +35,17 @@ if ($_SESSION['funcao'] != "0") {
           </a>
         </div>
         <div class="btn">
-          <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/';">
+          <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/index';">
             Cadastro Único
           </a>
         </div>
         <div class="btn">
-          <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/';">
+          <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/index';">
             Concessão
           </a>
         </div>
         <div class="btn">
-          <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/';">
+          <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/index';">
             Administrativo
           </a>
         </div>
