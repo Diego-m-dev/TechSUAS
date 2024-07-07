@@ -138,7 +138,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
                   confirmButtonText: "OK"
                 }).then((result) => {
                   if (result.isConfirmed) {
-                    window.location.href = "/TechSUAS/"
+                    window.location.href = "/TechSUAS/index"
                   }
                 })
               </script>
@@ -155,7 +155,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
           confirmButtonText: "OK",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "/TechSUAS/"
+            window.location.href = "/TechSUAS/index"
           }
         })
         </script>

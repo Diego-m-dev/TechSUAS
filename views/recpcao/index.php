@@ -90,6 +90,25 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
             </div>
         </div>
 
+        <div class="drop-all">
+    <div class="menu-drop">
+      <button class="logout" type="button" name="drop">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+      <div class="drop-content">
+        <a title="Sair" href="/TechSUAS/config/logout">
+          <span title="Sair" class="material-symbols-outlined">logout</span>
+        </a>
+        <a title="Alterar Usuário" href="/TechSUAS/views/geral/conta">
+          <span class="material-symbols-outlined">manage_accounts</span>
+        </a>
+        <?php if ($_SESSION['funcao'] == '0') { ?>
+          <a title="Suporte" href="/TechSUAS/config/back">
+            <span class="material-symbols-outlined">rule_settings</span>
+          </a>
+        <?php } ?>
+      </div>
+    </div>
 
 
         <script>
