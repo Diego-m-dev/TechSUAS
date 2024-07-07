@@ -109,9 +109,9 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
                 }
 
 
-              } elseif ($_SESSION['funcao'] == "1" && $_SESSION['name_sistema'] == "CONCESSAO"){
-                header("location:/TechSUAS/views/concessao/index");
-                exit();
+            } elseif ($_SESSION['funcao'] == "1" && $_SESSION['name_sistema'] == "CONCESSAO"){
+              header("location:/TechSUAS/views/concessao/index");
+              exit();
 
 
             }elseif ($_SESSION['funcao'] == "3") {
@@ -119,8 +119,11 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
               if ($_SESSION['name_sistema'] == "CONCESSAO"){
                 header("location:/TechSUAS/views/concessao/index");
                 exit();
-              } else {
+              } elseif ($_SESSION['name_sistema'] == "CADUNICO") {
                 header("location:/TechSUAS/views/cadunico/index");
+                exit();
+              } else {
+                header("location:/TechSUAS/views/recpcao/index");
                 exit();
               }
 
