@@ -15,8 +15,9 @@ ini_set('memory_limit', '256M');
 
 setlocale(LC_TIME, 'pt_BR', 'pt_BR.utf-8', 'portuguese');
 
-require_once "../../../config/conexao.php";
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+
 if (!isset($_SESSION)) {
     session_start();
 }
