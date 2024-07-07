@@ -11,16 +11,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <style>
-        #noformat,
-        #noformat * {
-            all: unset;
-            display: revert;
-            /* Reverte o display ao valor padrão para cada elemento */
-        }
-    </style>
-
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/style_print_visita.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
@@ -95,7 +85,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
                         <?php
                         //CÓDIGO FAMILIAR SENDO FORMATADO E EXIBIDO
                         $codigo_formatado = substr_replace(str_pad($dados_tudo['cod_familiar_fam'], 11, '0', STR_PAD_LEFT), '-', 9, 0);
-                        echo 'Código Familiar: <span id="codigo_familiar">' . $codigo_formatado . '</span>';
+                        echo 'Código Familiar: <span id="codigo_familiar">' . $codigo_formatado . '</span><br>';
 
                         //DATA DA ULTIMA ATUALIZAÇÃO FORMATADA E EXIBINDO
                         $data = $dadosv['data'];
@@ -332,8 +322,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
                 }
 ?>
 <br><br>
-<div class="assinatura">_________________________________________________________________<br>Assinatura do Entrevistador</div><br><br>
-<div class="assinatura">_________________________________________________________________<br>Assinatura do Responsável</div>
+<div class="assinatura">
+    <p class="signature-line"></p>
+    <p>Assinatura do Entrevistador</p>
+</div>
+<div class="assinatura">
+    <p class="signature-line"></p>
+    <p>Assinatura do Responsável</p>
+</div>
 
 <?php
             } else {
