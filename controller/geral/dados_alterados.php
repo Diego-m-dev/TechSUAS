@@ -46,8 +46,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $smtp->bind_param("sssssssssss", $nome_completo, $apelido, $senha_hashed, $cpf, $data_nascimento, $telefone, $email, $cargo, $id_cargo, $acesso, $nome_user);
 
     if ($smtp->execute()) {
-      if ($_SESSION['funcao'] == "1") {
+      if ($_SESSION['funcao'] == "1" && $_SESSION['name_sistema'] == "CADUNICO") {
       require_once "create_bd.php";
+      foreach ($sql_create as $sql_pass) {
+        $pdo->exec($sql_pass);
+      }
+    } elseif ($_SESSION['funcao'] == "1" && $_SESSION['name_sistema'] == "CONCESSAO") {
+      require_once "create_bd_conc.php";
       foreach ($sql_create as $sql_pass) {
         $pdo->exec($sql_pass);
       }
