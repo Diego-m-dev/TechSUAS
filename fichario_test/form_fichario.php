@@ -62,11 +62,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
         <button type="submit" id="btn_salvar">Salvar</button>
         <button type="button" id="btn_reload" style="display: none;">Novo</button>
-    </form>
-    <button type="button" onclick="buscaFicharo()">FICHARIOS</button><br>
-    <button type="button" onclick="printTiq()">IMPRIMIR ETIQUETA</button><br>
+      </form>
 
-
+      <button type="button" onclick="buscaFicharo()">FICHARIOS</button><br>
+      <button type="button" onclick="printTiq()">IMPRIMIR ETIQUETA</button><br>
 <script>
     $('#codfam').mask('000000000-00')
 
@@ -166,14 +165,14 @@ if ($stmt->num_rows > 0) {
         exit();
     }
     
-            // Verifica se o nome de usuário já existe no banco de dados
+            // Verifica se o nome de codigo já existe no banco de dados
         $verifica_fichario = $conn->prepare("SELECT codfam FROM fichario WHERE codfam = ?");
         $verifica_fichario->bind_param("s", $ajustando_cod);
         $verifica_fichario->execute();
         $verifica_fichario->store_result();
     
         if ($verifica_fichario->num_rows > 0) {
-            // Se o nome de usuário já está em uso, exibe uma mensagem e redirecione de volta ao login
+            // Se o código já está cadastrado, exibe uma mensagem
             ?>
             <script>
                 Swal.fire({
@@ -191,7 +190,7 @@ if ($stmt->num_rows > 0) {
             exit();
         }
 
-    $sql_insert = "INSERT INTO fichario (codfam, arm_gav_pas, operador) VALUES ('$ajustando_cod', '$arm_gav_pas', '$operador')";
+    $sql_insert = "INSERT INTO fichario (codfam, arm_gav_pas, operador, arm, gav, pas) VALUES ('$ajustando_cod', '$arm_gav_pas', '$operador', '$arm', '$gav', '$pasta')";
 
     if ($conn->query($sql_insert) === true) {
       ?>
@@ -232,8 +231,8 @@ if ($stmt->num_rows > 0) {
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      document.querySelector('input[name="codfam"]').focus();
-    });
+      document.querySelector('input[name="codfam"]').focus()
+    })
   </script>
 </body>
 </html>
