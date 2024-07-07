@@ -67,8 +67,8 @@ if ($_SESSION['funcao'] != "0") {
           </a>
         </div>
         <div class="btn">
-          <a class="menu-button" onclick="location.href='../cras/views/menu-cras-st';">
-            CRAS Santo Afonso
+          <a class="menu-button" onclick="location.href='/TechSUAS/suporte/troca_bd';">
+            Trocar Banco de Dados
           </a>
         </div>
         <div class="btn">
