@@ -61,6 +61,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
               Mensagens do CadÚnico
             </a>
           </div>
+
           <div class="painel">
             <a class="menu-button" href="/TechSUAS/views/cadunico/dashboard">
               <span class="material-symbols-outlined">admin_panel_settings</span>
@@ -74,30 +75,32 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
               Fichário
             </a>
           </div>
-<?php
-  if ($_SESSION['funcao'] == '1' || $_SESSION['funcao'] == '0') {
-?>
-          <div class="area_gestor">
-            <a class="menu-button" href="/TechSUAS/views/cadunico/area_gestao/index">
-              <span class="material-symbols-outlined">shield_person</span>
-              Área do Gestor
-            </a>
-          </div>
+          <?php
+          if ($_SESSION['funcao'] == '1' || $_SESSION['funcao'] == '0') {
+          ?>
+            <div class="area_gestor">
+              <a class="menu-button" href="/TechSUAS/views/cadunico/area_gestao/index">
+                <span class="material-symbols-outlined">shield_person</span>
+                Área do Gestor
+              </a>
+            </div>
         </nav>
+      <?php
+          }
+      ?>
       </div>
     </div>
-<?php
-  }
-?>
-  </div>
-
-
-  <div class="calend">
-    <div class="calendendario">
-      <img class="calendario" src="/TechSUAS/img/cadunico/calend.svg" alt="Calendário">
+    <div class="calend">
+      <div class="calendendario">
+        <img class="calendario" src="/TechSUAS/img/cadunico/calend.svg" alt="Calendário">
+      </div>
     </div>
   </div>
-</div>
+  </div>
+
+
+
+  </div>
   <!-- FOOTER DA PAGINA -->
   <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/footer.php'; ?>
 
