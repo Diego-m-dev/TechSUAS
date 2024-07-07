@@ -18,6 +18,7 @@
 <body>
     <?php
     include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
     include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -51,6 +52,7 @@
                     })
                 </script>
                 <?php
+                exit();
             } else {
                 $smtp_historico = $conn->query("SELECT * FROM concessao_historico WHERE id_hist LIKE '$id_hist'");
                 if ($smtp_historico->num_rows > 0) {
