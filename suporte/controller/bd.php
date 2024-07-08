@@ -49,13 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit();
     }
     // Busca o id do setor na tabela setores baseado no cpf do responsável
-    $stmt_munic = $conn_1->prepare("UPDATE operadores SET funcao=?, name_sistema=?, nome_bd=?, user_bd=?, pass_bd=? WHERE cpf=?");
+    $stmt_munic = $conn_1->prepare("UPDATE operadores SET municipio=?, funcao=?, name_sistema=?, nome_bd=?, user_bd=?, pass_bd=? WHERE cpf=?");
 
     if (!$stmt_munic) {
       die('Erro na preparação da consulta: ' . $conn_1->error);
   }
 
-    $stmt_munic->bind_param("ssssss", $funcao, $sistema, $nome_bd, $nome_user, $senha, $cpf_);
+    $stmt_munic->bind_param("sssssss", $cod_ibge, $funcao, $sistema, $nome_bd, $nome_user, $senha, $cpf_);
     $stmt_munic->execute();
 
     if ($stmt_munic->execute()) {
