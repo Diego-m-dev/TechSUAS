@@ -39,7 +39,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 </div>
                 
                 <div class="bt">
-                    <a type="button" href="/TechSUAS/fichario_test/form_fichario" class="menu-button" id="menu-button">
+                    <a type="button" href="/TechSUAS/views/fichario/form_fichario" class="menu-button" id="menu-button">
                         <span class="material-symbols-outlined"></span>
                         FICHARIO FISICO
                     </a>
