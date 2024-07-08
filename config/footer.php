@@ -1,8 +1,4 @@
 <?php
-
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
-
 if ($_SESSION['municipio'] == '9876543') {
   ?>
   <footer>

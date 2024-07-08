@@ -1,10 +1,7 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
-if ($setor != "CONCESSÃO" && $setor != "ADMINISTRATIVO" && $setor != "SUPORTE") {
-    header('/TechSUAS/views/concessao/');
-}
-
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.php';
 ?>
 
 <!DOCTYPE html>
