@@ -2,6 +2,12 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
+if ($_SESSION['funcao'] != '1' && $_SESSION['funcao'] != '0')
+{
+  echo "VOCÊ NÃO PODE ACESSAR AQUI";
+  exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -48,7 +54,7 @@ $idSistema = $_SESSION['sistema_id'];
   if ($sql_setor_query->num_rows > 0 ) {
     $bds = $sql_setor_query->fetch_assoc();
     $idSetor = $bds['setores_id'];
-    $consultaSetores = $conn_1->query("SELECT instituicao, nome_instit FROM setores WHERE municipio_id = '$idSetor'");
+    $consultaSetores = $conn_1->query("SELECT instituicao, nome_instit FROM setores WHERE id = '$idSetor'");
 
 // Verifica se há resultados na consulta
 if ($consultaSetores->num_rows > 0) {

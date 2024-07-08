@@ -1,96 +1,74 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-.background-9876543-SUPORTE {
-    margin: 0;
-    padding: 0;
-    background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: 'Times New Roman', Times, serif;
-    overflow: auto;
-    height: auto;
-    text-transform: capitalize;
-    font-size: 13px;
+
+.tudo{
+ margin: 0px 0px 0px 50px;
 }
-.background-2613008-CADUNICO {
-    margin: 0;
-    padding: 0;
-    background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: 'Times New Roman', Times, serif;
-    overflow: auto;
-    height: auto;
-    text-transform: capitalize;
-    font-size: 13px;
-    
+.titulo {
+display: none;
 }
-.editable-field {
-    border: none;
-    background-color: transparent;
-}
-.tudo {
-    position: absolute;
-    margin: 0;
-    width: 90%;
-    height: 80%;
-    left: 50%;
-    transform: translateX(-50%);
-    margin-top: 100px;
-}
-span .cidade_data{
-    position: absolute;
-    right: 50%;
-}
-hr{
-    background-color: #000000;
-    padding: 1px;
-}
-h2{
+h1{
     text-align: center;
+    margin: 100px 20px 20px 20px !important; 
 }
-h3{ 
+.assinatura{
     text-align: center;
-}
-H4,span,label{
-    text-transform:capitalize;
-}
-#codigo_familiar{
-    margin-right: 150px;
-}
-#localidade,#tipo,#numero_logradouro,#nome_logradouro{
-    margin-right: 100px;
-}
-#complemento_numero,#cep,#titulo,.nis{
-    margin-right: 60px;
-}
-span>#codigo_familiar,#data_entrevista{
-    line-height: 2;
-}
-.end_familia{
-    line-height: 1.5;
-}
-#resumo_visita {
-    display: inline-block;
-    white-space: normal;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    width: 100%;
-    box-sizing: border-box;
-    text-align: justify;
-    text-indent: 2em; /* Recuo da primeira linha */
-    line-height: 1.5; /* Espaçamento entre linhas */
-    margin-bottom: 1em; /* Espaçamento entre parágrafos */
 }
 @media print {
     body::after {
         content: none !important;
         /* Oculta o conteúdo após o corpo do documento */
     }
-
+    h1{
+        text-align: center;
+        margin: 100px 20px 20px 20px !important; 
+    }
+    .assinatura{
+        text-align: center;
+    }
     @page {
         size: auto;
         /* ou A4, letter, etc., dependendo do tamanho da página que você deseja */
         margin: 0;
         /* opcional: define margens da página */
+    }
+    .background-9876543-SUPORTE {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-family: 'Times New Roman', Times, serif;
+        overflow: auto;
+        height: auto;
+        text-transform: capitalize;
+        font-size: 13px;
+    }
+    .background-2613008-CADUNICO {
+        margin: 0;
+        padding: 0;
+        background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        font-family: 'Times New Roman', Times, serif;
+        overflow: auto;
+        height: auto;
+        text-transform: capitalize;
+        font-size: 13px;
+        
+    }
+    .titulo {
+        font-size: 10px;
+        position: fixed;
+        /* Posicionamento fixo */
+        top: 30px;
+        /* Posição no topo */
+        right: 20px;
+        /* Distância da direita */
+        transform: translateY(50%);
+        /* Ajuste para o centro vertical */
+        display: block;
+        /* Garante que seja exibido como bloco */
+        white-space: nowrap;
+        /* Impede que o texto quebre a linha */
     }
 }

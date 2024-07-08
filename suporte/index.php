@@ -1,6 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-if ($_SESSION['funcao'] != "0") {
+if ($_SESSION['setor'] != "SUPORTE") {
   echo "VOCÊ NÃO TEM PERMISSÃO PARA ACESSAR AQUI!";
   exit();
 }
@@ -35,17 +35,17 @@ if ($_SESSION['funcao'] != "0") {
           </a>
         </div>
         <div class="btn">
-          <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/';">
+          <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/index';">
             Cadastro Único
           </a>
         </div>
         <div class="btn">
-          <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/';">
+          <a class="menu-button" onclick="location.href='/TechSUAS/views/concessao/index';">
             Concessão
           </a>
         </div>
         <div class="btn">
-          <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/';">
+          <a class="menu-button" onclick="location.href='/TechSUAS/views/administrativo/index';">
             Administrativo
           </a>
         </div>
@@ -67,8 +67,8 @@ if ($_SESSION['funcao'] != "0") {
           </a>
         </div>
         <div class="btn">
-          <a class="menu-button" onclick="location.href='../cras/views/menu-cras-st';">
-            CRAS Santo Afonso
+          <a class="menu-button" onclick="location.href='/TechSUAS/suporte/troca_bd';">
+            Trocar Banco de Dados
           </a>
         </div>
         <div class="btn">

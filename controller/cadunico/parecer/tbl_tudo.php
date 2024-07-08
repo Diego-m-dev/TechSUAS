@@ -1,5 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 
 ?>
 <!DOCTYPE html>
@@ -7,10 +8,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/visitas/visitas_pend.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
@@ -37,12 +40,12 @@ if (!isset($_GET['ano_select'])) {
     <table border="1">
     <th class="btn_impr"><button type="submit" id="print">imprimir</button></th>
 <tr class="titulo">
-    <th class="check">
-                <label class="urg">
-                        <input type="checkbox" id="selecionarTodos">
-                    <span class="checkmark"></span>
-                </label>
-            </th>
+      <th class="check">
+        <label class="urg">
+            <input type="checkbox" id="selecionarTodos">
+          <span class="checkmark"></span>
+        </label>
+      </th>
     <th class="cabecalho">NOME</th>
     <th class="cabecalho">DATA ATUALIZAÇÃO</th>
     <th class="cabecalho">BAIRRO</th>
@@ -92,10 +95,10 @@ if (!isset($_GET['ano_select'])) {
             ?>
         <tr class="resultado">
             <td class="check">
-                    <label class="urg">
-                            <input type="checkbox" name="excluir[]" value="<?php echo $dados['num_nis_pessoa_atual']; ?>">
-                            <span class="checkmark"></span>
-                    </label>
+              <label class="urg">
+                <input type="checkbox" name="excluir[]" value="<?php echo $dados['num_nis_pessoa_atual']; ?>">
+                <span class="checkmark"></span>
+              </label>
             </td>
             <td class="resultado"><?php echo $dados['nom_pessoa']; ?></td>
             <td class="resultado"><?php 
@@ -128,9 +131,18 @@ if (!isset($_GET['ano_select'])) {
     }
 }
 ?>
-</table>
-</div>
-</form>
-<p id="paraPrint"></p>
-    </body>
-    </html>
+  </table>
+  </div>
+  </form>
+  <script>
+    document.getElementById('selecionarTodos').addEventListener('click', function (){
+    // Obter todos os checkboxes na tabela
+      var checkBoxes = document.querySelectorAll('input[name="excluir[]"]')
+
+    checkBoxes.forEach(function(checkbox){
+        checkbox.checked = document.getElementById('selecionarTodos').checked
+      })
+    })
+  </script>
+</body>
+</html>

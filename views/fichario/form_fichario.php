@@ -13,7 +13,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="style_conferir.css">
+    <link rel="stylesheet" href="/TechSUAS/css/fichario/style_conferir.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -62,11 +62,20 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
         <button type="submit" id="btn_salvar">Salvar</button>
         <button type="button" id="btn_reload" style="display: none;">Novo</button>
-    </form>
-    <button type="button" onclick="buscaFicharo()">FICHARIOS</button><br>
-    <button type="button" onclick="printTiq()">IMPRIMIR ETIQUETA</button><br>
-
-
+      </form>
+    <div id="btn_links">
+      <button type="button" onclick="buscaFicharo()">FICHÁRIOS OCUPADOS</button>
+      <button type="button" onclick="printTiq()">IMPRIMIR ETIQUETA</button>
+      <button type="button" onclick="verFichario()">TODOS OS FICHÁRIOS</button>
+    
+<?php
+      if ($_SESSION['funcao'] == "1") {
+?>
+      <button type="button" onclick="cadastroFichario()">CADASTRAR FICHÁRIO</button><br><br>
+<?php
+      }
+?>
+    </div>
 <script>
     $('#codfam').mask('000000000-00')
 
@@ -83,7 +92,7 @@ function buscarFichario() {
 
     $.ajax({
         type: 'POST',
-        url: 'busca.php',
+        url: '/TechSUAS/controller/fichario/busca.php',
         data: {
             codfam: cpfLimpo
         },
@@ -102,7 +111,7 @@ function buscarFichario() {
 }
 
 $('#btn_reload').click(function () {
-    window.location.href = "/TechSUAS/fichario_test/form_fichario"
+    window.location.href = "/TechSUAS/views/fichario/form_fichario"
 })
 </script>
 <?php
@@ -166,14 +175,14 @@ if ($stmt->num_rows > 0) {
         exit();
     }
     
-            // Verifica se o nome de usuário já existe no banco de dados
+            // Verifica se o nome de codigo já existe no banco de dados
         $verifica_fichario = $conn->prepare("SELECT codfam FROM fichario WHERE codfam = ?");
         $verifica_fichario->bind_param("s", $ajustando_cod);
         $verifica_fichario->execute();
         $verifica_fichario->store_result();
     
         if ($verifica_fichario->num_rows > 0) {
-            // Se o nome de usuário já está em uso, exibe uma mensagem e redirecione de volta ao login
+            // Se o código já está cadastrado, exibe uma mensagem
             ?>
             <script>
                 Swal.fire({
@@ -191,7 +200,7 @@ if ($stmt->num_rows > 0) {
             exit();
         }
 
-    $sql_insert = "INSERT INTO fichario (codfam, arm_gav_pas, operador) VALUES ('$ajustando_cod', '$arm_gav_pas', '$operador')";
+    $sql_insert = "INSERT INTO fichario (codfam, arm_gav_pas, operador, arm, gav, pas) VALUES ('$ajustando_cod', '$arm_gav_pas', '$operador', '$arm', '$gav', '$pasta')";
 
     if ($conn->query($sql_insert) === true) {
       ?>
@@ -232,8 +241,8 @@ if ($stmt->num_rows > 0) {
 
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      document.querySelector('input[name="codfam"]').focus();
-    });
+      document.querySelector('input[name="codfam"]').focus()
+    })
   </script>
 </body>
 </html>

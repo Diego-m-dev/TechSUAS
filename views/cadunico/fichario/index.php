@@ -2,10 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
-if ($_SESSION['funcao'] != '0') {
-    echo '<script>window.history.back()</script>';
-    exit();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -42,7 +39,7 @@ if ($_SESSION['funcao'] != '0') {
                 </div>
                 
                 <div class="bt">
-                    <a type="button" class="menu-button" id="menu-button">
+                    <a type="button" href="/TechSUAS/views/fichario/form_fichario" class="menu-button" id="menu-button">
                         <span class="material-symbols-outlined"></span>
                         FICHARIO FISICO
                     </a>

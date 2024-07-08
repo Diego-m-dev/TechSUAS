@@ -32,6 +32,11 @@ $dados = $stmt_login->fetch(PDO::FETCH_ASSOC);
 if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
     if (password_verify($senha_login, $dados['senha'])) {
         $_SESSION['estilo'] = $dados['municipio']. "-". $dados['name_sistema'];
+        
+        $_SESSION['nome_bd'] = $dados['nome_bd'];
+        $_SESSION['user_bd'] = $dados['user_bd'];
+        $_SESSION['pass_bd'] = $dados['pass_bd'];
+
         $_SESSION['name_sistema'] = $dados['name_sistema'];
         $_SESSION['sistema_id'] = $dados['sistema_id'];
         $_SESSION['user_usuario'] = $dados['usuario'];
@@ -41,6 +46,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
         $_SESSION['id_cargo'] = $dados['id_cargo'];
         $_SESSION['apelido'] = $dados['apelido'];
         $_SESSION['funcao'] = $dados['funcao'];
+        $_SESSION['acesso'] = $dados['acesso'];
         $_SESSION['setor'] = $dados['setor'];
         $_SESSION['cpf'] = $dados['cpf'];
 
@@ -49,111 +55,126 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
             exit();
         }
 
-        $stmt_sistma = $pdo_1->prepare("SELECT * FROM sistemas WHERE id = :sis_id");
-        $stmt_sistma->bindValue(":sis_id", $_SESSION['sistema_id'], PDO::PARAM_INT);
-        $stmt_sistma->execute();
-
-        if ($dado_sys = $stmt_sistma->fetch(PDO::FETCH_ASSOC)) {
-            $sistema = $dado_sys['id'];
-
-            $stmt_setor = $pdo_1->prepare("SELECT * FROM setores WHERE id = :sis_id");
-            $stmt_setor->bindValue(":sis_id", $sistema, PDO::PARAM_INT);
-            $stmt_setor->execute();
-
-            if ($dados_sys = $stmt_setor->fetch(PDO::FETCH_ASSOC)) {
-                $sistemando = $dados_sys['instituicao'] . ' - ' . $dados_sys['nome_instit'];
-            }
-
             if ($_SESSION['funcao'] == "0") {
                 require_once "conexao.php";
                 $sql_tbl_tudo = "SELECT cod_familiar_fam FROM tbl_tudo";
                 $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
                 if ($sql_tbl_tudo_query->num_rows == 0) {
-                    ?>
-<script>
-  Swal.fire({
-    icon: "warning",
-    title: "ATENÇÃO",
-    html: `
-    <p>O seu banco de dados está vazio, aperte em OK e faça a importação do arquivo CSV extraído do CECAD 2.0.</p>
-    <p>Se ainda não extraiu <a href="https://cecad.cidadania.gov.br/painel03.php">clique aqui</a>. </p>
-    `,
-  }).then((result) => {
-    if (result.isConfirmed) {
-      window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
-    }
-  })
-</script>
-<?php
-} else {
-                    header("location:/TechSUAS/suporte/index");
-                    exit();
-                }
-            } elseif ($_SESSION['funcao'] == "1") {
-                require_once "conexao.php";
-                $sql_tbl_tudo = "SELECT * FROM tbl_tudo";
-                $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
-                if ($sql_tbl_tudo_query->num_rows == 0) {
-                    ?>
-<script>
-Swal.fire({
-  icon: "warning",
-  title: "ATENÇÃO",
-  html: `
-  <p>O seu banco de dados está vazio, aperte em OK e faça a importação do arquivo CSV extraído do CECAD 2.0.</p>
-  <p>Se ainda não extraiu <a href="https://cecad.cidadania.gov.br/painel03.php">clique aqui</a>. </p>
-  `,
-}).then((result) => {
-  if (result.isConfirmed) {
-    window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
-  }
-})
-</script>
-<?php
-} else {
+?>
+          <script>
+            Swal.fire({
+              icon: "warning",
+              title: "ATENÇÃO",
+              html: `
+              <p>O seu banco de dados está vazio, aperte em OK e faça a importação do arquivo CSV extraído do CECAD 2.0.</p>
+              <p>Se ainda não extraiu <a href="https://cecad.cidadania.gov.br/painel03.php">clique aqui</a>. </p>
+              `,
+            }).then((result) => {
+              if (result.isConfirmed) {
+                window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+              }
+            })
+          </script>
+          <?php
+          } else {
+            header("location:/TechSUAS/suporte/index");
+            exit();
+          }
+
+
+        } elseif ($_SESSION['funcao'] == "1" && $_SESSION['name_sistema'] == "CADUNICO") {
+        require_once "conexao.php";
+          $sql_tbl_tudo = "SELECT cod_familiar_fam FROM tbl_tudo";
+          $sql_tbl_tudo_query = $conn->query($sql_tbl_tudo);
+          if ($sql_tbl_tudo_query->num_rows == 0) {
+    ?>
+                <script>
+                Swal.fire({
+                  icon: "warning",
+                  title: "ATENÇÃO",
+                  html: `
+                  <p>O seu banco de dados está vazio, aperte em OK e faça a importação do arquivo CSV extraído do CECAD 2.0.</p>
+                  <p>Se ainda não extraiu <a href="https://cecad.cidadania.gov.br/painel03.php">clique aqui</a>. </p>
+                  `,
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = "/TechSUAS/views/geral/atualizar_tabela"
+                  }
+                })
+                </script>
+                <?php
+                } else {
                     header("location:/TechSUAS/views/cadunico/index");
                     exit();
                 }
-            } elseif ($_SESSION['funcao'] == "3") {
+
+
+            } elseif ($_SESSION['funcao'] == "1" && $_SESSION['name_sistema'] == "CONCESSAO"){
+              header("location:/TechSUAS/views/concessao/index");
+              exit();
+
+
+            }elseif ($_SESSION['funcao'] == "3") {
+
               if ($_SESSION['name_sistema'] == "CONCESSAO"){
                 header("location:/TechSUAS/views/concessao/index");
                 exit();
-              } else {
+              } elseif ($_SESSION['name_sistema'] == "CADUNICO") {
                 header("location:/TechSUAS/views/cadunico/index");
                 exit();
+              } else {
+                header("location:/TechSUAS/views/recpcao/index");
+                exit();
               }
+
+            } else {
+
+?>
+              <script>
+                Swal.fire({
+                  icon: "error",
+                  title: "SEM PERMISSIONAMENTO"
+                  text: "Solicite ao suporte acesso ao sistema <?php echo $_SESSION['name_sistema']; ?>",
+                  confirmButtonText: "OK"
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    window.location.href = "/TechSUAS/index"
+                  }
+                })
+              </script>
+              <?php
             }
-        }
-    } else {
+        
+            } else {
         ?>
-<script>
-Swal.fire({
-  icon: "error",
-  title: "ERRO",
-  text: "Senha ou nome de usuário incorreto!",
-  confirmButtonText: "OK",
-}).then((result) => {
-  if (result.isConfirmed) {
-    window.location.href = "/TechSUAS/"
-  }
-})
-</script>
-<?php
-}
-} else {
-    ?>
-<script>
-Swal.fire({
-  icon: "error",
-  title: "ERRO",
-  text: "Senha ou nome de usuário incorreto!",
-  confirmButtonText: "OK",
-}).then((result) => {
-  if (result.isConfirmed) {
-    window.location.href = "/TechSUAS/"
-  }
-})
-</script>
+        <script>
+        Swal.fire({
+          icon: "error",
+          title: "ERRO",
+          text: "Senha ou nome de usuário incorreto!",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/TechSUAS/index"
+          }
+        })
+        </script>
+        <?php
+          }
+        } else {
+            ?>
+        <script>
+        Swal.fire({
+          icon: "error",
+          title: "ERRO",
+          text: "Senha ou nome de usuário incorreto!",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            window.location.href = "/TechSUAS/"
+          }
+        })
+        </script>
 <?php
 }
 ?>

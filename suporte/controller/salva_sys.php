@@ -43,7 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($stmt_munic->rowCount() != 0) {
       $dados_munic = $stmt_munic->fetch(PDO::FETCH_ASSOC);
       $municipio_id = $dados_munic['id'];
-      print_r($dados_munic);
       $responsavel = $dados_munic['responsavel'];
   } else {
       // Trate o caso em que o município não foi encontrado

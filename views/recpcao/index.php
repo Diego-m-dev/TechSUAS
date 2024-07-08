@@ -1,8 +1,8 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
-if ($_SESSION['funcao'] != '0') {
+
+if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
     echo '<script>window.history.back()</script>';
     exit();
 }
@@ -16,8 +16,7 @@ if ($_SESSION['funcao'] != '0') {
 
     <link rel="stylesheet" href="/TechSUAS/css/recepcao/style.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -29,6 +28,11 @@ if ($_SESSION['funcao'] != '0') {
 </head>
 
 <body>
+    <div class="img">
+        <h1 class="titulo-com-imagem">
+            <img class="titulo-com-imagem" src="/TechSUAS/img/geral/h1-recepcao.svg" alt="Título com imagem">
+        </h1>
+    </div>
     <div class="container">
         <div class="cont-btns">
             <div class="header_cont_buttom">
@@ -93,6 +97,25 @@ if ($_SESSION['funcao'] != '0') {
         
     </div>
 
+        <div class="drop-all">
+            <div class="menu-drop">
+                <button class="logout" type="button" name="drop">
+                    <span class="material-symbols-outlined">settings</span>
+                </button>
+                <div class="drop-content">
+                    <a title="Sair" href="/TechSUAS/config/logout">
+                        <span title="Sair" class="material-symbols-outlined">logout</span>
+                    </a>
+                    <a title="Alterar Usuário" href="/TechSUAS/views/geral/conta">
+                        <span class="material-symbols-outlined">manage_accounts</span>
+                    </a>
+                    <?php if ($_SESSION['funcao'] == '0') { ?>
+                        <a title="Suporte" href="/TechSUAS/config/back">
+                            <span class="material-symbols-outlined">rule_settings</span>
+                        </a>
+                    <?php } ?>
+                </div>
+            </div>
 
     <script>
         $(document).ready(function () {
@@ -100,6 +123,7 @@ if ($_SESSION['funcao'] != '0') {
             var span = document.getElementsByClassName("close")[0];
             var modalTriggers = document.querySelectorAll(".modal-trigger");
 
+<<<<<<< HEAD
             modalTriggers.forEach(function (trigger) {
                 trigger.addEventListener("click", function (event) {
                     event.preventDefault();
@@ -180,10 +204,100 @@ if ($_SESSION['funcao'] != '0') {
                 xhr.send('cpf=' + cpf);
             }
         });
+=======
+            <script>
+                $(document).ready(function() {
+                    var modal = document.getElementById("myModal");
+                    var span = document.getElementsByClassName("close")[0];
+                    var modalTriggers = document.querySelectorAll(".modal-trigger");
 
+                    modalTriggers.forEach(function(trigger) {
+                        trigger.addEventListener("click", function(event) {
+                            event.preventDefault();
+                            // Obtém o texto do botão ignorando os filhos (ícones)
+                            var buttonText = this.innerText.trim().split("\n").pop().trim();
+                            document.getElementById("modalText").innerText = buttonText;
+                            modal.style.display = "block";
+                        });
+                    });
 
+                    span.onclick = function() {
+                        modal.style.display = "none";
+                    }
+
+                    window.onclick = function(event) {
+                        if (event.target == modal) {
+                            modal.style.display = "none";
+                        }
+                    }
+
+                    // Adiciona o evento blur ao campo CPF
+                    $("#cpf").on("blur", function() {
+                        validarCPF(this);
+                    });
+
+                    $("#cpfForm").on("submit", function(event) {
+                        var cpfInput = document.getElementById("cpf");
+                        if (!validarCPF(cpfInput)) {
+                            event.preventDefault(); // Impede o envio do formulário se o CPF for inválido
+                        }
+                    });
+                });
+
+                function validarCPF(el) {
+                    if (!_cpf(el.value)) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'CPF Inválido',
+                            text: 'Por favor, insira um CPF válido!',
+                            confirmButtonText: 'OK'
+                        });
+
+                        // Apaga o valor
+                        el.value = "";
+                        return false;
+                    }
+                    return true;
+                }
+                document.getElementById('cpf').addEventListener('blur', function() {
+                    const cpf = this.value.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+
+                    if (cpf) {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/TechSUAS/controller/cadunico/fichario/buscar.php', true);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+>>>>>>> 3636c6cfda8a8bd0fe4617bc0118f795640a255a
+
+                        // Mostra o elemento de carregamento
+                        document.getElementById('loading').style.display = 'block';
+
+<<<<<<< HEAD
 
     </script>
+=======
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === 4) {
+                                // Esconde o elemento de carregamento
+                                document.getElementById('loading').style.display = 'none';
+
+                                if (xhr.status === 200) {
+                                    const response = JSON.parse(xhr.responseText);
+                                    if (response.success) {
+                                        document.getElementById('nome').value = response.nome;
+                                        document.getElementById('cod').value = response.cod_fam_familia;
+                                    } else {
+                                        alert('CPF ' + cpf + ' não encontrado');
+                                    }
+                                } else {
+                                    alert('Erro ao processar a requisição.');
+                                }
+                            }
+                        };
+                        xhr.send('cpf=' + cpf);
+                    }
+                });
+            </script>
+>>>>>>> 3636c6cfda8a8bd0fe4617bc0118f795640a255a
 
 
 </body>

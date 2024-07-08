@@ -23,8 +23,9 @@ if (!isset($_SESSION['nome_usuario'])) {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             Swal.fire({
-                title: 'Você não está logado. Por favor, faça login.',
                 icon: 'error',
+                title: 'ACESSO NEGADO',
+                text: 'Você não está logado.',
                 confirmButtonText: 'OK',
             }).then((result) => {
                 if (result.isConfirmed) {
