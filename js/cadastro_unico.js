@@ -744,16 +744,20 @@ document.addEventListener('DOMContentLoaded', loadDashboardData);
 //FUNÇÃO DE BUSCAR O FICHARIO
 
 function buscaFicharo() {
-  window.location.href = "/TechSUAS/fichario_test/allFichario"
+  window.location.href = "/TechSUAS/views/fichario/allFichario"
 }
 
 
 function printTiq() {
-  window.location.href = "/TechSUAS/fichario_test/print_etiqueta"
+  window.location.href = "/TechSUAS/controller/fichario/print_etiqueta"
+}
+
+function verFichario() {
+  window.location.href = "/TechSUAS/views/fichario/ficharios"
 }
 
 function cadastroFichario() {
-  window.location.href = "/TechSUAS/fichario_test/cadastrar_fichario"
+  window.location.href = "/TechSUAS/views/fichario/cadastrar_fichario"
 }
 
 function voltaMenu() {
