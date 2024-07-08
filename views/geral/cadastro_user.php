@@ -76,7 +76,7 @@ if ($consultaSetores->num_rows > 0) {
     }
   }
 }
-
+$conn-close();
 ?>
     </select>
 </div>
