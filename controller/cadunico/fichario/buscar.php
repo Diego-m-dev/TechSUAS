@@ -11,7 +11,7 @@ if (isset($_POST['cpf'])) {
     // Remove zeros à esquerda do CPF
     $cpf_db = ltrim($cpf, '0');
 
-    $sql = "SELECT cod_familiar_fam, nom_pessoa FROM tbl_tudo WHERE num_cpf_pessoa = ?";
+    $sql = "SELECT cod_familiar_fam, nom_pessoa, num_nis_pessoa_atual FROM tbl_tudo WHERE num_cpf_pessoa = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $cpf_db);
     $stmt->execute();
@@ -22,7 +22,8 @@ if (isset($_POST['cpf'])) {
         echo json_encode([
             'success' => true,
             'nome' => $row['nom_pessoa'],
-            'cod_fam_familia' => $row['cod_familiar_fam']
+            'cod_fam_familia' => $row['cod_familiar_fam'],
+            'nis' => $row['num_nis_pessoa_atual']
         ]);
     } else {
         echo json_encode(['success' => false]);

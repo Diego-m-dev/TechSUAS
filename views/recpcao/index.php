@@ -69,29 +69,40 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
 
 
 
-
-
         <!-- Modal Structure -->
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2 id="modalText"></h2> <!-- TÍTULO DO BOTÃO AUTOMÁTICO -->
-                <form id="myForm" action="/TechSUAS/controller/cadunico/fichario/inserir.php" method="POST">
-                    <div class="form-group">
-                        <label for="cpf">CPF</label>
-                        <input type="text" name="cpf" id="cpf" required>
+                <form id="myForm" method="POST">
+                    <div class="grid-container">
+                        <div class="form-group">
+                            <label for="cpf">CPF</label>
+                            <input type="text" name="cpf" id="cpf" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="cod">Código Familiar</label>
+                            <input type="text" name="cod" id="cod">
+                        </div>
+                        <div class="form-group">
+                            <label for="nis">NIS</label>
+                            <input type="text" name="nis" id="nis">
+                        </div>
+                        <div class="form-group-wide">
+                            <label for="nome">Nome</label>
+                            <input type="text" name="nome" id="nome">
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo">SOLICITAÇÃO</label>
+                            <select name="tipo" id="tipo">
+                                <option value="1">NIS</option>
+                                <option value="2">DECLARAÇÃO CADUNICO</option>
+                                <option value="3">ENTREVISTA</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="nome">Nome</label>
-                        <input type="text" name="nome" id="nome">
-                    </div>
-                    <div class="form-group">
-                        <label for="cod">Código Familiar</label>
-                        <input type="text" name="cod" id="cod">
-                    </div>
-                    <button type="submit" class="submit-btn">Enviar</button>
+                    <button type="submit" id="submitBtn" class="submit-btn">Enviar</button>
                     <div id="loading" style="display:none;">Carregando...</div>
-
                 </form>
             </div>
         </div>
@@ -128,6 +139,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 var span = document.getElementsByClassName("close")[0];
                 var modalTriggers = document.querySelectorAll(".modal-trigger");
 
+                // Abre o modal ao clicar nos gatilhos
                 modalTriggers.forEach(function (trigger) {
                     trigger.addEventListener("click", function (event) {
                         event.preventDefault();
@@ -138,115 +150,141 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                     });
                 });
 
+                // Fecha o modal ao clicar no botão de fechar
                 span.onclick = function () {
                     modal.style.display = "none";
-                }
+                };
 
+                // Fecha o modal ao clicar fora dele
                 window.onclick = function (event) {
                     if (event.target == modal) {
                         modal.style.display = "none";
                     }
-                }
+                };
 
-                // Adiciona o evento blur ao campo CPF
+                // Aplica máscara para CPF
+                $('#cpf').mask('000.000.000-00', { reverse: false });
+
+                // Aplica máscara para Código Familiar (cod)
+                $('#cod').mask('000000000-00', { reverse: false });
+
+                // Aplica máscara para NIS
+                $('#nis').mask('0000000000-0', { reverse: false });
+
+                // Valida o CPF ao sair do campo
                 $("#cpf").on("blur", function () {
                     validarCPF(this);
                 });
 
-                $("#cpfForm").on("submit", function (event) {
-                    var cpfInput = document.getElementById("cpf");
-                    if (!validarCPF(cpfInput)) {
-                        event.preventDefault(); // Impede o envio do formulário se o CPF for inválido
+                // Requisição AJAX para buscar dados do CPF
+                document.getElementById('cpf').addEventListener('blur', function () {
+                    const cpf = this.value.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
+
+                    if (cpf) {
+                        const xhr = new XMLHttpRequest();
+                        xhr.open('POST', '/TechSUAS/controller/cadunico/fichario/buscar.php', true);
+                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+                        // Mostra o elemento de carregamento
+                        document.getElementById('loading').style.display = 'block';
+
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState === 4) {
+                                // Esconde o elemento de carregamento após a resposta
+                                document.getElementById('loading').style.display = 'none';
+
+                                if (xhr.status === 200) {
+                                    const response = JSON.parse(xhr.responseText);
+                                    if (response.success) {
+                                        document.getElementById('nome').value = response.nome;
+                                        document.getElementById('cod').value = response.cod_fam_familia;
+                                        document.getElementById('nis').value = response.nis;
+                                    } else {
+                                        Swal.fire({
+                                            icon: 'error',
+                                            title: 'Erro',
+                                            text: 'CPF não encontrado!',
+                                            confirmButtonText: 'OK'
+                                        });
+                                    }
+                                } else {
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Erro',
+                                        text: 'Erro na requisição. Por favor, tente novamente mais tarde!',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            }
+                        };
+
+                        // Envia o CPF para o servidor
+                        xhr.send('cpf=' + cpf);
                     }
                 });
-            });
 
-            function validarCPF(el) {
-                if (!_cpf(el.value)) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'CPF Inválido',
-                        text: 'Por favor, insira um CPF válido!',
-                        confirmButtonText: 'OK'
-                    });
-
-                    // Apaga o valor
-                    el.value = "";
-                    return false;
-                }
-                return true;
-            }
-            document.getElementById('cpf').addEventListener('blur', function () {
-                const cpf = this.value.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
-
-                if (cpf) {
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('POST', '/TechSUAS/controller/cadunico/fichario/buscar.php', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                    // Mostra o elemento de carregamento
-                    document.getElementById('loading').style.display = 'block';
-
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4) {
-                            // Esconde o elemento de carregamento
-                            document.getElementById('loading').style.display = 'none';
-
-                            if (xhr.status === 200) {
-                                const response = JSON.parse(xhr.responseText);
-                                if (response.success) {
-                                    document.getElementById('nome').value = response.nome;
-                                    document.getElementById('cod').value = response.cod_fam_familia;
-                                } else {
-                                    alert('CPF ' + cpf + ' não encontrado');
-                                }
-                            } else {
-                                alert('Erro ao processar a requisição.');
-                            }
-                        }
-                    };
-                    xhr.send('cpf=' + cpf);
-                }
-            });
-
-            $(document).ready(function () {
-                var modal = document.getElementById("myModal");
-                var span = document.getElementsByClassName("close")[0];
-                var modalTriggers = document.querySelectorAll(".modal-trigger");
-
-                modalTriggers.forEach(function (trigger) {
-                    trigger.addEventListener("click", function (event) {
+                // Impede o envio do formulário se o CPF for inválido
+                $("#submitBtn").on("click", function (event) {
+                    var cpfInput = document.getElementById("cpf");
+                    if (!validarCPF(cpfInput)) {
                         event.preventDefault();
-                        // Obtém o texto do botão ignorando os filhos (ícones)
-                        var buttonText = this.innerText.trim().split("\n").pop().trim();
-                        document.getElementById("modalText").innerText = buttonText;
-                        modal.style.display = "block";
-                    });
-                });
+                    } else {
+                        // Mostra o loading enquanto processa o envio
+                        $('#loading').css('display', 'block');
 
-                span.onclick = function () {
-                    modal.style.display = "none";
-                }
+                        // Obtém os dados do formulário
+                        var formData = $('#myForm').serialize();
 
-                window.onclick = function (event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                }
+                        // Envia os dados via AJAX
+                        $.ajax({
+                            type: 'POST',
+                            url: '/TechSUAS/controller/cadunico/fichario/inserir.php',
+                            data: formData,
+                            success: function (response) {
+                                // Esconde o loading após a resposta
+                                $('#loading').css('display', 'none');
 
-                // Adiciona o evento blur ao campo CPF
-                $("#cpf").on("blur", function () {
-                    validarCPF(this);
-                });
+                                // Verifica a resposta do servidor
+                                if (response.trim() === 'success') {
+                                    // Mostra o SweetAlert de sucesso e redireciona, se necessário
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Sucesso!',
+                                        text: 'Registro inserido com sucesso.',
+                                        confirmButtonText: 'OK'
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = '/techSUAS/views/recpcao/index.php';
+                                        }
+                                    });
+                                } else {
+                                    // Mostra o SweetAlert de erro
+                                    Swal.fire({
+                                        icon: 'error',
+                                        title: 'Erro',
+                                        text: 'Erro ao inserir o registro. Tente novamente mais tarde.',
+                                        confirmButtonText: 'OK'
+                                    });
+                                }
+                            },
+                            error: function () {
+                                // Esconde o loading em caso de erro
+                                $('#loading').css('display', 'none');
 
-                $("#cpfForm").on("submit", function (event) {
-                    var cpfInput = document.getElementById("cpf");
-                    if (!validarCPF(cpfInput)) {
-                        event.preventDefault(); // Impede o envio do formulário se o CPF for inválido
+                                // Mostra o SweetAlert de erro
+                                Swal.fire({
+                                    icon: 'error',
+                                    title: 'Erro',
+                                    text: 'Erro na requisição. Por favor, tente novamente mais tarde!',
+                                    confirmButtonText: 'OK'
+                                });
+                            }
+                        });
                     }
                 });
             });
 
+            // Função para validar CPF
             function validarCPF(el) {
                 if (!_cpf(el.value)) {
                     Swal.fire({
@@ -256,45 +294,13 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                         confirmButtonText: 'OK'
                     });
 
-                    // Apaga o valor
+                    // Limpa o valor do campo CPF
                     el.value = "";
                     return false;
                 }
                 return true;
             }
-            document.getElementById('cpf').addEventListener('blur', function () {
-                const cpf = this.value.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
 
-                if (cpf) {
-                    const xhr = new XMLHttpRequest();
-                    xhr.open('POST', '/TechSUAS/controller/cadunico/fichario/buscar.php', true);
-                    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-
-                    // Mostra o elemento de carregamento
-                    document.getElementById('loading').style.display = 'block';
-
-                    xhr.onreadystatechange = function () {
-                        if (xhr.readyState === 4) {
-                            // Esconde o elemento de carregamento
-                            document.getElementById('loading').style.display = 'none';
-
-                            if (xhr.status === 200) {
-                                const response = JSON.parse(xhr.responseText);
-                                if (response.success) {
-                                    document.getElementById('nome').value = response.nome;
-                                    document.getElementById('cod').value = response.cod_fam_familia;
-                                } else {
-                                    alert('CPF ' + cpf + ' não encontrado');
-                                }
-                            } else {
-                                alert('Erro ao processar a requisição.');
-                            }
-                        }
-                    };
-                    xhr.send('cpf=' + cpf);
-                }
-            });
         </script>
 
 

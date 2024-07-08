@@ -47,7 +47,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 <th>CPF</th>
                 <th>Nome</th>
                 <th>Código Familiar</th>
-                <th>Status</th>
+                <th>NIS</th>
+                <th>TIPO</th>
+                <th>STATUS</th>
                 <th>AÇÕES</th>
             </tr>
         </thead>
@@ -59,12 +61,25 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
             // Verifica se há registros retornados
             if ($result->num_rows > 0) {
+
+               
                 // Loop através dos resultados e exiba cada registro em uma linha da tabela
                 while ($row = $result->fetch_assoc()) {
+                    
+                    if ($row['tipo'] == 1) {
+                        $tipo = "NIS";
+                    } elseif ($row['tipo'] == 2) {
+                        $tipo = "ENTREVISTA";
+                    } elseif ($row['tipo'] == 3) {
+                        $tipo = "DECLARAÇÃO CAD";
+                    }
+
                     echo "<tr>";
                     echo "<td>" . $row['cpf'] . "</td>";
                     echo "<td>" . $row['nome'] . "</td>";
                     echo "<td>" . $row['cod_fam'] . "</td>";
+                    echo "<td>" . $row['nis'] . "</td>";
+                    echo "<td>" . $tipo . "</td>";
                     echo "<td>" . $row['status'] . "</td>";
                     echo "<td><i class='fas fa-check-circle check-icon' data-id='" . $row['id'] . "'></i></td>";
                     echo "</tr>";
