@@ -759,3 +759,6 @@ function cadastroFichario() {
 function voltaMenu() {
     window.location.href = "/TechSUAS/views/cadunico/index"
 }
+
+
+
