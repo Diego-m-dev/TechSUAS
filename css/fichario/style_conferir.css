@@ -45,6 +45,14 @@ input[type="number"] {
   width: 90%;
 }
 
+
+#armario {
+  color: #8b4513;
+  font-size: 20px;
+  margin-top: 50px;
+  text-align: center;
+}
+
 button {
   background-color: #8b4513;
   color: white;
