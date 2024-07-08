@@ -50,7 +50,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         <label for="">Gaveta:</label>
         <input type="number" name="gav" required />
         <label for="">Pasta:</label>
-        <input type="number" name="pas" required min="100" />
+        <input type="number" name="pas" required min="10" />
         <button type="submit">Salvar</button>
     </form>
 
@@ -67,7 +67,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
             $conn->begin_transaction();
             try {
-                $stmt = $conn->prepare("INSERT IGNORE INTO ficharios (arm, gav, pas) VALUES (?, ?, ?)");
+                $stmt = $conn->prepare("INSERT INTO ficharios (arm, gav, pas) VALUES (?, ?, ?)");
 
                 echo '<script>document.getElementById("progressContainer").style.display = "block";</script>';
                 for ($i = 1; $i <= $pasta; $i++) {
