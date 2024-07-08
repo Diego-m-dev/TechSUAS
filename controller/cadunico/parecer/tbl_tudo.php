@@ -40,12 +40,12 @@ if (!isset($_GET['ano_select'])) {
     <table border="1">
     <th class="btn_impr"><button type="submit" id="print">imprimir</button></th>
 <tr class="titulo">
-    <th class="check">
-                <label class="urg">
-                        <input type="checkbox" id="selecionarTodos">
-                    <span class="checkmark"></span>
-                </label>
-            </th>
+      <th class="check">
+        <label class="urg">
+            <input type="checkbox" id="selecionarTodos">
+          <span class="checkmark"></span>
+        </label>
+      </th>
     <th class="cabecalho">NOME</th>
     <th class="cabecalho">DATA ATUALIZAÇÃO</th>
     <th class="cabecalho">BAIRRO</th>
@@ -95,10 +95,10 @@ if (!isset($_GET['ano_select'])) {
             ?>
         <tr class="resultado">
             <td class="check">
-                    <label class="urg">
-                            <input type="checkbox" name="excluir[]" value="<?php echo $dados['num_nis_pessoa_atual']; ?>">
-                            <span class="checkmark"></span>
-                    </label>
+              <label class="urg">
+                <input type="checkbox" name="excluir[]" value="<?php echo $dados['num_nis_pessoa_atual']; ?>">
+                <span class="checkmark"></span>
+              </label>
             </td>
             <td class="resultado"><?php echo $dados['nom_pessoa']; ?></td>
             <td class="resultado"><?php 
@@ -131,9 +131,18 @@ if (!isset($_GET['ano_select'])) {
     }
 }
 ?>
-</table>
-</div>
-</form>
-<p id="paraPrint"></p>
-    </body>
-    </html>
+  </table>
+  </div>
+  </form>
+  <script>
+    document.getElementById('selecionarTodos').addEventListener('click', function (){
+    // Obter todos os checkboxes na tabela
+      var checkBoxes = document.querySelectorAll('input[name="excluir[]"]')
+
+    checkBoxes.forEach(function(checkbox){
+        checkbox.checked = document.getElementById('selecionarTodos').checked
+      })
+    })
+  </script>
+</body>
+</html>
