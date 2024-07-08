@@ -11,7 +11,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="style_conferir.css">
+    <link rel="stylesheet" href="/TechSUAS/css/fichario/style_conferir.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -22,51 +22,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
     <title>Registro fichario</title>
 
-    <style>
-        .form-container {
-            margin-bottom: 20px;
-        }
-
-        #textarm{
-          font-size: 2cm;
-        }
-
-        .container {
-            display: inline-block;
-            position: relative;
-            width: 8cm;
-            height: 3cm;
-            margin: 5px;
-            border: 1px solid #ccc;
-        }
-
-        .original-size {
-            width: 100%;
-            height: 100%;
-        }
-
-        .overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            color: black;
-            font-weight: bold;
-            font-size: 2em;
-            text-align: center;
-        }
-
-        @media print {
-            .form-container {
-                display: none;
-            }
-        }
-    </style>
 </head>
 <body>
     <div class="form-container">
