@@ -43,3 +43,4 @@ if (isset($_POST['arm'])) {
     http_response_code(400);
     echo json_encode(array('error' => 'Parâmetro "codfam" não recebido.'));
 }
+$conn->close();
