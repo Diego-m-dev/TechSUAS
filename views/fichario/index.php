@@ -54,11 +54,9 @@ if ($_SESSION['funcao'] != '0') {
                         <span class="material-symbols-outlined">group</span>
                     </button>
                 </div>
-               
             </div>
         </div>
         <!-- <div class="mural_stats">
             <h2>MURAL DE AVISOS</h2>
         </div> -->
-        
 </body>
