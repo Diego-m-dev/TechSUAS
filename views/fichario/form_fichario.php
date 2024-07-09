@@ -43,7 +43,25 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </tr>
             <tr>
                 <td>
-                    <input type="number" id="arm" name="arm" required>
+                    <select name="arm" required>
+      <option value="" disabled selected hidden>Selecione</option>
+<?php
+    $sql_ficharios = "SELECT arm FROM ficharios GROUP BY arm ORDER BY arm";
+    $sql_ficharios_query = $conn->query($sql_ficharios) or die("Erro na conexão " . $conn - error);
+
+
+if ($sql_ficharios_query->num_rows > 0) {
+
+      // Loop para criar as opções do select
+    while ($fichario = $sql_ficharios_query->fetch_assoc()) {
+?>
+      <option value="<?php echo $fichario['arm']; ?>"><?php echo $fichario['arm']; ?></option>
+<?php
+    }
+  }
+
+?>
+    </select>
                 </td>
                 <td>
                     <select name="gav" id="gav" required>
@@ -149,7 +167,7 @@ if ($stmt->num_rows > 0) {
             confirmButtonText: 'OK',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/TechSUAS/fichario_test/form_fichario";
+                window.location.href = "/TechSUAS/views/fichario/form_fichario";
             }
         })
     </script>
@@ -167,7 +185,7 @@ if ($stmt->num_rows > 0) {
             confirmButtonText: 'OK',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "/TechSUAS/fichario_test/form_fichario";
+                    window.location.href = "/TechSUAS/views/fichario/form_fichario";
                 }
             })
         </script>
@@ -192,7 +210,7 @@ if ($stmt->num_rows > 0) {
                 confirmButtonText: 'OK',
                 }).then((result) => {
                     if (result.isConfirmed) {
-                        window.location.href = "/TechSUAS/fichario_test/form_fichario";
+                        window.location.href = "/TechSUAS/views/fichario/form_fichario";
                     }
                 })
             </script>
@@ -212,7 +230,7 @@ if ($stmt->num_rows > 0) {
           confirmButtonText: 'OK',
           }).then((result) => {
               if (result.isConfirmed) {
-                  window.location.href = "/TechSUAS/fichario_test/form_fichario";
+                  window.location.href = "/TechSUAS/views/fichario/form_fichario";
               }
           })
       </script>
@@ -228,7 +246,7 @@ if ($stmt->num_rows > 0) {
           confirmButtonText: 'OK',
           }).then((result) => {
               if (result.isConfirmed) {
-                  window.location.href = "/TechSUAS/fichario_test/form_fichario";
+                  window.location.href = "/TechSUAS/views/fichario/form_fichario";
               }
           })
       </script>
@@ -236,6 +254,7 @@ if ($stmt->num_rows > 0) {
           exit();
     }
 }
+$conn->close();
 ?>
 <a href="/TechSUAS/config/back"><i class="fas fa-arrow-left"></i>Voltar ao menu</a>
 
