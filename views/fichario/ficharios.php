@@ -33,7 +33,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
   <select name="arm" id="arm" required onchange="mudaArmario()">
     <option value="" disabled selected hidden>00</option>
 <?php
-$sql_ficharios = "SELECT arm FROM ficharios GROUP BY arm ORDER BY arm";
+$sql_ficharios = "SELECT arm FROM ficharios GROUP BY arm ORDER BY arm, pas";
 $sql_ficharios_query = $conn->query($sql_ficharios) or die("Erro na conexão " . $conn - error);
 if ($sql_ficharios_query->num_rows > 0) {
 
