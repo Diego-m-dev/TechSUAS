@@ -368,3 +368,52 @@ button[name="drop"] {
     bottom: 25px;
     right: 30px;
   }
+  @media screen and (max-width: 900px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cont-btns,
+    .mural_stats {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .btns {
+        flex-direction: column;
+    }
+
+    .btns button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .mural_stats {
+        margin-left: 0;
+    }
+
+    .modal-content {
+        width: 90%;
+    }
+
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group-wide {
+        grid-column: span 1;
+    }
+
+    .drop-content {
+        flex-direction: column;
+        left: 0;
+        right: 0;
+        top: 100%;
+        bottom: auto;
+    }
+
+    .menu-drop:hover .drop-content {
+        display: flex;
+    }
+}
