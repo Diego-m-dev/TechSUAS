@@ -74,3 +74,4 @@ if (isset($_POST['codfam'])) {
 }
 
 
+$conn->close();
