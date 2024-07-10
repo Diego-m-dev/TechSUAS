@@ -18,6 +18,7 @@ if (isset($_POST['codfam'])) {
     if ($sql_query->num_rows > 0) {
             $dados_tudo = $sql_query->fetch_assoc();
             $armario = $dados_tudo['arm_gav_pas'];
+            $id_fic = $dados_tudo['id'];
 
         echo json_encode(array('encontrado' => true, 'armario' => $armario));
     } else {
@@ -25,3 +26,4 @@ if (isset($_POST['codfam'])) {
         echo json_encode(array('encontrado' => false, 'error' => 'Nenhum resultado encontrado.'));
     }
 }
+$conn->close();
