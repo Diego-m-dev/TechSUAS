@@ -9,13 +9,20 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fichário</title>
+    <title>Fichário Digital - TechSUAS</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="../../../css/cadunico/fichario/style.css">
+    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
+<div class="img">
+        <h1 class="titulo-com-imagem">
+            <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/fichario/h1-fichario_digital.svg" alt="Título com imagem">
+        </h1>
+    </div>
     <div class="container">
         <div class="card">
             <h3>CADASTROS FAMILIAR</h3>
@@ -23,6 +30,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 <label for="consulta">Consultar Família</label>
                 <input type="text" id="consulta" name="consulta">
                 <button type="submit">Consultar</button>
+                <a href="./index.php"><i class="fas fa-arrow-left"></i>Voltar</a>
             </form>
 
             <div class="listar_cadastros">

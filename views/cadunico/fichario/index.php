@@ -13,8 +13,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/fichario/index_fichario.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -26,6 +25,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 </head>
 
 <body>
+    <div class="img">
+        <h1 class="titulo-com-imagem">
+            <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/fichario/h1-fichario_index.svg" alt="Título com imagem">
+        </h1>
+    </div>
     <div class="container">
         <div class="cont-btns">
             <div class="header_cont_buttom">
@@ -37,7 +41,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                         SOLICITAÇÕES DE FORMULARIOS
                     </a>
                 </div>
-                
+
                 <div class="bt">
                     <a type="button" href="/TechSUAS/views/fichario/form_fichario" class="menu-button" id="menu-button">
                         <span class="material-symbols-outlined"></span>
@@ -49,6 +53,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                     <a type="button" href="/TechSUAS/views/cadunico/fichario/fichario_home.php" class="menu-button" id="menu-button">
                         <span class="material-symbols-outlined"></span>
                         FICHARIO DIGITAL
+                    </a>
+                </div>
+                <div class="bt">
+                    <a type="button" href="/TechSUAS/views/cadunico/index.php" class="menu-button" id="menu-button">
+                        <span class="material-symbols-outlined"></span>
+                        VOLTAR AO MENU
                     </a>
                 </div>
 
