@@ -57,12 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   // Consulta de inserção na tabela setores
-  $query = "INSERT INTO setores (instituicao, nome_instit, rua, numero, bairro, email, responsavel, cpf_coord, municipio_id) 
-            VALUES (:instituicao, :nome_instit, :rua, :numero, :bairro, :email, :responsavel, :cpf_coord, :municipio_id)";
+  $query = "INSERT INTO setores (cod_ibge, instituicao, nome_instit, rua, numero, bairro, email, responsavel, cpf_coord, municipio_id) 
+            VALUES (:cod_ibge, :instituicao, :nome_instit, :rua, :numero, :bairro, :email, :responsavel, :cpf_coord, :municipio_id)";
 
   $salva_dados = $pdo_1->prepare($query);
 
   // Vincula os valores aos parâmetros da consulta
+  $salva_dados->bindValue(":cod_ibge", $cod_ibge);
   $salva_dados->bindValue(":instituicao", $instituicao);
   $salva_dados->bindValue(":nome_instit", $nome_instit);
   $salva_dados->bindValue(":rua", $rua);
@@ -92,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } else {
       echo "Erro ao salvar os dados: " . $pdo_1->errorInfo()[2];
   }
+$conn->close();
 }
 ?>
 </body>
