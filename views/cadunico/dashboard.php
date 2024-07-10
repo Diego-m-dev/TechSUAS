@@ -40,17 +40,21 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           <div id="familia_show" class="ocult"></div>
         </div>
         <!--FORMULARIO PARA IDENTIFICAÇÃO DA ENTREVISTA-->
-        <div class="bloc1">
-          <div>
-            <label for="codfamiliar">Código familiar:</label>
-            <input type="text" name="cod_fam" id="codfamiliar" onblur="buscarDadosFamily()" required />
+        <div class="bloc">
+          <div class="bloc1">
+            <div>
+              <label for="codfamiliar">Código familiar:</label>
+              <input type="text" name="cod_fam" id="codfamiliar" onblur="buscarDadosFamily()" required />
+            </div>
+            <div id="cont_data">
+              <label for="data_entrevista">Data da Entrevista:</label>
+              <input type="date" id="data_entrevista" name="data_entrevista">
+            </div>
+            <div id="data_entre" class="ocult"></div>
           </div>
-          <div id="cont_data">
-            <label for="data_entrevista">Data da Entrevista:</label>
-            <input type="date" id="data_entrevista" name="data_entrevista">
-          </div>
-          <div id="data_entre" class="ocult"></div>
+          <div><button type="button" onclick="#()">Solicitações de Formulários</button></div>
         </div>
+
 
         <div class="bloc2">
           <div class="situacao">

@@ -44,7 +44,16 @@ textarea {
 .observ {
     line-height: 2;
 }
-
+.bloc1{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.bloc{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
 .tudo {
     display: flex;
     flex-direction: row;
