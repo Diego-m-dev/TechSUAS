@@ -26,7 +26,7 @@ if ($_SESSION['funcao'] != '0') {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
-    <title>Fichário</title>
+    <title>Fichário - TechSUAS</title>
 </head>
 <body>
     <div class="container">

@@ -28,7 +28,7 @@ if ($stmt_fic_query->num_rows > 0) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
 
-    <title>Registro fichario</title>
+    <title>Registro fichario - TechSUAS</title>
 
 </head>
 <body>

@@ -21,7 +21,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
 
-    <title>Cadastrar fichario</title>
+    <title>Cadastrar fichario - TechSUAS</title>
     <style>
         #progressContainer {
             display: none;
