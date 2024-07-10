@@ -33,7 +33,7 @@ $data_prazo = $data_hj_modufy->format('d/m/Y');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
 
-    <title>Declaração de Substituição de Responsável Legal</title>
+    <title>Declaração de Substituição de Responsável Legal - TechSUAS</title>
 
 </head>
 <body class="<?php echo 'background-' . $_SESSION['estilo']; ?>">

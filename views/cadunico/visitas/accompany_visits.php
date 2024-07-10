@@ -13,7 +13,7 @@ if ($_SESSION['funcao'] != '1') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Controle de Visitas</title>
+    <title>Controle de Visitas - TechSUAS</title>
 </head>
 <body>
     <h1>CONTROLE DE VISITAS</h1>

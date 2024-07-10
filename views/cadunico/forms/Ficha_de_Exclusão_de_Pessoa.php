@@ -14,7 +14,7 @@ $sql_declar->execute();
 <html>
 
 <head>
-    <title>Ficha de exclusão de pessoa</title>
+    <title>Ficha de exclusão de pessoa - TechSUAS</title>
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/ex_pesso.css">

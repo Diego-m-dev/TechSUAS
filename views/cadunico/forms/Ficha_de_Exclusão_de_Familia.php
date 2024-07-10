@@ -16,7 +16,7 @@ $sql_declar->execute();
 <html>
 
 <head>
-    <title>Ficha de exclusão de família</title>
+    <title>Ficha de exclusão de família - TechSUAS</title>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

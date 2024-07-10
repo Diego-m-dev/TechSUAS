@@ -20,7 +20,7 @@ if ($_SESSION['funcao'] != '1') {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/gestor.js"></script>
 
-    <title>Filtros GPTEs</title>
+    <title>Filtros GPTEs - TechSUAS</title>
 </head>
 <body>
     <h1>CADASTROS ÚNICO <?php echo $cidade; ?></h1>

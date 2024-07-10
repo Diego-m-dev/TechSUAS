@@ -17,7 +17,7 @@ $sql_reside->execute();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Termo de Responsabilidade</title>
+    <title>Termo de Responsabilidade - TechSUAS</title>
     <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/tr.css"> -->
 <?php
     if ($_SESSION['name_sistema'] == "SUPORTE"){

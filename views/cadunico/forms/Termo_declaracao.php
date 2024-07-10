@@ -17,7 +17,7 @@ $sql_declar->execute();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Termo de delcaração de renda</title>
+    <title>Termo de delcaração de renda - TechSUAS</title>
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/td.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">

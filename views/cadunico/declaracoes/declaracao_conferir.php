@@ -12,7 +12,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/validar_cpf.php';
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" type="text/css" href="/TechSUAS/css/cadunico/declaracoes/style-dec-conf.css">
         <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-        <title>Conferir Declaração</title>
+        <title>Conferir Declaração - TechSUAS</title>
     </head>
 
 <body>

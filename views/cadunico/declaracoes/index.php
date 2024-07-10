@@ -21,7 +21,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
     
 
-    <title>Declarações</title>
+    <title>Declarações - TechSUAS</title>
 </head>
 
 <body>

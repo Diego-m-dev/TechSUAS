@@ -27,7 +27,7 @@ if ($sql_ed_conc->rowCount() > 0) {
         <link id="css_link" rel="stylesheet" href="/TechSUAS/css/concessao/style_consultar.css">
         <link rel="website icon" type="image/png" href="/TechSUAS/img/geral/logo.png">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-        <title>Concessão Consulta</title>
+        <title>Concessão Consulta - TechSUAS</title>
         <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
