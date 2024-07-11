@@ -163,13 +163,16 @@ $(document).ready(function () {
                     <h4>INFORME O CPF</h4>
                     <form method="POST" action="/TechSUAS/views/cadunico/forms/termo_responsabilidade_uni.php" id="form_residencia_uni">
                         <label> CPF:
-                            <input type="text" name="cpf_residencia"/>
+                            <input type="text" id="cpf_declar" name="cpf_residencia"/>
                         </label>
                     </form>
                     `,
           showCancelButton: true,
           confirmButtonText: 'Enviar',
-          cancelButtonText: 'Cancelar'
+          cancelButtonText: 'Cancelar',
+          didOpen: () => {
+            $('#cpf_declar').mask('000.000.000-00')
+          }
         }).then((result) => {
           if (result.isConfirmed) {
             const form = document.getElementById("form_residencia_uni")
@@ -185,13 +188,16 @@ $(document).ready(function () {
                     <h4>INFORME O CPF</h4>
                     <form method="POST" action="/TechSUAS/views/cadunico/forms/termo_responsabilidade.php" id="form_residencia_familia">
                         <label> CPF:
-                            <input type="text" name="cpf_residencia"/>
+                            <input type="text" id="cpf_declar" name="cpf_residencia"/>
                         </label>
                     </form>
                     `,
           showCancelButton: true,
           confirmButtonText: 'Enviar',
-          cancelButtonText: 'Cancelar'
+          cancelButtonText: 'Cancelar',
+          didOpen: () => {
+            $('#cpf_declar').mask('000.000.000-00')
+          }
         }).then((result) => {
           if (result.isConfirmed) {
             const form = document.getElementById("form_residencia_familia")
@@ -209,13 +215,16 @@ $(document).ready(function () {
             <h4>INFORME O CPF</h4>
             <form method="POST" action="/TechSUAS/views/cadunico/forms/Termo_declaracao" id="form_dec_renda">
                 <label> CPF:
-                    <input type="text" name="cpf_declar"/>
+                    <input type="text" id="cpf_declar" name="cpf_declar"/>
                 </label>
             </form>
             `,
       showCancelButton: true,
       confirmButtonText: 'Enviar',
-      cancelButtonText: 'Cancelar'
+      cancelButtonText: 'Cancelar',
+      didOpen: () => {
+        $('#cpf_declar').mask('000.000.000-00')
+      }
     }).then((result) => {
       if (result.isConfirmed) {
         const form = document.getElementById("form_dec_renda")
