@@ -86,6 +86,7 @@ if ($sql_reside->rowCount() > 0) {
         </ul>
 <?php
 }
+$conn->close();
 ?>
         <div class="right"><?php echo $cidade; ?> <?php echo $data_formatada_extenso; ?>.</div>
         <br><br><br><br>

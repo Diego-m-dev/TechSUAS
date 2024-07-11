@@ -102,8 +102,9 @@ if ($sql_reside->rowCount() > 0) {
 
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
             <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
-    <?php
+<?php
 }
+$conn->close();
 ?>
     </div>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
