@@ -24,7 +24,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
             // Máscara para formatar os números
             $('.valor-unitario').mask('000000,00', {
                 reverse: true
-            });
+            })
 
             if (typeof nisBeneficiario !== 'undefined') {
                 // Atribui o valor da variável ao campo NIS
