@@ -1,6 +1,9 @@
 <?php
+$sql_create = [
 
-$sql_create = ["CREATE TABLE `averenda` (
+// Table structure for table `averenda`
+
+"CREATE TABLE `averenda` (
   `id` int(11) NOT NULL,
   `co_ibge` varchar(255) NOT NULL,
   `no_munic` varchar(255) NOT NULL,
@@ -57,6 +60,8 @@ $sql_create = ["CREATE TABLE `averenda` (
   `in_situacao_fam` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
+// Table structure for table `cadastro_forms`
+
 "CREATE TABLE `cadastro_forms` (
   `id` int(11) NOT NULL,
   `cod_familiar_fam` varchar(50) NOT NULL,
@@ -74,13 +79,30 @@ $sql_create = ["CREATE TABLE `averenda` (
   `modificacao` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_german2_ci;",
 
+// Table structure for table `fichario`
+
 "CREATE TABLE `fichario` (
   `id` int(11) NOT NULL,
   `codfam` varchar(11) NOT NULL,
   `arm_gav_pas` varchar(13) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `operador` varchar(100) NOT NULL
+  `operador` varchar(100) NOT NULL,
+  `arm` int(2) NOT NULL,
+  `gav` int(2) NOT NULL,
+  `pas` int(3) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;",
+
+// Table structure for table `ficharios`
+
+"CREATE TABLE `ficharios` (
+  `id` int(11) NOT NULL,
+  `arm` varchar(2) NOT NULL,
+  `gav` varchar(2) NOT NULL,
+  `pas` int(3) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_german2_ci;",
+
+// Table structure for table `folha_pag`
 
 "CREATE TABLE `folha_pag` (
   `prog` varchar(4) NOT NULL,
@@ -119,6 +141,8 @@ $sql_create = ["CREATE TABLE `averenda` (
   `telefone2` varchar(12) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
+// Table structure for table `historico_parecer_visita`
+
 "CREATE TABLE `historico_parecer_visita` (
   `id` int(11) NOT NULL,
   `id_visitas` int(11) NOT NULL,
@@ -141,6 +165,8 @@ $sql_create = ["CREATE TABLE `averenda` (
   `created_at` timestamp NULL DEFAULT current_timestamp()
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
+// Table structure for table `membros_familia`
+
 "CREATE TABLE `membros_familia` (
   `id` int(11) NOT NULL,
   `parecer_id` int(11) NOT NULL,
@@ -149,6 +175,21 @@ $sql_create = ["CREATE TABLE `averenda` (
   `nis` varchar(50) NOT NULL,
   `data_nascimento` varchar(40) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
+
+// Table structure for table `solicita`
+
+"CREATE TABLE `solicita` (
+  `id` int(11) NOT NULL,
+  `cpf` varchar(15) NOT NULL,
+  `nome` varchar(255) NOT NULL,
+  `cod_fam` varchar(20) NOT NULL,
+  `status` varchar(55) NOT NULL,
+  `tipo` int(10) NOT NULL,
+  `nis` varchar(15) NOT NULL,
+  `data_solicitacao` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
+
+// Table structure for table `tbl_tudo`
 
 "CREATE TABLE `tbl_tudo` (
   `id` int(11) NOT NULL,
@@ -360,6 +401,8 @@ $sql_create = ["CREATE TABLE `averenda` (
   `ref_pbf_` decimal(8,0) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;",
 
+// Table structure for table `unipessoal`
+
 "CREATE TABLE `unipessoal` (
   `id` int(11) NOT NULL,
   `co_ibge` varchar(255) NOT NULL,
@@ -403,6 +446,8 @@ $sql_create = ["CREATE TABLE `averenda` (
   `in_situacao_detalhe` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
+// Table structure for table `visitas_feitas`
+
 "CREATE TABLE `visitas_feitas` (
   `id` int(11) NOT NULL,
   `cod_fam` varchar(255) NOT NULL,
@@ -430,6 +475,9 @@ $sql_create = ["CREATE TABLE `averenda` (
   ADD PRIMARY KEY (`id`),
   ADD KEY `parecer_id` (`parecer_id`);",
 
+"ALTER TABLE `solicita`
+  ADD PRIMARY KEY (`id`);",
+
 "ALTER TABLE `tbl_tudo`
   ADD PRIMARY KEY (`id`);",
 
@@ -445,6 +493,15 @@ $sql_create = ["CREATE TABLE `averenda` (
 "ALTER TABLE `cadastro_forms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
 
+"ALTER TABLE `concessao_historico`
+  MODIFY `id_hist` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `concessao_itens`
+  MODIFY `id_itens_conc` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `concessao_tbl`
+  MODIFY `id_concessao` int(11) NOT NULL AUTO_INCREMENT;",
+
 "ALTER TABLE `fichario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
 
@@ -454,6 +511,9 @@ $sql_create = ["CREATE TABLE `averenda` (
 "ALTER TABLE `membros_familia`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
 
+"ALTER TABLE `solicita`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
 "ALTER TABLE `tbl_tudo`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
 
@@ -461,5 +521,5 @@ $sql_create = ["CREATE TABLE `averenda` (
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
 
 "ALTER TABLE `visitas_feitas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;"
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
 ];
