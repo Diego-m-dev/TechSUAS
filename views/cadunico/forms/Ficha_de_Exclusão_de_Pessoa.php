@@ -114,7 +114,7 @@ $sql_declar->execute();
             confirmButtonText: 'OK',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/TechSUAS/views/cadunico/forms/menuformulario"
+                window.location.href = "/TechSUAS/views/cadunico/forms/index"
             }
         })
     </script>
