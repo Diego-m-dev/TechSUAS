@@ -18,24 +18,7 @@ $sql_reside->execute();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Termo de Responsabilidade - TechSUAS</title>
-    <!-- <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/tr.css"> -->
-<?php
-    if ($_SESSION['name_sistema'] == "SUPORTE"){
-?>
-<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_ddv.css">
-<?php
-
-    } elseif ($_SESSION['municipio'] == "2613008") {
-?>
-<link rel="stylesheet" href="/TechSUAS/css/geral/timbres/timbres_body_sbu.css">
-<?php
-    } else {
-      echo "Municipio sem timbre para o documento. Acione o SUPORTE!";
-      exit();
-    }
-?>
-
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/impressao.css">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/forms/tr.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -104,9 +87,7 @@ if ($sql_reside->rowCount() > 0) {
 <?php
 }
 ?>
-    <div class="cidade_data">
-      <?php echo $cidade; ?><?php echo $data_formatada_extenso; ?>.
-    </div>
+        <div class="right"><?php echo $cidade; ?> <?php echo $data_formatada_extenso; ?>.</div>
         <br><br><br><br>
         <p class="center ass">______________________________________________________________<br>Assinatura do(a) Responsável pela Unidade Familiar</p>
     <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
