@@ -62,8 +62,6 @@ if ($sql_reside->rowCount() > 0) {
 
     $endereco_conpleto = $tipo_logradouro . " " . $nom_tit . " " . $nom_logradouro_fam . ", " . $num_logradouro . " - " . $nom_localidade_fam . ", " . $referencia;
 
-    $cpf_formatado = sprintf('%011s', $cpf_residencia);
-    $cpf_formatado = substr($cpf_formatado, 0, 3) . '.' . substr($cpf_formatado, 3, 3) . '.' . substr($cpf_formatado, 6, 3) . '-' . substr($cpf_formatado, 9, 2);
 ?>
         <p class="paragraph">Eu, <span class="nome" contenteditable="true"><?php echo $dados_reside['nom_pessoa']; ?></span>, CPF: <span class="cpf"><?php echo $cpf_residencia; ?></span>, NIS: <span class="nis"><?php echo $dados_reside['num_nis_pessoa_atual']; ?></span>, declaro, sob as penas da lei, que moro sem nenhuma outra pessoa da minha família no domicílio de endereço: <span class="editable-field" contenteditable="true"><?php echo $endereco_conpleto; ?></span>, indicado no Cadastro Único.</p>
 
