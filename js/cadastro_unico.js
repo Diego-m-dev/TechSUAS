@@ -19,7 +19,55 @@ $(document).ready(function () {
   $('#btn_entrevistadores').click(function () {
     $('#beneficio').hide()
     $('#simples').hide()
-    $('#entrevistadores').show()
+
+    fetch("/TechSUAS/controller/cadunico/area_gestor/lista_entrevistadores.php")
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na requisição: ' + response.status)
+        }
+        return response.json(); // Retornar como JSON
+    })
+    .then(data => {
+        console.log('Dados recebidos', data)
+        dados = data // Armazena os dados recebidos globalmente
+
+        // Construir a tabela
+        let tableHtml = `
+            <table border="1">
+                <tr>
+                    <th>Entrevistador</th>
+                    <th>Quantidade total</th>
+                    <th>Ação</th>
+                </tr>
+        `
+
+        // Adicionar linhas na tabela
+        data.forEach(item => {
+            tableHtml += `
+                <tr>
+                    <td>${item.nom_entrevistador_fam}</td>
+                    <td>${item.quantidade_total}</td>
+                    <td>
+                        <form action="/TechSUAS/controller/cadunico/area_gestor/detalhe_entrevistador.php" method="post">
+                            <input type="hidden" name="detalhe" value="${item.nom_entrevistador_fam}">
+                            <button type="submit">Detalhes</button>
+                        </form>
+                    </td>
+                </tr>
+            `
+        })
+
+        tableHtml += `</table>`
+
+        // Exibir o modal com a tabela
+        Swal.fire({
+            html: tableHtml
+        })
+    })
+    .catch(error => {
+        console.log('Erro ao buscar dados:', error)
+    })
+
   })
 })
 
@@ -765,3 +813,24 @@ function voltaMenu() {
 }
 
 
+function solicitaForm() {
+  Swal.fire({
+    html: `
+    <h2>ENTREVISTAS SOLICITADAS</h2>
+        <table border="1" width="800px">
+        <thead>
+            <tr>
+                <th>CPF</th>
+                <th>Nome</th>
+                <th>Código Familiar</th>
+                <th>NIS</th>
+                <th>TIPO</th>
+                <th>STATUS</th>
+                <th>AÇÕES</th>
+            </tr>
+        </thead>
+        <tbody>
+        </table>
+    `,
+  })
+}
