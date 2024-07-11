@@ -174,22 +174,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             <button type="submit" name="btn_filtro_familia">Buscar</button>
         </form>
 
-        <!-- BENEFÍCIOS Formulário para filtrar informações do beneficiário-->
-        <form action="" method="post" id="beneficio">
-            <label for="">NIS:</label>
-            <input type="text" name="nis_benef" />
-            <button type="submit" name="btn_filtro_benef">Buscar</button>
-        </form>
-
-        <!-- ENTREVISTADORES Formulário para filtrar Entrevistadores -->
-        <form action="" method="post" id="entrevistadores">
-            <label for="">
-                NOME Entrevistador(a):
-                <input type="text" name="nome_entrev" />
-            </label>
-            <button type="submit" name="btn_filtro_entrev">Buscar</button>
-        </form>
-
         <?php
 
         if (!isset($_POST['btn_filtro_familia']) && !isset($_POST['btn_filtro_benef']) && !isset($_POST['btn_filtro_entrev'])) {
