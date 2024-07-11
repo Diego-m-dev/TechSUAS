@@ -17,11 +17,11 @@ function executeQuery($conn, $query)
 }
 
 $solicitacao_sql = "SELECT
-  COUNT(*) AS soma_entrev_cad, nom_entrevistador_fam
+    nom_entrevistador_fam,
+    COUNT(*) AS quantidade_total
 ";
 
-$orderby = "GROUP BY nom_entrevistador_fam 
-    ORDER BY nom_entrevistador_fam ASC";
+$orderby = "GROUP BY nom_entrevistador_fam ORDER BY nom_entrevistador_fam";
 
 // Consulta SQL para indígenas
 $query_tudo = "$solicitacao_sql
