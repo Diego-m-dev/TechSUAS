@@ -119,7 +119,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
         <input type="text" id="responsavel" name="responsavel" required>
 
         <label for="cpf_coord">CPF do Coordenador:</label>
-        <input type="text" id="cpf_coord" name="cpf_coord" required>
+        <input type="text" id="cpf_coord" class="cpf" name="cpf_coord" required>
 
         <button type="submit">Cadastrar</button>
       </form>
@@ -132,7 +132,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
         <div id="responsavel-info"></div>
 
         <label for="cpf">CPF do Responsável</label>
-        <input type="text" id="cpf" name="cpf" onblur="buscarResponsavel()" required>
+        <input type="text" id="cpf" name="cpf" class="cpf" onblur="buscarResponsavel()" required>
 
         <label for="nome_sistema">Nome do Sistema:</label>
         <input type="text" id="nome_sistema" name="nome_sistema" required>
@@ -155,7 +155,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
         <h2>Cadastro de Operadores</h2>
 
         <label for="cpf">CPF:</label>
-        <input type="text" id="cpf" name="cpf" required>
+        <input type="text" id="cpf_resp" class="cpf" name="cpf" required>
 
         <label>Nome completo:</label>
         <input type="text" class="nome" name="nome_user" placeholder="Sem Abreviação." required style="width: 300px;">
@@ -216,9 +216,13 @@ if ($_SESSION['setor'] != "SUPORTE") {
       <hr>
 
       <!-- BASE DE DADOS -->
-      <form action="/TechSUAS/suporte/controller/bd" method="POST" class="esconde_form" id="form_bd">
-        <input type="text" id="cod_ibge_3" name="cod_ibge_3" placeholder="Digite o código IBGE" onblur="buscarMunicipiobd()">
+      <form action="/TechSUAS/suporte/controller/bd_munic" method="POST" class="esconde_form" id="form_bd">
+
+        <input type="text" id="cod_ibge_3" name="cod_ibge_3" placeholder="Digite o código IBGE" onblur="buscarMunicipiobd()"/>
         <div id="municipio-infobd"></div>
+
+        <input type="text" id="cpf_gest" name="cpf_gest" placeholder="Digite o CPF do gestor"/>
+
         <label for="">Nome base de dados</label>
         <input type="text" name="nome_bd" />
 
@@ -234,6 +238,8 @@ if ($_SESSION['setor'] != "SUPORTE") {
   </div>
   <script>
     $('#cpf').mask('000.000.000-00')
+    $('#cpf_resp').mask('000.000.000-00')
+    $('#cpf_gest').mask('000.000.000-00')
   </script>
 </body>
 
