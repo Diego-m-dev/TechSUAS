@@ -71,9 +71,9 @@ if ($sql_reside->rowCount() > 0) {
                 <li class="topic">A qualquer tempo poderei ser convocado pelo município ou por órgãos federais de controle e fiscalização, para avaliar se as informações que prestei ao Cadastro Único estão de acordo com a realidade.</li>
                 <li class="topic">A prestação de informações falsas ao Programa Bolsa Família é motivo de cancelamento do benefício, e pode gerar processo administrativo para ressarcimento dos valores recebidos indevidamente, nos termos do art. 18 da Medida Provisória nº 1.164, de 2 de março de 2023. Pode também ocasionar processo penal e cível nos termos da legislação geral brasileira.</li>
             </ul>
-            <div class="right">São Bento do Una - PE, <?php echo $data_formatada_extenso; ?>.</div>
+            <div class="right"><?php echo $cidade; ?> <?php echo $data_formatada_extenso; ?>.</div>
             <br><br><br>
-            <div class="assinatura">
+            <div class="center ass" class="assinatura">
                     <p class="signature-line"></p>
                     <p>Assinatura do(a) Responsável pela Unidade Familiar 
             </div>
@@ -92,6 +92,7 @@ if ($sql_reside->rowCount() > 0) {
             <li class="topic">A qualquer tempo poderei ser convocado pelo município ou por órgãos federais de controle e fiscalização, para avaliar se as informações que prestei ao Cadastro Único estão de acordo com a realidade.</li>
             <li class="topic">A prestação de informações falsas ao Programa Bolsa Família é motivo de cancelamento do benefício, e pode gerar processo administrativo para ressarcimento dos valores recebidos indevidamente, nos termos do art. 18 da Medida Provisória nº 1.164, de 2 de março de 2023. Pode também ocasionar processo penal e cível nos termos da legislação geral brasileira.</li>
         </ul>
+        <div class="right"><?php echo $cidade; ?> <?php echo $data_formatada_extenso; ?>.</div>
         <div class="assinatura">
                     <p class="signature-line"></p>
                     <p>Assinatura do(a) Responsável pela Unidade Familiar</p>
