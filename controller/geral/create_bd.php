@@ -493,15 +493,6 @@ $sql_create = [
 "ALTER TABLE `cadastro_forms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
 
-"ALTER TABLE `concessao_historico`
-  MODIFY `id_hist` int(11) NOT NULL AUTO_INCREMENT;",
-
-"ALTER TABLE `concessao_itens`
-  MODIFY `id_itens_conc` int(11) NOT NULL AUTO_INCREMENT;",
-
-"ALTER TABLE `concessao_tbl`
-  MODIFY `id_concessao` int(11) NOT NULL AUTO_INCREMENT;",
-
 "ALTER TABLE `fichario`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
 
