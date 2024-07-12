@@ -31,7 +31,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     </script>
 
 
-    <title>Cadastro de setores</title>
+    <title>Cadastro de setores - TechSUAS</title>
 </head>
 
 <body>

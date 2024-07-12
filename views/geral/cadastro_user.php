@@ -20,7 +20,7 @@ if ($_SESSION['funcao'] != '1' && $_SESSION['funcao'] != '0')
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="/TechSUAS/css/geral/style-reg-user.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <title>Cadastro Usuários</title>
+    <title>Cadastro de Usuários - TechSUAS</title>
 </head>
 
 <body>
