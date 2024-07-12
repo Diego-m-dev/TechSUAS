@@ -125,9 +125,8 @@ a:hover {
     }
 
     h1 {
-        text-align: center;
-        white-space: nowrap;
-    }
+      font-size: 25px;
+  }
 
     .titulo {
         font-size: 10px;

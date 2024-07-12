@@ -118,7 +118,7 @@ a:hover {
     }
 
     h1 {
-        white-space: nowrap;
+        font-size: 25px;
     }
 
     body::after {

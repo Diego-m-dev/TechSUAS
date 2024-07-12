@@ -5,8 +5,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 $cpf_residencia = $_POST['cpf_residencia'];
 
-$sql_reside = $pdo->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_residencia");
-$sql_reside->bindParam(':cpf_residencia', $cpf_residencia, PDO::PARAM_STR);
+$cpf_limpo = preg_replace('/\D/', '', $_POST['cpf_residencia']);
+$cpf_already = ltrim($cpf_limpo, '0');
+
+$sql_reside = $pdo->prepare("SELECT nom_tip_logradouro_fam, nom_logradouro_fam, nom_localidade_fam, num_logradouro_fam, nom_titulo_logradouro_fam, txt_referencia_local_fam, nom_pessoa, num_nis_pessoa_atual FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_residencia");
+$sql_reside->bindParam(':cpf_residencia', $cpf_already, PDO::PARAM_STR);
 $sql_reside->execute();
 ?>
 
@@ -59,10 +62,8 @@ if ($sql_reside->rowCount() > 0) {
 
     $endereco_conpleto = $tipo_logradouro . " " . $nom_tit . " " . $nom_logradouro_fam . ", " . $num_logradouro . " - " . $nom_localidade_fam . ", " . $referencia;
 
-    $cpf_formatado = sprintf('%011s', $cpf_residencia);
-    $cpf_formatado = substr($cpf_formatado, 0, 3) . '.' . substr($cpf_formatado, 3, 3) . '.' . substr($cpf_formatado, 6, 3) . '-' . substr($cpf_formatado, 9, 2);
 ?>
-        <p class="paragraph">Eu, <span class="nome" contenteditable="true"><?php echo $dados_reside['nom_pessoa']; ?></span>, CPF: <span class="cpf"><?php echo $cpf_formatado; ?></span>, NIS: <span class="nis"><?php echo $dados_reside['num_nis_pessoa_atual']; ?></span>, declaro, sob as penas da lei, que moro sem nenhuma outra pessoa da minha família no domicílio de endereço: <span class="editable-field" contenteditable="true"><?php echo $endereco_conpleto; ?></span>, indicado no Cadastro Único.</p>
+        <p class="paragraph">Eu, <span class="nome" contenteditable="true"><?php echo $dados_reside['nom_pessoa']; ?></span>, CPF: <span class="cpf"><?php echo $cpf_residencia; ?></span>, NIS: <span class="nis"><?php echo $dados_reside['num_nis_pessoa_atual']; ?></span>, declaro, sob as penas da lei, que moro sem nenhuma outra pessoa da minha família no domicílio de endereço: <span class="editable-field" contenteditable="true"><?php echo $endereco_conpleto; ?></span>, indicado no Cadastro Único.</p>
 
         <p class="paragraph">Declaro ter clareza de que:</p>
             <ul>
@@ -84,7 +85,7 @@ if ($sql_reside->rowCount() > 0) {
 } else {
 
     ?>
-        <p class="paragraph">Eu, <span class="editable-field" contenteditable="true" ></span>, CPF: <span class="editable-field" contenteditable="true" id="cpf_format"></span>, NIS: <span class="editable-field" contenteditable="true" ></span>, declaro, sob as penas da lei, que moro sem nenhuma outra pessoa da minha família no domicílio de endereço: <span class="editable-field" contenteditable="true" ></span>, indicado no Cadastro Único.</p>
+        <p class="paragraph">Eu, <span class="editable-field" contenteditable="true" ></span>, CPF: <span class="editable-field"><?php echo $cpf_residencia; ?></span>, NIS: <span class="editable-field" contenteditable="true" ></span>, declaro, sob as penas da lei, que moro sem nenhuma outra pessoa da minha família no domicílio de endereço: <span class="editable-field" contenteditable="true" ></span>, indicado no Cadastro Único.</p>
         <p class="paragraph">Declaro ter clareza de que:</p>
         <ul>
             <li class="topic">É crime de falsidade ideológica, de acordo com o art. 299 do Código Penal, deixar de declarar informações ou prestar informações falsas para o Cadastro Único, com o objetivo de participar ou de se manter no Programa Bolsa Família ou em qualquer outro programa social.</li>
@@ -93,14 +94,17 @@ if ($sql_reside->rowCount() > 0) {
             <li class="topic">A prestação de informações falsas ao Programa Bolsa Família é motivo de cancelamento do benefício, e pode gerar processo administrativo para ressarcimento dos valores recebidos indevidamente, nos termos do art. 18 da Medida Provisória nº 1.164, de 2 de março de 2023. Pode também ocasionar processo penal e cível nos termos da legislação geral brasileira.</li>
         </ul>
         <div class="right"><?php echo $cidade; ?> <?php echo $data_formatada_extenso; ?>.</div>
-        <div class="assinatura">
+            <br><br><br>
+            <div class="center ass" class="assinatura">
                     <p class="signature-line"></p>
-                    <p>Assinatura do(a) Responsável pela Unidade Familiar</p>
-        </div>
+                    <p>Assinatura do(a) Responsável pela Unidade Familiar 
+            </div>
+
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
             <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
-    <?php
+<?php
 }
+$conn->close();
 ?>
     </div>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>

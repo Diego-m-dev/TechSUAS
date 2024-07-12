@@ -81,7 +81,10 @@ foreach ($anos as $ano) {
 
         </div>
     </div>
-    <?php include '../../../controller/cadunico/parecer/tbl_tudo.php'; ?>
+<?php
+  include '../../../controller/cadunico/parecer/tbl_tudo.php';
+  $conn->close();
+?>
     <script src='/TechSUAS/js/personalise.js'></script>
     <script>
         // Verifica se a tabela possui pelo menos duas linhas com conteúdo
