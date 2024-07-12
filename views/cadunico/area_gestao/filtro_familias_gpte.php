@@ -119,7 +119,9 @@ if ($_SESSION['funcao'] != '1') {
             </div>
         </div>
         <div class="btns">
-            <div><button onclick="filterGPTE()">Filtrar Dados</button></div>
+            <div><button onclick="filterGPTE()">Filtrar Dados</button>
+            <button onclick="window.location.href='/TechSUAS/views/cadunico/area_gestao/filtro_familias_gpte'">Limpar dados</button>
+        </div>
             <div><button onclick="voltarFiltros()"><i class="fas fa-arrow-left"></i>Voltar</button></div>
         </div>
 
