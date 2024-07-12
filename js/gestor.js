@@ -101,22 +101,52 @@ function filterGPTE() {
 }
 
 function filtroCriaIdos() {
+  const button = document.getElementById('filtroCriaIdosButton');
+  if (!button) {
+    console.error('Botão não encontrado.');
+    return;
+  }
+
+  const loadingHtml = `
+    <div id="loadingSpinner" style="text-align: center;">
+      <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom:10px;"></i><br>
+      <p>Carregando...</p>
+    </div>
+  `;
+
+  Swal.fire({
+    html: loadingHtml,
+    width: '400px',
+    showConfirmButton: false,
+    allowOutsideClick: false
+  });
+
+  // Desabilita o botão para evitar múltiplos cliques
+  button.disabled = true;
+
   fetch("/TechSUAS/views/cadunico/area_gestao/filtro_idoso_crianca")
-      .then(response => {
-          if (!response.ok) {
-              throw new Error('Erro na requisição: ' + response.status);
-          }
-          return response.json();
-      })
-      .then(data => {
-          console.log('Dados recebidos', data);
-          dados = data; // Armazena os dados recebidos globalmente
-          criarTabela(); // Chama a função para criar a tabela com os dados recebidos
-      })
-      .catch(error => {
-          console.log('Erro ao buscar dados:', error);
-      });
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Dados recebidos', data);
+      dados = data; // Armazena os dados recebidos globalmente
+      criarTabela(); // Chama a função para criar a tabela com os dados recebidos
+      Swal.close(); // Fecha o modal de carregamento
+    })
+    .catch(error => {
+      console.error('Erro ao buscar dados:', error);
+      Swal.fire('Erro!', 'Houve um problema ao carregar os dados.', 'error');
+    })
+    .finally(() => {
+      // Reabilita o botão após carregar os dados ou em caso de erro
+      button.disabled = false;
+    });
 }
+
 
 // Função para aplicar filtros na tabela
 function aplicarFiltros() {
@@ -205,7 +235,7 @@ function filtroTrabInf() {
   })
 }
 
-function filtroCriIdo() {
+function filtroGeral() {
   Swal.fire({
     icon: "info",
     title: "ATENÇÃO",
@@ -216,7 +246,7 @@ function filtroCriIdo() {
     `,
     confirmButtonText: "OK"
   }).then((result) => {
-    window.location.href = "/TechSUAS/views/cadunico/area_gestao/filtro_familia_idosos_criancas"
+    window.location.href = "/TechSUAS/views/cadunico/area_gestao/filtro_geral"
   })
 }
 

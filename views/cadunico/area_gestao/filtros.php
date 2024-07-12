@@ -40,7 +40,7 @@ if ($_SESSION['funcao'] != '1') {
         <h2>CADASTROS ÚNICO <?php echo $cidade; ?></h2>
             <button onclick="filtroGPTE()">Filtrar GPTEs</button>
             <button onclick="filtroTrabInf()">Trabalho Infantil</button>
-            <button onclick="filtroCriIdo()">Geral</button>
+            <button onclick="filtroGeral()">Geral</button>
             <button onclick="window.location.href='/TechSUAS/views/cadunico/area_gestao/index'"><i class="fas fa-arrow-left"></i>Voltar</button>
         </nav>
     </div>
