@@ -714,7 +714,7 @@ function printWithFields_preper() {
 
 function buscarDadosFamily() {
   var familia = $("#codfamiliar").val()
-
+  const input = document.getElementById('codfamiliar')
   // Remove todos os caracteres que não sejam números
   let cpfLimpo = familia.replace(/\D/g, '');
   // Preenche com zeros à esquerda para garantir que tenha 11 dígitos
@@ -723,37 +723,46 @@ function buscarDadosFamily() {
 
   $('#codfamiliar_print').text(ajustandoCod)
 
-  $.ajax({
-    type: 'POST',
-    url: '/TechSUAS/controller/cadunico/busca_family.php',
-    data: {
-      codfam: familia
-    },
-    dataType: 'json',
-    success: function (response) {
-      if (response.encontrado) {
-        $('#data_entrevista').text(`Data da ultima Atualização ${response.data_entrevista}`)
-        if (response.dados_familia) {
-          var dados_familiap = response.dados_familia
-          var visitasHtml = ''
-          visitasHtml += '<table>'
-          visitasHtml += '<tr><th>NIS</th><th></th><th>NOME</th><th></th><th>PARENTESCO</th></tr>'
-          dados_familiap.forEach(function (familia_show) {
-            visitasHtml += '<div class="visita">'
-            visitasHtml += '<tr>'
-            visitasHtml += '<td><span>' + familia_show.nis_atual + '</span></td><td></td>'
-            visitasHtml += '<td><span>' + familia_show.nome + '</span></td><td></td>'
-            visitasHtml += '<td><span>' + familia_show.parentesco + '</span></td>'
-            visitasHtml += '</tr>'
-            visitasHtml += '</div>'
-          })
-          visitasHtml += '</table>'
-          $('#familia_show').html(visitasHtml)
-
+  input.addEventListener('blur', function () {
+    if (input.value.trim() === '') {
+      setTimeout(function () {
+        input.focus()
+      }, 0)
+    } else {
+      $.ajax({
+        type: 'POST',
+        url: '/TechSUAS/controller/cadunico/busca_family.php',
+        data: {
+          codfam: familia
+        },
+        dataType: 'json',
+        success: function (response) {
+          if (response.encontrado) {
+            $('#data_entrevista').text(`Data da ultima Atualização ${response.data_entrevista}`)
+            if (response.dados_familia) {
+              var dados_familiap = response.dados_familia
+              var visitasHtml = ''
+              visitasHtml += '<table>'
+              visitasHtml += '<tr><th>NIS</th><th></th><th>NOME</th><th></th><th>PARENTESCO</th></tr>'
+              dados_familiap.forEach(function (familia_show) {
+                visitasHtml += '<div class="visita">'
+                visitasHtml += '<tr>'
+                visitasHtml += '<td><span>' + familia_show.nis_atual + '</span></td><td></td>'
+                visitasHtml += '<td><span>' + familia_show.nome + '</span></td><td></td>'
+                visitasHtml += '<td><span>' + familia_show.parentesco + '</span></td>'
+                visitasHtml += '</tr>'
+                visitasHtml += '</div>'
+              })
+              visitasHtml += '</table>'
+              $('#familia_show').html(visitasHtml)
+    
+            }
+          }
         }
-      }
+      })
     }
   })
+
 }
 
 //FUNÇÃO PARA MUDAR DE SELECT PARA INPUT 
