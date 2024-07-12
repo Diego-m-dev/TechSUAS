@@ -11,7 +11,9 @@ body {
 * {
     margin-top: 0px;
 }
-
+h2{
+    color: #ffffff;
+}
 img {
     justify-content: center;
     width: 100%;
@@ -33,6 +35,7 @@ button {
     color: white;
     cursor: pointer;
     text-transform: capitalize;
+    border-bottom: 2px solid #fff;
 }
 button:hover{
     background-color: #3b82f6;
@@ -43,5 +46,8 @@ nav{
     display: flex;
     flex-direction: column;
     width: 500px;
-    gap: 5px;
+    border-bottom: 2px solid #fff;
+    background-color: #13294b;
+    padding: 20px;
+    border-radius: 5px;
 }

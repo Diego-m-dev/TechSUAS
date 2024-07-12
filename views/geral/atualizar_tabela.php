@@ -21,7 +21,7 @@ if ($_SESSION['funcao'] != '1' && $_SESSION['funcao'] != '0') {
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <title>Importar CSV</title>
+    <title>Importar CSV - TechSUAS</title>
 </head>
 
 <body>

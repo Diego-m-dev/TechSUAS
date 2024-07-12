@@ -35,8 +35,9 @@ if ($_SESSION['funcao'] != '1') {
         </h1>
     </div>
     <div class="container">
-        <h2>CADASTROS ÚNICO <?php echo $cidade; ?></h2>
+
         <nav>
+        <h2>CADASTROS ÚNICO <?php echo $cidade; ?></h2>
             <button onclick="filtroGPTE()">Filtrar GPTEs</button>
             <button onclick="filtroTrabInf()">Trabalho Infantil</button>
             <button onclick="filtroCriIdo()">Geral</button>

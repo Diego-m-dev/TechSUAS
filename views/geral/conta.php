@@ -15,7 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/dados_operador.php';
     <link rel="website icon" type="image/png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <title>Sala do Usuário</title>
+    <title>Sala do Usuário - TechSUAS</title>
     <style>
         .edicao {
             display: none;
