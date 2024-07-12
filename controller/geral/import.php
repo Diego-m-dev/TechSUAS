@@ -480,7 +480,7 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
 
                 $import_data = $pdo->prepare($query);
                 $import_data->bindValue(':cd_ibge', ($linha[0] ?? "NULL"));
-                $import_data->bindValue(':cod_familiar_fam', ($linha[1] ?? "NULL"));
+                $import_data->bindValue(':cod_familiar_fam', str_pad(($linha[1] ?? "NULL"), 11, '0', STR_PAD_LEFT));
                 $import_data->bindValue(':dat_cadastramento_fam', $dat_cadastramento_fam);
                 $import_data->bindValue(':dat_atual_fam', $dat_atual_fam);
                 $import_data->bindValue(':cod_est_cadastral_fam', ($linha[4] ?? "NULL"));
