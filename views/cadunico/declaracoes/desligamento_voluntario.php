@@ -66,7 +66,7 @@ $sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn
 			$dados_tbl = $sql_query_dec->fetch_assoc();
 		?>
 			<div class="tudo">
-				<h1>DECLARAÇÃO DE DESLIGAMENTO VOLUNTÁRIO DO PROGRAMA BOLSA FAMÍLIA</h1>
+      <h1>DECLARAÇÃO DE DESLIGAMENTO VOLUNTÁRIO DO PROGRAMA BOLSA FAMÍLIA</h1>
 
 				<h4 style='text-align: center;'>(Base legal: inc. XVII do caput do art. 24 e §§ 6º a 8º do art. 27 da Portaria MDS nº 897/2023)</h4>
 
