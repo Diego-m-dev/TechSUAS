@@ -15,7 +15,7 @@ if (isset($_POST['codfam'])) {
     $response = array('encontrado' => false);
 
     // Consulta na tabela visitas_feitas
-    $stmt_visita = $pdo->prepare("SELECT * FROM visitas_feitas WHERE cod_fam = :codfamiliar");
+    $stmt_visita = $pdo->prepare("SELECT data, acao, entrevistador FROM visitas_feitas WHERE cod_fam = :codfamiliar");
     $stmt_visita->execute(array(':codfamiliar' => $cpf_limpo));
     
 
@@ -55,7 +55,7 @@ if (isset($_POST['codfam'])) {
     }
 
     // Consulta na tabela tbl_tudo
-    $stmt_tudo = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$ajustando_cod' AND cod_parentesco_rf_pessoa = 1";
+    $stmt_tudo = "SELECT nom_pessoa FROM tbl_tudo WHERE cod_familiar_fam LIKE '$ajustando_cod' AND cod_parentesco_rf_pessoa = 1";
     $sql_query = $conn->query($stmt_tudo) or die("ERRO ao consultar !" . $conn->error);
 
     if ($sql_query->num_rows > 0) {
