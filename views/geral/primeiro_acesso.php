@@ -41,7 +41,7 @@ if ($_SESSION['acesso'] == 0) {
         <form method="post" action="/TechSUAS/controller/geral/dados_alterados.php">
             <div class="nome">
                 <label>Nome Completo:</label>
-                <input type="text" name="nome_comp" oninput="sempre_maiusculo(this)" placeholder="Digite seu nome completo." required>
+                <input type="text" name="nome_comp" oninput="sempre_maiusculo(this)" placeholder="Digite seu nome completo." required style="width: 400px;">
             </div>
             <div class="nomesocial">
                 <label>Nome Social/apelido:</label>
