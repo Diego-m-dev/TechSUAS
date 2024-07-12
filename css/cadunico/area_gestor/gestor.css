@@ -365,3 +365,24 @@ label {
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
 }
+
+.my-custom-close-button {
+    background: none;
+    /* Remove o fundo padrão */
+    border: none;
+    /* Remove a borda padrão */
+    color: #ccc;
+    /* Cor do botão */
+    font-size: 25px;
+    /* Tamanho da fonte do botão */
+    /* Transparência do botão */
+    transition: opacity 0.3s;
+    /* Transição suave para a opacidade */
+}
+
+.my-custom-close-button:hover {
+    color: #999;
+    /* Cor do botão ao passar o mouse */
+    opacity: 1;
+    /* Opacidade total ao passar o mouse */
+}

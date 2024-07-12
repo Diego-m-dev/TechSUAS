@@ -48,13 +48,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                         Entrevistadores
                     </button>
                 </div>
-                <div class="bt">
-                    <button type="button" class="menu-button"
-                        onclick="window.location.href = '/TechSUAS/views/cadunico/area_gestao/index';">
-                        <span class="material-symbols-outlined">frame_reload</span>
-                        Atualizar
-                    </button>
-                </div>
+
                 <div class="bt">
                     <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/filtros';">
                         <span class="material-symbols-outlined">
@@ -63,8 +57,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                     </button>
 
                 </div>
-                <div class="bt">
 
+                <div class="bt">
                     <button class="menu-button" onclick="location.href='/TechSUAS/views/geral/atualizar_tabela';">
                         <span class="material-symbols-outlined">
                             library_add
@@ -72,15 +66,23 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                         Importar Banco de Dados
                     </button>
                 </div>
+
+
                 <div class="bt">
-
-
-                    <button class="menu-button"
-                        onclick="location.href='/TechSUAS/views/cadunico/visitas/accompany_visits';">
+                    <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/visitas/accompany_visits';">
                         <span class="material-symbols-outlined">
                             preview
                         </span>
                         Acompanhar Visitas
+                    </button>
+                </div>
+
+                <div class="bt">
+                    <button class="menu-button" onclick=voltarMenu()>
+                        Voltar ao menu
+                        <span class="material-symbols-outlined">
+                            arrow_back
+                        </span>
                     </button>
                 </div>
             </div>
@@ -188,7 +190,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 $smtp_filtro->execute();
                 $resultado = $smtp_filtro->get_result(); // Obter o resultado da consulta
                 $dados_filtros = $resultado->fetch_all(MYSQLI_ASSOC); // Obter todas as linhas como uma matriz associativa
-        
+
             } elseif (isset($_POST['codigo_familia'])) {
                 $filtro = $conn->real_escape_string($_POST['codigo_familia']);
             } else {
@@ -226,7 +228,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
                 if ($resultado_entrev->num_rows > 0) {
 
-                    ?>
+        ?>
                     <table border="1">
                         <tr>
                             <th>Entrevistador</th>
@@ -235,15 +237,15 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                         </tr>
                         <?php
                         while ($linha = $resultado_entrev->fetch_assoc()) {
-                            ?>
+                        ?>
                             <tr>
                                 <td><?php $entrev = $linha['nom_entrevistador_fam'];
-                                if ($entrev == null) {
-                                    $entrevis = "Origem Cadastro: APP";
-                                } else {
-                                    $entrevis = $linha['nom_entrevistador_fam'];
-                                }
-                                echo $entrevis; ?>
+                                    if ($entrev == null) {
+                                        $entrevis = "Origem Cadastro: APP";
+                                    } else {
+                                        $entrevis = $linha['nom_entrevistador_fam'];
+                                    }
+                                    echo $entrevis; ?>
                                 </td>
                                 <td><?php echo $linha['soma_entrev_cad']; ?></td>
                                 <td><a href="resultado?nome_entrevistador=<?php echo $linha['nom_entrevistador_fam']; ?>">Filtrar</a>
@@ -264,7 +266,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
                 if ($resultado_entrev->num_rows > 0) {
 
-                    ?>
+                ?>
                     <table border="1">
                         <tr>
                             <th>Entrevistador</th>
@@ -273,7 +275,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                         </tr>
                         <?php
                         while ($linha = $resultado_entrev->fetch_assoc()) {
-                            ?>
+                        ?>
                             <tr>
                                 <td><?php echo $linha['nom_entrevistador_fam']; ?></td>
                                 <td><?php echo $linha['soma_entrev_cad']; ?></td>
@@ -283,21 +285,20 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
                         <?php } ?>
                     </table>
-                <?php }
-
+        <?php }
             }
         }
         ?>
     </div>
     <script>
-        $(document).ready(function () {
-            $('#btn_benef').on('click', function () {
+        $(document).ready(function() {
+            $('#btn_benef').on('click', function() {
                 $('#simples').hide();
                 $('#beneficio').show();
                 $('#entrevistadores').hide();
             });
 
-            $('#btn_entrevistadores').on('click', function () {
+            $('#btn_entrevistadores').on('click', function() {
                 $('#simples').hide();
                 $('#beneficio').hide();
                 $('#entrevistadores').show();
@@ -309,8 +310,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         var modalTriggers = document.querySelectorAll(".modal-trigger");
 
 
-        modalTriggers.forEach(function (trigger) {
-            trigger.addEventListener("click", function (event) {
+        modalTriggers.forEach(function(trigger) {
+            trigger.addEventListener("click", function(event) {
                 event.preventDefault();
                 document.getElementById("modalTitle").innerText = this.innerText;
                 document.getElementById("modalDescription").innerText = "Descrição para " + this.innerText;
@@ -319,18 +320,17 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         });
 
 
-        closeButtons.forEach(function (button) {
-            button.addEventListener("click", function () {
+        closeButtons.forEach(function(button) {
+            button.addEventListener("click", function() {
                 modal.style.display = "none";
             });
         });
 
-        window.onclick = function (event) {
+        window.onclick = function(event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
-
     </script>
 </body>
 

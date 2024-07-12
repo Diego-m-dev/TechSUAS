@@ -39,13 +39,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           <div id="data_entrevista" class="ocult"></div>
           <div id="familia_show" class="ocult"></div>
         </div>
-        
+
         <!--FORMULARIO PARA IDENTIFICAÇÃO DA ENTREVISTA-->
         <div class="bloc">
           <div class="bloc1">
             <div>
               <label for="codfamiliar">Código familiar:</label>
-              <input type="text" name="cod_fam" id="codfamiliar" onblur="buscarDadosFamily()" required/>
+              <input type="text" name="cod_fam" id="codfamiliar" onblur="buscarDadosFamily()" required />
             </div>
             <div id="cont_data">
               <label for="data_entrevista">Data da Entrevista:</label>
@@ -53,7 +53,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             </div>
             <div id="data_entre" class="ocult"></div>
           </div>
-          <div><button type="button" onclick="solicitaForm()">Solicitações de Formulários</button></div>
+          <div>
+            <button id="solicitaFormButton" type="button" onclick="solicitaForm()">Solicitações de Formulários</button>
+          </div>
+
         </div>
 
 

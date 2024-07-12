@@ -65,7 +65,11 @@ $(document).ready(function () {
         // Exibir o modal com a tabela
         Swal.fire({
           html: tableHtml,
-          width: '850px' // Ajuste a largura do modal conforme necessário
+          width: '850px', // Ajuste a largura do modal conforme necessário
+          showCloseButton: true,
+          customClass: {
+            closeButton: 'my-custom-close-button' // Classe personalizada para o botão de fechar
+          }
         })
       })
       .catch(error => {
@@ -835,9 +839,35 @@ function voltaMenu() {
 }
 
 function solicitaForm() {
+  const button = document.getElementById('solicitaFormButton');
+  const loadingHtml = `
+    <div id="loadingSpinner" style="text-align: center;">
+      <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+      <p>Carregando...</p>
+    </div>
+  `;
+
+  Swal.fire({
+    html: loadingHtml,
+    width: '400px',
+    showConfirmButton: false,
+    allowOutsideClick: false
+  });
+
+  // Desabilita o botão para evitar múltiplos cliques
+  button.disabled = true;
+
+  console.log("Iniciando solicitação de formulários...");
   fetch('/TechSuas/controller/cadunico/get_solicitacoes.php')
-    .then(response => response.json())
+    .then(response => {
+      console.log("Recebendo resposta...");
+      if (!response.ok) {
+        throw new Error('Erro na resposta do servidor');
+      }
+      return response.json();
+    })
     .then(data => {
+      console.log("Dados recebidos:", data);
       let tableRows = '';
 
       if (data.length > 0) {
@@ -882,7 +912,6 @@ function solicitaForm() {
         `,
         width: '1000px',
         didOpen: () => {
-
           document.querySelectorAll('.check-icon').forEach(icon => {
             icon.addEventListener('click', (event) => {
               const id = event.target.dataset.id;
@@ -904,7 +933,12 @@ function solicitaForm() {
                     },
                     body: `id=${id}&novo_status=${novo_status}`
                   })
-                  .then(response => response.text())
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error('Erro na resposta do servidor ao atualizar status');
+                    }
+                    return response.text();
+                  })
                   .then(result => {
                     if (result === 'success') {
                       Swal.fire('Sucesso!', 'O status foi atualizado.', 'success');
@@ -916,7 +950,10 @@ function solicitaForm() {
                       Swal.fire('Erro!', 'Houve um problema ao atualizar o status.', 'error');
                     }
                   })
-                  .catch(error => console.error('Error:', error));
+                  .catch(error => {
+                    console.error('Erro ao atualizar status:', error);
+                    Swal.fire('Erro!', 'Houve um problema ao atualizar o status.', 'error');
+                  });
                 }
               });
             });
@@ -924,5 +961,13 @@ function solicitaForm() {
         }
       });
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => {
+      console.error('Erro ao carregar solicitações:', error);
+      Swal.fire('Erro!', 'Houve um problema ao carregar as solicitações.', 'error');
+    })
+    .finally(() => {
+      // Reabilita o botão após carregar os dados ou em caso de erro
+      button.disabled = false;
+    });
 }
+
