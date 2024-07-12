@@ -1,3 +1,4 @@
+
 //BOTÕES DA TELA DE AREA DO GESTOR
 $(document).ready(function () {
   $('#simples').hide()
@@ -21,13 +22,13 @@ $(document).ready(function () {
     $('#simples').hide()
 
     fetch("/TechSUAS/controller/cadunico/area_gestor/lista_entrevistadores.php")
-    .then(response => {
+      .then(response => {
         if (!response.ok) {
-            throw new Error('Erro na requisição: ' + response.status)
+          throw new Error('Erro na requisição: ' + response.status)
         }
         return response.json(); // Retornar como JSON
-    })
-    .then(data => {
+      })
+      .then(data => {
         console.log('Dados recebidos', data)
         dados = data // Armazena os dados recebidos globalmente
 
@@ -45,7 +46,7 @@ $(document).ready(function () {
 
         // Adicionar linhas na tabela
         data.forEach(item => {
-            tableHtml += `
+          tableHtml += `
                 <tr>
                     <td>${item.nom_entrevistador_fam}</td>
                     <td>${item.quantidade_total}</td>
@@ -65,11 +66,11 @@ $(document).ready(function () {
         Swal.fire({
           html: tableHtml,
           width: '850px' // Ajuste a largura do modal conforme necessário
-      })
+        })
       })
       .catch(error => {
-          console.log('Erro ao buscar dados:', error)
-      })  
+        console.log('Erro ao buscar dados:', error)
+      })
 
   })
 })
@@ -577,7 +578,7 @@ $(document).ready(function () {
     }).then((result) => {
       if (result.isConfirmed) {
         const form = document.getElementById("form_familia");
-        form.target = "_blank"; 
+        form.target = "_blank";
         form.submit();
       }
     });
@@ -755,7 +756,7 @@ function buscarDadosFamily() {
               })
               visitasHtml += '</table>'
               $('#familia_show').html(visitasHtml)
-    
+
             }
           }
         }
@@ -789,11 +790,11 @@ function toggleDetails(id) {
   const details = document.getElementById(id);
   const button = details.previousElementSibling;
   if (details.style.display === "none" || details.style.display === "") {
-      details.style.display = "block";
-      button.textContent = "-";
+    details.style.display = "block";
+    button.textContent = "-";
   } else {
-      details.style.display = "none";
-      button.textContent = "+";
+    details.style.display = "none";
+    button.textContent = "+";
   }
 }
 
@@ -830,32 +831,89 @@ function cadastroFichario() {
 }
 
 function voltaMenu() {
-    window.location.href = "/TechSUAS/views/cadunico/index"
+  window.location.href = "/TechSUAS/views/cadunico/index"
 }
 
+
 function solicitaForm() {
-  Swal.fire({
-    html: `
-    <h2>ENTREVISTAS SOLICITADAS</h2>
-    <div style="overflow-x:auto; max-height: 400px;">
-        <table border="1" width="100%" style="table-layout: fixed;">
-        <thead>
-            <tr>
-                <th style="width: 14%;">CPF</th>
-                <th style="width: 14%;">Nome</th>
-                <th style="width: 14%;">Código Familiar</th>
-                <th style="width: 14%;">NIS</th>
-                <th style="width: 14%;">TIPO</th>
-                <th style="width: 14%;">STATUS</th>
-                <th style="width: 14%;">AÇÕES</th>
+  fetch('/TechSuas/controller/cadunico/get_solicitacoes.php')
+    .then(response => response.json())
+    .then(data => {
+      let tableRows = '';
+
+      if (data.length > 0) {
+        data.forEach(row => {
+          tableRows += `
+            <tr data-id="${row.id}">
+              <td>${row.cpf}</td>
+              <td>${row.nome}</td>
+              <td>${row.cod_fam}</td>
+              <td>${row.nis}</td>
+              <td>${row.tipo}</td>
+              <td>${row.status}</td>
+              <td><i class='fas fa-check-circle check-icon' data-id='${row.id}'></i></td>
             </tr>
-        </thead>
-        <tbody>
-            <!-- Adicione aqui as linhas da tabela -->
-        </tbody>
-        </table>
-    </div>
-    `,
-    width: '850px', // Ajuste a largura do modal conforme necessário
-  })
+          `;
+        });
+      } else {
+        tableRows = "<tr><td colspan='7'>Nenhum registro encontrado com status pendente.</td></tr>";
+      }
+
+      Swal.fire({
+        html: `
+          <h2>ENTREVISTAS SOLICITADAS</h2>
+          <div style="overflow-x:auto; max-height: 400px;">
+              <table border="1" width="100%" style="table-layout: fixed;">
+              <thead>
+                  <tr>
+                      <th style="width: 14%;">CPF</th>
+                      <th style="width: 14%;">Nome</th>
+                      <th style="width: 14%;">Código Familiar</th>
+                      <th style="width: 14%;">NIS</th>
+                      <th style="width: 14%;">TIPO</th>
+                      <th style="width: 14%;">STATUS</th>
+                      <th style="width: 14%;">AÇÕES</th>
+                  </tr>
+              </thead>
+              <tbody id="solicitacoesTableBody">
+                ${tableRows}
+              </tbody>
+              </table>
+          </div>
+        `,
+        width: '1000px',
+        didOpen: () => {
+          document.querySelectorAll('.check-icon').forEach(icon => {
+            icon.addEventListener('click', (event) => {
+              const id = event.target.dataset.id;
+              const novo_status = 'completo'; // ou qualquer outro status que você deseja definir
+
+              fetch('/TechSuas/controller/cadunico/fichario/atualizar_status.php', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `id=${id}&novo_status=${novo_status}`
+              })
+              .then(response => response.text())
+              .then(result => {
+                if (result === 'success') {
+                  Swal.fire('Sucesso!', 'O status foi atualizado.', 'success');
+                  // Remover a linha da tabela ou atualizar o status
+                  const row = document.querySelector(`tr[data-id="${id}"]`);
+                  if (row) {
+                    row.remove(); // Remove a linha da tabela
+                  }
+                } else {
+                  Swal.fire('Erro!', result, 'error');
+                }
+              })
+              .catch(error => console.error('Error:', error));
+            });
+          });
+        }
+      });
+    })
+    .catch(error => console.error('Error:', error));
 }
+

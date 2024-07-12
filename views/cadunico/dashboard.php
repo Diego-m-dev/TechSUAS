@@ -39,6 +39,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           <div id="data_entrevista" class="ocult"></div>
           <div id="familia_show" class="ocult"></div>
         </div>
+        
         <!--FORMULARIO PARA IDENTIFICAÇÃO DA ENTREVISTA-->
         <div class="bloc">
           <div class="bloc1">
