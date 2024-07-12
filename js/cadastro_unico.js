@@ -882,10 +882,11 @@ function solicitaForm() {
         `,
         width: '1000px',
         didOpen: () => {
+
           document.querySelectorAll('.check-icon').forEach(icon => {
             icon.addEventListener('click', (event) => {
               const id = event.target.dataset.id;
-              const novo_status = 'completo';
+              const novo_status = 'feito';
 
               Swal.fire({
                 title: 'Você tem certeza?',
