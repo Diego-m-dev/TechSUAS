@@ -106,6 +106,7 @@ $sql_declar->execute();
 
     </div>
 <?php
+  $conn->close();
         } else {
 ?>
     <script>
