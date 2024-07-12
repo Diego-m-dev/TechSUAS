@@ -52,6 +52,14 @@ td{
     margin: 0px;
     padding: 5px;
 }
+.editable-field {
+  background-color: transparent;
+  width: auto;
+  text-transform: uppercase;
+  border: 1px solid #000;
+  padding: 1px 10px;
+  border-radius: 5px;
+}
 p.cont{
     text-indent: 1.25cm;
     text-align: justify;
@@ -121,9 +129,15 @@ table{
 
     h2 {
         margin-bottom: 5px;
-        font-size: 24px;
-        text-align: center
+        font-size: 16px;
+        text-align: center;
     }
+    h3 {
+      font-size: 12px;
+      margin-top: 0px;
+      text-align: center;
+    }
+
     .signature-line {
         width: 600px;
         /* Largura da linha */
@@ -144,6 +158,10 @@ table{
         margin: 0px;
         padding: 3px;
     }
+    .editable-field {
+      border: none;
+      padding: 0px;
+  }
     .titulo {
         font-size: 10px;
         position: fixed; /* Posicionamento fixo */
