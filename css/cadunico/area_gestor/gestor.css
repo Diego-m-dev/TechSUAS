@@ -7,6 +7,12 @@ body {
     font-family: "Inter", sans-serif;
     font-size: 14px;
 }
+html {
+    scrollbar-width: auto;
+    /* Largura da barra de rolagem (pode ser 'thin', 'auto', 'none') */
+    scrollbar-color: #13294b lightgray;
+    /* Cor da barra de rolagem (apenas no Firefox) */
+}
 
 * {
     margin-top: 0px;

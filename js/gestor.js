@@ -76,7 +76,7 @@ function criarTabela() {
         table += '</tr>';
     });
 
-    table += '</tbody></table>';
+    table += '</tbody></table></div>';
 
     $('#tabela-dinamica').html(table);
 }
@@ -152,7 +152,7 @@ function criarTabelaFiltrada(dadosFiltrados) {
         }
     }
 
-    var table = '<table><thead><tr>'
+    var table = '<table class="table-bordered"><thead><tr>'
     selectedColumns.forEach(function(columnIndex) {
         table += '<th>' + columnsSelect.options[columnIndex].text + '</th>'
     })

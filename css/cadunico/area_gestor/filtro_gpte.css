@@ -6,6 +6,17 @@ body {
     overflow: auto;
     font-family: "Inter", sans-serif;
     font-size: 14px;
+    scrollbar-width: auto;
+    /* Largura da barra de rolagem (pode ser 'thin', 'auto', 'none') */
+    scrollbar-color: #13294b lightgray;
+    /* Cor da barra de rolagem (apenas no Firefox) */
+}
+
+html {
+    scrollbar-width: auto;
+    /* Largura da barra de rolagem (pode ser 'thin', 'auto', 'none') */
+    scrollbar-color: #13294b lightgray;
+    /* Cor da barra de rolagem (apenas no Firefox) */
 }
 
 * {
@@ -18,25 +29,27 @@ img {
     max-height: 140px
 }
 
-.container{
+.container {
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
     background-color: #ffffff;
     border-radius: 5px;
     color: #13294b;
-    padding: 20px;  
+    padding: 20px;
     gap: 20px;
     line-height: 2;
 }
-.blocs{
+
+.blocs {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     gap: 10px;
     align-items: center;
 }
-.bloc{
+
+.bloc {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -44,24 +57,28 @@ img {
     align-items: center;
     gap: 30px;
 }
-.bloc2{
+
+.bloc2 {
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: flex-start;
     /* align-items: center; */
 }
-.bloc1{
+
+.bloc1 {
     display: flex;
     flex-direction: column;
 }
-.btns{
+
+.btns {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 }
+
 button {
     font-family: "Inter", sans-serif;
     font-size: 12px;
@@ -75,28 +92,34 @@ button {
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
     text-transform: capitalize;
 }
+
 button:hover {
     background-color: #3b82f6;
     box-shadow: 0 0 0 1px #3b83f65f;
     color: #fff;
 }
+
 input,
 select,
 option,
-label{
+label {
     background-color: #ffffff;
     color: #13294b;
     border-radius: 5px;
     padding: 1px 2px;
     border-style: outset;
 }
-label{
-    font-weight:bold ;
+
+label {
+    font-weight: bold;
 }
+
 /* Adicione esse CSS ao seu arquivo de estilo */
 .table-bordered {
-    width: 100%;    
+    width: 100%;
     border-radius: 5px;
+    border: 1px solid #13294b;
+    background-color: #ffffff;
 }
 
 .table-bordered th,
@@ -104,10 +127,15 @@ label{
     border: 1px solid #13294b;
     border-radius: 5px;
 }
-.table-bordered td{
+
+.table-bordered td {
     padding-left: 5px;
 }
-.table-bordered th{
-    position: sticky; top: 0; background: white; z-index: 1;
+
+.table-bordered th {
+    position: sticky;
+    top: 0;
+    background: white;
+    z-index: 1;
     white-space: nowrap;
 }
