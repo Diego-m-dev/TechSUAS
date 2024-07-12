@@ -12,7 +12,7 @@ if (isset($_POST['codfam'])) {
     $response = array('encontrado' => false);
 
     // Consulta na tabela visitas_feitas
-    $stmt_family = $pdo->prepare("SELECT * FROM tbl_tudo WHERE cod_familiar_fam = :codfam ORDER BY cod_parentesco_rf_pessoa ASC, dta_nasc_pessoa ASC");
+    $stmt_family = $pdo->prepare("SELECT nom_pessoa, cod_parentesco_rf_pessoa, num_nis_pessoa_atual FROM tbl_tudo WHERE cod_familiar_fam = :codfam ORDER BY cod_parentesco_rf_pessoa ASC, dta_nasc_pessoa ASC");
     $stmt_family->execute(array(':codfam' => $ajustando_cod));
 
     if ($stmt_family->rowCount() != 0) {
@@ -46,7 +46,7 @@ if (isset($_POST['codfam'])) {
         $response['dados_familia'] = "NENHUMA VISITA ENCONTRADA!";
     }
 
-    $stmt_tudo = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$ajustando_cod' AND cod_parentesco_rf_pessoa = 1";
+    $stmt_tudo = "SELECT dta_entrevista_fam FROM tbl_tudo WHERE cod_familiar_fam LIKE '$ajustando_cod' AND cod_parentesco_rf_pessoa = 1";
     $sql_query = $conn->query($stmt_tudo) or die("ERRO ao consultar !" . $conn->error);
 
     if ($sql_query->num_rows > 0) {
@@ -72,6 +72,3 @@ if (isset($_POST['codfam'])) {
     http_response_code(400);
     echo json_encode(array('error' => 'Parâmetro "codfam" não recebido.'));
 }
-
-
-$conn->close();
