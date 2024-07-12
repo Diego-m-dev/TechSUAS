@@ -20,6 +20,9 @@ img {
     max-height: 140px
 }
 .container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #ffffff;
     border-radius: 5px;
     color: #13294b;
@@ -45,7 +48,7 @@ button:hover{
 nav{
     display: flex;
     flex-direction: column;
-    width: 500px;
+    width: 50%;
     border-bottom: 2px solid #fff;
     background-color: #13294b;
     padding: 20px;
