@@ -70,7 +70,7 @@ $sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn
 
 				<h4 style='text-align: center;'>(Base legal: inc. XVII do caput do art. 24 e §§ 6º a 8º do art. 27 da Portaria MDS nº 897/2023)</h4>
 
-				<p>Prezado(a) coordenador(a) municipal do Programa Bolsa Família de São Bento do Una / PE,</p>
+				<p>Prezado(a) coordenador(a) municipal do Programa Bolsa Família de <?php echo $cidade; ?></p>
 				<p class="cont">Eu, <b><?php echo $dados_tbl['nom_pessoa']; ?></b> beneficiária(o) do Programa Bolsa Família (PBF), solicito meu desligamento voluntário do referido Programa, com a atualização cadastral no Cadastro Único para Programas Socias do Governo Federal (CadÚnico) e o registro da minha renda atual e/ou outras informações relevantes para o meu cadastro.</p>
 				<p class="declar">Declaro, ainda, que:</p>
 				<p class="cont">Estou ciente de que poderei, a qualquer momento dentro do prazo de 36 meses, solicitar meu retorno ao Programa Bolsa Família, mediante nova atualização cadastral que comprove minha necessidade socioeconômica para participar novamente do Programa.</p>
