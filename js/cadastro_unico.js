@@ -33,11 +33,13 @@ $(document).ready(function () {
 
         // Construir a tabela
         let tableHtml = `
-            <table border="1">
+    <div style="overflow-x:auto; max-height: 400px;">
+        <table border="1" width="100%" style="table-layout: auto; white-space:nowrap; ">
+            <thead>
                 <tr>
-                    <th>Entrevistador</th>
-                    <th>Quantidade total</th>
-                    <th>Ação</th>
+                    <th style="position: sticky; top: 0; background: white; z-index: 1; padding:10px;">Entrevistador</th>
+                    <th style="position: sticky; top: 0; background: white; z-index: 1; padding:10px;">Quantidade total</th>
+                    <th style="position: sticky; top: 0; background: white; z-index: 1; padding:10px;">Ação</th
                 </tr>
         `
 
@@ -61,12 +63,13 @@ $(document).ready(function () {
 
         // Exibir o modal com a tabela
         Swal.fire({
-            html: tableHtml
-        })
-    })
-    .catch(error => {
-        console.log('Erro ao buscar dados:', error)
-    })
+          html: tableHtml,
+          width: '850px' // Ajuste a largura do modal conforme necessário
+      })
+      })
+      .catch(error => {
+          console.log('Erro ao buscar dados:', error)
+      })  
 
   })
 })
@@ -821,25 +824,29 @@ function voltaMenu() {
     window.location.href = "/TechSUAS/views/cadunico/index"
 }
 
-
 function solicitaForm() {
   Swal.fire({
     html: `
     <h2>ENTREVISTAS SOLICITADAS</h2>
-        <table border="1" width="800px">
+    <div style="overflow-x:auto; max-height: 400px;">
+        <table border="1" width="100%" style="table-layout: fixed;">
         <thead>
             <tr>
-                <th>CPF</th>
-                <th>Nome</th>
-                <th>Código Familiar</th>
-                <th>NIS</th>
-                <th>TIPO</th>
-                <th>STATUS</th>
-                <th>AÇÕES</th>
+                <th style="width: 14%;">CPF</th>
+                <th style="width: 14%;">Nome</th>
+                <th style="width: 14%;">Código Familiar</th>
+                <th style="width: 14%;">NIS</th>
+                <th style="width: 14%;">TIPO</th>
+                <th style="width: 14%;">STATUS</th>
+                <th style="width: 14%;">AÇÕES</th>
             </tr>
         </thead>
         <tbody>
+            <!-- Adicione aqui as linhas da tabela -->
+        </tbody>
         </table>
+    </div>
     `,
+    width: '850px', // Ajuste a largura do modal conforme necessário
   })
 }

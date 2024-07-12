@@ -27,7 +27,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 <body>
     <div class="img">
         <h1 class="titulo-com-imagem">
-            <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/h1-area_gestor.svg" alt="Título com imagem">
+            <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/area_gestor/h1-area_gestor.svg" alt="Título com imagem">
         </h1>
     </div>
     <div class="container">
