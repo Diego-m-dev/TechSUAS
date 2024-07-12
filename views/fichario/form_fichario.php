@@ -162,13 +162,22 @@ if ($stmt->num_rows > 0) {
     <script>
         Swal.fire({
             icon: "info",
-            title: "JÁ EXISTE",
-            text: "O fichário <?php echo $arm_gav_pas; ?> está arquivando o cadastro <?php echo $codfam; ?>.",
-            confirmButtonText: 'OK',
+            html: `
+              <form method="POST" action="/TechSUAS/controller/fichario/trocar_fichario" id="form_familia">
+                <h4>O fichário <?php echo $arm_gav_pas; ?> está arquivando o cadastro <?php echo $codfam; ?>.</h4>
+                <input type="hidden" name="codfam" value="<?php echo $_POST['codfam']; ?>"/>
+                <input type="hidden" name="arm_gav_pas" value="<?php echo $arm_gav_pas; ?>"/>
+                <h5>Deseja trocar?<h5>
+              </form>
+              `,
+            showCancelButton: true,
+            confirmButtonText: 'Trocar',
+            cancelButtonText: 'Cancelar',
         }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/TechSUAS/views/fichario/form_fichario";
-            }
+          if (result.isConfirmed) {
+            const form = document.getElementById("form_familia")
+            form.submit()
+          }
         })
     </script>
     <?php
@@ -193,7 +202,7 @@ if ($stmt->num_rows > 0) {
         exit();
     }
     
-            // Verifica se o nome de codigo já existe no banco de dados
+        // Verifica se o nome de codigo já existe no banco de dados
         $verifica_fichario = $conn->prepare("SELECT codfam FROM fichario WHERE codfam = ?");
         $verifica_fichario->bind_param("s", $ajustando_cod);
         $verifica_fichario->execute();
