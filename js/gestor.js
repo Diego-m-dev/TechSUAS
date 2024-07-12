@@ -62,7 +62,7 @@ function criarTabela() {
         }
     }
 
-    var table = '<table><thead><tr>';
+    var table = '<table class="table-bordered"><thead><tr>';
     selectedColumns.forEach(function(columnIndex) {
         table += '<th>' + columnsSelect.options[columnIndex].text + '</th>';
     });
