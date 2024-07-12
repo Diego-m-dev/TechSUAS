@@ -51,7 +51,8 @@ if (isset($_POST['nis_tc_new']) && isset($_POST['nis_tc_old'])) {
 <div class="tudo">
 <div><img src="/TechSUAS/img/cadunico/declaracoes/brasao.png" alt="TECHSUAS" width="80px" height="80px"></div>
         <h2>MINISTÉRIO DO DESENVOLVIMENTO SOCIAL E COMBATE À FOME</h2>
-        <h3>Secretaria Nacional de Renda de Cidadania</h3>
+        <h3 id="subtitle">Secretaria Nacional de Renda de Cidadania</h3>
+        <hr id="line-group">
         <h2>ANEXO II</h2>
         <h3>Declaração de Substituição de Responsável Legal</h3>
         <p class="cont">Declaro, em observância ao disposto no § 2º do artigo 23 do Decreto nº5. 209, de 17 de setembro de 2004, e ao Art. 20, X da Portaria nº 555, de 11 de novembro de 2005, que foi habilitado nesta Coordenação Municipal do Programa Bolsa Família novo Responsável Legal da família, conforme abaixo informado:</p>
@@ -129,9 +130,9 @@ if (isset($_POST['nis_tc_new']) && isset($_POST['nis_tc_old'])) {
     ?>
     </h5></strong>
             <p class="cont"> Informamos que se encontra em andamento a devida substituição do novo Resposánvel  Legal, acima identificado, nos sistemas computacionais do Cadastro Único do Governo Federeal, visando á atualização dos dados cadastrais da Família e a emissão definitiva do cartão ao novo Responsável Legal da Família.</p>
-            <p class="cont">No período de validade abaixo definido, será permitido saques de todas as parcelas de pagamento disponíveis, desde que dentro da validade, para todos os benefícios sociais vinculados a essa Família na agência da Caixa Econômica Federal denominada CAIXA ECONOMICA FEDERAL AG. BELO JARDIM, situada no endereço: RUA JOSE ROBALINHO NUM 106 - CENTRO, durante o período de validade abaixo definido.</p>
+            <p class="cont">No período de validade abaixo definido, será permitido saques de todas as parcelas de pagamento disponíveis, desde que dentro da validade, para todos os benefícios sociais vinculados a essa Família na agência da Caixa Econômica Federal denominada CAIXA ECONOMICA FEDERAL AG. <span id="nome" class="editable-field" contenteditable="true"></span>, situada no endereço: <span id="nome" class="editable-field" contenteditable="true"></span>, durante o período de validade abaixo definido.</p>
 
-            <p style='text-align:right;'>São Bento do Una, <?php echo $data_formatada_extenso; ?></p>
+            <p style='text-align:right;'><?php echo $cidade; ?> <?php echo $data_formatada_extenso; ?></p>
             <p style='text-align:center;'>__________________________________________________________________________</p>
             <p style='text-align:center;'>Assinatura e carimbo do(a) gestor(a) municipal do Programa Bolsa Família</p>
 
