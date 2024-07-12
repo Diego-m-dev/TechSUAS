@@ -47,11 +47,13 @@ h1 {
 }
 
 .editable-field {
-    border: none;
     background-color: transparent;
     width: auto;
     text-transform: uppercase;
     font-weight: bold;
+    border: 1px solid #000;
+    padding: 1px 10px;
+    border-radius: 5px;
 }
 
 .nome,
@@ -87,12 +89,6 @@ a {
     cursor: pointer;
     margin: 10px 0px 10px 0px;
     text-transform: capitalize;
-}
-
-.editable-field {
-    border: 1px solid #000;
-    padding: 1px 10px;
-    border-radius: 5px;
 }
 
 button:hover,
