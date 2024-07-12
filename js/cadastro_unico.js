@@ -1,83 +1,113 @@
 
 //BOTÕES DA TELA DE AREA DO GESTOR
 $(document).ready(function () {
-  $('#simples').hide()
-  $('#beneficio').hide()
-  $('#entrevistadores').hide()
+  $('#simples').hide();
+  $('#beneficio').hide();
+  $('#entrevistadores').hide();
 
   $('#btn_familia').click(function () {
-    $('#simples').show()
-    $('#beneficio').hide()
-    $('#entrevistadores').hide()
-    $('#btn_benef').hide()
-    $('#btn_entrevistadores').hide()
-  })
+    $('#simples').show();
+    $('#beneficio').hide();
+    $('#entrevistadores').hide();
+    $('#btn_benef').hide();
+    $('#btn_entrevistadores').hide();
+  });
+
   $('#btn_benef').click(function () {
-    $('#beneficio').show()
-    $('#simples').hide()
-    $('#entrevistadores').hide()
-  })
+    $('#beneficio').show();
+    $('#simples').hide();
+    $('#entrevistadores').hide();
+  });
+
   $('#btn_entrevistadores').click(function () {
-    $('#beneficio').hide()
-    $('#simples').hide()
+    $('#beneficio').hide();
+    $('#simples').hide();
+
+    const button = $('#btn_entrevistadores');
+    if (!button) {
+      console.error('Botão não encontrado.');
+      return;
+    }
+
+    const loadingHtml = `
+      <div id="loadingSpinner" style="text-align: center;">
+        <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+        <p>Carregando...</p>
+      </div>
+    `;
+
+    Swal.fire({
+      html: loadingHtml,
+      width: '400px',
+      showConfirmButton: false,
+      allowOutsideClick: false
+    });
+
+    button.prop('disabled', true);
 
     fetch("/TechSUAS/controller/cadunico/area_gestor/lista_entrevistadores.php")
       .then(response => {
         if (!response.ok) {
-          throw new Error('Erro na requisição: ' + response.status)
+          throw new Error('Erro na requisição: ' + response.status);
         }
-        return response.json(); // Retornar como JSON
+        return response.json();
       })
       .then(data => {
-        console.log('Dados recebidos', data)
-        dados = data // Armazena os dados recebidos globalmente
+        console.log('Dados recebidos', data);
 
-        // Construir a tabela
         let tableHtml = `
-    <div style="overflow-x:auto; max-height: 400px;">
-        <table border="1" width="100%" style="table-layout: auto; white-space:nowrap; ">
-            <thead>
+          <div style="overflow-x:auto; max-height: 400px;">
+            <table border="1" width="100%" style="table-layout: auto; white-space:nowrap;">
+              <thead>
                 <tr>
-                    <th style="position: sticky; top: 0; background: white; z-index: 1; padding:10px;">Entrevistador</th>
-                    <th style="position: sticky; top: 0; background: white; z-index: 1; padding:10px;">Quantidade total</th>
-                    <th style="position: sticky; top: 0; background: white; z-index: 1; padding:10px;">Ação</th
+                  <th style="position: sticky; top: 0; background: white; z-index: 1; padding:10px;">Entrevistador</th>
+                  <th style="position: sticky; top: 0; background: white; z-index: 1; padding:10px;">Quantidade total</th>
+                  <th style="position: sticky; top: 0; background: white; z-index: 1; padding:10px;">Ação</th>
                 </tr>
-        `
+              </thead>
+              <tbody>
+        `;
 
-        // Adicionar linhas na tabela
         data.forEach(item => {
           tableHtml += `
-                <tr>
-                    <td>${item.nom_entrevistador_fam}</td>
-                    <td>${item.quantidade_total}</td>
-                    <td>
-                        <form action="/TechSUAS/controller/cadunico/area_gestor/detalhe_entrevistador.php" method="post">
-                            <input type="hidden" name="detalhe" value="${item.nom_entrevistador_fam}">
-                            <button type="submit">Detalhes</button>
-                        </form>
-                    </td>
-                </tr>
-            `
-        })
+            <tr>
+              <td>${item.nom_entrevistador_fam}</td>
+              <td>${item.quantidade_total}</td>
+              <td>
+                <form action="/TechSUAS/controller/cadunico/area_gestor/detalhe_entrevistador.php" method="post">
+                  <input type="hidden" name="detalhe" value="${item.nom_entrevistador_fam}">
+                  <button type="submit">Detalhes</button>
+                </form>
+              </td>
+            </tr>
+          `;
+        });
 
-        tableHtml += `</table>`
+        tableHtml += `
+              </tbody>
+            </table>
+          </div>
+        `;
 
-        // Exibir o modal com a tabela
         Swal.fire({
           html: tableHtml,
-          width: '850px', // Ajuste a largura do modal conforme necessário
+          width: '850px',
           showCloseButton: true,
           customClass: {
-            closeButton: 'my-custom-close-button' // Classe personalizada para o botão de fechar
+            closeButton: 'my-custom-close-button'
           }
-        })
+        });
       })
       .catch(error => {
-        console.log('Erro ao buscar dados:', error)
+        console.error('Erro ao buscar dados:', error);
+        Swal.fire('Erro!', 'Houve um problema ao carregar os dados.', 'error');
       })
+      .finally(() => {
+        button.prop('disabled', false);
+      });
+  });
+});
 
-  })
-})
 
 //BOTÕES PARA FILTROS
 $(document).ready(function () {
