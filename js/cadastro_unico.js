@@ -834,7 +834,6 @@ function voltaMenu() {
   window.location.href = "/TechSUAS/views/cadunico/index"
 }
 
-
 function solicitaForm() {
   fetch('/TechSuas/controller/cadunico/get_solicitacoes.php')
     .then(response => response.json())
@@ -886,29 +885,39 @@ function solicitaForm() {
           document.querySelectorAll('.check-icon').forEach(icon => {
             icon.addEventListener('click', (event) => {
               const id = event.target.dataset.id;
-              const novo_status = 'completo'; // ou qualquer outro status que você deseja definir
+              const novo_status = 'completo';
 
-              fetch('/TechSuas/controller/cadunico/fichario/atualizar_status.php', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'application/x-www-form-urlencoded'
-                },
-                body: `id=${id}&novo_status=${novo_status}`
-              })
-              .then(response => response.text())
-              .then(result => {
-                if (result === 'success') {
-                  Swal.fire('Sucesso!', 'O status foi atualizado.', 'success');
-                  // Remover a linha da tabela ou atualizar o status
-                  const row = document.querySelector(`tr[data-id="${id}"]`);
-                  if (row) {
-                    row.remove(); // Remove a linha da tabela
-                  }
-                } else {
-                  Swal.fire('Erro!', result, 'error');
+              Swal.fire({
+                title: 'Você tem certeza?',
+                text: 'Você deseja marcar esta entrevista como completa?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Sim, marcar como completa',
+                cancelButtonText: 'Cancelar',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  fetch('/TechSuas/controller/cadunico/fichario/atualizar_status.php', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: `id=${id}&novo_status=${novo_status}`
+                  })
+                  .then(response => response.text())
+                  .then(result => {
+                    if (result === 'success') {
+                      Swal.fire('Sucesso!', 'O status foi atualizado.', 'success');
+                      const row = document.querySelector(`tr[data-id="${id}"]`);
+                      if (row) {
+                        row.remove(); // Remove a linha da tabela
+                      }
+                    } else {
+                      Swal.fire('Erro!', 'Houve um problema ao atualizar o status.', 'error');
+                    }
+                  })
+                  .catch(error => console.error('Error:', error));
                 }
-              })
-              .catch(error => console.error('Error:', error));
+              });
             });
           });
         }
@@ -916,4 +925,3 @@ function solicitaForm() {
     })
     .catch(error => console.error('Error:', error));
 }
-
