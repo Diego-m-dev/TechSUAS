@@ -6,8 +6,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
 $cpf_declar = $_POST['cpf_declar'];
 
-$sql_declar = $pdo->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_declar");
-$sql_declar->bindParam(':cpf_declar', $cpf_declar, PDO::PARAM_STR);
+$cpf_limpo = preg_replace('/\D/', '', $_POST['cpf_declar']);
+$cpf_already = ltrim($cpf_limpo, '0');
+
+$sql_declar = $pdo->prepare("SELECT cod_familiar_fam, nom_pessoa, num_nis_pessoa_atual FROM tbl_tudo WHERE num_cpf_pessoa = :cpf_declar");
+$sql_declar->bindParam(':cpf_declar', $cpf_already, PDO::PARAM_STR);
 $sql_declar->execute();
 ?>
 
@@ -36,17 +39,13 @@ $sql_declar->execute();
         if ($sql_declar->rowCount() > 0) {
             $dados_declar = $sql_declar->fetch(PDO::FETCH_ASSOC);
 
-            //formata cpf
-            $cpf_formatado = sprintf('%011s', $cpf_declar);
-            $cpf_formatado = substr($cpf_formatado, 0, 3) . '.' . substr($cpf_formatado, 3, 3) . '.' . substr($cpf_formatado, 6, 3) . '-' . substr($cpf_formatado, 9, 2);
-
         ?>
-            <p class="paragraph">Eu, <span class="editable-field"><?php echo $dados_declar['nom_pessoa'] . ","; ?></span> NIS: <span class="editable-field"><?php echo $dados_declar['num_nis_pessoa_atual'] . ","; ?></span> CPF: <span class="editable-field"><?php echo $cpf_formatado . ","; ?></span> declaro, sob as penas da lei, que todas as pessoas listadas abaixo moram no meu domicílio e possuem o seguinte rendimento total detalhado para cada pessoa, incluindo remuneração de doação, de trabalho ou de outras fontes:</p><br>
+            <p class="paragraph">Eu, <span class="editable-field"><?php echo $dados_declar['nom_pessoa'] . ","; ?></span> NIS: <span class="editable-field"><?php echo $dados_declar['num_nis_pessoa_atual'] . ","; ?></span> CPF: <span class="editable-field"><?php echo $cpf_declar . ","; ?></span> declaro, sob as penas da lei, que todas as pessoas listadas abaixo moram no meu domicílio e possuem o seguinte rendimento total detalhado para cada pessoa, incluindo remuneração de doação, de trabalho ou de outras fontes:</p><br>
             <p class="paragraph2"><strong>RELAÇÃO DOS COMPONENTES DA UNIDADE FAMILIAR MORADORES DO DOMICÍLIO:</strong></p>
             <?php
             $cod_familia = $dados_declar['cod_familiar_fam'];
 
-            $sql_membros_familia = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam = ? ORDER BY cod_parentesco_rf_pessoa ASC";
+            $sql_membros_familia = "SELECT dta_nasc_pessoa, nom_pessoa FROM tbl_tudo WHERE cod_familiar_fam = ? ORDER BY cod_parentesco_rf_pessoa ASC";
             $stmt = $conn->prepare($sql_membros_familia);
             $stmt->bind_param('s', $cod_familia);
             $stmt->execute();
@@ -97,7 +96,7 @@ $sql_declar->execute();
 
             </table>
 
-                <button onclick="adicionarLinha()">Adicionar Linha</button>
+                <button type="button" onclick="adicionarLinha()">Adicionar Linha</button>
                 <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
                 <button class="impr" onclick="voltarAoMenu()"><i class="fas fa-arrow-left"></i>Voltar</button>
 
@@ -125,7 +124,7 @@ $sql_declar->execute();
         } else {
             ?>
 
-                <p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field" contenteditable="true"></span>, NIS: <span id="nis" class="editable-field" contenteditable="true"></span>, CPF: <span id="cpf" class="editable-field" contenteditable="true"></span>,
+                <p class="paragraph">Eu, <span id="nomeContainer"><span id="nome" class="editable-field" contenteditable="true"></span>, NIS: <span id="nis" class="editable-field" contenteditable="true"></span>, CPF: <span id="cpf" class="editable-field"><?php echo $cpf_declar; ?></span>,
                         declaro, sob as penas da lei, que todas as pessoas listadas abaixo moram no meu domicílio e possuem o
                         seguinte rendimento total detalhado para cada pessoa, incluindo remuneração de doação, de trabalho ou de
                         outras fontes:</p>
@@ -170,9 +169,9 @@ $sql_declar->execute();
                     </tbody>
                 </table>
                 <div class="btns">
-                    <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
+                <button type="button" onclick="adicionarLinha()">Adicionar Linha</button>
+                <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
                     <button class="impr" onclick="voltarAoMenu()">Voltar</button>
-                    <button type="button" onclick="adicionarLinha()">Adicionar Linha</button>
                 </div>
                 <p class="paragraph1">Declaro ter clareza de que:</p>
                 <ul>
@@ -197,6 +196,7 @@ $sql_declar->execute();
                 </form>
             <?php
         }
+        $conn->close();
             ?>
             <script>
                 function formatarNumero(numero) {
