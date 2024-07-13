@@ -95,12 +95,15 @@ $sql_create = [
 // Table structure for table `ficharios`
 
 "CREATE TABLE `ficharios` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `arm` varchar(2) NOT NULL,
   `gav` varchar(2) NOT NULL,
-  `pas` int(3) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_german2_ci;",
+  `pas` varchar(3) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique_arm_gav_pas` (`arm`, `gav`, `pas`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb4_general_ci;",
+
 
 // Table structure for table `folha_pag`
 
