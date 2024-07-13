@@ -17,7 +17,7 @@ if (isset($_POST['arm'])) {
             CONVERT(arm_gav_pas USING utf8mb3) COLLATE utf8mb3_general_ci AS arm_gav_pas
       FROM fichario
     ) fich
-    ON CONVERT(CONCAT(LPAD(f.arm, 2, '0'), ' - ', LPAD(f.gav, 2, '0'), ' - ', LPAD(f.pas, 2, '0')) USING utf8mb3) COLLATE utf8mb3_general_ci = fich.arm_gav_pas
+    ON CONVERT(CONCAT(LPAD(f.arm, 2, '0'), ' - ', LPAD(f.gav, 2, '0'), ' - ', LPAD(f.pas, 3, '0')) USING utf8mb3) COLLATE utf8mb3_general_ci = fich.arm_gav_pas
     LEFT JOIN (
       SELECT cod_familiar_fam 
       FROM tbl_tudo 
