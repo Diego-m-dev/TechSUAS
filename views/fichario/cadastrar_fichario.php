@@ -50,7 +50,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         <label for="">Gaveta:</label>
         <input type="number" name="gav" required />
         <label for="">Pasta:</label>
-        <input type="number" name="pas" required min="10" />
+        <input type="number" name="pas" required min="100" />
         <button type="submit">Salvar</button>
     </form>
 
@@ -59,51 +59,55 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     </div>
 
     <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        if (isset($_POST['arm']) && isset($_POST['gav']) && isset($_POST['pas'])) {
-            $arm = str_pad($conn->real_escape_string($_POST['arm']), 2, '0', STR_PAD_LEFT);
-            $gav = str_pad($conn->real_escape_string($_POST['gav']), 2, '0', STR_PAD_LEFT);
-            $pasta = $conn->real_escape_string($_POST['pas']);
 
-            $conn->begin_transaction();
-            try {
-                $stmt = $conn->prepare("INSERT INTO ficharios (arm, gav, pas) VALUES (?, ?, ?)");
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST['arm']) && isset($_POST['gav']) && isset($_POST['pas'])) {
+        // Escapar e ajustar os valores das entradas
+        $arm = str_pad($conn->real_escape_string($_POST['arm']), 2, '0', STR_PAD_LEFT);
+        $gav = str_pad($conn->real_escape_string($_POST['gav']), 2, '0', STR_PAD_LEFT);
+        $pasta = (int) $_POST['pas'];
 
-                echo '<script>document.getElementById("progressContainer").style.display = "block";</script>';
-                for ($i = 1; $i <= $pasta; $i++) {
-                    $pas = str_pad($i, 3, '0', STR_PAD_LEFT);
-                    $stmt->bind_param("sss", $arm, $gav, $pas);
-                    $stmt->execute();
+        $conn->begin_transaction();
+        try {
+            // Preparar a declaração SQL com INSERT IGNORE
+            $stmt = $conn->prepare("INSERT IGNORE INTO ficharios (arm, gav, pas) VALUES (?, ?, ?)");
 
-                    $progress = ($i / $pasta) * 100;
-                    echo '<script>document.getElementById("progressBar").style.width = "' . $progress . '%"; document.getElementById("progressBar").innerText = "' . round($progress) . '%";</script>';
-                    flush();
-                    ob_flush();
-                }
+            echo '<script>document.getElementById("progressContainer").style.display = "block";</script>';
+            for ($i = 1; $i <= $pasta; $i++) {
+                $pas = str_pad($i, 3, '0', STR_PAD_LEFT);
+                $stmt->bind_param("sss", $arm, $gav, $pas);
+                $stmt->execute();
 
-                $conn->commit();
-                echo '<script>
-                    Swal.fire({
-                        icon: "success",
-                        title: "SALVO",
-                        text: "Os dados foram salvos com sucesso.",
-                        confirmButtonText: "OK"
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "/TechSUAS/views/fichario/cadastrar_fichario"
-                        }
-                    });
-                </script>';
-            } catch (Exception $e) {
-                $conn->rollback();
-                echo "Erro ao salvar os dados: " . $e->getMessage();
+                $progress = ($i / $pasta) * 100;
+                echo '<script>document.getElementById("progressBar").style.width = "' . $progress . '%"; document.getElementById("progressBar").innerText = "' . round($progress) . '%";</script>';
+                flush();
+                ob_flush();
             }
 
-            $stmt->close();
-            $conn->close();
+            $conn->commit();
+            echo '<script>
+                Swal.fire({
+                    icon: "success",
+                    title: "SALVO",
+                    text: "Os dados foram salvos com sucesso.",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/TechSUAS/views/fichario/cadastrar_fichario"
+                    }
+                });
+            </script>';
+        } catch (Exception $e) {
+            $conn->rollback();
+            echo "Erro ao salvar os dados: " . $e->getMessage();
         }
+
+        $stmt->close();
+        $conn->close();
     }
-    ?>
+}
+?>
+
 </body>
 
 </html>
