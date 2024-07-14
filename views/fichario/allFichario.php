@@ -3,7 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 
-$stmt_fic = "SELECT * FROM fichario
+$stmt_fic = "SELECT codfam, arm_gav_pas, operador FROM fichario
 ORDER BY arm ASC, gav ASC, pas ASC ";
 $stmt_fic_query = $conn->query($stmt_fic) or die("Erro ". $conn - error);
 
