@@ -93,18 +93,18 @@ function filterGPTE() {
     fetch("/TechSUAS/views/cadunico/area_gestao/filtro_gpte")
         .then(response => {
             if (!response.ok) {
-                throw new Error('Erro na requisição: ' + response.status);
+                throw new Error('Erro na requisição: ' + response.status)
             }
-            return response.json();
+            return response.json()
         })
         .then(data => {
-            console.log('Dados recebidos', data);
-            dados = data; // Armazena os dados recebidos globalmente
-            criarTabela(); // Chama a função para criar a tabela com os dados recebidos
+            console.log('Dados recebidos', data)
+            dados = data // Armazena os dados recebidos globalmente
+            criarTabela() // Chama a função para criar a tabela com os dados recebidos
         })
         .catch(error => {
-            console.log('Erro ao buscar dados:', error);
-        });
+            console.log('Erro ao buscar dados:', error)
+        })
 }
 
 function filtroCriaIdos() {
@@ -261,3 +261,57 @@ function voltarFiltros() {
   window.location.href = "/TechSUAS/views/cadunico/area_gestao/filtros"
 }
 
+function unipessoal() {
+  fetch("/TechSUAS/controller/cadunico/area_gestor/list_unip")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.status)
+      }
+      return response.json()
+    })
+    .then(data => {
+      console.log('Dados recebidos', data)
+      criarTabelaUnip(data); // Chama a função para criar a tabela com os dados recebidos
+    })
+    .catch(error => {
+      console.log('Erro ao buscar dados:', error)
+    })
+}
+
+function criarTabelaUnip(dados) {
+  // Criar a tabela dinamicamente
+  let table = '<table>'
+  table += '<thead>'
+  table += '<tr>'
+  table += '<th>Públicos</th>'
+  table += '<th>Quantidade</th>'
+  table += '<th>Visualizar</th>'
+  table += '</tr>'
+  table += '</thead>'
+  table += '<tbody>'
+
+  dados.forEach(dado => {
+    table += '<tr>'
+    table += `<td>${dado.inc_unip}</td>`
+    table += `<td>${dado.quantidade}</td>`
+    table += `<td><form action="/TechSUAS/views/cadunico/area_gestao/show_publicos" method="POST">
+    <input type="hidden" name="unip" value="${dado.in_inconsistencia_uni}"/>
+    <button type="submit">
+        <i class="fa fa-eye"></i>
+    </button>
+    </form></td>`
+    table += '</tr>'
+  })
+
+  table += '</tbody>'
+  table += '</table>'
+
+  // Mostrar o SweetAlert com a tabela
+  Swal.fire({
+    title: 'LISTA AVERIGUAÇÃO UNIPESSOAL',
+    html: table,
+    width: '600px', // Largura da janela SweetAlert
+    showCloseButton: true,
+    showConfirmButton: false
+  });
+}
