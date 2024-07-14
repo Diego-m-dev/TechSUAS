@@ -7,6 +7,13 @@ $(document).ready(function () {
   })
 })
 
+$(document).ready(function() {
+  $('#columns-select').select2({
+      placeholder: "Selecione as Colunas",
+      allowClear: true
+  })
+})
+
 function sempre_maiusculo(elemento) {
   // Converte o texto do campo para maiúsculas
   elemento.value = elemento.value.toUpperCase();
@@ -253,3 +260,4 @@ function filtroGeral() {
 function voltarFiltros() {
   window.location.href = "/TechSUAS/views/cadunico/area_gestao/filtros"
 }
+
