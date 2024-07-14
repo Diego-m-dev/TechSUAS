@@ -21,6 +21,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
+    <script src="/TechSUAS/js/gestor.js"></script>
+
     <title>Área do Gestor - TechSUAS</title>
 </head>
 
@@ -89,6 +91,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         </div>
         <div class="mural_stats">
             <h2>PENDENCIAS GERAIS</h2>
+                <div class="cont-a">
+                    <button class="menu-button" onclick="unipessoal()">
+                        Lista do publico unipessoal
+                    </button>
+                </div>
+
             <div class="cont-a">
                 <a href="#" class="modal-trigger">CADASTROS ATUALIZADOS COM DATAS DIVERGENTES</a>
                 <a href="#" class="modal-trigger">CADASTROS SEM RESPONSAVEL FAMILIAR </a>
