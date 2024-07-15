@@ -1,8 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
-
-
 ?>
 <!DOCTYPE html>
 <html lang='pt-br'>
@@ -18,6 +16,23 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
     <title>Importar CSV</title>
+    <style>
+        #progressContainer {
+            display: none;
+            width: 100%;
+            background-color: #f3f3f3;
+            margin-top: 20px;
+        }
+
+        #progressBar {
+            width: 0%;
+            height: 30px;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
   
@@ -1153,12 +1168,14 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                           :in_situacao_detalhe
                           )";
 
+                        $dt_referencia = !empty($linha[4]) ? convertDate($linha[4]) : null;
+
           $import_data = $pdo->prepare($query);
           $import_data->bindValue(':co_ibge', ($linha[0] ?? "NULL"));
           $import_data->bindValue(':no_munic', ($linha[1] ?? "NULL"));
           $import_data->bindValue(':in_processo', ($linha[2] ?? "NULL"));
           $import_data->bindValue(':in_grupo', ($linha[3] ?? "NULL"));
-          $import_data->bindValue(':dt_referencia', ($linha[4] ?? "NULL"));
+          $import_data->bindValue(':dt_referencia', ($dt_referencia));
           $import_data->bindValue(':in_inconsistencia_uni', ($linha[5] ?? "NULL"));
           $import_data->bindValue(':co_familiar_fam', ($linha[6] ?? "NULL"));
           $import_data->bindValue(':no_pessoa_rf', ($linha[7] ?? "NULL"));
