@@ -35,7 +35,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/css_ind.php';
           <div class="formularios">
             <a class="menu-button" href="/TechSUAS/views/cadunico/forms/index">
               <span class="material-symbols-outlined">forms_add_on</span>
-              Formulários
+              Formulários, Termos E fichas
             </a>
           </div>
 
