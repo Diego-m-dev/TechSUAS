@@ -13,41 +13,51 @@ if ($_SESSION['funcao'] != '1') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/TechSUAS/css/cadunico/visitas/style_accompany_visit.css">
     <title>Controle de Visitas - TechSUAS</title>
 </head>
 <body>
-    <h1>CONTROLE DE VISITAS</h1>
+<div class="img">
+        <h1 class="titulo-com-imagem">
+            <img src="/TechSUAS/img/cadunico/visitas/h1-accompany_visit.svg" alt="Titulocomimagem">
+        </h1>
+    </div>
 
-    <div class="filters-container">
-        <label for="codigoFamiliar">Código Familiar</label>
-        <input type="text" id="codigoFamiliar">
+<div class="container">
+        <div class="bloc1">
+            <label for="codigoFamiliar">Código Familiar</label>
+            <input type="text" id="codigoFamiliar">
         
-        <div class="date-container">
             <label for="dateFilter">Data:</label>
             <input type="date" id="dateFilter">
+        </div>  
+        <div class="bloc2"> 
+            <label for="statusFilter">Status:</label>
+            <select id="statusFilter">
+                <option value="">Todos</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+
+            <label for="nameFilter">Nome do Entrevistador:</label>
+            <input type="text" id="nameFilter">
+
+            <label for="startDateFilter">Data Início:</label>
+            <input type="date" id="startDateFilter">
+
+            <label for="endDateFilter">Data Fim:</label>
+            <input type="date" id="endDateFilter">
+
+            <button onclick="filterData()">Filtrar</button>
+            <a href="/TechSUAS/config/back">
+                    <i class="fas fa-arrow-left"></i> Voltar 
+                </a>
         </div>
-
-        <label for="statusFilter">Status:</label>
-        <select id="statusFilter">
-            <option value="">Todos</option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-        </select>
-
-        <label for="nameFilter">Nome do Entrevistador:</label>
-        <input type="text" id="nameFilter">
-
-        <label for="startDateFilter">Data Início:</label>
-        <input type="date" id="startDateFilter">
-
-        <label for="endDateFilter">Data Fim:</label>
-        <input type="date" id="endDateFilter">
-
-        <button onclick="filterData()">Filtrar</button>
-    </div>
     
     <!-- Tabela para exibir os dados -->
     <table border="1">
@@ -74,7 +84,7 @@ if ($_SESSION['funcao'] != '1') {
     $dados = $sql_query_acomp_visit->fetch_all(MYSQLI_NUM);
     $conn->close();
     ?>
-
+</div>
     <script>
         // Passar dados do PHP para JavaScript
         const data = <?php echo json_encode($dados); ?>;
