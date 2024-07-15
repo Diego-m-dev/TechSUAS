@@ -57,8 +57,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 </div>
                 <div class="bt">
                     <a type="button" href="/TechSUAS/views/cadunico/index.php" class="menu-button" id="menu-button">
-                        <span class="material-symbols-outlined"></span>
-                        VOLTAR AO MENU
+                    VOLTAR AO MENU
+                    <span class="material-symbols-outlined">
+                            arrow_back
+                        </span>
                     </a>
                 </div>
 
