@@ -96,7 +96,7 @@ a:hover {
         background-image: url('/TechSUAS/img/geral/timbre_ddv.png');
         background-size: cover;
         background-repeat: no-repeat;
-        font-size: 14px;
+        font-size: 18px;
         font-family: 'Times New Roman', Times, serif;
     }
 
@@ -106,10 +106,9 @@ a:hover {
         background-image: url('/TechSUAS/img/cadunico/timbre_cad.png');
         background-size: cover;
         background-repeat: no-repeat;
-        font-size: 14px;
+        font-size: 18px;
         font-family: 'Times New Roman', Times, serif;
     }
-
     .container {
         width: 600px;
         margin: 0 auto;
