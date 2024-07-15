@@ -55,7 +55,9 @@ h1 {
     padding: 1px 10px;
     border-radius: 5px;
 }
-
+.assinatura{
+    display: none;
+}
 .nome,
 .cpf,
 .nis {
@@ -67,14 +69,6 @@ h1 {
     display: none;
 }
 
-.assinatura {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    margin-top: 50px;
-}
 
 button,
 a {
@@ -180,5 +174,15 @@ a:hover {
 
     .editable-field {
         border: none;
+    }
+    .assinatura{
+        display: block;
+    }
+    .assinatura {
+        position: absolute;
+        bottom: 10%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
     }
 }

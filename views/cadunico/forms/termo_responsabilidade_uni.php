@@ -74,7 +74,7 @@ if ($sql_reside->rowCount() > 0) {
             </ul>
             <div class="right"><?php echo $cidade; ?> <?php echo $data_formatada_extenso; ?>.</div>
             <br><br><br>
-            <div class="center ass" class="assinatura">
+            <div class="assinatura">
                     <p class="signature-line"></p>
                     <p>Assinatura do(a) Responsável pela Unidade Familiar 
             </div>
@@ -95,9 +95,9 @@ if ($sql_reside->rowCount() > 0) {
         </ul>
         <div class="right"><?php echo $cidade; ?> <?php echo $data_formatada_extenso; ?>.</div>
             <br><br><br>
-            <div class="center ass" class="assinatura">
-                    <p class="signature-line"></p>
-                    <p>Assinatura do(a) Responsável pela Unidade Familiar 
+            <div class="assinatura">
+                    <div><p class="signature-line"></p></div>
+                    <div><p>Assinatura do(a) Responsável pela Unidade Familiar</p></div> 
             </div>
 
             <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
