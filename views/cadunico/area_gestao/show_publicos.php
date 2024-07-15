@@ -1,3 +1,14 @@
+<?php
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
+
+if (!isset($_POST['unip']) && empty($_POST['unip'])) {
+  echo '<script>window.history.back()</script>';
+  exit();
+}
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -16,15 +27,6 @@
 <body>
   
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
-
-if (!isset($_POST['unip']) && empty($_POST['unip'])) {
-  echo '<script>window.history.back()</script>';
-  exit();
-}
-
 $unip = $_POST['unip'];
 
 $stmt_unip = "SELECT co_familiar_fam, no_pessoa_rf, in_situacao FROM unipessoal WHERE in_inconsistencia_uni = '$unip' ORDER BY in_situacao DESC";
@@ -37,6 +39,7 @@ if ($stmt_unip_query->num_rows != 0) {
         <th>CÓDIGO FAMILIAR</th>
         <th>NOME</th>
         <th>SITUAÇÃO</th>
+        <th>ID</th>
       </tr>
     </thead>
     <tbody>
@@ -44,9 +47,15 @@ if ($stmt_unip_query->num_rows != 0) {
   while ($dados_unip = $stmt_unip_query->fetch_assoc()) {
     ?>
     <tr>
-      <td><?php echo $dados_unip['co_familiar_fam'] ?></td>
-      <td><?php echo $dados_unip['no_pessoa_rf'] ?></td>
-      <td><?php echo $dados_unip['in_situacao'] ?></td>
+      <td><?php echo $dados_unip['co_familiar_fam']; ?></td>
+      <td><?php echo $dados_unip['no_pessoa_rf']; ?></td>
+      <td><?php echo $dados_unip['in_situacao']; ?></td>
+      <td>
+        <form method="POST">
+          <input type="hidden" name="det_familia" value="<?php echo $dados_unip['co_familiar_fam']; ?>"/>
+          <button type="submit">views</button>
+        </form>
+      </td>
     </tr>
     <?php
   }
