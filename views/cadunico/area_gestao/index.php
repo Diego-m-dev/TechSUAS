@@ -91,13 +91,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         </div>
         <div class="mural_stats">
             <h2>PENDENCIAS GERAIS</h2>
-                <div class="cont-a">
-                    <button class="menu-button" onclick="unipessoal()">
-                        Lista do publico unipessoal
-                    </button>
-                </div>
 
             <div class="cont-a">
+                <button class="menu-button" onclick="unipessoal()">LISTA DO PUBLICO UNIPESSOAL</button>
                 <a href="#" class="modal-trigger">CADASTROS ATUALIZADOS COM DATAS DIVERGENTES</a>
                 <a href="#" class="modal-trigger">CADASTROS SEM RESPONSAVEL FAMILIAR </a>
                 <a href="#" class="modal-trigger">CADASTROS SEM CPF </a>
@@ -175,14 +171,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </div>
         </div>
 
-        <!-- CADASTROS Formulário para filtrar informações do cadastro-->
+        <!-- CADASTROS Formulário para filtrar informações do cadastro
         <form method="post" id="simples">
             <label for="">NOME:</label>
             <input type="text" name="nome_pessoa" />
             <label for="">Código Familiar</label>
             <input type="text" name="codigo_familia">
             <button type="submit" name="btn_filtro_familia">Buscar</button>
-        </form>
+        </form> -->
 
         <?php
 

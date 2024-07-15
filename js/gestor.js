@@ -280,7 +280,7 @@ function unipessoal() {
 
 function criarTabelaUnip(dados) {
   // Criar a tabela dinamicamente
-  let table = '<table>'
+  let table = '<table class="table-bordered">'
   table += '<thead>'
   table += '<tr>'
   table += '<th>Públicos</th>'
@@ -310,7 +310,7 @@ function criarTabelaUnip(dados) {
   Swal.fire({
     title: 'LISTA AVERIGUAÇÃO UNIPESSOAL',
     html: table,
-    width: '600px', // Largura da janela SweetAlert
+    width: '800px', // Largura da janela SweetAlert
     showCloseButton: true,
     showConfirmButton: false
   });
