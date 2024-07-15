@@ -30,8 +30,9 @@ if (isset($_POST['codFamiliar'])) {
                     <td>{$row['tipo_documento']}</td>
                     <td>{$row['nome_arquivo']}</td>
                     <td>" . round($row['tamanho'] / 1024, 2) . " KB</td>
-                    <td><a href='../../../controller/cadunico/fichario/download.php?id={$row['id']}'>Download</a></td>
-                  </tr>";
+                    <td><a href='../../../controller/cadunico/fichario/download.php?id={$row['id']}'><i class='fas fa-download'></i></a></td>
+
+                </tr>";
         }
     } else {
         echo json_encode([
@@ -43,4 +44,3 @@ if (isset($_POST['codFamiliar'])) {
     $consulta->close();
     $conn->close();
 }
-?>

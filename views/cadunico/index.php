@@ -67,8 +67,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/css_ind.php';
             </a>
           </div>
 
+          <!-- "/TechSUAS/views/cadunico/msn_cad/index" -->
           <div class="msg_cad">
-            <a class="menu-button" href="/TechSUAS/views/cadunico/msn_cad/index">
+            <a class="menu-button" href="#">
               <span class="material-symbols-outlined">forward_to_inbox</span>
               Mensagens do CadÚnico
             </a>

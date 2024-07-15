@@ -15,10 +15,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-9yFkgZODpjftI3OUb8zH9FvyJfcd8jrZG1wQ0Ww4PovU4DwHms1tBhJhbAB8WdcWb6n7B8g/uJc1NGIc8J02+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 
 <body>
-<div class="img">
+    <div class="img">
         <h1 class="titulo-com-imagem">
             <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/fichario/h1-fichario_digital.svg" alt="Título com imagem">
         </h1>
@@ -58,7 +60,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             <div id="infoFamilia">
                 <p><strong>Nome do Responsável:</strong> <span id="nomeResponsavel"></span></p>
                 <p><strong>Código Familiar:</strong> <span id="codFamiliar"></span></p>
-                
+
             </div>
             <table border="1" id="dadosCadastro">
                 <thead>
@@ -79,52 +81,54 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     </div>
 
     <script>
-    $(document).ready(function () {
+        $(document).ready(function() {
 
-        function consultarPorCodFamiliar(codFamiliar) {
-            $.ajax({
-                url: '../../../controller/cadunico/fichario/consultar_por_codfamiliar.php',
-                type: 'POST',
-                data: { codFamiliar: codFamiliar },
-                success: function (data) {
-                    $("#dadosCadastro tbody").empty().html(data);
-                },
-                error: function () {
-                    $("#mensagem").text("Erro na consulta").show();
-                }
-            });
-        }
-
-        
-        $(document).on('click', '.mais-btn', function () {
-            var codFamiliar = $(this).data('codfamiliar');
-            consultarPorCodFamiliar(codFamiliar);
-        });
-
-     
-        $("#consultaForm").submit(function (event) {
-            event.preventDefault();
-
-            $.ajax({
-                url: '../../../controller/cadunico/fichario/request_lista_cadastro.php',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function (data) {
-                    $("#informacaoCadastro tbody").empty();
-                    if (data.trim() === "Nenhum resultado encontrado") {
-                        $("#mensagem").text("Nenhum dado encontrado").show();
-                    } else {
-                        $("#mensagem").text("").hide();
-                        $("#informacaoCadastro tbody").html(data);
+            function consultarPorCodFamiliar(codFamiliar) {
+                $.ajax({
+                    url: '../../../controller/cadunico/fichario/consultar_por_codfamiliar.php',
+                    type: 'POST',
+                    data: {
+                        codFamiliar: codFamiliar
+                    },
+                    success: function(data) {
+                        $("#dadosCadastro tbody").empty().html(data);
+                    },
+                    error: function() {
+                        $("#mensagem").text("Erro na consulta").show();
                     }
-                },
-                error: function () {
-                    $("#mensagem").text("Erro na consulta").show();
-                }
+                });
+            }
+
+
+            $(document).on('click', '.mais-btn', function() {
+                var codFamiliar = $(this).data('codfamiliar');
+                consultarPorCodFamiliar(codFamiliar);
+            });
+
+
+            $("#consultaForm").submit(function(event) {
+                event.preventDefault();
+
+                $.ajax({
+                    url: '../../../controller/cadunico/fichario/request_lista_cadastro.php',
+                    type: 'POST',
+                    data: $(this).serialize(),
+                    success: function(data) {
+                        $("#informacaoCadastro tbody").empty();
+                        if (data.trim() === "Nenhum resultado encontrado") {
+                            $("#mensagem").text("Nenhum dado encontrado").show();
+                        } else {
+                            $("#mensagem").text("").hide();
+                            $("#informacaoCadastro tbody").html(data);
+                        }
+                    },
+                    error: function() {
+                        $("#mensagem").text("Erro na consulta").show();
+                    }
+                });
             });
         });
-    });
-</script>
+    </script>
 
 
 </body>
