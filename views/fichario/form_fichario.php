@@ -142,7 +142,7 @@ if (isset($_POST['codfam']) && isset($_POST['arm']) && isset($_POST['gav']) && i
     $pasta = $conn->real_escape_string($_POST['pasta']);
     $operador = $_SESSION['nome_usuario'];
 
-    $arm_gav_pas = sprintf("%02d - %02d - %02d", $arm, $gav, $pasta);
+    $arm_gav_pas = sprintf("%02d - %02d - %03d", $arm, $gav, $pasta);
     
     $verifica_cadastro = $conn->prepare("SELECT cod_familiar_fam FROM tbl_tudo WHERE cod_familiar_fam = ?");
     $verifica_cadastro->bind_param("s", $ajustando_cod);
