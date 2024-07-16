@@ -17,6 +17,7 @@ if ($_SESSION['funcao'] != '1') {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <link rel="stylesheet" type="text/css" href="/TechSUAS/css/cadunico/visitas/style_accompany_visit.css">
     <title>Controle de Visitas - TechSUAS</title>
+    <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </head>
 <body>
 <div class="img">
@@ -54,9 +55,9 @@ if ($_SESSION['funcao'] != '1') {
             <input type="date" id="endDateFilter">
 
             <button onclick="filterData()">Filtrar</button>
-            <a href="/TechSUAS/config/back">
+            <button onclick="voltarAoMenu()">
                     <i class="fas fa-arrow-left"></i> Voltar 
-                </a>
+                </button>
         </div>
     
     <!-- Tabela para exibir os dados -->
