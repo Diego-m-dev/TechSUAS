@@ -13,9 +13,9 @@ if ($result->num_rows > 0) {
         $tipo = '';
         if ($row['tipo'] == 1) {
             $tipo = "NIS";
-        } elseif ($row['tipo'] == 2) {
-            $tipo = "ENTREVISTA";
         } elseif ($row['tipo'] == 3) {
+            $tipo = "ENTREVISTA";
+        } elseif ($row['tipo'] == 2) {
             $tipo = "DECLARAÇÃO CAD";
         }
         

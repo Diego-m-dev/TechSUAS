@@ -51,9 +51,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
                         if ($row['tipo'] == 1) {
                             $tipo = "NIS";
-                        } elseif ($row['tipo'] == 2) {
-                            $tipo = "ENTREVISTA";
                         } elseif ($row['tipo'] == 3) {
+                            $tipo = "ENTREVISTA";
+                        } elseif ($row['tipo'] == 2
+) {
                             $tipo = "DECLARAÇÃO CAD";
                         }
 

@@ -65,6 +65,62 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
         </div>
         <div class="mural_stats">
             <h2>MURAL DE AVISOS</h2>
+
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>CPF</th>
+                        <th>Nome</th>
+                        <th>Código Familiar</th>
+                        <th>NIS</th>
+                        <th>TIPO</th>
+                        <th>STATUS</th>
+                        <th>AÇÕES</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    // Consulta SQL para selecionar apenas registros com status "pendente"
+                    $sql = "SELECT * FROM solicita WHERE status = 'feito' LIMIT 5";
+                    $result = $conn->query($sql);
+
+                    // Verifica se há registros retornados
+                    if ($result->num_rows > 0) {
+
+
+                        // Loop através dos resultados e exiba cada registro em uma linha da tabela
+                        while ($row = $result->fetch_assoc()) {
+
+                            if ($row['tipo'] == 1) {
+                                $tipo = "NIS";
+                            } elseif ($row['tipo'] == 3) {
+                                $tipo = "ENTREVISTA";
+                            } elseif ($row['tipo'] == 2) {
+                                $tipo = "DECLARAÇÃO CAD";
+                            }
+
+                            echo "<tr>";
+                            echo "<td>" . $row['cpf'] . "</td>";
+                            echo "<td>" . $row['nome'] . "</td>";
+                            echo "<td>" . $row['cod_fam'] . "</td>";
+                            echo "<td>" . $row['nis'] . "</td>";
+                            echo "<td>" . $tipo . "</td>";
+                            echo "<td>" . $row['status'] . "</td>";
+                            echo "<td><i class='fas fa-check-circle check-icon' data-id='" . $row['id'] . "'></i></td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='5'>Nenhum registro encontrado com status pendente.</td></tr>";
+                    }
+
+                    // Feche a conexão com o banco de dados
+                    $conn->close();
+                    ?>
+                </tbody>
+            </table>
+
+
         </div>
 
 
@@ -301,6 +357,31 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 return true;
             }
 
+            $(document).ready(function () {
+                $('.check-icon').click(function () {
+                    var id = $(this).data('id');
+                    // Requisição AJAX para atualizar o status
+                    $.ajax({
+                        url: '/TechSUAS/controller/cadunico/fichario/atualizar_status.php',
+                        type: 'POST',
+                        data: {
+                            id: id,
+                            novo_status: 'feito'
+                        },
+                        success: function (response) {
+                            // Atualiza a linha na tabela após a atualização
+                            if (response.trim() == 'success') {
+                                location.reload(); // Atualiza a página após o sucesso
+                            } else {
+                                alert('Erro ao atualizar o status.');
+                            }
+                        },
+                        error: function () {
+                            alert('Erro ao conectar com o servidor.');
+                        }
+                    });
+                });
+            });
         </script>
 
 
