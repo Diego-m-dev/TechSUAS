@@ -14,14 +14,16 @@ if ($_SESSION['funcao'] != '1') {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/area_gestor/filtro_gpte.css">
+
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/area_gestor/filtro_gpte.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/gestor.js"></script>
 
@@ -57,37 +59,32 @@ if ($_SESSION['funcao'] != '1') {
                 </div>
                 <div>
                     <div>
-                        <label for="cod_fam">Filtrar por Código Familiar:</label>
+                        <label for="cod_fam">Código Familiar:</label>
                         <input type="text" id="cod_fam" onkeyup="aplicarFiltros()" />
                     </div>
                     <div>
-                        <label for="filtro_status">Filtrar por Status:</label>
+                        <label for="filtro_status">Status:</label>
                         <select id="filtro_status" onchange="aplicarFiltros()">
                         <option value="">Todos</option>
                         <option value="ATUALIZADA">Atualizado</option>
                         <option value="DESATUALIZADO">Desatualizado</option>
                         </select>
                     </div>
-                    
                     <div>
-                        <label for="filtro-grupo">Filtrar por Grupo:</label>
+                        <label for="filtro-grupo">Grupo Indigena ou Quilombola:</label>
                         <input type="text" id="filtro-grupo" onkeyup="aplicarFiltros()" placeholder="Índio ou Quilombola...">
                     </div>
                 </div>
             </div>
             <div class="bloc2">
-                <div>
-                    <label for="filtro-grupo">Filtrar por Grupo:</label>
-                    <input type="text" id="filtro-grupo" onkeyup="aplicarFiltros()" placeholder="Índio ou Quilombola...">
-                </div>
 
                 <div>
-                    <label for="filtro-grupo">Filtrar Outros Grupo:</label>
+                    <label for="filtro-grupo">Outros Grupo:</label>
                     <input type="text" id="filtro-other-grupo" onkeyup="aplicarFiltros()" placeholder="Índio ou Quilombola...">
                 </div>
 
                 <div>
-                    <label for="filtro-parent">Filtrar por Parentesco:</label>
+                    <label for="filtro-parent">Parentesco:</label>
                     <select id="filtro-parent" onchange="aplicarFiltros()">
                         <option value="">Filtro por parentesco</option>
                         <option value="RESPONSAVEL FAMILIAR">RESPONSAVEL FAMILIAR</option>
@@ -103,7 +100,7 @@ if ($_SESSION['funcao'] != '1') {
                         <option value="NÃO PARENTE">NÃO PARENTE</option>
                     </select>
 
-                    <label for="filtro-mh">Filtrar por Sexo:</label>
+                    <label for="filtro-mh">Sexo:</label>
                     <select id="filtro-mh" onchange="aplicarFiltros()">
                         <option value="">Todos</option>
                         <option value="MULHER">MULHERES</option>
@@ -113,13 +110,17 @@ if ($_SESSION['funcao'] != '1') {
 
                 <!--INPUT ESCONDIDOS PRA MANTER AS VARIÁVEIS DA FUNÇÃO aplicarFiltros FUNCIONANDO-->
                 <div>
-                    <input type="hidden" id="filtro-idade" value="" onkeyup="aplicarFiltros()">
-                    <input type="hidden" id="data_nasc" value="" onkeyup="aplicarFiltros()">
-                </div>
+                    <input type="hidden" id="filtro-idade" value="" onkeyup="aplicarFiltros()"/>
+                    <input type="hidden" id="data_nasc" value="" onkeyup="aplicarFiltros()"/>
+                    <input type="hidden" id="nome_pess" onkeyup="aplicarFiltros()" />
+                    <input type="hidden" id="renda_per" onkeyup="aplicarFiltros()"/>
+                    <input type="hidden" id="filtro_ano" onkeyup="aplicarFiltros()"/>
+                    <input type="hidden" id="cpf_pess" onkeyup="aplicarFiltros()"/>
+                  </div>
             </div>
         </div>
         <div class="btns">
-            <div><button onclick="filterGPTE()">Filtrar Dados</button>
+            <div><button onclick="filterGPTE()">Buscar Dados</button>
             <button onclick="window.location.href='/TechSUAS/views/cadunico/area_gestao/filtro_familias_gpte'">Limpar dados</button>
         </div>
             <div><button onclick="voltarFiltros()"><i class="fas fa-arrow-left"></i>Voltar</button></div>
