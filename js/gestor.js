@@ -157,13 +157,24 @@ function filtroCriaIdos() {
 
 // Função para aplicar filtros na tabela
 function aplicarFiltros() {
-  var filtroStatus = document.getElementById('filtro_status').value
-  var filtroGrupo = document.getElementById('filtro-grupo').value
-  var filtroOtherGrupo = document.getElementById('filtro-other-grupo').value
-  var filtroParent = document.getElementById('filtro-parent').value
-  var filtroSexo = document.getElementById('filtro-mh').value
-  var cod_fam = document.getElementById('cod_fam').value
-  var filtroIdade = document.getElementById('filtro-idade').value
+  var filtroOtherGrupo = document.getElementById('filtro-other-grupo').value;
+  var filtroStatus = document.getElementById('filtro_status').value;
+  var filtroParent = document.getElementById('filtro-parent').value;
+  var filtronome_pess = document.getElementById('nome_pess').value;
+  var filtroanoatual = document.getElementById('filtro_ano').value;
+  var filtroIdade = document.getElementById('filtro-idade').value;
+  var filtroGrupo = document.getElementById('filtro-grupo').value;
+  var filtroSexo = document.getElementById('filtro-mh').value;
+  var filtro_renda_per = document.getElementById('renda_per').value;
+  var filtrocpf = document.getElementById('cpf_pess').value;
+  var cod_fam = document.getElementById('cod_fam').value;
+
+  // Converter filtro_renda_per para número
+  var filtro_renda_per_num = parseFloat(filtro_renda_per);
+
+  // Limpar CPF e remover zeros à esquerda
+  filtrocpf = filtrocpf.replace(/\D/g, '');
+  filtrocpf = filtrocpf.replace(/^0+/, '');
 
   var dadosFiltrados = dados.filter(function(row) {
     return (filtroStatus === '' || (row[7] && row[7].toLowerCase().includes(filtroStatus.toLowerCase()))) &&
@@ -172,11 +183,16 @@ function aplicarFiltros() {
       (filtroOtherGrupo === '' || (row[9] && row[9].toLowerCase().includes(filtroOtherGrupo.toLowerCase()))) &&
       (filtroSexo === '' || (row[10] && row[10].toLowerCase().includes(filtroSexo.toLowerCase()))) &&
       (filtroParent === '' || (row[11] && row[11].toLowerCase().includes(filtroParent.toLowerCase()))) &&
-      (filtroIdade === '' || (row[4] && row[4] === filtroIdade))
-  })
+      (filtronome_pess === '' || (row[1] && row[1].toLowerCase().includes(filtronome_pess.toLowerCase()))) &&
+      (filtro_renda_per === '' || (row[15] !== null && row[15] !== undefined && parseFloat(row[15]) > filtro_renda_per_num)) &&
+      (filtroanoatual === '' || (row[14] && row[14] === filtroanoatual)) &&
+      (filtroIdade === '' || (row[4] && row[4] === filtroIdade)) &&
+      (filtrocpf === '' || (row[13] && row[13] === filtrocpf));
+  });
 
-  criarTabelaFiltrada(dadosFiltrados)
+  criarTabelaFiltrada(dadosFiltrados);
 }
+
 
 
 // Função para criar a tabela filtrada
