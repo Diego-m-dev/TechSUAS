@@ -16,8 +16,8 @@ $solicitacao_sql = "SELECT
   cod_familiar_fam, 
   nom_pessoa, 
   num_nis_pessoa_atual, 
-  dat_atual_fam, 
-  dta_entrevista_fam, 
+  DATE_FORMAT(dat_atual_fam, '%d/%m/%Y') AS dat_atual_fam, 
+  DATE_FORMAT(dta_entrevista_fam, '%d/%m/%Y') AS dta_entrevista_fam,
   CONCAT('R$ ', vlr_renda_total_fam, ',00') AS vlr_renda_total_fam, 
   CONCAT(nom_tip_logradouro_fam, ' ', nom_titulo_logradouro_fam, ' ', nom_logradouro_fam, ', ', num_logradouro_fam, ' - ', nom_localidade_fam, ' ', txt_referencia_local_fam) AS endereco, 
   CASE 
