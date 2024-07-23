@@ -40,10 +40,17 @@ if ($_SESSION['funcao'] != '1') {
         <th>Código Familiar</th>
         <th>Nome</th>
         <th>NIS</th>
-        <th>Indicativo</th>
+        <th>Endereço</th>
       </tr>
       <?php
-      $sql_TI = "SELECT * FROM tbl_tudo WHERE ind_trabalho_infantil_pessoa = 1";
+      $sql_TI = "SELECT
+      cod_familiar_fam,
+      nom_pessoa,
+      num_nis_pessoa_atual,
+      ind_trabalho_infantil_pessoa,
+      CONCAT(nom_tip_logradouro_fam, ' ', nom_titulo_logradouro_fam, ' ', nom_logradouro_fam, ', ', num_logradouro_fam, ' - ', nom_localidade_fam, ' ', txt_referencia_local_fam) AS endereco
+      FROM tbl_tudo
+      WHERE ind_trabalho_infantil_pessoa = 1";
       $sql_TI_query = $conn->query($sql_TI) or die("Erro " . $conn - error);
 
       if ($sql_TI_query->num_rows == 0) {
@@ -59,11 +66,12 @@ if ($_SESSION['funcao'] != '1') {
             <td><?php echo $dados['cod_familiar_fam']; ?></td>
             <td><?php echo $dados['nom_pessoa']; ?></td>
             <td><?php echo $dados['num_nis_pessoa_atual']; ?></td>
-            <td><?php echo $dados['ind_trabalho_infantil_pessoa']; ?></td>
+            <td><?php echo $dados['endereco']; ?></td>
           </tr>
       <?php
         }
       }
+      $conn->close();
       ?>
     </table>
     <div class="btn">
