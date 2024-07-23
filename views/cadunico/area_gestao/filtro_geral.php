@@ -26,10 +26,10 @@ while ($b = $stmt_dt_atual_query->fetch_assoc()) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/area_gestor/filtro_geral.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/area_gestor/filtro_geral.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -122,6 +122,21 @@ while ($b = $stmt_dt_atual_query->fetch_assoc()) {
                 </div>
 
                 <label for="ano_atual">Ano da Ultima Atualização:</label>
+                <select id="filtro_mes" onchange="aplicarFiltros()">
+                  <option value="">Filtro pelo mês</option>
+                  <option value="1">Janeiro</option>
+                  <option value="2">Fevereiro</option>
+                  <option value="3">Março</option>
+                  <option value="4">Abril</option>
+                  <option value="5">Maio</option>
+                  <option value="6">Junho</option>
+                  <option value="7">Julho</option>
+                  <option value="8">Agosto</option>
+                  <option value="9">Setembro</option>
+                  <option value="10">Outubro</option>
+                  <option value="11">Novembro</option>
+                  <option value="12">Dezembro</option>
+                </select>
                 <select id="filtro_ano" onchange="aplicarFiltros()">
                   <option value="">Filtro pelo ano de Atualização</option>
 <?php
