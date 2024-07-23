@@ -17,12 +17,14 @@ if ($_SESSION['funcao'] != '1') {
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="/TechSUAS/css/cadunico/area_gestor/filtro_gpte.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/gestor.js"></script>
@@ -31,7 +33,7 @@ if ($_SESSION['funcao'] != '1') {
 </head>
 
 <body>
-<div class="img">
+    <div class="img">
         <h1 class="titulo-com-imagem">
             <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/area_gestor/h1-filtro_gpte.svg" alt="Título com imagem">
         </h1>
@@ -116,6 +118,7 @@ if ($_SESSION['funcao'] != '1') {
                     <input type="hidden" id="renda_per" onkeyup="aplicarFiltros()"/>
                     <input type="hidden" id="filtro_ano" onkeyup="aplicarFiltros()"/>
                     <input type="hidden" id="cpf_pess" onkeyup="aplicarFiltros()"/>
+                    <input type="hidden" id="filtro_mes" onkeyup="aplicarFiltros()"/>
                   </div>
             </div>
         </div>
