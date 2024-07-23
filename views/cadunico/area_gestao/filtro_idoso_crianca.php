@@ -51,7 +51,8 @@ $solicitacao_sql = "SELECT
   CONCAT('(',num_ddd_contato_1_fam, ')', ' ', num_tel_contato_1_fam),
   num_cpf_pessoa,
   YEAR(dat_atual_fam),
-  vlr_renda_media_fam
+  vlr_renda_media_fam,
+  MONTH(dat_atual_fam)
   ";
 
 $orderby = "ORDER BY cod_familiar_fam ASC, cod_parentesco_rf_pessoa ASC, dta_nasc_pessoa DESC";
