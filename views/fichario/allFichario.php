@@ -35,8 +35,9 @@ if ($stmt_fic_query->num_rows > 0) {
   <table>
     <tr>
       <th>CÓDIGO FAMILIAR</th>
-      <th>NOME</th>
       <th>FICHÁRIO</th>
+      <th>NOME</th>
+      <th>SELECIONE</th>
     </tr>
 <?php
     while ($fichario = $stmt_fic_query->fetch_assoc()) {
@@ -45,6 +46,7 @@ if ($stmt_fic_query->num_rows > 0) {
       <td><?php echo $fichario['codfam']; ?></td>
       <td><?php echo $fichario['arm_gav_pas']; ?></td>
       <td><?php echo $fichario['operador']; ?></td>
+      
     </tr>
 <?php
     }
