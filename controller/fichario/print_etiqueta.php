@@ -34,7 +34,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <?php
     if (isset($_GET['armario'])) {
         $armario = $conn->real_escape_string($_GET['armario']);
-        $stmt_fic = "SELECT codfam, arm_gav_pas FROM fichario WHERE arm_gav_pas LIKE '$armario%'";
+        $stmt_fic = "SELECT codfam, arm_gav_pas FROM fichario WHERE arm_gav_pas LIKE '$armario%' ORDER BY arm ASC, gav ASC, pas ASC";
         $stmt_fic_query = $conn->query($stmt_fic) or die("Erro " . $conn->error);
 
         if ($stmt_fic_query->num_rows > 0) {
