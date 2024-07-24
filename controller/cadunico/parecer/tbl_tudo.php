@@ -59,7 +59,7 @@ if (!isset($_GET['ano_select'])) {
     $sqli_cod = $conn->real_escape_string($_GET['localidade']);
     if (empty($_GET['mes_select'])) {
         $sql_dados = "SELECT num_nis_pessoa_atual, nom_pessoa, dat_atual_fam, nom_localidade_fam, nom_tip_logradouro_fam, nom_titulo_logradouro_fam, nom_logradouro_fam, num_logradouro_fam FROM tbl_tudo  WHERE dat_atual_fam LIKE '%$sql_cod%' AND nom_localidade_fam LIKE '%$sqli_cod%' AND cod_parentesco_rf_pessoa = 1
-        ORDER BY cod_local_domic_fam ASC,nom_localidade_fam ASC, num_logradouro_fam ASC";
+        ORDER BY nom_localidade_fam ASC, num_logradouro_fam ASC";
         $sql_query = $conn->query($sql_dados) or die("ERRO ao consultar !" . $conn - error);
 
         $num_result = $sql_query->num_rows;
