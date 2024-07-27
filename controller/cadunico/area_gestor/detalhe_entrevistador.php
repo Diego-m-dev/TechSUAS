@@ -147,6 +147,8 @@ while ($a = $stmt_query->fetch_assoc()) {
         $dados_mes[] = $row;
     }
 }
+$conn->close();
+
 ?>
 
 <script>
