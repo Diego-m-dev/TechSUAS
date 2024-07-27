@@ -70,6 +70,8 @@ if (isset($_POST['codfam'])) {
         http_response_code(404);
         echo json_encode(array('encontrado' => false, 'error' => 'Nenhum resultado encontrado.'));
     }
+
+    $conn->close();
 } else {
     http_response_code(400);
     echo json_encode(array('error' => 'Parâmetro "codfam" não recebido.'));
