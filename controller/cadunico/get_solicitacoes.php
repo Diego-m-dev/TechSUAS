@@ -32,6 +32,7 @@ if ($result->num_rows > 0) {
 } 
 
 // Fecha a conexão com o banco de dados
+$result->close();
 $conn->close();
 
 // Retorna os dados como JSON
