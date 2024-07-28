@@ -121,9 +121,9 @@ while ($b = $stmt_dt_atual_query->fetch_assoc()) {
                     <input type="number" id="filtro-idade" onkeyup="aplicarFiltros()" placeholder="Filtro por idade" />
                 </div>
 
-                <label for="ano_atual">Ano da Ultima Atualização:</label>
+                <label for="ano_atual">Filtro por data:</label>
                 <select id="filtro_mes" onchange="aplicarFiltros()">
-                  <option value="">Filtro pelo mês</option>
+                  <option value="">Mês</option>
                   <option value="1">Janeiro</option>
                   <option value="2">Fevereiro</option>
                   <option value="3">Março</option>
@@ -138,7 +138,7 @@ while ($b = $stmt_dt_atual_query->fetch_assoc()) {
                   <option value="12">Dezembro</option>
                 </select>
                 <select id="filtro_ano" onchange="aplicarFiltros()">
-                  <option value="">Filtro pelo ano de Atualização</option>
+                  <option value="">Ano</option>
 <?php
   foreach ($anos_atual as $ano) {
     echo "<option value'$ano'>$ano</option>";
