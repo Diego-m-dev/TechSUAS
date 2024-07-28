@@ -3,7 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 
-$stmt_fic = "SELECT codfam, arm_gav_pas, operador FROM fichario
+$stmt_fic = "SELECT id, codfam, arm_gav_pas, operador FROM fichario
 ORDER BY arm ASC, gav ASC, pas ASC ";
 $stmt_fic_query = $conn->query($stmt_fic) or die("Erro ". $conn - error);
 
@@ -32,12 +32,18 @@ if ($stmt_fic_query->num_rows > 0) {
 
 </head>
 <body>
+  <form action="/TechSUAS/controller/cadunico/print_etiqueta_sel" method="post"></form>
   <table>
     <tr>
       <th>CÓDIGO FAMILIAR</th>
       <th>FICHÁRIO</th>
       <th>NOME</th>
-      <th>SELECIONE</th>
+      <th class="check">
+        <label class="urg">
+          <input type="checkbox" id="selecionarTodos">
+          <span class="checkmark"></span>
+        </label>
+      </th>
     </tr>
 <?php
     while ($fichario = $stmt_fic_query->fetch_assoc()) {
@@ -46,7 +52,12 @@ if ($stmt_fic_query->num_rows > 0) {
       <td><?php echo $fichario['codfam']; ?></td>
       <td><?php echo $fichario['arm_gav_pas']; ?></td>
       <td><?php echo $fichario['operador']; ?></td>
-      
+      <td class="check">
+        <label class="urg">
+          <input type="checkbox" name="excluir[]" value="<?php echo $fichario['id']; ?>">
+          <span class="checkmark"></span>
+        </label>
+      </td>
     </tr>
 <?php
     }
