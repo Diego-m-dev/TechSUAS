@@ -19,6 +19,7 @@ class CadastroModel {
         } else {
             return false;
         }
+      $stmt->close();
     }
 }
 ?>
