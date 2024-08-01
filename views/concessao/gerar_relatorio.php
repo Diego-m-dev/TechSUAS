@@ -89,7 +89,7 @@ if (!isset($_POST['ano'])) {
                 <?php
 $mes_pago = $_POST['mes_pg'];
 
-    if ($nome == "MICHELLE AGNES GOMES CAVALCANTE") {
+    if ($_SESSION['nome_usuario'] == "MICHELLE AGNES GOMES CAVALCANTE") {
 
         $sql_quantidade_itens_mes = "SELECT COUNT(*) AS mes_pag FROM concessao_historico WHERE mes_pag = '$mes_pago' AND nome_item != 'ATAÚDE' AND situacao_concessao != 'CANCELADA'  AND situacao_concessao != 'PAGO'";
         $resultado_quantidade_itens_mes = $conn->query($sql_quantidade_itens_mes);
@@ -197,7 +197,7 @@ $stmt_dados->close();
             // Tratamento de erro se a preparação da consulta falhar
             die("ERRO ao preparar a consulta: " . $conn->error);
         }
-    } elseif ($nome == "LUIZ HENRIQUE MORAES MANSO") {
+    } elseif ($_SESSION['nome_usuario'] == "LUIZ HENRIQUE MORAES MANSO") {
         ?>
         <!--
 
