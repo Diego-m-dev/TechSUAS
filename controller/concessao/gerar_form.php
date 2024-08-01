@@ -224,7 +224,7 @@ if (isset($_POST['cpf'])) {
 
                 <div class="cab2">
                     <p>_________________________________________________________________________<br>ASSINATURA DO RESPONSÁVEL:</p>
-                    <p>____________________________________________________________<br>CIBELE SILVA DO NASCIMENTO<br>SECRETÁRIA ADJUNTA DE ASSISTÊNCIA SOCIAL<br>PORTARIA 182/2024 </p>
+                    <p>____________________________________________________________<br>MARTHONY DORNELA SANTANA<br>SECRETÁRIO DE ASSISTÊNCIA SOCIAL<br>PORTARIA 143/2023</p>
                 </div>
                 <?php
 
