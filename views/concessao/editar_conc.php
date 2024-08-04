@@ -48,7 +48,7 @@ echo 'Feito por ' . $conc['operador'] . ' em ' . $conc['data_registro'];
             <h3>DADOS DO FORMULÁRIO</h3>
             <?php
 echo 'Nº: ' . $conc['num_form'] . '/' . $conc['ano_form'] . '<br>';
-    if ($funcao == "Tecnico(a)") {
+    if ($_SESSION['funcao'] == "Tecnico(a)") {
         echo '<b>Parecer Tecnico: </b>' . $conc['parecer'] . '<br>';
     }
     ?>
@@ -193,45 +193,46 @@ $(document).ready(function() {
 })
 
 $(document).ready(function() {
-            // Máscara para formatar os números
-            $('.valor-unitario').mask('000000,00', {
-                reverse: true
-            });
+    // Máscara para formatar os números corretamente
+    $('.valor-unitario').mask('000000,00', {
+        reverse: true
+    });
 
-            // Função para calcular o total
-            function calcularTotal() {
-                // Recebe a quantidade e valor unitário
-                var quantidade = parseFloat($(".quantidade").val().replace(",", ".")) || 0;
-                var valorUnitario = parseFloat($(".valor-unitario").val().replace(",", ".")) || 0;
+    // Função para calcular o total
+    function calcularTotal() {
+        // Recebe a quantidade e valor unitário
+        var quantidade = parseFloat($(".quantidade").val().replace(".", "").replace(",", ".")) || 0;
+        var valorUnitario = parseFloat($(".valor-unitario").val().replace(".", "").replace(",", ".")) || 0;
 
-                // Calcula o total
-                var total = quantidade * valorUnitario;
+        // Calcula o total
+        var total = quantidade * valorUnitario;
 
-                // Formata o total como string
-                var formattedTotal = total.toLocaleString('pt-BR', {
-                    minimumFractionDigits: 2,
-                    maximumFractionDigits: 2
-                });
-
-                // Define o valor formatado no campo
-                $(".valor-total").val(formattedTotal);
-            }
-
-            // Anexa a função aos eventos de alteração de entrada
-            $(".quantidade, .valor-unitario").on("input", calcularTotal);
+        // Formata o total como string
+        var formattedTotal = total.toLocaleString('pt-BR', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
         });
 
-        // Função para formatar valor monetário
-        function formatCurrency(value) {
-            return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-        }
+        // Define o valor formatado no campo
+        $(".valor-total").val(formattedTotal);
+    }
 
-        // Preenchendo a tabela com os dados
-        document.getElementById("nome_item").innerText = dados.nome_item;
-        document.getElementById("descricao").innerText = dados.descricao;
-        document.getElementById("qtd_item").innerText = dados.qtd_item;
-        document.getElementByclass("valor_uni").innerText = dados.valor_uni === 0 ? '' : formatCurrency(dados.valor_uni);
-        document.getElementByclass("valor_total").innerText = dados.valor_total === 0 ? '' : formatCurrency(dados.valor_total);
+    // Anexa a função aos eventos de alteração de entrada
+    $(".quantidade, .valor-unitario").on("input", calcularTotal);
+})
+
+// Função para formatar valor monetário
+function formatCurrency(value) {
+    return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+}
+
+// Preenchendo a tabela com os dados
+document.getElementById("nome_item").innerText = dados.nome_item;
+document.getElementById("descricao").innerText = dados.descricao;
+document.getElementById("qtd_item").innerText = dados.qtd_item;
+document.getElementByClass("valor_uni").innerText = dados.valor_uni === 0 ? '' : formatCurrency(dados.valor_uni);
+document.getElementByClass("valor_total").innerText = dados.valor_total === 0 ? '' : formatCurrency(dados.valor_total);
+
 
 </script>
 
@@ -368,10 +369,10 @@ function mostrarDataHoraAtual() {
 
 // Chamando a função para exibir a data e hora atual quando a página carrega
 window.onload = function() {
-    mostrarDataHoraAtual();
+    mostrarDataHoraAtual()
     // Atualizar a cada segundo
-    setInterval(mostrarDataHoraAtual, 1000);
-};
+    setInterval(mostrarDataHoraAtual, 1000)
+}
 
     </script>
 </body>
