@@ -27,13 +27,15 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
         $mes_pg = $_POST['mes_pg'];
         $itens_conc = $_POST['itens_conc'];
         $quantidade = $_POST['quantidade'];
-        $valor_unitario = $_POST['valor_unitario'];
-        $valor_total = $_POST['valor_total'];
+        $valor_unitario_ = $_POST['valor_unitario'];
+        $valor_total_ = $_POST['valor_total'];
         $situacao = $_POST['situacao'];
         $id_hist = $_POST['id_hist'];
 
-        $valor_unitario = str_replace(',', '.', $valor_unitario);
-        $valor_total = str_replace(',', '.', $valor_total);
+
+        $valor_unitario = floatval(str_replace(',', '.', str_replace('.', '', $valor_unitario_)));
+        $valor_total = floatval(str_replace(',', '.', str_replace('.', '', $valor_total_)));
+
 
         $smtp = $conn->prepare("UPDATE concessao_historico SET nome_item=?, qtd_item=?, valor_uni=?, valor_total=?, mes_pag=?, pg_data=?, situacao_concessao=? WHERE id_hist=?");
         $smtp->bind_param("ssssssss", $itens_conc, $quantidade, $valor_unitario, $valor_total, $mes_pg, $dt_pg, $situacao, $id_hist);
@@ -214,6 +216,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
         }
         $smtp->close();
     }
+    $conn_1->close();
     ?>
     
 </body>
