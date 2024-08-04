@@ -50,6 +50,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <?php
             }
         }
+        $conn->close();
     }
     ?>
 
