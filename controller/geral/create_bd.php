@@ -89,7 +89,8 @@ $sql_create = [
   `operador` varchar(100) NOT NULL,
   `arm` int(2) NOT NULL,
   `gav` int(2) NOT NULL,
-  `pas` int(3) NOT NULL
+  `pas` int(3) NOT NULL,
+  `print` varchar(1) NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;",
 
 // Table structure for table `ficharios`
