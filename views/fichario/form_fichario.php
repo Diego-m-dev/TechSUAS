@@ -264,6 +264,7 @@ if ($stmt->num_rows > 0) {
     }
 }
 $conn->close();
+$conn_1->close();
 ?>
 <a href="/TechSUAS/config/back"><i class="fas fa-arrow-left"></i>Voltar ao menu</a>
 
