@@ -96,5 +96,8 @@ $conn->close();
 
     </div>
     <script src="/TechSUAS/js/cadastro_unico.js"></script>
+<?php
+$conn_1->close();
+?>
 </body>
 </html>
