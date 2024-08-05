@@ -192,8 +192,10 @@
         } else {
             echo "Nâo encontrado.";
         }
-        }
-        ?>
+    }
+    $conn_1->close();
+
+?>
 </div>
 </body>
 </html>
