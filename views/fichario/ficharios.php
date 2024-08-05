@@ -21,7 +21,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/fichario.js"></script>
 
-    <title>Registro fichario - TechSUAS</title>
+    <title>Fichário - TechSUAS</title>
 </head>
 <body>
 <div class="conteiner-arm">
@@ -37,6 +37,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
           echo '<option value="' . $fichario['arm'] . '">' . $fichario['arm'] . '</option>';
         }
       }
+  $conn_1->close();
       ?>
     </select>
   </form>
