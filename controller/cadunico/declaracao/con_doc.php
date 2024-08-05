@@ -299,6 +299,8 @@
                         echo "ERRO no armazenamento dos dados.";
                     }
                 }
+      $conn_1->close();
+
         ?>
 
         </div>
