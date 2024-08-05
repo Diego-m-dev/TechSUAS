@@ -114,4 +114,6 @@ if (isset($_POST['nis_dec'])) {
         echo "<script language='javascript'>window.location='/TechSUAS/views/cadunico/declaracoes/declaracao'; </script>";
     }
 }
+$conn_1->close();
+
 ?>
