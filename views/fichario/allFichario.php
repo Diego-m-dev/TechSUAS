@@ -4,6 +4,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 
 $stmt_fic = "SELECT id, codfam, arm_gav_pas, operador FROM fichario
+WHERE print_id != 'S'
 ORDER BY arm ASC, gav ASC, pas ASC ";
 $stmt_fic_query = $conn->query($stmt_fic) or die("Erro ". $conn - error);
 
@@ -32,7 +33,9 @@ if ($stmt_fic_query->num_rows > 0) {
 
 </head>
 <body>
-  <form action="/TechSUAS/controller/cadunico/print_etiqueta_sel" method="post"></form>
+  <form action="/TechSUAS/controller/cadunico/print_etiqueta_sel" method="post">
+  <button type="submit" id="print">imprimir</button>
+
   <table>
     <tr>
       <th>CÓDIGO FAMILIAR</th>
@@ -63,8 +66,20 @@ if ($stmt_fic_query->num_rows > 0) {
     }
 ?>
   </table>
+  </form>
 <?php
   }
+
+  $conn->close();
+  $conn_1->close();
 ?>
+<script>
+    document.getElementById('selecionarTodos').addEventListener('click', function() {
+        var checkBoxes = document.querySelectorAll('input[name="excluir[]"]')
+        checkBoxes.forEach(function(checkbox) {
+            checkbox.checked = document.getElementById('selecionarTodos').checked
+        })
+    })
+</script>
 </body>
 </html>
