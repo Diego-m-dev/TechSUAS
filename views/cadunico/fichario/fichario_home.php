@@ -15,8 +15,31 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha512-9yFkgZODpjftI3OUb8zH9FvyJfcd8jrZG1wQ0Ww4PovU4DwHms1tBhJhbAB8WdcWb6n7B8g/uJc1NGIc8J02+w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
-
 </head>
+<style>
+    .swal2-input-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .swal2-input {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        box-shadow: none;
+    }
+
+    .swal2-label {
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .swal2-html-container {
+        padding: 15px;
+    }
+</style>
 
 <body>
     <div class="img">
@@ -57,11 +80,6 @@
 
         <div class="card">
             <h3>HISTORICO DE FORMULARIO</h3>
-            <div id="infoFamilia">
-                <p><strong>Nome do Responsável:</strong> <span id="nomeResponsavel"></span></p>
-                <p><strong>Código Familiar:</strong> <span id="codFamiliar"></span></p>
-
-            </div>
             <table border="1" id="dadosCadastro">
                 <thead>
                     <tr>
@@ -76,7 +94,6 @@
                     <!-- Dados preenchidos dinamicamente -->
                 </tbody>
             </table>
-            <div id="mensagem">Nenhum dado encontrado</div>
         </div>
     </div>
 
@@ -127,8 +144,36 @@
                                 cancelButtonColor: '#d33'
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    // Aqui você pode redirecionar o usuário para uma página de inclusão ou exibir um formulário de inclusão
-                                    window.location.href = '/TechSUAS/cadunico/incluir_novo.php'; // Exemplo de redirecionamento
+                                    Swal.fire({
+                                        title: 'Informar Novo Registro',
+                                        html: `
+                                <form id="inclusaoForm">
+                                    <label for="codFamiliar">Código Familiar</label>
+                                    <input type="text" id="codFamiliar" name="cod_fam" class="swal2-input" value="${$("#consulta").val()}" readonly>
+                                    <label for="dataAtualizacao">Data de Atualização</label>
+                                    <input type="text" id="dataAtualizacao" name="data_entrevista" class="swal2-input" placeholder="DD/MM/AAAA">
+                                    <label for="nomeResponsavel">Nome do Responsável Familiar</label>
+                                    <input type="text" id="nomeResponsavel" name="nome_pess" class="swal2-input" placeholder="Nome do Responsável">
+                                </form>
+                            `,
+                                        focusConfirm: false,
+                                        preConfirm: () => {
+                                            const form = Swal.getPopup().querySelector('#inclusaoForm');
+                                            const formData = new FormData(form);
+                                            return fetch('../../../controller/cadunico/fichario/incluir_novo_registro.php', {
+                                                method: 'POST',
+                                                body: formData
+                                            }).then(response => response.json()).then(data => {
+                                                if (data.success) {
+                                                    Swal.fire('Inclusão realizada!', data.message, 'success');
+                                                } else {
+                                                    Swal.fire('Erro!', data.message, 'error');
+                                                }
+                                            }).catch(() => {
+                                                Swal.fire('Erro!', 'Erro na inclusão do registro.', 'error');
+                                            });
+                                        }
+                                    });
                                 }
                             });
                         } else {
@@ -151,8 +196,8 @@
             });
 
         });
-
     </script>
+
 
 </body>
 
