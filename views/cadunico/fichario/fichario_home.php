@@ -1,8 +1,3 @@
-<?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
-?>
 <!DOCTYPE html>
 <html lang="pt-Br">
 
@@ -11,18 +6,23 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fichário Digital - TechSUAS</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="stylesheet" href="../../../css/cadunico/fichario/style.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-9yFkgZODpjftI3OUb8zH9FvyJfcd8jrZG1wQ0Ww4PovU4DwHms1tBhJhbAB8WdcWb6n7B8g/uJc1NGIc8J02+w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+        integrity="sha512-9yFkgZODpjftI3OUb8zH9FvyJfcd8jrZG1wQ0Ww4PovU4DwHms1tBhJhbAB8WdcWb6n7B8g/uJc1NGIc8J02+w=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 </head>
 
 <body>
     <div class="img">
         <h1 class="titulo-com-imagem">
-            <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/fichario/h1-fichario_digital.svg" alt="Título com imagem">
+            <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/fichario/h1-fichario_digital.svg"
+                alt="Título com imagem">
         </h1>
     </div>
     <div class="container">
@@ -81,7 +81,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
 
             function consultarPorCodFamiliar(codFamiliar) {
                 $.ajax({
@@ -90,46 +90,69 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                     data: {
                         codFamiliar: codFamiliar
                     },
-                    success: function(data) {
+                    success: function (data) {
                         $("#dadosCadastro tbody").empty().html(data);
+                        $("#infoFamilia").show();  // Certifique-se de mostrar o histórico
+                        $("#dadosCadastro").show();  // Certifique-se de mostrar a tabela de histórico
+                        $("#mensagem").hide();
                     },
-                    error: function() {
-                        $("#mensagem").text("Erro na consulta").show();
+                    error: function () {
+                        $("#mensagem").text("Erro na consulta do histórico").show();
                     }
                 });
             }
 
-
-            $(document).on('click', '.mais-btn', function() {
-                var codFamiliar = $(this).data('codfamiliar');
-                consultarPorCodFamiliar(codFamiliar);
-            });
-
-
-            $("#consultaForm").submit(function(event) {
+            $("#consultaForm").submit(function (event) {
                 event.preventDefault();
 
                 $.ajax({
                     url: '../../../controller/cadunico/fichario/request_lista_cadastro.php',
                     type: 'POST',
                     data: $(this).serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         $("#informacaoCadastro tbody").empty();
                         if (data.trim() === "Nenhum resultado encontrado") {
                             $("#mensagem").text("Nenhum dado encontrado").show();
+                            $("#infoFamilia").hide();  // Esconde o histórico se nenhum dado for encontrado
+                            $("#dadosCadastro").hide();  // Esconde a tabela de histórico se nenhum dado for encontrado
+
+                            Swal.fire({
+                                title: 'Código não encontrado na base',
+                                text: 'Deseja informar a inclusão?',
+                                icon: 'warning',
+                                showCancelButton: true,
+                                confirmButtonText: 'Sim',
+                                cancelButtonText: 'Não',
+                                confirmButtonColor: '#3085d6',
+                                cancelButtonColor: '#d33'
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Aqui você pode redirecionar o usuário para uma página de inclusão ou exibir um formulário de inclusão
+                                    window.location.href = '/TechSUAS/cadunico/incluir_novo.php'; // Exemplo de redirecionamento
+                                }
+                            });
                         } else {
                             $("#mensagem").text("").hide();
                             $("#informacaoCadastro tbody").html(data);
+
+                            // Assumindo que o primeiro cod_familiar encontrado será utilizado para consulta de histórico
+                            var firstCodFamiliar = $("#informacaoCadastro tbody tr:first-child").find(".mais-btn").data('codfamiliar');
+
+                            if (firstCodFamiliar) {
+                                consultarPorCodFamiliar(firstCodFamiliar);
+                            }
                         }
                     },
-                    error: function() {
+                    error: function () {
                         $("#mensagem").text("Erro na consulta").show();
                     }
                 });
-            });
-        });
-    </script>
 
+            });
+
+        });
+
+    </script>
 
 </body>
 
