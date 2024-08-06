@@ -13,13 +13,13 @@ class ConsultaModel
 
     public function consultarFamilia($consulta)
     {
-        $stmt = $this->conn->prepare("SELECT cod_familiar_fam, dat_atual_fam, nom_pessoa, 
-        cod_parentesco_rf_pessoa FROM tbl_tudo WHERE cod_familiar_fam LIKE ? AND cod_parentesco_rf_pessoa = 1 ");
+        $stmt = $this->conn->prepare("SELECT * FROM status_familia WHERE cod_familiar LIKE ? ");
         $param = "%$consulta%";
         $stmt->bind_param("s", $param);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result;
+        
     }
 
     public function listarCadastros_fichario()

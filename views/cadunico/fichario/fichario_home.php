@@ -27,7 +27,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     </div>
     <div class="container">
         <div class="card">
-            <h3>CADASTROS NA BASE DE DAODS</h3>
+            <h3>CADASTROS NA BASE DE DADOS</h3>
             <form id="consultaForm">
                 <label for="consulta">Consultar Família</label>
                 <input type="text" id="consulta" name="consulta">
