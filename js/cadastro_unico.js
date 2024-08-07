@@ -351,82 +351,67 @@ function removerLinha(botao) {
 
 //função para apresentar dados da família na tela de registrar família
 function consultarFamilia() {
-  var codfam = $('#codfamiliar').val()
-  const input = document.getElementById('codfamiliar')
-  input.addEventListener('blur', function () {
-    if (input.value.trim() === '') {
-      setTimeout(function () {
-        input.focus()
-      }, 0)
-    } else {
+  var codfam = $('#codfamiliar').val();
 
-      $.ajax({
-        type: 'POST',
-        url: '/TechSUAS/controller/cadunico/parecer/busca_visita.php',
-        data: {
-          codfam: codfam
-        },
-        dataType: 'json',
-        success: function (response) {
-          if (response.encontrado) {
-            if (response.nome) {
-              $('#nome').text('NOME: ' + response.nome)
-              $('#titulo_tela').text('VISITA(S) REALIZADA(S):')
-            } else {
-              $('#nome').text('O código familiar digitado não existe no banco de dados atual')
-            }
-            if (response.visitas) {
-              var visitas = response.visitas
-              var visitasHtml = ''
+  // Limpar mensagens existentes
+  $('#nome').text('');
+  $('#titulo_tela').text('');
+  $('#data_visita').html(''); // Use html('') para limpar todo o conteúdo
 
-              visitas.forEach(function (visita) {
-                if (visita.acao == 1) {
-                  var acao = "ATUALIZAÇÃO REALIZADA"
-                } else if (visita.acao == 2) {
-                  var acao = "NÃO LOCALIZADO"
-                } else if (visita.acao == 3) {
-                  var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR"
-                } else if (visita.acao == 4) {
-                  var acao = "A FAMÍLIA RECUSOU ATUALIZAR"
-                } else if (visita.acao == 5) {
-                  var acao = "ATUALIZAÇÃO NÃO REALIZADA"
-                } else {
-                  var acao = ""
-                }
-                visitasHtml += '<div class="visita">'
-                visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>'
-                visitasHtml += '<span>Ação: ' + acao + '</span><br>'
-                visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>'
-                visitasHtml += '</div><br>'
-              })
-              $('#data_visita').html(visitasHtml)
-            } else if (response.data_visita) {
-              $('#data_visita').text(response.data_visita)
-            }
+  if (codfam === '') {
+    $('#nome').text('Sem o código familiar não pode concluir a tarefa.');
+    return; // Corrigido para usar return
+  }
 
-            /* $('#data_visita').text(response.data_visita)
-            if (response.acao == 1) {
-                var acao = "ATUALIZAÇÃO REALIZADA";
-            } else if (response.acao == 2) {
-                var acao = "NÃO LOCALIZADO";
-            } else if (response.acao == 3) {
-                var acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
-            } else if (response.acao == 4) {
-                var acao = "A FAMÍLIA RECUSOU ATUALIZAR";
-            } else if (response.acao == 5) {
-                var acao = "ATUALIZAÇÃO NÃO REALIZADA";
-            } else {
-                var acao = "!"
-            }
-            $('#acao').text(acao)
-            $('#parecer_tec').text('Parecer do Entrevistador: ' + response.parecer_tec)
-            $('#entrevistador').text('Entrevistador: ' + response.entrevistador)*/
-          }
+  $.ajax({
+    type: 'POST',
+    url: '/TechSUAS/controller/cadunico/parecer/busca_visita.php',
+    data: {
+      codfam: codfam
+    },
+    dataType: 'json',
+    success: function (response) {
+      if (response.encontrado) {
+        if (response.nome) {
+          $('#nome').text('NOME: ' + response.nome);
+          $('#titulo_tela').text('VISITA(S) REALIZADA(S):');
+        } else {
+          $('#nome').text('O código familiar digitado não existe no banco de dados atual');
         }
-      })
+        if (response.visitas) {
+          var visitas = response.visitas;
+          var visitasHtml = '';
+
+          visitas.forEach(function (visita) {
+            var acao;
+            if (visita.acao == 1) {
+              acao = "ATUALIZAÇÃO REALIZADA";
+            } else if (visita.acao == 2) {
+              acao = "NÃO LOCALIZADO";
+            } else if (visita.acao == 3) {
+              acao = "FALECIMENTO DO RESPONSÁVEL FAMILIAR";
+            } else if (visita.acao == 4) {
+              acao = "A FAMÍLIA RECUSOU ATUALIZAR";
+            } else if (visita.acao == 5) {
+              acao = "ATUALIZAÇÃO NÃO REALIZADA";
+            } else {
+              acao = "";
+            }
+            visitasHtml += '<div class="visita">';
+            visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>';
+            visitasHtml += '<span>Ação: ' + acao + '</span><br>';
+            visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>';
+            visitasHtml += '</div><br>';
+          });
+          $('#data_visita').html(visitasHtml);
+        } else if (response.data_visita) {
+          $('#data_visita').text(response.data_visita);
+        }
+      }
     }
-  })
+  });
 }
+
 
 //função para salvar dados da visita a família
 $(document).ready(function () {
