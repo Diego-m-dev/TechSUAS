@@ -83,7 +83,6 @@ foreach ($anos as $ano) {
     </div>
 <?php
   include '../../../controller/cadunico/parecer/tbl_tudo.php';
-  $conn->close();
 ?>
     <script src='/TechSUAS/js/personalise.js'></script>
     <script>
@@ -108,6 +107,9 @@ foreach ($anos as $ano) {
             button.style.display = "none";
         }
     </script>
+    <?php
+      $conn_1->close();
+    ?>
 </body>
 
 </html>
