@@ -40,26 +40,32 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                         <th class="cabecalho">DATA ATUALIZAÇÃO</th>
                         <th class="cabecalho">BAIRRO</th>
                         <th class="cabecalho">RUA</th>
+                        <th class="cabecalho">VISITA FEITA POR</th>
                     </tr>
                     <?php
                     $sql_cod = $conn->real_escape_string($_GET['ano_select']);
                     $sqli_cod = $conn->real_escape_string($_GET['localidade']);
+                    
                     if (empty($_GET['mes_select'])) {
-                        $sql_dados = "SELECT num_nis_pessoa_atual, nom_pessoa, dat_atual_fam, nom_localidade_fam, nom_tip_logradouro_fam, nom_titulo_logradouro_fam, nom_logradouro_fam, num_logradouro_fam 
-                                      FROM tbl_tudo  
-                                      WHERE dat_atual_fam LIKE '%$sql_cod%' 
-                                      AND nom_localidade_fam LIKE '%$sqli_cod%' 
-                                      AND cod_parentesco_rf_pessoa = 1
-                                      ORDER BY nom_localidade_fam ASC, num_logradouro_fam ASC";
+                        $sql_dados = "SELECT t.cod_familiar_fam, t.num_nis_pessoa_atual, t.nom_pessoa, t.dat_atual_fam, t.nom_localidade_fam, t.nom_tip_logradouro_fam, t.nom_titulo_logradouro_fam, t.nom_logradouro_fam, t.num_logradouro_fam,
+                            vis.entrevistador AS visfeit
+                            FROM tbl_tudo t
+                            LEFT JOIN visitas_feitas vis ON t.cod_familiar_fam = vis.cod_fam
+                            WHERE t.dat_atual_fam LIKE '%$sql_cod%' 
+                            AND t.nom_localidade_fam LIKE '%$sqli_cod%' 
+                            AND t.cod_parentesco_rf_pessoa = 1
+                            ORDER BY t.nom_localidade_fam ASC, t.num_logradouro_fam ASC";
                     } else {
                         $sqlm_cod = $_GET['mes_select'];
-                        $sql_dados = "SELECT num_nis_pessoa_atual, nom_pessoa, dat_atual_fam, nom_localidade_fam, nom_tip_logradouro_fam, nom_titulo_logradouro_fam, nom_logradouro_fam, num_logradouro_fam 
-                                      FROM tbl_tudo  
-                                      WHERE dat_atual_fam LIKE '%$sql_cod%' 
-                                      AND nom_localidade_fam LIKE '%$sqli_cod%' 
-                                      AND MONTH(dat_atual_fam) = '$sqlm_cod' 
-                                      AND cod_parentesco_rf_pessoa = 1
-                                      ORDER BY nom_localidade_fam ASC, num_logradouro_fam ASC";
+                        $sql_dados = "SELECT t.cod_familiar_fam, t.num_nis_pessoa_atual, t.nom_pessoa, t.dat_atual_fam, t.nom_localidade_fam, t.nom_tip_logradouro_fam, t.nom_titulo_logradouro_fam, t.nom_logradouro_fam, t.num_logradouro_fam,
+                            vis.entrevistador AS visfeit
+                            FROM tbl_tudo t
+                            LEFT JOIN visitas_feitas vis ON t.cod_familiar_fam = vis.cod_fam
+                            WHERE t.dat_atual_fam LIKE '%$sql_cod%' 
+                            AND t.nom_localidade_fam LIKE '%$sqli_cod%' 
+                            AND MONTH(t.dat_atual_fam) = '$sqlm_cod' 
+                            AND t.cod_parentesco_rf_pessoa = 1
+                            ORDER BY t.nom_localidade_fam ASC, t.num_logradouro_fam ASC";
                     }
 
                     $sql_query = $conn->query($sql_dados) or die("ERRO ao consultar !" . $conn->error);
@@ -113,6 +119,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                                                         echo $dados["nom_logradouro_fam"] . ', ';
                                                         echo $dados["num_logradouro_fam"] == "" ? "S/N" : $dados["num_logradouro_fam"];
                                                         ?></td>
+                                <td class="resultado"><?php echo $dados['visfeit'] === 'NÃO' ? 'NÃO' : $dados['visfeit']; ?></td>
                             </tr>
                         <?php
                             $seq++;
@@ -128,11 +135,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     ?>
     <script>
         document.getElementById('selecionarTodos').addEventListener('click', function() {
-            var checkBoxes = document.querySelectorAll('input[name="excluir[]"]')
-            checkBoxes.forEach(function(checkbox) {
-                checkbox.checked = document.getElementById('selecionarTodos').checked
-            })
-        })
+            var checkboxes = document.querySelectorAll('input[name="excluir[]"]');
+            for (var checkbox of checkboxes) {
+                checkbox.checked = this.checked;
+            }
+        });
     </script>
 </body>
 </html>
