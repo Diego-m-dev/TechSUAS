@@ -29,55 +29,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     $codigo_familiar = $_POST['codigo_familiar'];
     $cod_limpo = preg_replace('/\D/', '', $codigo_familiar);
     $cod_ajustado = substr_replace(str_pad($cod_limpo, 11,'0',STR_PAD_LEFT), '-', 9, 0);
-    $cod_sem_zeros = ltrim($cod_limpo, '0');
 
     $smtp = $conn->prepare("INSERT INTO visitas_feitas (cod_fam, data, acao, parecer_tec, entrevistador) VALUES (?,?,?,?,?)");
-    $smtp->bind_param("sssss", $cod_sem_zeros, $data_visita, $acao_visita, $parecer, $_SESSION['nome_usuario']);
+    $smtp->bind_param("sssss", $cod_ajustado, $data_visita, $acao_visita, $parecer, $_SESSION['nome_usuario']);
 
-    //consulta a composição familiar
-
-    $sql_dados = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$codigo_familiar'";
-    $sql_query = $conn->query($sql_dados) or die("ERRO ao consultar !" . $conn - error);
-
-    /*
-    if ($sql_query->num_rows == 0) {
-        echo "Confira se está correto ". $codigo_familiar. ". Confira no V7 a situação da família.";
-    } else {
-        while ($dados = $sql_query->fetch_assoc()) {
-
-            echo "NOME: ". $dados['nom_pessoa'];
-            echo "<br>NIS: ". $dados['num_nis_pessoa_atual'];
-            echo "<br>Data de Nascimento: ". $dados['dta_nasc_pessoa'];
-            $parentesco = $dados['cod_parentesco_rf_pessoa'];
-            if ($parentesco == 1){
-                $parentesco_pessoa = "RESPONSAVEL FAMILIAR";
-            } elseif ($parentesco == 2){
-                $parentesco_pessoa = "CONJUGE OU COMPANHEIRO";
-            } elseif ($parentesco == 3){
-                $parentesco_pessoa = "FILHO(A)";
-            } elseif ($parentesco == 4){
-                $parentesco_pessoa = "ENTEADO(A)";
-            } elseif ($parentesco == 5){
-                $parentesco_pessoa = "NETO(A) OU BISNETO(A)";
-            } elseif ($parentesco == 6){
-                $parentesco_pessoa = "PAI OU MÃE";
-            } elseif ($parentesco == 7){
-                $parentesco_pessoa = "SOGRO(A)";
-            } elseif ($parentesco == 8){
-                $parentesco_pessoa = "IRMÃO OU IRMÃ";
-            } elseif ($parentesco == 9){
-                $parentesco_pessoa = "GENRO OU NORA";
-            } elseif ($parentesco == 10){
-                $parentesco_pessoa = "OUTROS PARENTES";
-            } elseif ($parentesco == 11){
-                $parentesco_pessoa = "NÃO PARENTE";
-            } else {
-                $parentesco_pessoa = "FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)";
-            }
-            echo "PARENTESCO: ". $parentesco_pessoa;
-        }
-    }
-*/
         if($smtp->execute()){
         // Redireciona para a página registrar caso deseje realizar um novo registro
 ?>
