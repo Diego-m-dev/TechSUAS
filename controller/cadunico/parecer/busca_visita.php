@@ -16,7 +16,7 @@ if (isset($_POST['codfam'])) {
 
     // Consulta na tabela visitas_feitas
     $stmt_visita = $pdo->prepare("SELECT data, acao, entrevistador FROM visitas_feitas WHERE cod_fam = :codfamiliar");
-    $stmt_visita->execute(array(':codfamiliar' => $cpf_limpo));
+    $stmt_visita->execute(array(':codfamiliar' => $ajustando_cod));
     
 
 
@@ -74,5 +74,5 @@ if (isset($_POST['codfam'])) {
     $conn->close();
 } else {
     http_response_code(400);
-    echo json_encode(array('error' => 'Parâmetro "codfam" não recebido.'));
+    echo json_encode(array('error' => 'Parâmetro "POST" não recebido.'));
 }
