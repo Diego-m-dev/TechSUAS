@@ -55,10 +55,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         $cpf_already = ltrim($cpf_limpo, '0');
         $cpf_zero = str_pad($cpf_already, 11, "0", STR_PAD_LEFT);
 
-        $sql_dados_visitas = "SELECT * FROM tbl_tudo WHERE cod_familiar_fam LIKE '$cpf_already' AND cod_parentesco_rf_pessoa = 1";
+        $sql_dados_visitas = "SELECT cod_familiar_fam, nom_pessoa FROM tbl_tudo WHERE cod_familiar_fam LIKE '$cpf_already' AND cod_parentesco_rf_pessoa = 1";
         $sql_query = $conn->query($sql_dados_visitas) or die("ERRO ao consultar! " . $conn->error);
 
-        $dados_form = "SELECT * FROM visitas_feitas WHERE cod_fam LIKE '$cpf_already' ORDER BY id DESC";
+        $dados_form = "SELECT * FROM visitas_feitas WHERE cod_fam LIKE '$cpf_zero' ORDER BY id DESC";
         $form_query = $conn->query($dados_form) or die("ERRO ao consultar! " . $conn->error);
 
         if ($form_query->num_rows == 0) {
