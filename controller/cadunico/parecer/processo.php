@@ -43,7 +43,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             text: 'Dados salvos com sucesso!',
             html: `
             <h5>Dados da família</h5>
-            <p>Código Familiar: <?php echo $cod_ajustado; ?></p>
+            <p>Código Familiar: <?php echo substr_replace($cod_ajustado, '-', 9, 0); ?></p>
             `,
         }).then((result) => {
             if (result.isConfirmed) {
