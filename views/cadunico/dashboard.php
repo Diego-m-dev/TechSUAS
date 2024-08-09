@@ -33,7 +33,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   </div>
   <div class="tudo">
     <div class="container">
-      <form method="post" action="/TechSUAS/controller/cadunico/salvar_dados_painel" enctype="multipart/form-data">
+    <form id="cadastroForm" enctype="multipart/form-data">
         <div class="ocult2">
           <div id="codfamiliar_print" class="ocult"></div>
           <div id="data_entrevista" class="ocult"></div>
@@ -79,6 +79,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           </div>
           <br><input type="hidden" name="tipo_documento_hidden" id="tipo_documento_hidden" value=".pdf">
         </div>
+
         <!--FORMULÁRIO PARA UPLOAD DOS ARQUIVOS-->
         <div class="upload">
           <div>
@@ -114,7 +115,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
       </form>
 
     </div>
+
     <div class="btns_tudo">
+
       <!--BOTÕES PARA FÁCIL ACESSO AOS FORMULÁRIO E DECLARAÇÕES-->
       <div class="btns">
         <div><label for="">Botões de fácil acesso:</label></div>
@@ -196,6 +199,44 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     </div>
   </div>
   <script>
+      $(document).ready(function() {
+      $('#cadastroForm').on('submit', function(event) {
+        event.preventDefault(); // Impede o envio padrão do formulário
+
+        // Cria um objeto FormData com os dados do formulário
+        var formData = new FormData(this);
+
+        $.ajax({
+          url: '/TechSUAS/controller/cadunico/salvar_dados_painel', // URL para onde os dados serão enviados
+          type: 'POST',
+          data: formData,
+          contentType: false,
+          processData: false,
+          success: function(response) {
+            // Exibe o alerta de sucesso usando SweetAlert2
+            Swal.fire({
+              title: 'Sucesso!',
+              text: 'Os dados foram cadastrados com sucesso.',
+              icon: 'success',
+              confirmButtonText: 'Ok'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                location.reload(); // Recarrega a página atual
+              }
+            });
+          },
+          error: function(xhr, status, error) {
+            // Exibe uma mensagem de erro se algo der errado
+            Swal.fire({
+              title: 'Erro!',
+              text: 'Ocorreu um erro ao tentar cadastrar os dados.',
+              icon: 'error',
+              confirmButtonText: 'Ok'
+            });
+          }
+        });
+      });
+    });
     document.addEventListener('DOMContentLoaded', function() {
       const targets = [
         document.getElementById('codfamiliar_print'),
