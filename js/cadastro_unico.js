@@ -869,7 +869,7 @@ function solicitaForm() {
   button.disabled = true;
 
   console.log("Iniciando solicitação de formulários...");
-  fetch('/TechSuas/controller/cadunico/get_solicitacoes.php')
+  fetch('/TechSUAS/controller/recepcao/get_solicitacoes.php')
     .then(response => {
       console.log("Recebendo resposta...");
       if (!response.ok) {
@@ -937,7 +937,7 @@ function solicitaForm() {
                 cancelButtonText: 'Cancelar',
               }).then((result) => {
                 if (result.isConfirmed) {
-                  fetch('/TechSuas/controller/cadunico/fichario/atualizar_status.php', {
+                  fetch('/TechSUAS/controller/recepcao/atualizar_status.php', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/x-www-form-urlencoded'

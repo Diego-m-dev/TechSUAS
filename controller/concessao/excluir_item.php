@@ -36,6 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 } else {
     echo "Acesso inválido ao script de exclusão.";
 }
-
-// Fechar conexão
-$conn->close();
+//O método close() não existe para o objeto PDO. No entanto, para fechar uma conexão PDO, 
+//você simplesmente precisa liberar a referência do objeto, como atribuindo null ao objeto de conexão.
+// Fechar conexão PDO
+$pdo = null;

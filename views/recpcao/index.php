@@ -2,6 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
+// Verifica permissões de acesso
 if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
     echo '<script>window.history.back()</script>';
     exit();
@@ -16,8 +17,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
 
     <link rel="stylesheet" href="/TechSUAS/css/recepcao/style.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -66,7 +66,6 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
         <div class="mural_stats">
             <h2>MURAL DE AVISOS</h2>
 
-            
             <table>
                 <thead>
                     <tr>
@@ -81,17 +80,15 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 </thead>
                 <tbody>
                     <?php
-                    // Consulta SQL para selecionar apenas registros com status "pendente"
+                    // Consulta SQL para selecionar apenas registros com status "feito"
                     $sql = "SELECT * FROM solicita WHERE status = 'feito' LIMIT 5";
                     $result = $conn->query($sql);
 
                     // Verifica se há registros retornados
-                    if ($result->num_rows > 0) {
-
-
+                    if ($result && $result->num_rows > 0) {
                         // Loop através dos resultados e exiba cada registro em uma linha da tabela
                         while ($row = $result->fetch_assoc()) {
-
+                            $tipo = '';
                             if ($row['tipo'] == 1) {
                                 $tipo = "NIS";
                             } elseif ($row['tipo'] == 3) {
@@ -101,17 +98,17 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                             }
 
                             echo "<tr>";
-                            echo "<td>" . $row['cpf'] . "</td>";
-                            echo "<td>" . $row['nome'] . "</td>";
-                            echo "<td>" . $row['cod_fam'] . "</td>";
-                            echo "<td>" . $row['nis'] . "</td>";
-                            echo "<td>" . $tipo . "</td>";
-                            echo "<td>" . $row['status'] . "</td>";
-                            echo "<td><i class='fas fa-check-circle check-icon' data-id='" . $row['id'] . "'></i></td>";
+                            echo "<td>" . htmlspecialchars($row['cpf']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['cod_fam']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['nis']) . "</td>";
+                            echo "<td>" . htmlspecialchars($tipo) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['status']) . "</td>";
+                            echo "<td><i class='fas fa-check-circle check-icon' data-id='" . htmlspecialchars($row['id']) . "'></i></td>";
                             echo "</tr>";
                         }
                     } else {
-                        echo "<tr><td colspan='5'>Nenhum registro encontrado com status pendente.</td></tr>";
+                        echo "<tr><td colspan='7'>Nenhum registro encontrado com status feito.</td></tr>";
                     }
 
                     // Feche a conexão com o banco de dados
@@ -120,10 +117,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 </tbody>
             </table>
 
-
         </div>
-
-
 
         <!-- Modal Structure -->
         <div id="myModal" class="modal">
@@ -162,8 +156,6 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 </form>
             </div>
         </div>
-
-
 
         <!-- FOOTER DA PAGINA -->
         <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/footer.php'; ?>
@@ -238,7 +230,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
 
                     if (cpf) {
                         const xhr = new XMLHttpRequest();
-                        xhr.open('POST', '/TechSUAS/controller/cadunico/fichario/buscar.php', true);
+                        xhr.open('POST', '/TechSUAS/controller/recepcao/buscar.php', true);
                         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
                         // Mostra o elemento de carregamento
@@ -294,7 +286,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                         // Envia os dados via AJAX
                         $.ajax({
                             type: 'POST',
-                            url: '/TechSUAS/controller/cadunico/fichario/inserir.php',
+                            url: '/TechSUAS/controller/recepcao/inserir.php',
                             data: formData,
                             success: function (response) {
                                 // Esconde o loading após a resposta
@@ -310,7 +302,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                                         confirmButtonText: 'OK'
                                     }).then((result) => {
                                         if (result.isConfirmed) {
-                                            window.location.href = '/techSUAS/views/recpcao/index.php';
+                                            window.location.href = '/TechSUAS/views/recpcao/index.php';
                                         }
                                     });
                                 } else {
@@ -362,7 +354,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                     var id = $(this).data('id');
                     // Requisição AJAX para atualizar o status
                     $.ajax({
-                        url: '/TechSUAS/controller/cadunico/fichario/atualizar_status.php',
+                        url: '/TechSUAS/controller/recepcao/atualizar_status.php',
                         type: 'POST',
                         data: {
                             id: id,
@@ -383,8 +375,6 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 });
             });
         </script>
-
-
 </body>
 
 </html>

@@ -47,4 +47,7 @@ header('Content-Type: application/json');
 
 // Retornar os dados como JSON
 echo json_encode($dados_unipessoal);
+
+// Fechar a conexão com o banco de dados
+$conn->close();
 ?>

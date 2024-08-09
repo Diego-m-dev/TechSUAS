@@ -1,8 +1,6 @@
 <?php
-// Inclui o arquivo de conexão com o banco de dados
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
-// Define o fuso horário
 date_default_timezone_set('America/Sao_Paulo');
 
 // Verifica se os dados foram recebidos via POST

@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -16,61 +15,73 @@
 <body>
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php'; // Certifique-se de que este arquivo configure o PDO corretamente
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.php';
 
 if (isset($_POST['nome_pessoa'])) {
     $cpf_post = $_SESSION['cpf'];
-    // Verifica se o nome de usuário já existe no banco de dados
-    $verifica_usuario = $conn->prepare("SELECT cpf_pessoa FROM concessao_tbl WHERE cpf_pessoa = ?");
-    $verifica_usuario->bind_param("s", $cpf_post);
-    $verifica_usuario->execute();
-    $verifica_usuario->store_result();
 
-    if ($verifica_usuario->num_rows > 0) {
+    try {
+        // Verifica se o CPF já existe no banco de dados
+        $verifica_usuario = $pdo->prepare("SELECT cpf_pessoa FROM concessao_tbl WHERE cpf_pessoa = :cpf_pessoa");
+        $verifica_usuario->execute([':cpf_pessoa' => $cpf_post]);
+
+        if ($verifica_usuario->rowCount() > 0) {
+            ?>
+            <script>
+                Swal.fire({
+                    icon: 'info',
+                    title: 'JÁ EXISTE',
+                    text: 'Já existe um cadastro com esse CPF.',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "/TechSUAS/views/concessao/index";
+                    }
+                });
+            </script>
+            <?php
+            exit();
+        }
+
+        $data_atual = date('Y-m-d H:i:s'); // Ajuste para o formato SQL
+        $smtp_conc = $pdo->prepare("INSERT INTO concessao_tbl (nome, naturalidade, nome_mae, contato, cpf_pessoa, rg_pessoa, tit_eleitor_pessoa, nis_pessoa, renda_media, endereco, operador, data_cadastro) VALUES (:nome, :naturalidade, :nome_mae, :contato, :cpf_pessoa, :rg_pessoa, :tit_eleitor_pessoa, :nis_pessoa, :renda_media, :endereco, :operador, :data_cadastro)");
+        $smtp_conc->execute([
+            ':nome' => $_POST['nome_pessoa'],
+            ':naturalidade' => $_POST['naturalidade_pessoa'],
+            ':nome_mae' => $_POST['nome_mae_pessoa'],
+            ':contato' => $_POST['contato'],
+            ':cpf_pessoa' => $cpf_post,
+            ':rg_pessoa' => $_POST['rg_pessoa'],
+            ':tit_eleitor_pessoa' => $_POST['te_pessoa'],
+            ':nis_pessoa' => $_POST['nis_pessoa'],
+            ':renda_media' => $_POST['renda_per'],
+            ':endereco' => $_POST['endereco'],
+            ':operador' => $nome, // Verifique se a variável $nome está definida
+            ':data_cadastro' => $data_atual
+        ]);
+
         ?>
         <script>
             Swal.fire({
-                icon: 'info',
-                title: 'JÁ EXISTE',
-                text: 'Já existe um cadastro com esse CPF.',
+                icon: 'success',
+                title: 'SALVO',
+                text: 'Dados salvos com sucesso!',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "/TechSUAS/views/concessao/index"
+                    window.location.href = "/TechSUAS/views/concessao/index";
                 }
-            })
+            });
         </script>
-    <?php
-exit();
+        <?php
+    } catch (PDOException $e) {
+        echo "ERRO no envio dos DADOS: " . $e->getMessage();
     }
-    $data_atual = date('d/m/Y H:i');
-    $smtp_conc = $conn->prepare("INSERT INTO concessao_tbl (nome, naturalidade, nome_mae, contato, cpf_pessoa, rg_pessoa, tit_eleitor_pessoa, nis_pessoa, renda_media, endereco, operador, data_cadastro) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
-    $smtp_conc->bind_param("ssssssssssss", $_POST['nome_pessoa'], $_POST['naturalidade_pessoa'], $_POST['nome_mae_pessoa'], $_POST['contato'], $cpf_post, $_POST['rg_pessoa'], $_POST['te_pessoa'], $_POST['nis_pessoa'], $_POST['renda_per'], $_POST['endereco'], $nome, $data_atual);
 
-    if ($smtp_conc->execute()) {?>
-                <script>
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'SALVO',
-                        text: 'Dados salvos com sucesso!',
-                    }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = "/TechSUAS/views/concessao/index"
-                }
-            })
-                </script>
-            <?php
+    // Fechar conexão PDO
+    $pdo = null;
 } else {
-        echo "ERRO no envio dos DADOS: " . $smtp_conc->error;
-    }
-    $smtp_conc->close();
-    $conn->close();
-
-} else {
-    echo 'não funcionou';
+    echo 'Não funcionou';
 }
 ?>
-
-
 </body>
 </html>

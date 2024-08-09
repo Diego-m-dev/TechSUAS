@@ -90,7 +90,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 var id = $(this).data('id');
                 // Requisição AJAX para atualizar o status
                 $.ajax({
-                    url: '/TechSUAS/controller/cadunico/fichario/atualizar_status.php',
+                    url: '/TechSUAS/controller/recepcao/atualizar_status.php',
                     type: 'POST',
                     data: {
                         id: id,
