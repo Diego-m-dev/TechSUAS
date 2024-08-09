@@ -28,7 +28,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     $parecer = nl2br($_POST['parecer']);
     $codigo_familiar = $_POST['codigo_familiar'];
     $cod_limpo = preg_replace('/\D/', '', $codigo_familiar);
-    $cod_ajustado = substr_replace(str_pad($cod_limpo, 11,'0',STR_PAD_LEFT), '-', 9, 0);
+    $cod_ajustado = str_pad($cod_limpo, 11,'0',STR_PAD_LEFT);
 
     $smtp = $conn->prepare("INSERT INTO visitas_feitas (cod_fam, data, acao, parecer_tec, entrevistador) VALUES (?,?,?,?,?)");
     $smtp->bind_param("sssss", $cod_ajustado, $data_visita, $acao_visita, $parecer, $_SESSION['nome_usuario']);
@@ -43,7 +43,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             text: 'Dados salvos com sucesso!',
             html: `
             <h5>Dados da família</h5>
-            <p>Código Familiar: <?php echo $cod_ajustado; ?></p>
+            <p>Código Familiar: <?php echo substr_replace($cod_ajustado, '-', 9, 0); ?></p>
             `,
         }).then((result) => {
             if (result.isConfirmed) {
