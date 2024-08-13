@@ -1,18 +1,25 @@
 body {
-  font-family: 'Times New Roman', Times, serif;
-  background-color: #f8f0e3;
-  color: #333;
-  margin: 20px;
-  padding: 20px;
+  background-image: url('/TechSUAS/img/cadunico/background_cad.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  overflow: auto;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
 }
-
-h1 {
-  color: #8b4513;
-  text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
+* {
+  margin-top: 0px;
 }
-
+img {
+  display: flex;
+  width: 100%;
+  max-height: 120px
+}
+.container{
+  display: inline-block;
+  width: 100%;
+  margin-top: 20px;
+}
 form {
   max-width: 600px;
   margin: 0 auto;
@@ -22,7 +29,12 @@ form {
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
-
+#btn_links{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
 label {
   display: block;
   margin-bottom: 10px;
@@ -52,9 +64,12 @@ input[type="number"] {
   margin-top: 50px;
   text-align: center;
 }
-
-button {
-  background-color: #8b4513;
+.btns1{
+  display: flex;
+  justify-content: space-between;
+}
+button,a {
+  background-color: #13294b;
   color: white;
   padding: 10px 20px;
   border: none;
@@ -62,14 +77,18 @@ button {
   cursor: pointer;
   font-size: 1em;
   margin-right: 10px;
+  text-decoration: none;
 }
 
 #cod {
   font-size: 18px;
   margin-top: 30px;
 }
-button:hover {
-  background-color: #a0522d;
+button:hover,
+a:hover {
+  background-color: #3b82f6;
+  box-shadow: 0 0 0 1px #3b83f65f;
+  color: #fff;
 }
 
 table {
@@ -85,8 +104,8 @@ th, td {
 }
 
 th {
-  background-color: #f2e6d9;
-  color: #333;
+  background-color: #13294b;
+  color: #ffffff;
 }
 
 td {
@@ -99,15 +118,6 @@ td {
 
 #textarm{
 font-size: 2cm;
-}
-
-.container {
-  display: inline-block;
-  position: relative;
-  width: 8cm;
-  height: 3cm;
-  margin: 5px;
-  border: 1px solid #ccc;
 }
 
 .original-size {
