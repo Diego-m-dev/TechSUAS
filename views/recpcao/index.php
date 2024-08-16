@@ -14,10 +14,11 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    
     <link rel="stylesheet" href="/TechSUAS/css/recepcao/style.css">
-    <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link rel="icon" type="image/png" href="/TechSUAS/img/geral/logo.png">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -43,7 +44,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 <div class="bt">
                     <button type="button" class="modal-trigger" id="menu-button">
                         <span class="material-symbols-outlined">quick_reference_all</span>
-                        SOLICITAR FORMULARIOS
+                        SOLICITAR FORMULÁRIOS
                     </button>
                 </div>
 
@@ -57,7 +58,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 <div class="bt">
                     <button type="button" class="menu-button" id="menu-button">
                         <span class="material-symbols-outlined">group</span>
-                        CADASTRO DE USUARIOS
+                        CADASTRO DE USUÁRIOS
                     </button>
                 </div>
 
@@ -66,7 +67,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
         <div class="mural_stats">
             <h2>MURAL DE AVISOS</h2>
 
-            <table>
+            <table id="dataTable">
                 <thead>
                     <tr>
                         <th>CPF</th>
@@ -79,41 +80,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    // Consulta SQL para selecionar apenas registros com status "feito"
-                    $sql = "SELECT * FROM solicita WHERE status = 'feito' LIMIT 5";
-                    $result = $conn->query($sql);
-
-                    // Verifica se há registros retornados
-                    if ($result && $result->num_rows > 0) {
-                        // Loop através dos resultados e exiba cada registro em uma linha da tabela
-                        while ($row = $result->fetch_assoc()) {
-                            $tipo = '';
-                            if ($row['tipo'] == 1) {
-                                $tipo = "NIS";
-                            } elseif ($row['tipo'] == 3) {
-                                $tipo = "ENTREVISTA";
-                            } elseif ($row['tipo'] == 2) {
-                                $tipo = "DECLARAÇÃO CAD";
-                            }
-
-                            echo "<tr>";
-                            echo "<td>" . htmlspecialchars($row['cpf']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['nome']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['cod_fam']) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['nis']) . "</td>";
-                            echo "<td>" . htmlspecialchars($tipo) . "</td>";
-                            echo "<td>" . htmlspecialchars($row['status']) . "</td>";
-                            echo "<td><i class='fas fa-check-circle check-icon' data-id='" . htmlspecialchars($row['id']) . "'></i></td>";
-                            echo "</tr>";
-                        }
-                    } else {
-                        echo "<tr><td colspan='7'>Nenhum registro encontrado com status feito.</td></tr>";
-                    }
-
-                    // Feche a conexão com o banco de dados
-                    $conn->close();
-                    ?>
+                    <!-- Os dados serão preenchidos via AJAX -->
                 </tbody>
             </table>
 
@@ -146,7 +113,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                             <label for="tipo">SOLICITAÇÃO</label>
                             <select name="tipo" id="tipo">
                                 <option value="1">NIS</option>
-                                <option value="2">DECLARAÇÃO CADUNICO</option>
+                                <option value="2">DECLARAÇÃO CADÚNICO</option>
                                 <option value="3">ENTREVISTA</option>
                             </select>
                         </div>
@@ -180,201 +147,8 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 </div>
             </div>
         </div>
-
-        <script>
-            $(document).ready(function () {
-                var modal = document.getElementById("myModal");
-                var span = document.getElementsByClassName("close")[0];
-                var modalTriggers = document.querySelectorAll(".modal-trigger");
-
-                // Abre o modal ao clicar nos gatilhos
-                modalTriggers.forEach(function (trigger) {
-                    trigger.addEventListener("click", function (event) {
-                        event.preventDefault();
-                        // Obtém o texto do botão ignorando os filhos (ícones)
-                        var buttonText = this.innerText.trim().split("\n").pop().trim();
-                        document.getElementById("modalText").innerText = buttonText;
-                        modal.style.display = "block";
-                    });
-                });
-
-                // Fecha o modal ao clicar no botão de fechar
-                span.onclick = function () {
-                    modal.style.display = "none";
-                };
-
-                // Fecha o modal ao clicar fora dele
-                window.onclick = function (event) {
-                    if (event.target == modal) {
-                        modal.style.display = "none";
-                    }
-                };
-
-                // Aplica máscara para CPF
-                $('#cpf').mask('000.000.000-00', { reverse: false });
-
-                // Aplica máscara para Código Familiar (cod)
-                $('#cod').mask('000000000-00', { reverse: false });
-
-                // Aplica máscara para NIS
-                $('#nis').mask('0000000000-0', { reverse: false });
-
-                // Valida o CPF ao sair do campo
-                $("#cpf").on("blur", function () {
-                    validarCPF(this);
-                });
-
-                // Requisição AJAX para buscar dados do CPF
-                document.getElementById('cpf').addEventListener('blur', function () {
-                    const cpf = this.value.replace(/[^\d]/g, ''); // Remove caracteres não numéricos
-
-                    if (cpf) {
-                        const xhr = new XMLHttpRequest();
-                        xhr.open('POST', '/TechSUAS/controller/recepcao/buscar.php', true);
-                        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-                        // Mostra o elemento de carregamento
-                        document.getElementById('loading').style.display = 'block';
-
-                        xhr.onreadystatechange = function () {
-                            if (xhr.readyState === 4) {
-                                // Esconde o elemento de carregamento após a resposta
-                                document.getElementById('loading').style.display = 'none';
-
-                                if (xhr.status === 200) {
-                                    const response = JSON.parse(xhr.responseText);
-                                    if (response.success) {
-                                        document.getElementById('nome').value = response.nome;
-                                        document.getElementById('cod').value = response.cod_fam_familia;
-                                        document.getElementById('nis').value = response.nis;
-                                    } else {
-                                        Swal.fire({
-                                            icon: 'error',
-                                            title: 'Erro',
-                                            text: 'CPF não encontrado!',
-                                            confirmButtonText: 'OK'
-                                        });
-                                    }
-                                } else {
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Erro',
-                                        text: 'Erro na requisição. Por favor, tente novamente mais tarde!',
-                                        confirmButtonText: 'OK'
-                                    });
-                                }
-                            }
-                        };
-
-                        // Envia o CPF para o servidor
-                        xhr.send('cpf=' + cpf);
-                    }
-                });
-
-                // Impede o envio do formulário se o CPF for inválido
-                $("#submitBtn").on("click", function (event) {
-                    var cpfInput = document.getElementById("cpf");
-                    if (!validarCPF(cpfInput)) {
-                        event.preventDefault();
-                    } else {
-                        // Mostra o loading enquanto processa o envio
-                        $('#loading').css('display', 'block');
-
-                        // Obtém os dados do formulário
-                        var formData = $('#myForm').serialize();
-
-                        // Envia os dados via AJAX
-                        $.ajax({
-                            type: 'POST',
-                            url: '/TechSUAS/controller/recepcao/inserir.php',
-                            data: formData,
-                            success: function (response) {
-                                // Esconde o loading após a resposta
-                                $('#loading').css('display', 'none');
-
-                                // Verifica a resposta do servidor
-                                if (response.trim() === 'success') {
-                                    // Mostra o SweetAlert de sucesso e redireciona, se necessário
-                                    Swal.fire({
-                                        icon: 'success',
-                                        title: 'Sucesso!',
-                                        text: 'Registro inserido com sucesso.',
-                                        confirmButtonText: 'OK'
-                                    }).then((result) => {
-                                        if (result.isConfirmed) {
-                                            window.location.href = '/TechSUAS/views/recpcao/index.php';
-                                        }
-                                    });
-                                } else {
-                                    // Mostra o SweetAlert de erro
-                                    Swal.fire({
-                                        icon: 'error',
-                                        title: 'Erro',
-                                        text: 'Erro ao inserir o registro. Tente novamente mais tarde.',
-                                        confirmButtonText: 'OK'
-                                    });
-                                }
-                            },
-                            error: function () {
-                                // Esconde o loading em caso de erro
-                                $('#loading').css('display', 'none');
-
-                                // Mostra o SweetAlert de erro
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Erro',
-                                    text: 'Erro na requisição. Por favor, tente novamente mais tarde!',
-                                    confirmButtonText: 'OK'
-                                });
-                            }
-                        });
-                    }
-                });
-            });
-
-            // Função para validar CPF
-            function validarCPF(el) {
-                if (!_cpf(el.value)) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'CPF Inválido',
-                        text: 'Por favor, insira um CPF válido!',
-                        confirmButtonText: 'OK'
-                    });
-
-                    // Limpa o valor do campo CPF
-                    el.value = "";
-                    return false;
-                }
-                return true;
-            }
-
-            $(document).ready(function () {
-                $('.check-icon').click(function () {
-                    var id = $(this).data('id');
-                    // Requisição AJAX para atualizar o status
-                    $.ajax({
-                        url: '/TechSUAS/controller/recepcao/atualizar_status.php',
-                        type: 'POST',
-                        data: {
-                            id: id,
-                            novo_status: 'feito'
-                        },
-                        success: function (response) {
-                            // Atualiza a linha na tabela após a atualização
-                            if (response.trim() == 'success') {
-                                location.reload(); // Atualiza a página após o sucesso
-                            } else {
-                                alert('Erro ao atualizar o status.');
-                            }
-                        },
-                        error: function () {
-                            alert('Erro ao conectar com o servidor.');
-                        }
-                    });
-                });
-            });
-        </script>
+        
+        <script src="/TechSUAS/js/request_forms.js"></script>
 </body>
 
 </html>
