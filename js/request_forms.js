@@ -128,6 +128,43 @@ $(document).ready(function () {
     // Atualiza a tabela sem recarregar a página
     function atualizarTabela() {
         $.ajax({
+            url: '/TechSUAS/controller/recepcao/solicitacao_pendente.php',
+            type: 'GET',
+            success: function (response) {
+                var dados = JSON.parse(response);
+                var tabelaBody = $('#dataTable1 tbody');
+                tabelaBody.empty(); // Limpa o corpo da tabela
+
+                if (Array.isArray(dados) && dados.length > 0) {
+                    dados.forEach(function (item) {
+                        var linha = `<tr>
+                        <td>${item.cpf}</td>
+                        <td>${item.nome}</td>
+                        <td>${item.tipo}</td>
+                        <td>${item.status}</td>
+                    </tr>`;
+                        tabelaBody.append(linha);
+                    });
+
+                    // Adiciona o manipulador de eventos para o clique no ícone
+                    $('.check-icon').on('click', function () {
+                        var id = $(this).data('id');
+                        atualizarStatus(id);
+                    });
+                } else {
+                    tabelaBody.append("<tr><td colspan='7'>Nenhum registro encontrado.</td></tr>");
+                }
+            },
+            error: function () {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Erro',
+                    text: 'Erro ao atualizar a tabela. Tente novamente mais tarde.',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
+        $.ajax({
             url: '/TechSUAS/controller/recepcao/buscar_ultimas_solicitacoes.php',
             type: 'GET',
             success: function (response) {
@@ -140,8 +177,6 @@ $(document).ready(function () {
                         var linha = `<tr>
                         <td>${item.cpf}</td>
                         <td>${item.nome}</td>
-                        <td>${item.cod_fam}</td>
-                        <td>${item.nis}</td>
                         <td>${item.tipo}</td>
                         <td>${item.status}</td>
                         <td><i class='fas fa-check-circle check-icon' data-id='${item.id}'></i></td>
@@ -168,7 +203,6 @@ $(document).ready(function () {
             }
         });
     }
-
     // Função para atualizar o status
     function atualizarStatus(id, novoStatus) {
         $.ajax({

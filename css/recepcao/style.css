@@ -110,19 +110,52 @@ a {
     justify-content: center;
 }
 
-/* Mural de Pendências Gerais */
+/* MURAL EM GERAL */
 .mural_stats {
     background-color: #13294b;
     padding: 20px;
     border-radius: 5px;
     margin-left: 10px;
     width: 64%;
+    display: flex;
+    flex-flow: column;
+}
+
+.cont-solict{
+    display: flex;
+    flex-flow: column;
+}
+
+.solict{
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 40px;
+}
+
+.cont-solict h3{
+    color: white;
+    border-bottom: 2px solid #fff;
+}
+.mural_stats th{
+    color: white;
+    border-bottom: 2px solid #fff;
+}
+
+.mural_stats td{
+    margin-bottom: 5px;
+    border-collapse: collapse;
+    color: white;
 }
 
 .mural_stats h2 {
     color: #ffffff;
-    margin-bottom: 15px;
+    margin-bottom: 1px;
 }
+
+
+/*FIM DO MURAL ======================== */
+
+
 
 .cont-a {
     display: flex;
@@ -154,6 +187,9 @@ a {
     font-size: 16px;
     cursor: pointer;
 }
+
+
+
 
 /* Modal container */
 .modal {

@@ -14,7 +14,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="stylesheet" href="/TechSUAS/css/recepcao/style.css">
     <link rel="icon" type="image/png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet"
@@ -67,23 +67,42 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
         <div class="mural_stats">
             <h2>MURAL DE AVISOS</h2>
 
-            <table id="dataTable">
-                <thead>
-                    <tr>
-                        <th>CPF</th>
-                        <th>Nome</th>
-                        <th>Código Familiar</th>
-                        <th>NIS</th>
-                        <th>TIPO</th>
-                        <th>STATUS</th>
-                        <th>AÇÕES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Os dados serão preenchidos via AJAX -->
-                </tbody>
-            </table>
+            <div class="cont-solict">
+                <div class="solict">
+                    <h3>SOLICITAÇÕES PENDETES</h3>
+                    <table id="dataTable1">
+                        <thead>
+                            <tr>
+                                <th>CPF</th>
+                                <th>NOME</th>
+                                <th>TIPO</th>
+                                <th>STATUS</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Os dados serão preenchidos via AJAX -->
+                        </tbody>
+                    </table>
+                </div>
 
+                <div class="solict">
+                    <h3>SOLICITAÇÕES PRONTAS</h3>
+                    <table id="dataTable">
+                        <thead>
+                            <tr>
+                                <th>CPF</th>
+                                <th>NOME</th>
+                                <th>TIPO</th>
+                                <th>STATUS</th>
+                                <th>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Os dados serão preenchidos via AJAX -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div>
 
         <!-- Modal Structure -->
@@ -147,7 +166,7 @@ if ($_SESSION['funcao'] != '0' && $_SESSION['name_sistema'] != "RECEPCAO") {
                 </div>
             </div>
         </div>
-        
+
         <script src="/TechSUAS/js/request_forms.js"></script>
 </body>
 

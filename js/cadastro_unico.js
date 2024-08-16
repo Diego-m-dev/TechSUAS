@@ -926,7 +926,7 @@ function solicitaForm() {
           document.querySelectorAll('.check-icon').forEach(icon => {
             icon.addEventListener('click', (event) => {
               const id = event.target.dataset.id;
-              const novo_status = 'feito';
+              const novo_status = 'PRONTO';
 
               Swal.fire({
                 title: 'Você tem certeza?',

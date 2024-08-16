@@ -15,7 +15,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_SERVER['HTTP_X_REQUESTED_WIT
     $cod = $_POST['cod'];
     $tipo = $_POST['tipo'];
     $nis = $_POST['nis'];
-    $status = 'pendente'; // Valor padrão para a coluna status
+    $status = 'PENDENTE'; // Valor padrão para a coluna status
 
     // Prepare a consulta SQL para inserção
     $sql = "INSERT INTO solicita (cpf, nome, cod_fam, tipo, nis, status, data_solicitacao, modify_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";

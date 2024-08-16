@@ -10,15 +10,11 @@ $data_hoje = date('Y-m-d');
 
 // Consulta SQL para selecionar registros com status 'feito' modificados hoje
 $sql = "SELECT * FROM solicita 
-        WHERE status = 'feito' 
-        AND DATE(modify_date) = ? 
+        WHERE status = 'pendente'  
         ORDER BY modify_date DESC 
         LIMIT 5";
 
 if ($stmt = $conn->prepare($sql)) {
-    // Vincule o parâmetro da data de hoje
-    $stmt->bind_param("s", $data_hoje);
-
     // Execute a consulta
     $stmt->execute();
 
