@@ -85,12 +85,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['codfam'], $_POST['arm
       exit();
   }
 
-    $stmt_troca_fic = $conn->prepare("UPDATE fichario SET codfam=? WHERE arm_gav_pas=?");
+    $stmt_troca_fic = $conn->prepare("UPDATE fichario SET codfam=?, print_id=? WHERE arm_gav_pas=?");
+    $print_id = '';
     if (!$stmt_troca_fic) {
         die('Erro na preparação da consulta: ' . $conn->error);
     }
 
-    $stmt_troca_fic->bind_param("ss", $ajustando_cod, $arm_gav_pas);
+    $stmt_troca_fic->bind_param("sss", $ajustando_cod, $print_id, $arm_gav_pas);
     if ($stmt_troca_fic->execute()) {
         ?>
         <script>
