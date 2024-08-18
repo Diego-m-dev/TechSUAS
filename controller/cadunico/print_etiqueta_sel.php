@@ -76,7 +76,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 <img src="/TechSUAS/img/geral/etiqueta.png" alt="Etiqueta" class="original-size">
                 <div class="overlay">
                     <div id="arm" id="textarm"><?php echo $fichario['arm_gav_pas']; ?></div>
-                    <div id="cod"><?php echo $fichario['codfam']; ?></div>
+                    <div id="cod">| -- <?php echo $fichario['codfam']; ?> -- |</div>
                 </div>
             </div>
             <?php
