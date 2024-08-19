@@ -178,6 +178,7 @@ if (!isset($_POST['beneficio'])) {
 <?php
     }
 }
+$conn_1-close();
 ?>
     <script>
         $(document).ready(function() {
