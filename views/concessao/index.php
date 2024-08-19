@@ -119,6 +119,7 @@ if ($_SESSION['funcao'] == '0') {
     </a> <?php
 exit();
 }
+$conn_1->close();
 ?>
         </div>
 
