@@ -195,6 +195,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
     <?php
         }
     }
+    $conn_1->close();
     ?>
         </div>
     </div>
