@@ -313,6 +313,7 @@ $stmt_dados->close();
         }
     }
 }
+$conn_1->close();
 ?>
 
 <script>
