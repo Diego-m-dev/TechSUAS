@@ -179,6 +179,7 @@ $consultaSetores = $conn->query("SELECT caracteristica FROM concessao_itens");
         echo 'O responsável é ' . $conc['parentesco'] . '.';
     }
 }
+$conn_1->close();
 ?>
     </div>
 </div>
