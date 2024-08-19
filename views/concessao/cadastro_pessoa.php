@@ -272,6 +272,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
                     $_SESSION['cpf'] = $_POST['cpf'];
                 }
             }
+        $conn_1->close();
 ?>
     </div>
 </body>
