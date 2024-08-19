@@ -193,6 +193,7 @@ while ($dados_hist_form = $form_query->fetch_assoc()) {
         }
     }
 }
+$conn_1->close();
 ?>
     </div>
 </body>
