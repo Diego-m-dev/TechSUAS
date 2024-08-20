@@ -82,12 +82,12 @@ $setorizado = $_SESSION['setor'];
                     echo $dados_tbl['vlr_renda_media_fam'] > 218 ? " Conforme o artigo 5° da lei 14.601 de 19 de junho de 2023, a família não se enquadra no perfil para o Programa Bolsa Família." : " Conforme o artigo 5° da lei 14.601 de 19 de junho de 2023, a família se enquadra no perfil para o Programa Bolsa Família.";
                     ?>
                     </p>
-                    <p>
+                    <p style="text-indent: 1.25cm;">
                     <?php
                     if ($sql_query_dec_fl->num_rows != 0) {
                         $dados_fl = $sql_query_dec_fl->fetch_assoc();
                         if ($dados_tbl['vlr_renda_media_fam'] >= 218 && $dados_tbl['vlr_renda_media_fam'] <= 706) {
-                            echo "Apesar da renda familiar não ter perfil por ter uma renda acima de R$ 218,00 como determina o Art. 5º da Lei 14.601, de 19 de junho de 2023, a família recebe o Bolsa Família em regra de Proteção estabelecido na mesma lei, Art. 6º.";
+                            echo "Embora a família não atenda ao perfil para o Programa Bolsa Família, devido à renda per capita superior a R$ 218,00, conforme estabelecido no Art. 5º da Lei 14.601, de 19 de junho de 2023, ela recebe o benefício com base na regra de Proteção prevista no Art. 6º da mesma lei.";
                         } else {
                             $referencia = $dados_fl['ref_folha'];
                             $ref_folha = substr($referencia, -2);
