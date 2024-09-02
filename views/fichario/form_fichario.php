@@ -82,8 +82,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </table>
             <div class="btns1">
                 <button type="submit" id="btn_salvar">Salvar</button>
+                <button type="button" id="btn_reload" style="display: none;">Novo</button>
                 <a href="/TechSUAS/views/cadunico/fichario/index.php"><i class="fas fa-arrow-left"></i>Voltar</a>
-                        <button type="button" id="btn_reload" style="display: none;">Novo</button>
             </div>
 
         </form>
