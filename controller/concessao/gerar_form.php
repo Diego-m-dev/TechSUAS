@@ -161,7 +161,7 @@ $num_form = $result['total_registros'] + 1;
                         $num_logradouro = $dados_benef["num_logradouro_fam"];
                     }
                     $nom_localidade_fam = $dados_benef["nom_localidade_fam"];
-                    $nom_bairro_fam = $dados_benef["nom_bairro_fam"];
+                    $nom_bairro_fam = $dados_benef["nom_localidade_fam"];
 
                     $nis_resp = $_POST['nis'];
                     $cpf_resp = $_POST['cpf'];
@@ -176,13 +176,13 @@ $num_form = $result['total_registros'] + 1;
                         <td class="resultado" colspan="2">NOME:</td>
                         <td class="resultado" colspan="9"> <b> <?php echo $dados_benef['nom_pessoa']; ?> </b> </td>
                         <td class="resultado" colspan="2">NATURALIDADE:</td>
-                        <td class="resultado" colspan="3"> <b> <?php echo $dados_benef['nom_naturalidade_pessoa']; ?> </td>
+                        <td class="resultado" colspan="3"> <b> <?php echo $dados_benef['nom_ibge_munic_nasc_pessoa']; ?> </td>
                     </tr>
                     <tr class="resultado">
                         <td class="resultado" colspan="2">NOME DA MÃE:</td>
-                        <td class="resultado" colspan="9"> <b> <?php echo $dados_benef['nom_mae_pessoa']; ?> </b> </td>
+                        <td class="resultado" colspan="9"> <b> <?php echo $dados_benef['nom_completo_mae_pessoa']; ?> </b> </td>
                         <td class="resultado" colspan="2">CONTATO:</td>
-                        <td class="resultado" colspan="3"><b> <?php echo $dados_benef['num_telefone_pessoa']; ?> </b></td>
+                        <td class="resultado" colspan="3"><b> <?php echo $dados_benef['num_tel_contato_1_fam']; ?> </b></td>
                     </tr>
                     <tr class="resultado">
                         <td class="resultado" colspan="16">DADOS DOS DOCUMENTOS DO(A) BENEFICIÁRIO(A):</td>
