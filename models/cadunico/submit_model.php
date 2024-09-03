@@ -21,5 +21,19 @@ class CadastroModel {
         }
       $stmt->close();
     }
+
+    public function adicionarSitBenefi($cod_familiar_fam, $resumo, $sit_beneficio, $operador) {
+        $stmt = $this->conn->prepare("INSERT INTO sit_beneficio (cod_familiar_fam, obs_familia, sit_beneficio, operador) 
+        VALUES (?, ?, ?, ?)");
+        $stmt->bind_param("ssss", $cod_familiar_fam, $resumo, $sit_beneficio, $operador);
+    
+        if ($stmt->execute()) {
+            return true;
+        } else {
+            return false;
+        }
+      $stmt->close();
+    }
 }
 ?>
+s

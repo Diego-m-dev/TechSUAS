@@ -53,10 +53,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             </div>
             <div id="data_entre" class="ocult"></div>
           </div>
+
+          <div>
+            <button id="solicitaFormButton" type="button" onclick="formPedidos()">Acompanhamento de Pedidos</button>
+          </div>
+
           <div>
             <button id="solicitaFormButton" type="button" onclick="solicitaForm()">Solicitações de Formulários</button>
           </div>
-
         </div>
 
 
