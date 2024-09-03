@@ -517,4 +517,43 @@ $sql_create = [
 
 "ALTER TABLE `visitas_feitas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+
+// Table structure for table `status_familia`
+
+  "CREATE TABLE status_familia (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cod_familiar VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL UNIQUE,
+    status VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+DELIMITER //
+
+CREATE PROCEDURE atualizar_status_familia()
+BEGIN
+    -- Temporarily mark all families as inactive
+    UPDATE status_familia
+    SET status = 'inativo', data_atualizacao = NOW();
+
+    -- Update families that are still active
+    INSERT INTO status_familia (cod_familiar, status, data_atualizacao, nom_pess)
+    SELECT cod_familiar_fam, 'ativo', dat_atual_fam, nom_pessoa
+    FROM tbl_tudo
+    WHERE cod_parentesco_rf_pessoa = 1
+    ON DUPLICATE KEY UPDATE 
+        status = VALUES(status), 
+        data_atualizacao = VALUES(data_atualizacao);
+
+END //
+DELIMITER;
+
+CREATE EVENT IF NOT EXISTS atualizar_status_familia_event
+ON SCHEDULE EVERY 1 DAY
+DO
+CALL atualizar_status_familia();
+
+SET GLOBAL event_scheduler = ON;
+
+CALL atualizar_status_familia();",
+
 ];
