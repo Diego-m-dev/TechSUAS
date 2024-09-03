@@ -7,11 +7,8 @@ $stmt_fic = "SELECT id, codfam, arm_gav_pas, operador FROM fichario
 WHERE print_id != 'S'
 ORDER BY arm ASC, gav ASC, pas ASC ";
 $stmt_fic_query = $conn->query($stmt_fic) or die("Erro " . $conn - error);
-
-if ($stmt_fic_query->num_rows > 0) {
-
 ?>
-  <!DOCTYPE html>
+<!DOCTYPE html>
   <html lang="pt-br">
 
   <head>
@@ -39,7 +36,12 @@ if ($stmt_fic_query->num_rows > 0) {
         <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/fichario/h1-ficharios_ocupados.svg" alt="Título com imagem">
       </h1>
     </div>
-    <div class="container">
+
+<?php
+if ($stmt_fic_query->num_rows > 0) {
+
+?>
+      <div class="container">
       <form action="/TechSUAS/controller/cadunico/print_etiqueta_sel" method="post">
         <div class="btns">
           <button type="submit" id="print">imprimir</button>
@@ -80,7 +82,11 @@ if ($stmt_fic_query->num_rows > 0) {
         </div>
       </form>
     <?php
-  }
+  } else {
+?>
+    <h2>Não há nenhuma etiqueta para impressão!</h2>
+<?php
+}
 
   $conn->close();
   $conn_1->close();
