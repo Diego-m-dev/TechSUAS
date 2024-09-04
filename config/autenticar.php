@@ -119,6 +119,9 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
               if ($_SESSION['name_sistema'] == "CONCESSAO"){
                 header("location:/TechSUAS/views/concessao/index");
                 exit();
+              } elseif ($_SESSION['nome_usuario'] == "LUIZ HENRIQUE MORAES MANSO"){
+                header("location:/TechSUAS/views/cadunico/descarte");
+                exit();
               } elseif ($_SESSION['name_sistema'] == "CADUNICO") {
                 header("location:/TechSUAS/views/cadunico/index");
                 exit();
