@@ -94,91 +94,83 @@ $nome = $_SESSION['nome_usuario'];
     </div>
     <?php
 
-if (!isset($_POST['beneficio'])) {
-    } else {
+// Obtém o timestamp atual
+$timestamp = date('Y-m-d H:i:s'); // Formato mais adequado para MySQL
+$nome = $_SESSION['nome_usuario'];
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['beneficio'])) {
+    try {
         $cpf_resp = $_POST['cpf_resp'];
         $data_atual = date('Y');
-        $qtd_conc = "SELECT COUNT(*) as total_registros FROM concessao_historico WHERE ano_form = $data_atual";
-
-        $stmt_qtd = $pdo->query($qtd_conc);
-
-        if ($stmt_qtd === false) {
-            die('Erro na consulta SQL: ' . $pdo->errorInfo()[2]); // Mostra o erro em caso de falha na consulta
-        }
-
+        $qtd_conc = "SELECT COUNT(*) as total_registros FROM concessao_historico WHERE ano_form = :data_atual";
+        
+        $stmt_qtd = $pdo->prepare($qtd_conc);
+        $stmt_qtd->bindParam(':data_atual', $data_atual, PDO::PARAM_INT);
+        $stmt_qtd->execute();
         $result = $stmt_qtd->fetch(PDO::FETCH_ASSOC);
 
-        $hoje_ = date('d/m/Y H:i');
-
+        $hoje_ = date('Y-m-d H:i:s');
         $num_form = $result['total_registros'] + 1;
-
         $situation = "EM PROCESSO";
         
-        $stmt = $conn->prepare('INSERT INTO beneficiario (beneficiario, naturalidade, nome_mae_benef, renda_media, endereco_resp, cpf_beneficio, te_beneficio, rg_beneficio, operador, data_registro) VALUES (?,?,?,?,?,?,?,?,?,?)');
+        // Inserção na tabela `beneficiario`
+        $stmt = $pdo->prepare('INSERT INTO beneficiario (beneficiario, naturalidade, nome_mae_benef, renda_media, endereco_resp, cpf_beneficio, te_beneficio, rg_beneficio, operador, data_registro) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)');
+        $stmt->execute([$_POST['beneficio'], $_POST['naturalidade'], $_POST['nome_mae_benef'], $_POST['renda_media'], $_POST['endereco_resp'], $_POST['cpf_beneficio'], $_POST['te_beneficio'], $_POST['rg_beneficio'], $nome, $timestamp]);
 
-        // Verifique se a preparação foi bem-sucedida
-        if ($stmt === false) {
-            die('Erro na preparação SQL: ' . $conn->error);
+        // Verifica se existe o responsável na tabela `concessao_tbl`
+        $sql_query_resp = $pdo->prepare("SELECT * FROM concessao_tbl WHERE cpf_pessoa = :cpf_resp");
+        $sql_query_resp->bindParam(':cpf_resp', $cpf_resp, PDO::PARAM_STR);
+        $sql_query_resp->execute();
+
+        if ($sql_query_resp->rowCount() > 0) {
+            $dados_resp = $sql_query_resp->fetch(PDO::FETCH_ASSOC);
+
+            $smtp_conc = $pdo->prepare("INSERT INTO concessao_historico (id_concessao, num_form, ano_form, nome_resp, cpf_resp, nome_benef, cpf_benef, rg_benef, tit_benef, endereco, renda_media, data_registro, parentesco, operador, situacao_concessao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $smtp_conc->execute([$dados_resp['id_concessao'], $num_form, $data_atual, $dados_resp['nome'], $cpf_resp, $_POST['beneficio'], $_POST['cpf_beneficio'], $_POST['rg_beneficio'], $_POST['te_beneficio'], $_POST['endereco_resp'], $_POST['renda_media'], $hoje_, $_POST['parentesco'], $nome, $situation]);
+
+            echo "<script>
+                setTimeout(function() {
+                    Swal.fire({
+                        icon: 'success',
+                        html: `<h1>SALVO</h1><p>Dados salvos com sucesso!</p>`,
+                        confirmButtonText: 'OK',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '/TechSUAS/views/concessao/consultar';
+                        }
+                    });
+                }, 300);
+            </script>";
+        } else {
+          echo "<script>
+          Swal.fire({
+              icon: 'info',
+              html: `<h3>RESPONSÁVEL NÃO CADASTRADO</h3>
+              <p>Cadastre o Responsável!</p>`,
+              confirmButtonText: 'OK',
+          }).then((result) => {
+              if (result.isConfirmed) {
+                  window.location.href = '/TechSUAS/views/concessao/cadastro_pessoa';
+              }
+          });
+      </script>";
         }
-
-        $stmt->bind_param("ssssssssss", $_POST['beneficio'], $_POST['naturalidade'], $_POST['nome_mae_benef'], $_POST['renda_media'], $_POST['endereco_resp'], $_POST['cpf_beneficio'], $_POST['te_beneficio'], $_POST['rg_beneficio'], $nome, $timestamp);
-
-        if ($stmt->execute()) {
-
-            $sql_query_resp = $pdo->prepare("SELECT * FROM concessao_tbl WHERE cpf_pessoa = :cpf_resp");
-            $sql_query_resp->bindParam(':cpf_resp', $cpf_resp, PDO::PARAM_STR);
-            $sql_query_resp->execute();
-
-            if ($sql_query_resp->rowCount() > 0) {
-                $dados_resp = $sql_query_resp->fetch(PDO::FETCH_ASSOC);
-
-                $smtp_conc = $conn->prepare("INSERT INTO concessao_historico (id_concessao, num_form, ano_form, nome_resp, cpf_resp, nome_benef, cpf_benef, rg_benef, tit_benef, endereco, renda_media, data_registro, parentesco, operador, situacao_concessao) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
-
-                // Verifica se a preparação foi bem-sucedida
-                if ($smtp_conc === false) {
-                    die('Erro na preparação SQL: ' . $conn->error);
-                }
-
-                $smtp_conc->bind_param("sssssssssssssss", $dados_resp['id_concessao'], $num_form, $data_atual, $dados_resp['nome'], $cpf_resp, $_POST['beneficio'], $_POST['cpf_beneficio'], $_POST['rg_beneficio'], $_POST['te_beneficio'], $_POST['endereco_resp'], $_POST['renda_media'], $hoje_, $_POST['parentesco'], $nome, $situation);
-
-                if ($smtp_conc->execute()) {
-?>
-    <script>
-        setTimeout(function() {
+    } catch (Exception $e) {
+        echo "<script>
             Swal.fire({
-                icon: "success",
-                html: `<h1>SALVO</h1>
-        <p>Dados salvos com sucesso!</p>`,
+                icon: 'error',
+                html: `<h1>ERRO</h1><p>Erro no salvamento: " . $e->getMessage() . "</p>`,
                 confirmButtonText: 'OK',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = "/TechSUAS/views/concessao/consultar"
+                    window.location.href = '/TechSUAS/concessao/index';
                 }
-            })
-        }, 3000)
-    </script>
-<?php
-                }
-
-            }
-    } else {
-?>
-    <script>
-        Swal.fire({
-            icon: "error",
-            html: `<h1>ERRO</h1>
-                <p>Erro no salvamento, contacte o suporte.</p>`,
-            confirmButtonText: 'OK',
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = "/Suas-Tech/concessao/index"
-            }
-        })
-    </script>
-<?php
+            });
+        </script>";
     }
 }
-$conn_1-close();
+
+$conn_1->close();
 ?>
     <script>
         $(document).ready(function() {
