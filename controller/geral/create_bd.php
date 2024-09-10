@@ -556,4 +556,20 @@ SET GLOBAL event_scheduler = ON;
 
 CALL atualizar_status_familia();",
 
+"CREATE TABLE `descartes` (
+  `id` int(11) NOT NULL,
+  `codfam` varchar(11) NOT NULL,
+  `data_entrevista` date NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `operador` varchar(100) NOT NULL,
+  `tipo` varchar(255) NOT NULL,
+  `status` varchar(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+
+ALTER TABLE `descartes`
+  ADD PRIMARY KEY (`id`);
+  
+  ALTER TABLE `descartes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
 ];
