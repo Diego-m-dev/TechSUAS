@@ -88,7 +88,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
         </form>
         <div id="btn_links">
-            <button type="button" onclick="buscaFicharo()">FICHÁRIOS OCUPADOS</button>
+            <button type="button" onclick="buscaFicharo()">FICHÁRIOS TROCADOS</button>
             <button type="button" onclick="printTiq()">IMPRIMIR ETIQUETA</button>
             <button type="button" onclick="verFichario()">TODOS OS FICHÁRIOS</button>
 
