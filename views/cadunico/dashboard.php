@@ -53,16 +53,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             </div>
             <div id="data_entre" class="ocult"></div>
           </div>
-
-          <div>
-            <button id="solicitaFormButton" type="button" onclick="formPedidos()">Acompanhamento de Pedidos</button>
-          </div>
-
           <div>
             <button id="solicitaFormButton" type="button" onclick="solicitaForm()">Solicitações de Formulários</button>
           </div>
         </div>
-
 
         <div class="bloc2">
           <div class="situacao">
@@ -200,9 +194,24 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             </nav>
           </div>
         </div>
+        <div class="nav">
+          <div class="btn_operacao">
+            <div><label for="">Botões de operações rápidas:</label></div>
+
+            <nav>
+              <a type="button" id="btn_beneficios">
+                Registrar situação do benefício:
+              </a>
+            </nav>
+
+          </div>
+        </div>
       </div>
     </div>
   </div>
+  <?php
+  $conn_1->close();
+  ?>
   <script>
       $(document).ready(function() {
       $('#cadastroForm').on('submit', function(event) {
