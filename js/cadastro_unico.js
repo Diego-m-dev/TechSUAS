@@ -982,3 +982,29 @@ function solicitaForm() {
     });
 }
 
+$(document).ready(function (){
+  $('#btn_beneficios').click(function () {
+    Swal.fire({
+      title: "SITUAÇÃO DO BENEFÍCIO",
+      html: `
+            <h4>INFORME O NIS</h4>
+            <form method="POST" action="/TechSUAS/controller/cadunico/dashboard/sit_beneficio" id="form_dec_renda">
+                <label> NIS:
+                    <input type="text" id="cpf_declar" name="cpf_declar"/>
+                </label>
+            </form>
+            `,
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      didOpen: () => {
+        
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const form = document.getElementById("form_dec_renda")
+        form.submit()
+      }
+    })
+  })
+})
