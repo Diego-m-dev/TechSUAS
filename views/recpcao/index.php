@@ -171,3 +171,5 @@ if ($_SESSION['funcao'] != '0' || $_SESSION['name_sistema'] != "RECEPCAO") {
 </body>
 
 </html>
+<?php
+$conn_1->close();
