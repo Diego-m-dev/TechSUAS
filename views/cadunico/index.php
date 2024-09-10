@@ -141,3 +141,5 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/css_ind.php';
 </body>
 
 </html>
+<?php
+$conn_1->close();
