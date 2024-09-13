@@ -47,7 +47,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     } else {
         $nis_form = $_POST['excluir'];
 
-
     ?>
 
         <a href="/TechSUAS/views/cadunico/visitas/visitas_para_fazer">
