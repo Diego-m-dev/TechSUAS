@@ -120,7 +120,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                                                         echo $dados["nom_tip_logradouro_fam"] . ' ';
                                                         echo $dados["nom_titulo_logradouro_fam"] == "" ? "" : $dados["nom_titulo_logradouro_fam"] . ' ';
                                                         echo $dados["nom_logradouro_fam"] . ', ';
-                                                        echo $dados["num_logradouro_fam"] == "" ? "S/N" : $dados["num_logradouro_fam"];
+                                                        echo $dados["num_logradouro_fam"] == "0" ? "S/N" : $dados["num_logradouro_fam"];
                                                         ?></td>
           <td class="resultado"><?php echo $dados['visfeit'] === 'NÃO' ? 'NÃO' : $dados['visfeit']; ?></td>
         </tr>
