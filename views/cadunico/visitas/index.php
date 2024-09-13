@@ -42,6 +42,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 Visitas não realizadas
               </button>
             </div>
+            <div class="visitas_n">
+              <button class="menu-button" onclick="location.href='visitas_para_fazer_data';">
+                <span class="material-symbols-outlined">
+                  person_search
+                </span>
+                Filtrar Visitas
+              </button>
+            </div>
 
             <div class="parecer">
               <button class="menu-button" onclick="location.href='registrar';">
@@ -93,11 +101,34 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
   $totalRegistros = $row['total_visitas'];
   $numero_parecer = $totalRegistros;
 
+  $sql = "
+  SELECT 
+    COUNT(CASE WHEN cod_forma_coleta_fam = 2 THEN 1 END) AS quant_visit_cad,
+    COUNT(*) AS quant_cad,
+    ROUND(
+      (COUNT(CASE WHEN cod_forma_coleta_fam = 2 THEN 1 END) / COUNT(*)) * 100, 2
+    ) AS porcento
+  FROM tbl_tudo
+  WHERE cod_parentesco_rf_pessoa = 1
+";
+
+$query = $pdo->query($sql);
+$row = $query->fetch(PDO::FETCH_ASSOC);
+
+$total_visitas = $row['quant_visit_cad'];
+$total_cadastro = $row['quant_cad'];
+$porcento = str_replace(".", ",", $row['porcento']);
+
+
     //$sql = "SELECT * FROM tbl_tudo WHERE dat_atual_fam LIKE '%$sql_ano%'";
   ?>
   <div class="parent">
     <div class="visits">
-      <?php echo 'Até o momento foram realizadas '. $numero_parecer . ' visitas.'; ?>
+      <?php echo 'Há '. $numero_parecer . ' registros de visitas realizadas.<br>'; ?>
+      <?php 
+            echo "No CadÚnico há ". $total_visitas. " cadastros marcados com visitas. <br>";
+            echo "Isso equivale a ". $porcento ."% de cadastros feitos com visita.";
+      ?>
     </div>
   </div>
 </div>
