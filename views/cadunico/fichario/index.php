@@ -37,7 +37,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </div>
             <div class="btns">
                 <div class="bt">
-                    <a type="button" href="/TechSUAS/views/cadunico/fichario/solicita_form.php" class="menu-button" id="menu-button">
+                    <a type="button" href="/TechSUAS/views/cadunico/fichario/solicita_form" class="menu-button" id="menu-button">
                         SOLICITAÇÕES DE FORMULARIOS
                     </a>
                 </div>
@@ -50,13 +50,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 </div>
 
                 <div class="bt">
-                    <a type="button" href="/TechSUAS/views/cadunico/fichario/fichario_home.php" class="menu-button" id="menu-button">
+                    <a type="button" href="/TechSUAS/views/cadunico/fichario/fichario_home" class="menu-button" id="menu-button">
                         <span class="material-symbols-outlined"></span>
                         FICHARIO DIGITAL
                     </a>
                 </div>
                 <div class="bt">
-                    <a type="button" href="/TechSUAS/views/cadunico/index.php" class="menu-button" id="menu-button">
+                    <a type="button" href="/TechSUAS/views/cadunico/index" class="menu-button" id="menu-button">
                     VOLTAR AO MENU
                     <span class="material-symbols-outlined">
                             arrow_back
