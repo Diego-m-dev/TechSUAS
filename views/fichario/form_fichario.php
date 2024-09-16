@@ -13,7 +13,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="/TechSUAS/css//cadunico/fichario/style_fichario_fisico.css">
+    <link rel="stylesheet" href="/TechSUAS/css/cadunico/fichario/style_fichario_fisico.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -88,9 +88,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
         </form>
         <div id="btn_links">
-            <button type="button" onclick="buscaFicharo()">FICHÁRIOS TROCADOS</button>
             <button type="button" onclick="printTiq()">IMPRIMIR ETIQUETA</button>
             <button type="button" onclick="verFichario()">TODOS OS FICHÁRIOS</button>
+            <button type="button" onclick="buscaFicharo()">FICHÁRIOS TROCADOS</button>
+            <button type="button" onclick="mapaFicharo()">MAPA DOS FICHÁRIOS</button>
 
             <?php
             if ($_SESSION['funcao'] == "1") {
