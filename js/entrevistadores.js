@@ -31,10 +31,10 @@ function criarTabela() {
 var dados = []; // Variável global para armazenar os dados da tabela
 
 function filtroCriaIdos() {
-  const button = document.getElementById('filtroCriaIdosButton');
+  const button = document.getElementById('filtroCriaIdosButton')
   if (!button) {
-    console.error('Botão não encontrado.');
-    return;
+    console.error('Botão não encontrado.')
+    return
   }
 
   const loadingHtml = `
@@ -42,14 +42,14 @@ function filtroCriaIdos() {
       <i class="fas fa-spinner fa-spin" style="font-size: 24px; margin-bottom:10px;"></i><br>
       <p>Carregando...</p>
     </div>
-  `;
+  `
 
   Swal.fire({
     html: loadingHtml,
     width: '400px',
     showConfirmButton: false,
     allowOutsideClick: false
-  });
+  })
 
   // Desabilita o botão para evitar múltiplos cliques
   button.disabled = true;
