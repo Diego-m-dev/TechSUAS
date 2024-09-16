@@ -78,7 +78,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </tbody>
         </table>
         <div>
-        <a href="/TechSUAS/views/cadunico/fichario/index.php">
+        <a href="/TechSUAS/views/cadunico/fichario/index">
             <i class="fas fa-arrow-left"></i> Voltar
         </a>
         </div>
