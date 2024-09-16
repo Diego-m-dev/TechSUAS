@@ -832,6 +832,22 @@ function buscaFicharo() {
   window.location.href = "/TechSUAS/views/fichario/allFichario"
 }
 
+function mapaFicharo() {
+  Swal.fire({
+    title:'ATENÇÃO',
+    html:`
+    <p>A.00 = Armários e seu respectivo número</p>
+    <p>G.00 = Gavetas e seu respectivo número</p>
+    <p>P.000 = Pastas e seu respectivo número</p>
+    <p>Os P.000 na cor <span class="red_text">VERMELHA</span> representam pastas ocupadas</p>
+    `,
+    confirmButtonText: "OK"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      window.location.href = "/TechSUAS/views/fichario/mapa_fichario"
+    }
+  })
+}
 
 function printTiq() {
   window.location.href = "/TechSUAS/controller/fichario/print_etiqueta"
