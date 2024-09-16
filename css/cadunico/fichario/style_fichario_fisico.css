@@ -15,6 +15,9 @@ img {
   width: 100%;
   max-height: 120px
 }
+.red_text{
+  color: #f40303;
+}
 .container{
   display: inline-block;
   width: 100%;
