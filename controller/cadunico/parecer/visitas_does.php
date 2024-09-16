@@ -71,7 +71,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
                 $cod_fam = ltrim($codigo_familiar, '0');
 
 
-                $sql_visitas_did = "SELECT * FROM visitas_feitas WHERE cod_fam = '$cod_fam'";
+                $sql_visitas_did = "SELECT data FROM visitas_feitas WHERE cod_fam LIKE '%$cod_fam'";
                 $sql_query_vis_did = $conn->query($sql_visitas_did) or die("ERRO ao consultar !" . $conn - error);
 
                 if ($sql_query_vis_did->num_rows == 0) {
