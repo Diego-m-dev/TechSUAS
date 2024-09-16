@@ -17,6 +17,7 @@
 <a href="/TechSUAS/views/cadunico/area_gestao/index">
     <i class="fas fa-arrow-left"></i> Voltar
 </a>
+
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
@@ -29,7 +30,7 @@ if (!isset($_POST['detalhe']) && empty($_POST['detalhe'])) {
 
 $entrevistador = $_POST['detalhe'];
 
-$stmt_cadastro = "SELECT * FROM tbl_tudo
+$stmt_cadastro = "SELECT nom_entrevistador_fam, num_cpf_entrevistador_fam, dat_atual_fam, dta_entrevista_fam, cod_familiar_fam, nom_pessoa FROM tbl_tudo
                     WHERE nom_entrevistador_fam
                     LIKE '$entrevistador'
                     AND cod_parentesco_rf_pessoa = 1
@@ -53,13 +54,18 @@ if ($stmt_query->num_rows == 0) {
     $cpf_formatado = substr($cpf_formatado, 0, 3) . '.' . substr($cpf_formatado, 3, 3) . '.' . substr($cpf_formatado, 6, 3) . '-' . substr($cpf_formatado, 9, 2);
     echo $cpf_formatado;
     ?></span>
-    <p> Em todo o tempo no Cadastro Único já realizou <?php echo $quant_visita['quantidade_visitas'] == 1 ? $quant_visita['quantidade_visitas']. " visita." : $quant_visita['quantidade_visitas']. ' visitas.'; ?></p>
+    <p> O entrevistador(a) já realizou <?php echo $quant_visita['quantidade_visitas'] == 1 ? $quant_visita['quantidade_visitas']. " visita." : $quant_visita['quantidade_visitas']. ' visitas.'; ?></p>
     <a class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/visitas/accompany_visits';">
             <span class="material-symbols-outlined">
                     library_add
             </span>
         Confira as visitas aqui
     </a>
+    <form action="/TechSUAS/views/cadunico/area_gestao/relatorio_entrevistador" method="post">
+      <input type="hidden" value="<?php echo $cpf_entrevist; ?>" name="cpf_entrevistador"/>
+      <input type="hidden" value="<?php echo $b['nom_entrevistador_fam']; ?>" name="nome_entrevistador"/>
+      <button type="submit">Gerar relatório de visitas</button>
+    </form>
         <!-- Gráfico por Ano -->
         <h3>Cadastros por Ano</h3>
         <canvas id="graficoAno"></canvas>
@@ -148,7 +154,7 @@ while ($a = $stmt_query->fetch_assoc()) {
     }
 }
 $conn->close();
-
+$conn_1->close();
 ?>
 
 <script>
