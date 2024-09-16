@@ -55,7 +55,7 @@
                 <label for="consulta">Consultar Família</label>
                 <input type="text" id="consulta" name="consulta">
                 <button type="submit">Consultar</button>
-                <a href="./index.php"><i class="fas fa-arrow-left"></i>Voltar</a>
+                <a href="./index"><i class="fas fa-arrow-left"></i>Voltar</a>
             </form>
 
             <div class="listar_cadastros">
