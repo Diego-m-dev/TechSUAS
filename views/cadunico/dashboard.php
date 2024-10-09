@@ -200,7 +200,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
             <nav>
               <a type="button" id="btn_beneficios">
-                Registrar situação do benefício:
+                Registrar situação do benefício
+              </a>
+            </nav>
+
+            <nav>
+              <a type="button" id="btn_filtrar">
+                Filtros Famílias
               </a>
             </nav>
 
