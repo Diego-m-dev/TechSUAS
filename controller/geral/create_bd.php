@@ -60,6 +60,15 @@ $sql_create = [
   `in_situacao_fam` varchar(255) DEFAULT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
+// Table structure for table `cadastros_excluidos`
+
+"CREATE TABLE cadastros_excluidos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cod_familiar VARCHAR(255) NOT NULL,
+    nis_pessoa VARCHAR(11) NOT NULL,
+    data_exclusao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);",
+
 // Table structure for table `cadastro_forms`
 
 "CREATE TABLE `cadastro_forms` (
@@ -77,7 +86,7 @@ $sql_create = [
   `operador` varchar(100) NOT NULL,
   `criacao` timestamp NULL DEFAULT current_timestamp(),
   `modificacao` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_german2_ci;",
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;;",
 
 // Table structure for table `fichario`
 
@@ -91,7 +100,7 @@ $sql_create = [
   `gav` int(2) NOT NULL,
   `pas` int(3) NOT NULL,
   `print_id` varchar(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;",
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;;",
 
 // Table structure for table `ficharios`
 
@@ -103,7 +112,7 @@ $sql_create = [
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
   UNIQUE KEY `unique_arm_gav_pas` (`arm`, `gav`, `pas`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb4_general_ci;",
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
 
 // Table structure for table `folha_pag`
@@ -159,7 +168,7 @@ $sql_create = [
   `tipo` varchar(100) NOT NULL,
   `titulo` varchar(100) NOT NULL,
   `nome_logradouro` varchar(255) NOT NULL,
-  `numero_logradouro` varchar(20) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+  `numero_logradouro` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `complemento_numero` varchar(10) NOT NULL,
   `complemento_adicional` varchar(15) NOT NULL,
   `cep` varchar(25) NOT NULL,
@@ -403,7 +412,7 @@ $sql_create = [
   `ind_atend_nenhum_memb` decimal(1,0) DEFAULT NULL,
   `ref_cad_` decimal(8,0) DEFAULT NULL,
   `ref_pbf_` decimal(8,0) DEFAULT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;",
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
 // Table structure for table `unipessoal`
 
@@ -521,41 +530,37 @@ $sql_create = [
 
 // Table structure for table `status_familia`
 
-  "CREATE TABLE status_familia (
+"CREATE TABLE status_familia (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    cod_familiar VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL UNIQUE,
-    status VARCHAR(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
+    cod_familiar VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL UNIQUE,
+    status VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
     data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-DELIMITER //
+);",
 
-CREATE PROCEDURE atualizar_status_familia()
+
+"CREATE PROCEDURE atualizar_status_familia()
 BEGIN
-    -- Temporarily mark all families as inactive
+    -- Temporariamente marca todas as famílias como inativas
     UPDATE status_familia
     SET status = 'inativo', data_atualizacao = NOW();
 
-    -- Update families that are still active
-    INSERT INTO status_familia (cod_familiar, status, data_atualizacao, nom_pess)
-    SELECT cod_familiar_fam, 'ativo', dat_atual_fam, nom_pessoa
+    -- Atualiza as famílias que ainda estão ativas
+    INSERT INTO status_familia (cod_familiar, status, data_atualizacao)
+    SELECT cod_familiar_fam, 'ativo', dat_atual_fam
     FROM tbl_tudo
     WHERE cod_parentesco_rf_pessoa = 1
     ON DUPLICATE KEY UPDATE 
         status = VALUES(status), 
         data_atualizacao = VALUES(data_atualizacao);
+END;",
 
-END //
-DELIMITER;
-
-CREATE EVENT IF NOT EXISTS atualizar_status_familia_event
+// Criação do evento para executar a procedure diariamente
+"CREATE EVENT IF NOT EXISTS atualizar_status_familia_event
 ON SCHEDULE EVERY 1 DAY
 DO
-CALL atualizar_status_familia();
-
-SET GLOBAL event_scheduler = ON;
-
 CALL atualizar_status_familia();",
 
+// Criação da tabela `descartes`
 "CREATE TABLE `descartes` (
   `id` int(11) NOT NULL,
   `codfam` varchar(11) NOT NULL,
@@ -564,9 +569,10 @@ CALL atualizar_status_familia();",
   `operador` varchar(100) NOT NULL,
   `tipo` varchar(255) NOT NULL,
   `status` varchar(1) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
-ALTER TABLE `descartes`
+// Alteração da tabela `descartes`
+"ALTER TABLE `descartes`
   ADD PRIMARY KEY (`id`);
   
   ALTER TABLE `descartes`
