@@ -226,6 +226,7 @@
         $smtp->close();
     }
     $conn->close();
+    $conn_1->close();
     ?>
 </body>
 
