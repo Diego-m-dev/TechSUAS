@@ -12,7 +12,7 @@
 </head>
 <body>
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao_acesso.php';
 
 if (empty($_POST['cpf_user'])) {
   // Se o CPF não foi enviado via POST, mostrar o formulário para inserir o CPF
@@ -46,7 +46,7 @@ if (empty($_POST['cpf_user'])) {
   $cpf_user = $_POST['cpf_user'];
 
   // Verificar se o CPF existe no banco de dados
-  $stmt = $conn->prepare("SELECT * FROM usuarios WHERE cpf = ?");
+  $stmt = $conn_1->prepare("SELECT * FROM operadores WHERE cpf = ?");
   $stmt->bind_param("s", $cpf_user);
   $stmt->execute();
   $result = $stmt->get_result();
@@ -74,7 +74,7 @@ if (empty($_POST['cpf_user'])) {
   $token = bin2hex(random_bytes(32)); // Gera um token de 64 caracteres hexadecimais (32 bytes)
 
   // Atualizar o banco de dados com o token de recuperação
-  $stmt = $conn->prepare("UPDATE usuarios SET token_recuperacao = ? WHERE cpf = ?");
+  $stmt = $conn_1->prepare("UPDATE operadores SET token_recuperacao = ? WHERE cpf = ?");
   $stmt->bind_param("ss", $token, $cpf_user);
   $stmt->execute();
 
@@ -102,7 +102,7 @@ if (empty($_POST['cpf_user'])) {
         title: 'Sucesso',
         text: 'Um link de recuperação foi enviado para o seu email.'
       }).then(() => {
-        window.location.href = '/TechSUAS/views/geral/recuperar_senha';
+        window.location.href = '/TechSUAS/';
       });
     </script>
     <?php
