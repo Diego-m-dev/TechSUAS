@@ -27,8 +27,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 <body>
     <div class="conteiner-arm">
         <form action="" method="POST">
-            <label for="arm">ARMÁRIO</label>
-            <select name="arm" id="arm" required onchange="mudaArmario()">
+          <label for="arm">ARMÁRIO</label>
+            <a href="/TechSUAS/views/fichario/form_fichario"><i class="fas fa-arrow-left"></i>Voltar</a>
+              <select name="arm" id="arm" required onchange="mudaArmario()">
                 <option value="" disabled selected hidden>00</option>
                 <?php
                 $sql_ficharios = "SELECT arm FROM ficharios GROUP BY arm ORDER BY arm, pas";
@@ -40,7 +41,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 }
                 $conn_1->close();
                 ?>
-            </select>
+              </select>
         </form>
     </div>
     <div id="tabela-container"></div>
