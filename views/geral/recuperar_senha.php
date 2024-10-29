@@ -37,6 +37,8 @@ if (empty($_POST['cpf_user'])) {
       if (result.isConfirmed) {
         const form = document.getElementById("form_familia");
         form.submit();
+      } else {
+        window.location.href = '/';
       }
     });
   </script>
@@ -102,7 +104,7 @@ if (empty($_POST['cpf_user'])) {
         title: 'Sucesso',
         text: 'Um link de recuperação foi enviado para o seu email.'
       }).then(() => {
-        window.location.href = '/TechSUAS/';
+        window.location.href = '/';
       });
     </script>
     <?php
@@ -114,7 +116,7 @@ if (empty($_POST['cpf_user'])) {
         title: 'Erro',
         text: 'Erro ao enviar email de recuperação.'
       }).then(() => {
-        window.location.href = '/TechSUAS/views/geral/recuperar_senha';
+        window.location.href = '/';
       });
     </script>
     <?php
