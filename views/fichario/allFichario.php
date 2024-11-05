@@ -45,7 +45,7 @@ if ($stmt_fic_query->num_rows > 0) {
       <form action="/TechSUAS/controller/cadunico/print_etiqueta_sel" method="post">
         <div class="btns">
           <button type="submit" id="print">imprimir</button>
-          <a href="/TechSUAS/views/cadunico/fichario/index.php"><i class="fas fa-arrow-left"></i>Voltar</a>
+          <a href="/TechSUAS/views/fichario/form_fichario"><i class="fas fa-arrow-left"></i>Voltar</a>
         </div>
 
         <div class="conteudo">
@@ -85,6 +85,7 @@ if ($stmt_fic_query->num_rows > 0) {
   } else {
 ?>
     <h2>Não há nenhuma etiqueta para impressão!</h2>
+    <a href="/TechSUAS/views/fichario/form_fichario"><i class="fas fa-arrow-left"></i>Voltar</a>
 <?php
 }
 
