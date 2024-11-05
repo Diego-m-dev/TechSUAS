@@ -39,161 +39,193 @@ while ($d = $result_sql_ano->fetch_assoc()) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/entrevistadores.js"></script>
+    <script src="/TechSUAS/js/gestor.js"></script>
 
 </head>
 
 <body>
-    <div class="img">
-        <h1 class="titulo-com-imagem">
-            <img src="/TechSUAS/img/cadunico/visitas/h1-visitas_pend.svg" alt="NoImage">
-        </h1>
-    </div>
-
-    <div class="container">
-        <div class="blocs">
-            <div class="bloc">
-                <div class="bloc1">
-                    <label for="columns-select">Selecione as Colunas:</label>
-                    <select id="columns-select" multiple onchange="criarTabela([])">
-                        <option value="0">Código Familiar</option>
-                        <option value="1">Nome</option>
-                        <option value="2">NIS</option>
-                        <option value="3">Data de Nascimento</option>
-                        <option value="4">Idade</option>
-                        <option value="5">Renda Total</option>
-                        <option value="6">Endereço</option>
-                        <option value="7">Status</option>
-                        <option value="8">Escola</option>
-                        <option value="9">PCD</option>
-                        <option value="10">Gênero</option>
-                        <option value="11">Parentesco</option>
-                        <option value="12">Telefone</option>
-                    </select>
-                </div>
-                <div>
-                    <div>
-                        <label for="">Nome:</label>
-                        <input type="text" id="nome_pess" onkeyup="aplicarFiltros()" />
-                    </div>
-                    <div>
-                        <label for="cod_fam">Código Familiar:</label>
-                        <input type="text" id="cod_fam" onkeyup="aplicarFiltros()" />
-                    </div>
-                    <label for="renda_per">Renda Per Capita:</label>
-                    <input type="number" id="renda_per" onkeyup="aplicarFiltros()">
-
-                    <div>
-                        <label for="filtro_status">Status:</label>
-                        <select id="filtro_status" onchange="aplicarFiltros()">
-                            <option value="">Todos</option>
-                            <option value="ATUALIZADA">Atualizado</option>
-                            <option value="DESATUALIZADO">Desatualizado</option>
-                        </select>
-                        <div>
-                            <label for="filtro-mh">Sexo:</label>
-                            <select id="filtro-mh" onchange="aplicarFiltros()">
-                                <option value="">Todos</option>
-                                <option value="MULHER">MULHERES</option>
-                                <option value="HOMEM">HOMENS</option>
-                            </select>
-                        </div>
-                    </div>
-                </div>
-
-
-            </div>
-            <div class="bloc2">
-                    <div>
-                        <label for="cpf_pess">CPF:</label>
-                        <input type="text" id="cpf_pess" onkeyup="aplicarFiltros()" />
-                    </div>
-                <div>
-                    <label for="filtro-grupo">Escola:</label>
-                    <input type="text" id="filtro-grupo" onchange="aplicarFiltros()" placeholder="Filtro por Escola" />
-                </div>
-
-                <div>
-                    <!--INPUT ESCONDIDOS PRA MANTER AS VARIÁVEIS DA FUNÇÃO aplicarFiltros FUNCIONANDO-->
-                    <input type="hidden" id="filtro-other-grupo" value="" onkeyup="aplicarFiltros()">
-                </div>
-
-                <div>
-                    <label for="filtro-idade">Idade:</label>
-                    <input type="number" id="filtro-idade" onkeyup="aplicarFiltros()" placeholder="Filtro por idade" />
-                </div>
-
-                <label for="ano_atual">Filtro por data:</label>
-                <select id="filtro_mes" onchange="aplicarFiltros()">
-                  <option value="">Mês</option>
-                  <option value="1">Janeiro</option>
-                  <option value="2">Fevereiro</option>
-                  <option value="3">Março</option>
-                  <option value="4">Abril</option>
-                  <option value="5">Maio</option>
-                  <option value="6">Junho</option>
-                  <option value="7">Julho</option>
-                  <option value="8">Agosto</option>
-                  <option value="9">Setembro</option>
-                  <option value="10">Outubro</option>
-                  <option value="11">Novembro</option>
-                  <option value="12">Dezembro</option>
-                </select>
-                <select id="filtro_ano" onchange="aplicarFiltros()">
-                  <option value="">Ano</option>
-<?php
-  foreach ($anos_atual as $ano) {
-    echo "<option value'$ano'>$ano</option>";
-  }
-?>
-                </select>
-
-                <div>
-                    <label for="filtro-parent">Parentesco:</label>
-                    <select id="filtro-parent" onchange="aplicarFiltros()">
-                        <option value="">Filtro por parentesco</option>
-                        <option value="RESPONSAVEL FAMILIAR">RESPONSAVEL FAMILIAR</option>
-                        <option value="CONJUGE OU COMPANHEIRO">CONJUGE OU COMPANHEIRO</option>
-                        <option value="FILHO(A)">FILHO(A)</option>
-                        <option value="ENTEADO(A)">ENTEADO(A)</option>
-                        <option value="NETO(A) OU BISNETO(A)">NETO(A) OU BISNETO(A)</option>
-                        <option value="PAI OU MÃE">PAI OU MÃE</option>
-                        <option value="SOGRO(A)">SOGRO(A)</option>
-                        <option value="IRMÃO OU IRMÃ">IRMÃO OU IRMÃ</option>
-                        <option value="GENRO OU NORA">GENRO OU NORA</option>
-                        <option value="OUTROS PARENTES">OUTROS PARENTES</option>
-                        <option value="NÃO PARENTE">NÃO PARENTE</option>
-                    </select>
-                </div>
-            </div>
-        </div>
-        <div class="btns">
-            <div>
-            <button id="filtroCriaIdosButton" onclick="filtroCriaIdos()">Buscar Dados</button>
-                <button onclick="window.location.href='/TechSUAS/views/cadunico/area_gestao/filtro_geral'">Limpar dados</button>
-            </div>
-            <div><button onclick="voltarFiltros()">Voltar</button></div>
-        </div>
-
-        <div id="result-count"></div>
-
-        <div id="tabela-dinamica"></div>
-
-          <div>
-            <button id="enviarNISButton" onclick="enviarNIS()">Imprimir</button>
-          </div>
-      <form id="formEnviarNIS" method="POST" action="/TechSUAS/controller/cadunico/parecer/visitas_print">
-        <input type="hidden" name="nis_selecionados" id="nisSelecionadosInput" value="">
-      </form>
+  <div class="img">
+    <h1 class="titulo-com-imagem">
+      <img src="/TechSUAS/img/cadunico/visitas/h1-visitas_pend.svg" alt="NoImage">
+    </h1>
   </div>
-    <script>
-      $(document).ready(function () {
-        $('#cpf_pess').mask('000.000.000-00')
-      })
-    </script>
-    
-    <?php
-      $conn_1->close();
-    ?>
+
+
+
+      <div class="filtro-header">
+          <label for="selecionar-colunas">Selecione as Colunas:</label>
+            <select id="columns-select" multiple onchange="criarTabelaentrevist([])">
+              <option value="0">Código Familiar</option>
+              <option value="1">Nome</option>
+              <option value="2">NIS</option>
+              <option value="3">Data de Nascimento</option>
+              <option value="4">Idade</option>
+              <option value="5">Renda Total</option>
+              <option value="6">Endereço</option>
+              <option value="7">Status</option>
+              <option value="8">Escola</option>
+              <option value="9">PCD</option>
+              <option value="10">Gênero</option>
+              <option value="11">Parentesco</option>
+              <option value="12">Telefone</option>
+              <option value="13">Documentos</option>
+            </select>
+        </div>
+
+        <div class="form-row">
+
+          <!-- NOME -->
+        <div class="form-group">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome_pess" onkeyup="aplicarFiltrosentrevist()" placeholder="NOME PESSOA"/>
+        </div>
+
+
+          <!-- CPF -->
+        <div class="form-group">
+          <label for="cpf">CPF:</label>
+          <input type="text" id="cpf_pess" onkeyup="aplicarFiltrosentrevist()" placeholder="CPF apenas números"/>
+        </div>
+
+
+          <!-- Código Familiar -->
+        <div class="form-group">
+          <label for="codigo-familiar">Código Familiar:</label>
+          <input type="text" id="cod_fam" onkeyup="aplicarFiltrosentrevist()" />
+        </div>
+
+
+          <!-- Renda Per Capita -->
+        <div class="form-group">
+          <label for="renda">Renda Per Capita:</label>
+          <input type="number" id="renda_per" onkeyup="aplicarFiltrosentrevist()" />
+        </div>
+
+
+          <!-- Escola -->
+        <div class="form-group">
+          <label for="escola">Escola:</label>
+          <input type="text" id="filtro-grupo" onchange="aplicarFiltrosentrevist()" placeholder="NOME ESCOLA" />
+        </div>
+
+
+          <!-- Idade -->
+        <div class="form-group">
+          <label for="idade">Idade:</label>
+          <input type="number" id="filtro-idade" onkeyup="aplicarFiltrosentrevist()" placeholder="IDADE" />
+        </div>
+
+
+          <!-- Status -->
+        <div class="form-group">
+          <label for="status">Status:</label>
+            <select id="filtro_status" onchange="aplicarFiltrosentrevist()">
+              <option value="">Todos</option>
+              <option value="ATUALIZADA">Atualizado</option>
+              <option value="DESATUALIZADO">Desatualizado</option>
+            </select>
+        </div>
+
+          <!-- Sexo -->
+        <div class="form-group">
+          <label for="sexo">Sexo:</label>
+            <select id="filtro-mh" onchange="aplicarFiltrosentrevist()">
+              <option value="">Todos</option>
+              <option value="MULHER">MULHERES</option>
+              <option value="HOMEM">HOMENS</option>
+            </select>
+        </div>
+
+
+          <!-- Filtro por Data -->
+        <div class="form-group">
+          <label for="filtro-data">Filtro por Data:</label>
+              <!-- MÊS -->
+            <select id="filtro_mes" onchange="aplicarFiltrosentrevist()">
+              <option value="">Mês</option>
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+              <!-- ANO -->
+              <select id="filtro_ano" onchange="aplicarFiltrosentrevist()">
+                  <option value="">Ano</option>
+                          <?php
+                            foreach ($anos as $ano) {
+                              echo "<option value'$ano'>$ano</option>";
+                            }
+                          ?>
+                </select>
+        </div>
+
+
+          <!-- Parentesco -->
+        <div class="form-group">
+          <label for="parentesco">Parentesco:</label>
+            <select id="filtro-parent" onchange="aplicarFiltrosentrevist()">
+              <option value="">Filtro por parentesco</option>
+              <option value="RESPONSAVEL FAMILIAR">RESPONSAVEL FAMILIAR</option>
+              <option value="CONJUGE OU COMPANHEIRO">CONJUGE OU COMPANHEIRO</option>
+              <option value="FILHO(A)">FILHO(A)</option>
+              <option value="ENTEADO(A)">ENTEADO(A)</option>
+              <option value="NETO(A) OU BISNETO(A)">NETO(A) OU BISNETO(A)</option>
+              <option value="PAI OU MÃE">PAI OU MÃE</option>
+              <option value="SOGRO(A)">SOGRO(A)</option>
+              <option value="IRMÃO OU IRMÃ">IRMÃO OU IRMÃ</option>
+              <option value="GENRO OU NORA">GENRO OU NORA</option>
+              <option value="OUTROS PARENTES">OUTROS PARENTES</option>
+              <option value="NÃO PARENTE">NÃO PARENTE</option>
+            </select>
+        </div>
+
+                  <div>
+                    <!--INPUT ESCONDIDOS PRA MANTER AS VARIÁVEIS DA FUNÇÃO aplicarFiltros FUNCIONANDO-->
+                      <input type="hidden" id="filtro-other-grupo" value="" onkeyup="aplicarFiltrosentrevist()" />
+                  </div>
+
+
+      </div>
+
+              <!-- Botões -->
+            <div class="button-group">
+              <button id="filtroCriaIdosButton" onclick="filtroCriaIdos()">Buscar Dados</button>
+                <button onclick="window.location.href='/TechSUAS/views/cadunico/area_gestao/filtro_geral'">Limpar dados</button>
+              <a href="/TechSUAS/views/cadunico/area_gestao/index">Voltar</a>
+            </div>
+
+
+              <h3><div id="result-count"></div></h3>
+
+              <div id="tabela-dinamica"></div>
+
+
+            <div class="button-group">
+              <button id="enviarNISButton" onclick="enviarNIS()">Imprimir</button>
+            </div>
+              <form id="formEnviarNIS" method="POST" action="/TechSUAS/controller/cadunico/parecer/visitas_print">
+                <input type="hidden" name="nis_selecionados" id="nisSelecionadosInput" value="">
+              </form>
+
+
+  <script>
+    $(document).ready(function () {
+      $('#cpf_pess').mask('000.000.000-00')
+    })
+  </script>
+  
+  <?php
+    $conn->close();
+    $conn_1->close();
+  ?>
 </body>
 
 </html>
