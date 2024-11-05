@@ -31,16 +31,24 @@ while ($d = $result_sql_ano->fetch_assoc()) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+
+  </head>
 
 <body>
+<div id="comunicado_container" style="background-image: url('../../../img/cadunico/timbre_cad-amor_trabalho.png'); background-size: 760px 1105px">
+</div>
+<div id="print_comunicado">
     <div class="img">
         <h1 class="titulo-com-imagem">
             <img src="/TechSUAS/img/cadunico/visitas/h1-visitas_pend.svg" alt="NoImage">
         </h1>
     </div>
-    <div class="bloco">
-        <div>
+
+      <div class="bloco">
+
             <form action=''>
                 <label for="">Selecione ano e mês:
     <select name="mes_select" id="mes_select">
@@ -79,11 +87,13 @@ foreach ($anos as $ano) {
         </form>
 
 
-        </div>
     </div>
+
 <?php
   include '../../../controller/cadunico/parecer/tbl_tudo.php';
 ?>
+
+  </div>
     <script src='/TechSUAS/js/personalise.js'></script>
     <script>
         // Verifica se a tabela possui pelo menos duas linhas com conteúdo
