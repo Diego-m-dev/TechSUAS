@@ -200,7 +200,7 @@ while ($d = $result_sql_ano->fetch_assoc()) {
             <div class="button-group">
               <button id="filtroCriaIdosButton" onclick="filtroCriaIdosentrevist()">Buscar Dados</button>
                 <button onclick="window.location.href='/TechSUAS/views/cadunico/visitas/visitas_para_fazer_data'">Limpar dados</button>
-              <a href="/TechSUAS/views/cadunico/area_gestao/index">Voltar</a>
+              <a href="/TechSUAS/views/cadunico/visitas/index">Voltar</a>
             </div>
 
 
