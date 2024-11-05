@@ -87,3 +87,5 @@ $dados = array_merge($query_tudo);
 
 header('Content-Type: application/json');
 echo json_encode($dados);
+
+$conn->close();
