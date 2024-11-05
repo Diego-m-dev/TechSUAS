@@ -68,7 +68,8 @@ while ($d = $result_sql_ano->fetch_assoc()) {
               <option value="10">Gênero</option>
               <option value="11">Parentesco</option>
               <option value="12">Telefone</option>
-              <option value="13">Documentos</option>
+              <option value="13">Ultima Atualização</option>
+              <option value="14">Documentos</option>
             </select>
         </div>
 
@@ -197,8 +198,8 @@ while ($d = $result_sql_ano->fetch_assoc()) {
 
               <!-- Botões -->
             <div class="button-group">
-              <button id="filtroCriaIdosButton" onclick="filtroCriaIdos()">Buscar Dados</button>
-                <button onclick="window.location.href='/TechSUAS/views/cadunico/area_gestao/filtro_geral'">Limpar dados</button>
+              <button id="filtroCriaIdosButton" onclick="filtroCriaIdosentrevist()">Buscar Dados</button>
+                <button onclick="window.location.href='/TechSUAS/views/cadunico/visitas/visitas_para_fazer_data'">Limpar dados</button>
               <a href="/TechSUAS/views/cadunico/area_gestao/index">Voltar</a>
             </div>
 
