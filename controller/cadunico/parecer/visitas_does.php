@@ -49,10 +49,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
     ?>
 
-        <a href="/TechSUAS/views/cadunico/visitas/visitas_para_fazer">
-            <i class="fas fa-arrow-left"></i> Voltar
-        </a>
+        <button class="impr" onclick="voltarAoMenu()">Voltar</button>
         <button class="impr" onclick="imprimirPagina()">Imprimir Página</button>
+
 
         <?php
         echo '<div class="tudo">';
@@ -69,7 +68,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
                 $codigo_familiar = $dados['cod_familiar_fam'];
                 // Remove os zeros à esquerda
                 $cod_fam = ltrim($codigo_familiar, '0');
-
 
                 $sql_visitas_did = "SELECT data FROM visitas_feitas WHERE cod_fam LIKE '%$cod_fam'";
                 $sql_query_vis_did = $conn->query($sql_visitas_did) or die("ERRO ao consultar !" . $conn - error);
@@ -115,9 +113,25 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
                 <h4 style="color: red;"><?php echo $resultado; ?></h4>
                 <?php
                 $codigo_formatado = substr_replace(str_pad($dados['cod_familiar_fam'], 11, '0',STR_PAD_LEFT), '-', 9, 0);
-                echo $codigo_formatado. '<br>';
+                echo $codigo_formatado. '';
+                
+                if ($_SESSION['funcao'] == 1) {
+                  ?>
+                  <form action="/TechSUAS/controller/cadunico/excluir_cad" method="post">
+                    <input type="hidden" name="unip" value="<?php echo $dados['cod_familiar_fam']; ?>" />
+                    <button type="submit">excluir cadastro</button>
+                  </form>
+                  <?php
+                }
+
                 ?>
-                <p>Responsável Familiar: <strong><?php echo $dados['nom_pessoa']; ?></strong></p>
+                <p>Responsável Familiar: <strong><?php 
+                    if ($dados['cod_parentesco_rf_pessoa'] != 1) {
+                      echo "A PESSOA SELECIONADA NÃO É RESPONSÁVEL FAMILIAR";
+                    } else {
+                      echo $dados['nom_pessoa']; 
+                    }
+                ?></strong></p>
                 <?php
 
                 $cep = substr_replace($dados['num_cep_logradouro_fam'], '-', 5, 0);
@@ -192,7 +206,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
                 }
             }
             ?>
-
+              <hr><br><br><hr>
         <?php
         //echo 'NIS: '. htmlspecialchars($nis). '<br>';
     }
