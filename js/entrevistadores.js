@@ -30,7 +30,7 @@ function criarTabelaentrevist() {
 
 var dados = []; // Variável global para armazenar os dados da tabela
 
-function filtroCriaIdos() {
+function filtroCriaIdosentrevist() {
   const button = document.getElementById('filtroCriaIdosButton')
   if (!button) {
     console.error('Botão não encontrado.')
@@ -73,8 +73,8 @@ function filtroCriaIdos() {
     })
     .finally(() => {
       // Reabilita o botão após carregar os dados ou em caso de erro
-      button.disabled = false;
-    });
+      button.disabled = false
+    })
 }
 
 // Função para aplicar filtros na tabela
