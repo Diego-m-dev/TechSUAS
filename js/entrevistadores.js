@@ -1,6 +1,6 @@
 
 // Função para criar a tabela dinamicamente
-function criarTabela() {
+function criarTabelaentrevist() {
   var columnsSelect = document.getElementById('columns-select')
   var selectedColumns = []
   for (var i = 0; i < columnsSelect.options.length; i++) {
@@ -78,7 +78,7 @@ function filtroCriaIdos() {
 }
 
 // Função para aplicar filtros na tabela
-function aplicarFiltros() {
+function aplicarFiltrosentrevist() {
   var filtroOtherGrupo = document.getElementById('filtro-other-grupo').value
   var filtroStatus = document.getElementById('filtro_status').value
   var filtroParent = document.getElementById('filtro-parent').value
@@ -114,11 +114,11 @@ function aplicarFiltros() {
       (filtrocpf === '' || (row[13] && row[13] === filtrocpf))
   });
 
-  criarTabelaFiltrada(dadosFiltrados);
+  criarTabelaFiltradaentrevist(dadosFiltrados);
 }
 
 // Função para criar a tabela filtrada
-function criarTabelaFiltrada(dadosFiltrados) {
+function criarTabelaFiltradaentrevist(dadosFiltrados) {
   var columnsSelect = document.getElementById('columns-select')
   var selectedColumns = []
   for (var i = 0; i < columnsSelect.options.length; i++) {
@@ -138,6 +138,8 @@ function criarTabelaFiltrada(dadosFiltrados) {
               <span class="checkmark"></span>
             </label>
           </th>
+
+          <th>Nº</th> <!-- Nova coluna para a numeração -->
   `
 
   // Adicionar as colunas selecionadas no cabeçalho
@@ -159,6 +161,9 @@ function criarTabelaFiltrada(dadosFiltrados) {
         </label>
       </td>
     `
+
+        // Adicionar a coluna de numeração
+        table += `<td>${rowIndex + 1}</td>`; // Numeração sequencial
 
     // Adicionar os dados nas colunas selecionadas
     selectedColumns.forEach(function (columnIndex) {
@@ -188,7 +193,7 @@ function enviarNIS() {
 
   // Itera sobre os checkboxes e captura o atributo data-nis
   checkboxes.forEach(function (checkbox) {
-      nisSelecionados.push(checkbox.getAttribute('data-nis'));
+      nisSelecionados.push(checkbox.getAttribute(' '));
   });
 
   // Verifica se algum NIS foi selecionado
@@ -206,4 +211,44 @@ function enviarNIS() {
 
 function voltarFiltros() {
   window.location.href = "/TechSUAS/views/cadunico/visitas/index"
+}
+
+function comunicado() {
+  // Captura todos os checkboxes que estão marcados
+  var checkboxes = document.querySelectorAll('input[name="excluir[]"]:checked')
+  var nisSelecionados = []
+
+    // Itera sobre os checkboxes e captura o atributo data-nis
+    checkboxes.forEach(function (checkbox) {
+      nisSelecionados.push(checkbox.getAttribute('data-nis'))
+  })
+
+  // Verifica se algum NIS foi selecionado
+  if (nisSelecionados.length === 0) {
+    alert('Por favor, selecione pelo menos um NIS.')
+    return
+  }
+
+  // Envia os NIS selecionados via AJAX
+  var xhr = new XMLHttpRequest()
+  xhr.open("POST", "/TechSUAS/controller/cadunico/parecer/gerar_comunicado.php", true) // URL para o script que irá gerar o comunicado
+  xhr.setRequestHeader("Content-Type", "application/json")
+
+  // Define o que fazer ao receber a resposta
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+      //alert("Comunicado gerado com sucesso!")
+
+      // Exibe o comunicado na página em um elemento div
+      document.getElementById('comunicado_container').innerHTML = xhr.responseText
+
+      document.getElementById('print_comunicado').style.display = 'none'
+
+      // console.log(xhr.responseText) Aqui você pode tratar a resposta do servidor se necessário
+      window.print()
+    }
+  }
+
+  // Envia os dados como JSON
+  xhr.send(JSON.stringify({ nisSelecionados: nisSelecionados }))
 }
