@@ -22,7 +22,7 @@ $solicitacao_sql = "SELECT
   CONCAT('R$ ', vlr_renda_total_fam, ',00') AS vlr_renda_total_fam, 
   CONCAT(nom_tip_logradouro_fam, ' ', nom_titulo_logradouro_fam, ' ', nom_logradouro_fam, ', ', num_logradouro_fam, ' - ', nom_localidade_fam, ' ', txt_referencia_local_fam) AS endereco,
   CASE
-    WHEN qtde_meses_desat_cat <= 3 THEN 'ATUALIZADA'
+    WHEN qtde_meses_desat_cat < 3 THEN 'ATUALIZADA'
     ELSE 'DESATUALIZADO'
   END AS status_atualizacao,
   nom_escola_memb,
@@ -50,6 +50,7 @@ $solicitacao_sql = "SELECT
   END AS parentesco,
   CONCAT('(',num_ddd_contato_1_fam, ')', ' ', num_tel_contato_1_fam),
   DATE_FORMAT(dat_atual_fam, '%d/%m/%Y') AS dat_atual_fam,
+  CONCAT(SUBSTRING(LPAD(num_cpf_pessoa, 11, 0), 1, 3), '.', SUBSTRING(LPAD(num_cpf_pessoa, 11, 0), 4, 3), '.', SUBSTRING(LPAD(num_cpf_pessoa, 11, 0), 7, 3), '-', SUBSTRING(LPAD(num_cpf_pessoa, 11, 0), 10, 2)) AS num_cpf_pessoa,
   CONCAT(
     'CPF: <strong>', 
     CONCAT(SUBSTRING(LPAD(num_cpf_pessoa, 11, 0), 1, 3), '.', SUBSTRING(LPAD(num_cpf_pessoa, 11, 0), 4, 3), '.', SUBSTRING(LPAD(num_cpf_pessoa, 11, 0), 7, 3), '-', SUBSTRING(LPAD(num_cpf_pessoa, 11, 0), 10, 2)), 
@@ -69,7 +70,8 @@ $solicitacao_sql = "SELECT
   ),
   YEAR(dat_atual_fam),
   CONCAT('R$ ',vlr_renda_media_fam, ',00') AS vlr_renda_media,
-  MONTH(dat_atual_fam)
+  MONTH(dat_atual_fam),
+  cod_local_domic_fam
   ";
 
 $orderby = "ORDER BY cod_familiar_fam ASC, cod_parentesco_rf_pessoa ASC, dta_nasc_pessoa DESC";
