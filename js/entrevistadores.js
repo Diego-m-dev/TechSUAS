@@ -87,6 +87,7 @@ function aplicarFiltrosentrevist() {
   var filtroanoatual = document.getElementById('filtro_ano').value
   var filtroIdade = document.getElementById('filtro-idade').value
   var filtroGrupo = document.getElementById('filtro-grupo').value
+  var filtrozonas = document.getElementById('filtro-zonas').value
   var filtro_mes = document.getElementById('filtro_mes').value
   var filtroSexo = document.getElementById('filtro-mh').value
   var filtrocpf = document.getElementById('cpf_pess').value
@@ -107,12 +108,13 @@ function aplicarFiltrosentrevist() {
       (filtroSexo === '' || (row[10] && row[10].toLowerCase().includes(filtroSexo.toLowerCase()))) &&
       (filtroParent === '' || (row[11] && row[11].toLowerCase().includes(filtroParent.toLowerCase()))) &&
       (filtronome_pess === '' || (row[1] && row[1].toLowerCase().includes(filtronome_pess.toLowerCase()))) &&
-      (filtro_renda_per === '' || (row[15] !== null && row[15] !== undefined && parseFloat(row[15]) > filtro_renda_per_num)) &&
-      (filtroanoatual === '' || (row[14] && row[14] === filtroanoatual)) &&
-      (filtro_mes === '' || (row[16] && row[16] === filtro_mes)) &&
+      (filtro_renda_per === '' || (row[17] !== null && row[17] !== undefined && parseFloat(row[17]) > filtro_renda_per_num)) &&
+      (filtroanoatual === '' || (row[16] && row[16] === filtroanoatual)) &&
+      (filtro_mes === '' || (row[18] && row[18] === filtro_mes)) &&
       (filtroIdade === '' || (row[4] && row[4] === filtroIdade)) &&
-      (filtrocpf === '' || (row[13] && row[13] === filtrocpf))
-  });
+      (filtrocpf === '' || (row[14] && row[14] === filtrocpf)) &&
+      (filtrozonas === '' || (row[19] && row[19] === filtrozonas))
+  })
 
   criarTabelaFiltradaentrevist(dadosFiltrados);
 }
@@ -156,7 +158,7 @@ function criarTabelaFiltradaentrevist(dadosFiltrados) {
     table += `
       <td class="check">
         <label class="urg">
-          <input type="checkbox" class="linha-checkbox" data-nis="${row[2]}" data-row-index="${rowIndex}">
+          <input type="checkbox" class="linha-checkbox" name="excluir[]" data-nis="${row[2]}" data-row-index="${rowIndex}">
           <span class="checkmark"></span>
         </label>
       </td>
