@@ -44,6 +44,10 @@ while ($d = $result_sql_ano->fetch_assoc()) {
 </head>
 
 <body>
+          <div id="comunicado_container" style="background-image: url('../../../img/cadunico/timbre_cad-amor_trabalho.png'); background-size: 760px 1105px">
+          </div>
+
+          <div id="print_comunicado">
   <div class="img">
     <h1 class="titulo-com-imagem">
       <img src="/TechSUAS/img/cadunico/visitas/h1-visitas_pend.svg" alt="NoImage">
@@ -188,6 +192,16 @@ while ($d = $result_sql_ano->fetch_assoc()) {
             </select>
         </div>
 
+        <!-- Parentesco -->
+        <div class="form-group">
+          <label for="zonas">Área:</label>
+            <select id="filtro-zonas" onchange="aplicarFiltrosentrevist()">
+              <option value="">Filtro por parentesco</option>
+              <option value="1">Urbano</option>
+              <option value="2">Rural</option>
+              
+            </select>
+        </div>
                   <div>
                     <!--INPUT ESCONDIDOS PRA MANTER AS VARIÁVEIS DA FUNÇÃO aplicarFiltros FUNCIONANDO-->
                       <input type="hidden" id="filtro-other-grupo" value="" onkeyup="aplicarFiltrosentrevist()" />
@@ -211,10 +225,13 @@ while ($d = $result_sql_ano->fetch_assoc()) {
 
             <div class="button-group">
               <button id="enviarNISButton" onclick="enviarNIS()">Imprimir</button>
+              <button id="gerarNISButton" onclick="comunicado()">Gerar Comunicado</button>
             </div>
-              <form id="formEnviarNIS" method="POST" action="/TechSUAS/controller/cadunico/parecer/visitas_print">
+            <form id="formEnviarNIS" method="POST" action="/TechSUAS/controller/cadunico/parecer/visitas_print">
                 <input type="hidden" name="nis_selecionados" id="nisSelecionadosInput" value="">
               </form>
+
+</div>
 
 
   <script>
