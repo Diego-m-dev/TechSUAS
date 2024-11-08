@@ -1,23 +1,18 @@
+function relatorios() {
+  window.location.href = '/TechSUAS/views/cadunico/area_gestao/relatorio'
+}
+
+function relatorio_entrevistadores() {
+  window.location.href = '/TechSUAS/views/cadunico/area_gestao/relatorio_entrevistadores'
+}
+
+function filtro_cadastros() {
+  window.location.href = '/TechSUAS/views/cadunico/filtro_geral_cad'
+}
 
 //BOTÕES DA TELA DE AREA DO GESTOR
 $(document).ready(function () {
-  $('#simples').hide();
-  $('#beneficio').hide();
-  $('#entrevistadores').hide();
 
-  $('#btn_familia').click(function () {
-    $('#simples').show();
-    $('#beneficio').hide();
-    $('#entrevistadores').hide();
-    $('#btn_benef').hide();
-    $('#btn_entrevistadores').hide();
-  });
-
-  $('#btn_benef').click(function () {
-    $('#beneficio').show();
-    $('#simples').hide();
-    $('#entrevistadores').hide();
-  });
 
   $('#btn_entrevistadores').click(function () {
     $('#beneficio').hide();
@@ -34,14 +29,14 @@ $(document).ready(function () {
         <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
         <p>Carregando...</p>
       </div>
-    `;
+    `
 
     Swal.fire({
       html: loadingHtml,
       width: '400px',
       showConfirmButton: false,
       allowOutsideClick: false
-    });
+    })
 
     button.prop('disabled', true);
 
@@ -50,10 +45,10 @@ $(document).ready(function () {
         if (!response.ok) {
           throw new Error('Erro na requisição: ' + response.status);
         }
-        return response.json();
+        return response.json()
       })
       .then(data => {
-        console.log('Dados recebidos', data);
+        console.log('Dados recebidos', data)
 
         let tableHtml = `
           <div style="overflow-x:auto; max-height: 400px;">
@@ -80,14 +75,14 @@ $(document).ready(function () {
                 </form>
               </td>
             </tr>
-          `;
-        });
+          `
+        })
 
         tableHtml += `
               </tbody>
             </table>
           </div>
-        `;
+        `
 
         Swal.fire({
           html: tableHtml,
@@ -474,7 +469,7 @@ function imprimirParecer() {
           confirmButtonText: 'OK',
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita"
+            window.location.href = "/TechSUAS/views/cadunico/area_gestao/index"
           }
         })
       },
@@ -729,57 +724,57 @@ function printWithFields_preper() {
 //FUNÇÃO DA TELA DASHBOARD ENTREVISTADOR
 
 function buscarDadosFamily() {
+  // Limpa o campo de exibição e conteúdo da tabela
+  $('#codfamiliar_print').text('')
+  $('#familia_show').html('')
+
+  // Obtém o código de família e formata
   var familia = $("#codfamiliar").val()
-  const input = document.getElementById('codfamiliar')
-  // Remove todos os caracteres que não sejam números
-  let cpfLimpo = familia.replace(/\D/g, '');
-  // Preenche com zeros à esquerda para garantir que tenha 11 dígitos
-  let ajustandoCoda = cpfLimpo.padStart(11, '0');
-  let ajustandoCod = ajustandoCoda.replace(/^(\d{9})(\d{2})$/, '$1-$2')
+  let cpfLimpo = familia.replace(/\D/g, '')
+  let ajustandoCod = cpfLimpo.padStart(11, '0').replace(/^(\d{9})(\d{2})$/, '$1-$2')
 
-  $('#codfamiliar_print').text(ajustandoCod)
+  if (familia.trim() === '') {
+    // Se o campo estiver vazio, foca nele novamente
+    $("#codfamiliar").focus()
+    return
+  }
 
-  input.addEventListener('blur', function () {
-    if (input.value.trim() === '') {
-      setTimeout(function () {
-        input.focus()
-      }, 0)
-    } else {
-      $.ajax({
-        type: 'POST',
-        url: '/TechSUAS/controller/cadunico/busca_family.php',
-        data: {
-          codfam: familia
-        },
-        dataType: 'json',
-        success: function (response) {
-          if (response.encontrado) {
-            $('#data_entrevista').text(`Data da ultima Atualização ${response.data_entrevista}`)
-            if (response.dados_familia) {
-              var dados_familiap = response.dados_familia
-              var visitasHtml = ''
-              visitasHtml += '<table>'
-              visitasHtml += '<tr><th>NIS</th><th></th><th>NOME</th><th></th><th>PARENTESCO</th></tr>'
-              dados_familiap.forEach(function (familia_show) {
-                visitasHtml += '<div class="visita">'
-                visitasHtml += '<tr>'
-                visitasHtml += '<td><span>' + familia_show.nis_atual + '</span></td><td></td>'
-                visitasHtml += '<td><span>' + familia_show.nome + '</span></td><td></td>'
-                visitasHtml += '<td><span>' + familia_show.parentesco + '</span></td>'
-                visitasHtml += '</tr>'
-                visitasHtml += '</div>'
-              })
-              visitasHtml += '</table>'
-              $('#familia_show').html(visitasHtml)
+  // Faz a requisição AJAX para buscar os dados da família
+  $.ajax({
+    type: 'POST',
+    url: '/TechSUAS/controller/cadunico/busca_family.php',
+    data: {
+      codfam: ajustandoCod // Envia o código formatado
+    },
+    dataType: 'json',
+    success: function (response) {
+      // console.log(response)
+      if (response.encontrado) {
+        $('#codfamiliar_print').html(`<span style="font-size: 10px;">Código Familiar:</span> <span style="font-size: 16px;"><strong>${ajustandoCod}</strong></span> => <span style="font-size: 10px;">Ultima Atualização:</span> <span style="font-size: 16px;"><strong>${response.data_entrevista}</strong></span> => <span style="font-size: 10px;">Fichário:</span> <span style="font-size: 16px;"><strong>${response.fichario}</strong></span>.`)
 
-            }
-          }
+        if (response.dados_familia) {
+          var dados_familiap = response.dados_familia
+          var visitasHtml = ''
+          visitasHtml += '<table>'
+          visitasHtml += '<tr><th>NIS</th><th></th><th>NOME</th><th></th><th>PARENTESCO</th></tr>'
+          dados_familiap.forEach(function (familia_show) {
+            visitasHtml += '<tr>'
+            visitasHtml += '<td><span>' + familia_show.nis_atual + '</span></td><td></td>'
+            visitasHtml += '<td><span>' + familia_show.nome + '</span></td><td></td>'
+            visitasHtml += '<td><span>' + familia_show.parentesco + '</span></td>'
+            visitasHtml += '</tr>'
+          })
+          visitasHtml += '</table>'
+          $('#familia_show').html(visitasHtml)
         }
-      })
+      } else {
+        $('#codfamiliar_print').html('<span style="color: red;"><strong>' + `Não foi encontrado nenhuma informação referente ao código ${ajustandoCod}` + ' <strong></span>')
+        $('#familia_show').html('') // Limpa a tabela se não encontrar dados
+      }
     }
   })
-
 }
+
 
 //FUNÇÃO PARA MUDAR DE SELECT PARA INPUT 
 
@@ -997,6 +992,25 @@ function solicitaForm() {
       button.disabled = false;
     });
 }
+$(document).ready(function () {
+  $('#btn_filtrar').click(function () {
+    fetch("/TechSUAS/views/cadunico/area_gestao/filtro_idoso_crianca")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.status);
+      }
+      return response.json();
+    })
+    .then(data => {
+      console.log('Dados recebidos', data);
+      dados = data; // Armazena os dados recebidos globalmente
+    })
+    .catch(error => {
+      console.error('Erro ao buscar dados:', error);
+      Swal.fire('Erro!', 'Houve um problema ao carregar os dados.', 'error');
+    })
+  })
+})
 
 $(document).ready(function (){
   $('#btn_beneficios').click(function () {
