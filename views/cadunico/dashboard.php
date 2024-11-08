@@ -26,17 +26,17 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 </head>
 
 <body>
-  <div class="img">
+  <!-- <div class="img">
     <h1 class="titulo-com-imagem">
       <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/h1-painel_entrevistador.svg" alt="Título com imagem">
     </h1>
-  </div>
+  </div> -->
+  <h1></h1>
   <div class="tudo">
     <div class="container">
     <form id="cadastroForm" enctype="multipart/form-data">
         <div class="ocult2">
           <div id="codfamiliar_print" class="ocult"></div>
-          <div id="data_entrevista" class="ocult"></div>
           <div id="familia_show" class="ocult"></div>
         </div>
 
@@ -45,13 +45,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           <div class="bloc1">
             <div>
               <label for="codfamiliar">Código familiar:</label>
-              <input type="text" name="cod_fam" id="codfamiliar" onblur="buscarDadosFamily()" required />
+              <input type="text" name="cod_fam" id="codfamiliar" onchange="buscarDadosFamily()" required />
             </div>
             <div id="cont_data">
               <label for="data_entrevista">Data da Entrevista:</label>
-              <input type="date" id="data_entrevista" name="data_entrevista">
+              <input type="date" id="data_entrevista_hoje" name="data_entrevista_hoje">
             </div>
-            <div id="data_entre" class="ocult"></div>
+            <div id="data_entrevista_hoje-oculta" class="ocult"></div>
           </div>
           <div>
             <button id="solicitaFormButton" type="button" onclick="solicitaForm()">Solicitações de Formulários</button>
@@ -205,7 +205,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             </nav>
 
             <nav>
-              <a type="button" id="btn_filtrar">
+              <a type="button" onclick="filtro_cadastros()"id="btn_filtrar">
                 Filtros Famílias
               </a>
             </nav>
@@ -260,10 +260,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     document.addEventListener('DOMContentLoaded', function() {
       const targets = [
         document.getElementById('codfamiliar_print'),
-        document.getElementById('data_entrevista'),
-        document.getElementById('familia_show'),
-        document.getElementById('data_entre')
-      ];
+        document.getElementById('familia_show')
+      ]
 
       // Função para alternar visibilidade
       function toggleVisibility(target) {
