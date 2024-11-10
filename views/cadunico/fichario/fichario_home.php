@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fichário Digital - TechSUAS</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <link rel="stylesheet" href="../../../css/cadunico/fichario/style.css">
+
+    <link rel="stylesheet" href="/TechSUAS/css/fichario_dig/style.css">
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
@@ -15,36 +14,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
         integrity="sha512-9yFkgZODpjftI3OUb8zH9FvyJfcd8jrZG1wQ0Ww4PovU4DwHms1tBhJhbAB8WdcWb6n7B8g/uJc1NGIc8J02+w=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
+        <script src="/TechSUAS/js/entrevistadores.js"></script>
+
 </head>
-<style>
-    .swal2-input-container {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .swal2-input {
-        padding: 10px;
-        font-size: 16px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        box-shadow: none;
-    }
-
-    .swal2-label {
-        font-weight: bold;
-        margin-bottom: 5px;
-    }
-
-    .swal2-html-container {
-        padding: 15px;
-    }
-</style>
-
 <body>
     <div class="img">
         <h1 class="titulo-com-imagem">
-            <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/fichario/h1-fichario_digital.svg"
+            <img class="titulo-com-imagem" src="/TechSUAS/img/fichario/h1-fichario_digital.svg"
                 alt="Título com imagem">
         </h1>
     </div>
@@ -73,7 +54,6 @@
                         <!-- Dados preenchidos dinamicamente -->
                     </tbody>
                 </table>
-                <div id="mensagem">Nenhum dado encontrado</div>
             </div>
         </div>
 
@@ -102,7 +82,7 @@
 
             function consultarPorCodFamiliar(codFamiliar) {
                 $.ajax({
-                    url: '../../../controller/cadunico/fichario/consultar_por_codfamiliar.php',
+                    url: '/TechSUAS/controller/fichario_dig/consultar_por_codfamiliar.php',
                     type: 'POST',
                     data: {
                         codFamiliar: codFamiliar
@@ -123,7 +103,7 @@
                 event.preventDefault();
 
                 $.ajax({
-                    url: '../../../controller/cadunico/fichario/request_lista_cadastro.php',
+                    url: '/TechSUAS/controller/fichario_dig/request_lista_cadastro.php',
                     type: 'POST',
                     data: $(this).serialize(),
                     success: function (data) {
@@ -160,7 +140,7 @@
                                         preConfirm: () => {
                                             const form = Swal.getPopup().querySelector('#inclusaoForm');
                                             const formData = new FormData(form);
-                                            return fetch('../../../controller/cadunico/fichario/incluir_novo_registro.php', {
+                                            return fetch('/TechSUAS/controller/fichario_dig/incluir_novo_registro.php', {
                                                 method: 'POST',
                                                 body: formData
                                             }).then(response => response.json()).then(data => {
