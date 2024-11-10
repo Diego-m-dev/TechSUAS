@@ -13,7 +13,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <link rel="stylesheet" href="/TechSUAS/css/fichario_dig/style_arquivo.css">
+    <!-- <link rel="stylesheet" href="/TechSUAS/css/fichario_dig/style_arquivo.css"> -->
+    <link rel="stylesheet" href="/TechSUAS/css/fichario_dig/ficharios_ocupados.css">
+
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -27,8 +29,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 <body>
     <div class="conteiner-arm">
         <form action="" method="POST">
-          <label for="arm">ARMÁRIO</label>
-            <a href="/TechSUAS/views/fichario/form_fichario"><i class="fas fa-arrow-left"></i>Voltar</a>
+          <h3>ARMÁRIO</h3>
               <select name="arm" id="arm" required onchange="mudaArmario()">
                 <option value="" disabled selected hidden>00</option>
                 <?php
@@ -44,7 +45,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
               </select>
         </form>
     </div>
+    <a href="/TechSUAS/views/fichario/form_fichario"><i class="fas fa-arrow-left"></i>Voltar</a>
+
     <div id="tabela-container"></div>
+    
 </body>
 
 </html>
