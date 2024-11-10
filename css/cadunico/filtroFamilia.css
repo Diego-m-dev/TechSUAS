@@ -1,0 +1,138 @@
+body {
+  background-image: url('/TechSUAS/img/cadunico/background_cad.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: "Inter", sans-serif;
+  font-size: 14px;
+  color: #13294b;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 20px auto;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+h2 {
+  text-align: center;
+  color: #13294b;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.filtro-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.bloc {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
+
+label {
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #13294b;
+}
+
+input, select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  font-size: 14px;
+  color: #13294b;
+  transition: all 0.3s ease;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+select {
+  width: 250px;
+}
+
+input[type="text"], input[type="date"] {
+  width: 250px;
+  height: 10px;
+}
+
+input:focus, select:focus {
+  border-color: #3b82f6;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  outline: none;
+}
+
+input[type="text"]::placeholder {
+  color: #ccc;
+}
+
+button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #13294b;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s, box-shadow 0.3s;
+  margin: 5px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+  background-color: #3b82f6;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.btns {
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.table-bordered {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.table-bordered th, .table-bordered td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #13294b;
+}
+
+.table-bordered th {
+  background-color: #13294b;
+  color: white;
+  position: sticky;
+  top: 0;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.table-bordered tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.table-container {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.visto {
+  padding: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
