@@ -17,7 +17,7 @@ $stmt_fic_query = $conn->query($stmt_fic) or die("Erro " . $conn - error);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="/TechSUAS/css/cadunico/fichario/ficharios_ocupados.css">
+    <link rel="stylesheet" href="/TechSUAS/css/fichario_dig/ficharios_ocupados.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -33,7 +33,7 @@ $stmt_fic_query = $conn->query($stmt_fic) or die("Erro " . $conn - error);
   <body>
     <div class="img">
       <h1 class="titulo-com-imagem">
-        <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/fichario/h1-ficharios_ocupados.svg" alt="Título com imagem">
+        <img class="titulo-com-imagem" src="/TechSUAS/img/fichario/h1-ficharios_ocupados.svg" alt="Título com imagem">
       </h1>
     </div>
 
