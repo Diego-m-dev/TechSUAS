@@ -19,7 +19,12 @@ if ($_SESSION['funcao'] != '1' && $_SESSION['funcao'] != '0') {
     <link rel="stylesheet" href="/TechSUAS/css/geral/stylebanco.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 
     <title>Importar CSV - TechSUAS</title>
 </head>
@@ -31,24 +36,29 @@ if ($_SESSION['funcao'] != '1' && $_SESSION['funcao'] != '0') {
         </h1>
     </div>
     <div class="container">
-        <form action="/TechSUAS/controller/geral/import.php" method="POST" enctype="multipart/form-data">
-            <label>Informe a tabela: </label>
-            <select name="csv_tbl" required>
-                <option value="" disabled selected hidden>Selecione</option>
-                <option value="tudo">Base de Dados do Cadastro Único</option>
-                <option value="folha">Folha de Pagamento</option>
-                <option value="unipessoal">Averiguação Unipessoal</option>
-                <option value="averenda">Averiguação por Renda</option>
-            </select><br>
-            <label>Selecione o arquivo CSV: </label>
-            <input type="file" name="arquivoCSV" id="arquivoCSV" accept=".csv" required>
-            <button type="submit" value="Importar"> Importar </button>
-            <div class="btn">
-                <a href="/TechSUAS/config/back">
-                    <i class="fas fa-arrow-left"></i> Voltar ao menu
-                </a>
-            </div>
-        </form>
+    <form id="csvForm">
+    <label>Informe a tabela: </label>
+    <select name="csv_tbl" id="csvTable" required>
+        <option value="" disabled selected hidden>Selecione</option>
+        <option value="tudo">Base de Dados do Cadastro Único</option>
+        <option value="folha">Folha de Pagamento</option>
+        <option value="unipessoal">Averiguação Unipessoal</option>
+        <option value="averenda">Averiguação por Renda</option>
+    </select>
+    <br>
+    <label>Selecione o arquivo CSV: </label>
+    <input type="file" id="arquivoCSV" accept=".csv" required>
+    <br>
+    <button type="button" id="processCSV">Processar CSV</button>
+</form>
+
+<!-- Pré-visualização -->
+<div id="csvPreview">
+    <h3>Pré-visualização:</h3>
+    <table id="previewTable" border="1"></table>
+</div>
+
     </div>
+    <script src="/TechSUAS/js/import.js"></script>
 </body>
 </html>
