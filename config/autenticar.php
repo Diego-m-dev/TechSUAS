@@ -24,15 +24,17 @@ session_regenerate_id(true);
 $usuario = $_POST['usuario'];
 $senha_login = $_POST['senha'];
 
+//validar login do usuario
 $stmt_login = $pdo_1->prepare("SELECT * FROM operadores WHERE usuario = :usuario");
 $stmt_login->bindValue(":usuario", $usuario);
 $stmt_login->execute();
-
 $dados = $stmt_login->fetch(PDO::FETCH_ASSOC);
+
 if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
     if (password_verify($senha_login, $dados['senha'])) {
+
         $_SESSION['estilo'] = $dados['municipio']. "-". $dados['name_sistema'];
-        
+
         $_SESSION['nome_bd'] = $dados['nome_bd'];
         $_SESSION['user_bd'] = $dados['user_bd'];
         $_SESSION['pass_bd'] = $dados['pass_bd'];
