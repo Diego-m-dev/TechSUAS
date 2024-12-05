@@ -109,3 +109,30 @@ function mostrarCampoTexto() {
       campoTexto.style.display = "none";
   }
 }
+
+function sempreMaiusculo() {
+
+  var maiusculas = document.querySelector('input.maiusculo')
+
+  maiusculas.value = maiusculas.value.toUpperCase()
+  console.log(maiusculas.value)
+}
+
+function buscarSystem() {
+  var codIBGE = document.querySelector('input#codIBGE').value
+
+  $.ajax({
+    type: 'POST',
+    url: '/TechSUAS/suporte/controller/buscaSystem.php',
+    data: {
+      codfam: codIBGE // Envia o código formatado
+    },
+    dataType: 'json',
+
+    success: function (result) {
+      if (result.encontrado) {
+
+      }
+    }
+  })
+}

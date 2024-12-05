@@ -22,12 +22,24 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
 // Verifica se o formulário foi enviado
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $cpf_coord = $_POST['cpf'];
+    
     $funcao = $_POST['funcao'];
     $senha_hashed = password_hash($mddrRfc1nkKKKdsad56, PASSWORD_DEFAULT);
     $user_name = $_POST['nome_user'];
     $user_maiusc = strtoupper($user_name);
     $setor = $_POST['setor'];
+    
+    if (!isset($_POST['cpf'])) {
+      $cpf_coord = '';
+    } else {
+      $cpf_coord = $_POST['cpf'];
+    }
+
+    if (!isset($_POST['codIBGE'])) {
+      $codIBGE = '';
+    } else {
+      $codIBGE = $_POST['codIBGE'];
+    }
 
     $email = $_POST['email'];
     $nomeUsuario = gerarNomeUsuario($user_name);
@@ -65,11 +77,13 @@ exit();
       $municipio = $_SESSION['municipio'];
       $sistema = $_SESSION['name_sistema'];
 
+      
+
     } else {
       $sistema = $_POST['sistema'];
       // Busca o id do setor na tabela setores baseado no cpf do responsável
       $stmt_munic = $pdo_1->prepare("SELECT cod_ibge, nome_bd, user_bd, pass_bd FROM municipios WHERE cod_ibge = :ibgeCOD");
-      $stmt_munic->bindValue(":ibgeCOD", $cpf_coord);
+      $stmt_munic->bindValue(":ibgeCOD", $codIBGE);
       $stmt_munic->execute();
 
       if ($stmt_munic->rowCount() != 0) {
