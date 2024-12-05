@@ -50,6 +50,7 @@ if ($_SESSION['funcao'] != '1' && $_SESSION['funcao'] != '0') {
     <input type="file" id="arquivoCSV" accept=".csv" required>
     <br>
     <button type="button" id="processCSV">Processar CSV</button>
+    <button type="button" onclick="voltaMenu()">Voltar</button>
 </form>
 
 <!-- Pré-visualização -->
@@ -60,5 +61,6 @@ if ($_SESSION['funcao'] != '1' && $_SESSION['funcao'] != '0') {
 
     </div>
     <script src="/TechSUAS/js/import.js"></script>
+    <script src="/TechSUAS/js/cadastro_unico.js"></script>
 </body>
 </html>
