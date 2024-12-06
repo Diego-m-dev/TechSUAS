@@ -169,7 +169,7 @@ if ($_SESSION['setor'] != "SUPORTE") {
 
         <label>Setor:</label>
         <select name="setor" required>
-          <option value="" disabled selected hidden>Selecione</option>
+          <option value="" disabled selected hidden required onchange="buscarSistemaPorSetor()"></option>>Selecione</option>
           <?php
 
           $consultaSetores = $conn_1->query("SELECT instituicao, nome_instit FROM setores");

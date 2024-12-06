@@ -119,20 +119,67 @@ function sempreMaiusculo() {
 }
 
 function buscarSystem() {
-  var codIBGE = document.querySelector('input#codIBGE').value
+  var codIBGE = document.querySelector('input#codIBGE').value;
 
   $.ajax({
     type: 'POST',
     url: '/TechSUAS/suporte/controller/buscaSystem.php',
     data: {
-      codfam: codIBGE // Envia o código formatado
+      codIBGE: codIBGE // Envia o código formatado
     },
     dataType: 'json',
 
     success: function (result) {
       if (result.encontrado) {
+        var setorSelect = document.querySelector('select[name="setor"]');
+        setorSelect.innerHTML = '<option value="" disabled selected hidden>Selecione</option>';
 
+        // Cria a opção com o nome do setor
+        var option = document.createElement('option');
+        option.value = `${result.instituicao} - ${result.nomeInstituicao}`; // Nome do setor
+        option.textContent = `${result.instituicao} - ${result.nomeInstituicao}`; // Exibe o nome do setor
+        option.dataset.id = result.id; // Armazena o ID do setor no atributo data-id
+        setorSelect.appendChild(option);
+
+        // Adiciona evento de "change" ao setor dinamicamente
+        setorSelect.addEventListener('change', function () {
+          var idSetor = setorSelect.options[setorSelect.selectedIndex].dataset.id; // Acessa o ID do setor
+          console.log("ID do setor selecionado:", idSetor);
+          buscarSistemaPorSetor(idSetor); // Chama a função passando o ID do setor
+        });
+      } else {
+        alert('Nenhum setor encontrado para este município IBGE.');
       }
+    },
+    error: function () {
+      alert('Erro ao buscar os setores. Verifique o código IBGE.');
     }
-  })
+  });
+}
+function buscarSistemaPorSetor() {
+  var setorSelect = document.querySelector('select[name="setor"]');
+  var setorValue = setorSelect.value;
+
+  if (!setorValue) {
+    alert('Por favor, selecione um setor.');
+    return;
+  }
+
+  // Extraia o ID do setor do valor selecionado
+  var idSetor = setorValue.split('-')[0].trim();
+
+  console.log('ID do setor selecionado:', idSetor);  // Para depuração
+
+  $.ajax({
+    type: 'POST',
+    url: '/TechSUAS/suporte/controller/buscaSystemPorSetor.php',
+    data: {
+      idSetor: idSetor // Envia o ID do setor selecionado
+    },
+    dataType: 'json',
+
+    success: function (result) {
+      var selectSystemDiv = document.getElementById('selectSystem');
+    }
+  });
 }
