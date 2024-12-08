@@ -375,6 +375,30 @@ label {
     /* Transição suave para a opacidade */
 }
 
+.graficos {
+  display: flex; /* Utiliza flexbox para organizar os gráficos */
+  flex-direction: column; /* Organiza os gráficos em coluna */
+  max-width: 40%; /* Ajusta a largura máxima do canvas */
+  height: 300px; /* Mantém a proporção do gráfico */
+  margin: 3cm 3cm; /* Margem entre os gráficos */
+}
+
+#legendaGrafico {
+  float: right; 
+  margin-top: -100px;
+}
+
+#legendaGrafico ul {
+  list-style-type: none;
+  padding: 0;
+}
+#legendaGrafico li span{
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
 .my-custom-close-button:hover {
     color: #999;
     /* Cor do botão ao passar o mouse */
@@ -410,4 +434,67 @@ label {
     background: white;
     z-index: 2;
     white-space: nowrap;
+}
+
+@media print {
+  body {
+    font-family: "Times New Roman", Times, serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    page-break-before: always; /* Inicia uma nova página para cada comunicado */
+
+    position: relative;
+    background-image: url('../../../img/cadunico/timbre_cad-amor_trabalho.png');
+    background-size: contain; /* Ajusta para conter dentro da página */
+    background-repeat: no-repeat; /* Evita a repetição da imagem */
+    background-position: center top; /* Centraliza no topo */
+    width: 100%;
+    height: 100%;
+  }
+
+    .introduction {
+      page-break-before: always;
+    }
+  
+
+  form {
+    display: none; /* Esconde o form durante a impressão */
+  }
+
+  p {
+    font-size: 12pt;
+    line-height: 1.5;
+    text-align: justify;
+    text-indent: 1cm;
+    margin: 0 1cm;
+    background-color: transparent; /* Remove fundo branco dos parágrafos */
+  }
+
+  table {
+    margin: 1cm auto;
+    width: 90%; /* Ajusta a largura da tabela */
+    border-collapse: collapse; /* Remove espaçamento entre bordas das células */
+  }
+
+  h1 {
+    margin-top: 15%;
+  }
+
+  h4 {
+    text-align: left;
+  }
+
+  h1, h2 {
+    text-align: center;
+  }
+
+  .comunicado {
+    page-break-inside: avoid;
+    padding: 20px;
+  }
+
+  @page {
+    size: A4 portrait;
+  }
 }

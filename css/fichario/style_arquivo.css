@@ -1,0 +1,55 @@
+body {
+  font-family: 'Times New Roman', Times, serif;
+  background-color: #f8f0e3;
+  color: #333;
+  margin: 20px;
+  padding: 20px;
+}
+
+.conteiner-arm {
+  display: inline-block;
+  position: relative;
+  width: 3cm;
+  height: 3cm;
+  margin: 5px;
+  border: 1px solid #ccc;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: calc(100% - 22px);
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.contein-gav {
+  display: flex;
+  flex-wrap: wrap;
+}
+.column {
+  flex: 1;
+  padding: 10px;
+}
+.pasta {
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.column {
+  border: 1px solid #000;
+  padding: 10px;
+}
+.column h3 {
+  text-align: center;
+}

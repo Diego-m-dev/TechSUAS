@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $cpf_limpo = preg_replace('/\D/', '', $_POST['cod_fam']);
     $ajustando_cod = str_pad($cpf_limpo, 11, '0', STR_PAD_LEFT);
 
-    $data_entrevista = $_POST['data_entrevista'];
+    $data_entrevista = $_POST['data_entrevista_hoje'];
     $sit_beneficio = $_POST['sit_beneficio'];
     $resumo = $_POST['resumo']; 
     $tipo_documento = implode(', ', $_POST['tipo_documento']); // Certifique-se de que o tipo_documento esteja em formato correto

@@ -29,6 +29,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             <label for="armario">ARMÁRIO</label>
             <input type="text" name="armario">
         </form>
+        <a href="/TechSUAS/views/fichario/form_fichario"><i class="fas fa-arrow-left"></i>Voltar</a>
     </div>
 
     <?php
@@ -52,7 +53,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         }
         $conn->close();
     }
-    $conn_1->clese();
+    $conn_1->close();
     ?>
 
 </body>

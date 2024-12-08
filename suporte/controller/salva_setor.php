@@ -93,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } else {
       echo "Erro ao salvar os dados: " . $pdo_1->errorInfo()[2];
   }
-$conn->close();
+$conn_1->close();
 }
 ?>
 </body>

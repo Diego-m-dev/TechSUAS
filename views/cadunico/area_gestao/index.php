@@ -15,6 +15,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -39,8 +40,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </div>
             <div class="btns">
                 <div class="bt">
-                    <button type="button" class="menu-button" id="btn_benef">
-                        <span class="material-symbols-outlined">quick_reference_all</span> Consultar Benefício
+                    <button type="button" class="menu-button" onclick="relatorios()">
+                        <span class="material-symbols-outlined">
+                          quick_reference_all</span> 
+                          Gerar Relatórios
                     </button>
                 </div>
 
@@ -53,11 +56,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
                 <div class="bt">
                     <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/filtros';">
-                        <span class="material-symbols-outlined">
-                            search_insights</span>
-                        Consultar Famílias
+                      <span class="material-symbols-outlined">
+                        search_insights</span>
+                      Consultar Famílias
                     </button>
-
                 </div>
 
                 <div class="bt">
@@ -69,6 +71,19 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                     </button>
                 </div>
 
+                <div class="bt">
+                    <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/cadastrar_user';">
+                      <span></span>
+                        Cadastrar Operadores
+                    </button>
+                </div>
+
+                <!-- <div class="bt">
+                    <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/ponto_eletronico/ponto_eletronico';">
+                      <span></span>
+                        Importar Ponto
+                    </button>
+                </div> -->
 
                 <div class="bt">
                     <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/visitas/accompany_visits';">
@@ -94,91 +109,18 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
             <div class="cont-a">
                 <button class="menu-button" onclick="unipessoal()">LISTA DO PUBLICO UNIPESSOAL</button>
-                <a href="#" class="modal-trigger">CADASTROS ATUALIZADOS COM DATAS DIVERGENTES</a>
-                <a href="#" class="modal-trigger">CADASTROS SEM RESPONSAVEL FAMILIAR </a>
-                <a href="#" class="modal-trigger">CADASTROS SEM CPF </a>
+                <button class="menu-button" onclick="excluir()">CONSULTAR POR ANO</button>
+                <button class="menu-button" onclick="semrf()">CADASTROS SEM RESPONSAVEL FAMILIAR</button>
+                <button class="menu-button" onclick="semcpf()">CADASTROS SEM CPF</button>
                 <a href="#" class="modal-trigger">VISITAS RELIZADAS SEM RELATORIO</a>
-                <a href="#" class="modal-trigger">AVERIGUAÇÕES (UNIPESSOAIS - RENDA - P3)</a>
+                <button class="menu-button" onclick="pontoEletrico()">PONTO ELETRÔNICO</button>
             </div>
         </div>
 
-        <!-- Modal Structure -->
-        <div id="myModal" class="modal">
-
-            <div class="container_modal">
-                <div class="header-title">
-                    <h1 id="modalTitle">Famílias unipessoais com upload</h1>
-                    <span class="close">&times;</span>
-                </div>
-                <div class="header">
-                    <div class="icon">
-                        <i class="fa fa-user"></i>
-                    </div>
-                    <p id="modalDescription"></p>
-
-                </div>
-                <div class="body-cont">
-                    <div class="search-results">
-                        <h2>Resultado da pesquisa</h2>
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th>Código familiar</th>
-                                    <th>Endereço</th>
-                                    <th>Nome do RUF</th>
-                                    <th>CPF do RUF</th>
-                                    <th>Tipo de RUF</th>
-                                    <th>Estado Cadastral</th>
-                                    <th>Ações</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>156644304</td>
-                                    <td>COLONIA - SITIO COLONIA, 2001</td>
-                                    <td>ZENILDA FERREIRA RODRIGUES</td>
-                                    <td>769.190.134-87</td>
-                                    <td>Responsável Familiar</td>
-                                    <td>
-                                        <button class="action">Cadastrado</button>
-                                    </td>
-                                    <td>
-                                        <button class="action">
-                                            <i class="fa fa-eye"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="pagination">
-                        <div class="page-item">
-                            <a href="#">&lt;</a>
-                        </div>
-                        <div class="page-item active">
-                            <a href="#">1</a>
-                        </div>
-                        <div class="page-item">
-                            <a href="#">&gt;</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="footer">
-                    <button class="close">Voltar</button>
-                </div>
 
             </div>
         </div>
 
-        <!-- CADASTROS Formulário para filtrar informações do cadastro
-        <form method="post" id="simples">
-            <label for="">NOME:</label>
-            <input type="text" name="nome_pessoa" />
-            <label for="">Código Familiar</label>
-            <input type="text" name="codigo_familia">
-            <button type="submit" name="btn_filtro_familia">Buscar</button>
-        </form> -->
 
         <?php
 
@@ -295,19 +237,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         ?>
     </div>
     <script>
-        $(document).ready(function() {
-            $('#btn_benef').on('click', function() {
-                $('#simples').hide();
-                $('#beneficio').show();
-                $('#entrevistadores').hide();
-            });
 
-            $('#btn_entrevistadores').on('click', function() {
-                $('#simples').hide();
-                $('#beneficio').hide();
-                $('#entrevistadores').show();
-            });
-        });
 
         var modal = document.getElementById("myModal");
         var closeButtons = document.querySelectorAll(".close");
@@ -336,6 +266,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             }
         }
     </script>
+<?php
+  $conn_1->close();
+?>
 </body>
 
 </html>
