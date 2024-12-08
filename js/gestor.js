@@ -707,7 +707,7 @@ function criarTabelaExcluir(dados) {
 
       // Exibir SweetAlert com a tabela
       Swal.fire({
-        title: 'CADASTROS SEM RF',
+        title: 'CADASTROS PARA EXCLUIR',
         html: table,
         width: '800px', // Largura da janela SweetAlert
         showCloseButton: true,
@@ -726,7 +726,7 @@ function semcpf() {
     return response.json()
   })
   .then(data => {
-    console.log('Dados recebidos', data)
+    // console.log('Dados recebidos', data)
     criarTabelasemrf(data); // Chama a função para criar a tabela com os dados recebidos
   })
   .catch(error => {
