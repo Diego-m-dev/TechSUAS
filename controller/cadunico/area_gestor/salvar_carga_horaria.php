@@ -15,7 +15,7 @@ if (isset($_POST['nis_servidor']) && isset($_POST['horarios'])) {
 
         // Prepara a instrução SQL para inserção
         $stmt = $pdo->prepare("INSERT INTO carga_horaria (nis, dia_semana, hora_entrada, hora_pausa, hora_volta, hora_saida, horas_diaria) 
-                              VALUES (:nis, :dia_semana, :hora_entrada, :hora_pausa, :hora_volta, :hora_saida, :horas_diaria)");
+                                VALUES (:nis, :dia_semana, :hora_entrada, :hora_pausa, :hora_volta, :hora_saida, :horas_diaria)");
 
         // Loop para inserir cada registro de horário
         foreach ($horarios as $horario) {
