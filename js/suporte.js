@@ -125,7 +125,7 @@ function buscarSystem() {
     type: 'POST',
     url: '/TechSUAS/suporte/controller/buscaSystem.php',
     data: {
-      codIBGE: codIBGE // Envia o código formatado
+      codIBGE: codIBGE 
     },
     dataType: 'json',
 
@@ -134,18 +134,18 @@ function buscarSystem() {
         var setorSelect = document.querySelector('select[name="setor"]');
         setorSelect.innerHTML = '<option value="" disabled selected hidden>Selecione</option>';
 
-        // Cria a opção com o nome do setor
+  
         var option = document.createElement('option');
-        option.value = `${result.instituicao} - ${result.nomeInstituicao}`; // Nome do setor
-        option.textContent = `${result.instituicao} - ${result.nomeInstituicao}`; // Exibe o nome do setor
-        option.dataset.id = result.id; // Armazena o ID do setor no atributo data-id
+        option.value = `${result.instituicao} - ${result.nomeInstituicao}`; 
+        option.textContent = `${result.instituicao} - ${result.nomeInstituicao}`; 
+        option.dataset.id = result.id;
         setorSelect.appendChild(option);
 
-        // Adiciona evento de "change" ao setor dinamicamente
+        
         setorSelect.addEventListener('change', function () {
-          var idSetor = setorSelect.options[setorSelect.selectedIndex].dataset.id; // Acessa o ID do setor
+          var idSetor = setorSelect.options[setorSelect.selectedIndex].dataset.id; 
           console.log("ID do setor selecionado:", idSetor);
-          buscarSistemaPorSetor(idSetor); // Chama a função passando o ID do setor
+          buscarSistemaPorSetor(idSetor); 
         });
       } else {
         alert('Nenhum setor encontrado para este município IBGE.');
@@ -156,30 +156,39 @@ function buscarSystem() {
     }
   });
 }
+
 function buscarSistemaPorSetor() {
   var setorSelect = document.querySelector('select[name="setor"]');
-  var setorValue = setorSelect.value;
-
-  if (!setorValue) {
-    alert('Por favor, selecione um setor.');
+  var idSetor = setorSelect.options[setorSelect.selectedIndex].dataset.id;
+  if (!idSetor) {
+    alert("Selecione um setor válido!");
     return;
   }
 
-  // Extraia o ID do setor do valor selecionado
-  var idSetor = setorValue.split('-')[0].trim();
-
-  console.log('ID do setor selecionado:', idSetor);  // Para depuração
-
   $.ajax({
     type: 'POST',
-    url: '/TechSUAS/suporte/controller/buscaSystemPorSetor.php',
-    data: {
-      idSetor: idSetor // Envia o ID do setor selecionado
-    },
+    url: '/TechSUAS/suporte/controller/buscaSystemPorSetor.php', 
+    data: { idSetor: idSetor }, 
     dataType: 'json',
+    success: function (sistemas) {
+      var sistemaSelect = document.querySelector('select[name="sistema"]');
+      sistemaSelect.innerHTML = '<option value="" disabled selected hidden>Selecione</option>';
 
-    success: function (result) {
-      var selectSystemDiv = document.getElementById('selectSystem');
+      if (sistemas.length > 0) {
+        sistemas.forEach(function (sistema) {
+          var option = document.createElement('option');
+          option.value = sistema.id;
+          option.textContent = sistema.nome_sistema; 
+          sistemaSelect.appendChild(option);
+        });
+      } else {
+        alert("Nenhum sistema encontrado para este setor.");
+      }
+    },
+    error: function () {
+      alert("Erro ao buscar os sistemas. Tente novamente.");
     }
   });
 }
+
+

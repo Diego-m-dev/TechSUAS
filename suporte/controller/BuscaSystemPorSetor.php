@@ -1,34 +1,27 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao_acesso.php';
-
 header('Content-Type: application/json');
 
-
 if (isset($_POST['idSetor'])) {
-    $idSetor = $_POST['idSetor'];
+    $idSetor = intval($_POST['idSetor']); // Obtém o ID do setor enviado pelo AJAX
 
-    // Prepare a consulta SQL para buscar os sistemas
-    $stmt = $conn_1->prepare("SELECT id, nome FROM sistemas WHERE setores_id = ?");
-    $stmt->bind_param('i', $idSetor); 
-    $stmt->execute();
+    // Consulta para buscar os sistemas relacionados ao setor
+    $query = $conn_1->prepare("SELECT id, nome_sistema FROM sistemas WHERE setores_id = ?");
+    $query->bind_param('i', $idSetor); // Substitui o parâmetro pelo ID do setor
+    $query->execute();
+    $result = $query->get_result();
 
-    $result = $stmt->get_result();
     $sistemas = [];
-
     while ($row = $result->fetch_assoc()) {
-        $sistemas[] = $row;
-    }
-    if (count($sistemas) > 0) {
-        echo json_encode($sistemas);
-    } else {
-        echo json_encode(['error' => 'Nenhum sistema encontrado para o setor selecionado.']);
+        $sistemas[] = $row; // Adiciona cada sistema encontrado ao array
     }
 
-    $stmt->close();
+    // Retorna os sistemas encontrados como JSON
+    echo json_encode($sistemas);
 } else {
-    echo json_encode(['error' => 'ID do setor não informado.']);
+    echo json_encode([]); // Retorna um array vazio se o ID do setor não foi enviado
 }
+
 
 $conn_1->close();
 ?>
