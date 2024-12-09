@@ -83,7 +83,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $dados = $sql_query->fetch_assoc();
             $id_hist_conc = $dados['id_concessao'];
 
-            echo '<p> O(A) Responsável <b>' . $dados['nome'] . '</b> tem os seguintes formulários...</p>';
+            echo '<p> O(A) Responsável <strong>' . $dados['nome'] . '</strong> tem os seguintes formulários...</p>';
 
             // Consulta dos historico relacionados ao responsáveis
             $form = $conn->real_escape_string($id_hist_conc);

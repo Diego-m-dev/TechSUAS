@@ -63,7 +63,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
                 $dadosv = $sqli->fetch(PDO::FETCH_ASSOC);
                 $codfam = $dadosv['cod_fam'];
 
-                $sql = $pdo->prepare("SELECT * FROM tbl_tudo WHERE cod_familiar_fam = LPAD(:codfam, 11, '0') AND cod_parentesco_rf_pessoa = 1");
+                $sql = $pdo->prepare("SELECT * FROM tbl_tudo WHERE cod_familiar_fam COLLATE utf8mb4_general_ci = LPAD(:codfam, 11, '0') AND cod_parentesco_rf_pessoa = 1");
                 $sql->bindParam(':codfam', $codfam, PDO::PARAM_STR);
                 $sql->execute();
 

@@ -192,16 +192,23 @@ while ($d = $result_sql_ano->fetch_assoc()) {
             </select>
         </div>
 
-        <!-- Parentesco -->
+        <!-- zona urbana ou rural -->
         <div class="form-group">
           <label for="zonas">Área:</label>
             <select id="filtro-zonas" onchange="aplicarFiltrosentrevist()">
-              <option value="">Filtro por parentesco</option>
+              <option value="">Filtro Área</option>
               <option value="1">Urbano</option>
               <option value="2">Rural</option>
               
             </select>
         </div>
+
+        <!-- zona urbana ou rural -->
+        <div class="form-group">
+          <label for="endereco">Endereço:</label>
+            <input type="text" id="filtro-endereco" onkeyup="aplicarFiltrosentrevist()" placeholder="Bairro, logradouro, nome rua..." />
+        </div>
+
                   <div>
                     <!--INPUT ESCONDIDOS PRA MANTER AS VARIÁVEIS DA FUNÇÃO aplicarFiltros FUNCIONANDO-->
                       <input type="hidden" id="filtro-other-grupo" value="" onkeyup="aplicarFiltrosentrevist()" />

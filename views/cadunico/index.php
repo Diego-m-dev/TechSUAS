@@ -83,7 +83,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/css_ind.php';
           </div>
 
           <div class="fichario">
-            <a class="menu-button" href="/TechSUAS/views/cadunico/fichario/index.php">
+            <a class="menu-button" href="/TechSUAS/views/cadunico/fichario/index">
               <span class="material-symbols-outlined">folder_shared</span>
               Fichário
             </a>

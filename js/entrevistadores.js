@@ -80,6 +80,7 @@ function filtroCriaIdosentrevist() {
 // Função para aplicar filtros na tabela
 function aplicarFiltrosentrevist() {
   var filtroOtherGrupo = document.getElementById('filtro-other-grupo').value
+  var filtroendereco = document.getElementById('filtro-endereco').value
   var filtroStatus = document.getElementById('filtro_status').value
   var filtroParent = document.getElementById('filtro-parent').value
   var filtro_renda_per = document.getElementById('renda_per').value
@@ -113,7 +114,8 @@ function aplicarFiltrosentrevist() {
       (filtro_mes === '' || (row[18] && row[18] === filtro_mes)) &&
       (filtroIdade === '' || (row[4] && row[4] === filtroIdade)) &&
       (filtrocpf === '' || (row[14] && row[14] === filtrocpf)) &&
-      (filtrozonas === '' || (row[19] && row[19] === filtrozonas))
+      (filtrozonas === '' || (row[19] && row[19] === filtrozonas)) &&
+      (filtroendereco === '' || (row[6] && row[6].toLowerCase().includes(filtroendereco.toLowerCase())))
   })
 
   criarTabelaFiltradaentrevist(dadosFiltrados);

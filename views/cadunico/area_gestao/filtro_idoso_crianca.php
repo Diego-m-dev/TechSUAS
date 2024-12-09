@@ -22,7 +22,7 @@ $solicitacao_sql = "SELECT
   CONCAT('R$ ', vlr_renda_total_fam, ',00') AS vlr_renda_total_fam, 
   CONCAT(nom_tip_logradouro_fam, ' ', nom_titulo_logradouro_fam, ' ', nom_logradouro_fam, ', ', num_logradouro_fam, ' - ', nom_localidade_fam, ' ', txt_referencia_local_fam) AS endereco,
   CASE
-    WHEN qtde_meses_desat_cat = 0 THEN 'ATUALIZADA'
+    WHEN qtde_meses_desat_cat <= 2 THEN 'ATUALIZADA'
     ELSE 'DESATUALIZADO'
   END AS status_atualizacao,
   nom_escola_memb,
@@ -49,6 +49,7 @@ $solicitacao_sql = "SELECT
     ELSE 'FAMÍLIA SEM RESPONSÁVEL FAMILIAR (consulte o V7)'
   END AS parentesco,
   CONCAT('(',num_ddd_contato_1_fam, ')', ' ', num_tel_contato_1_fam),
+  DATE_FORMAT(dat_atual_fam, '%d/%m/%Y') AS dat_atual_fam,
   num_cpf_pessoa,
   YEAR(dat_atual_fam),
   vlr_renda_media_fam,
@@ -70,3 +71,4 @@ $dados = array_merge($query_tudo);
 
 header('Content-Type: application/json');
 echo json_encode($dados);
+$conn->close();

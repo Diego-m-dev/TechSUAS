@@ -303,10 +303,8 @@ $(document).ready(function () {
       confirmButtonText: 'Enviar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-      if (result.isConfirmed) {
-        const form = document.getElementById("form_fc_pessoa")
-        form.submit()
-      }
+
+      
     })
   })
 })
@@ -392,11 +390,11 @@ function consultarFamilia() {
             } else {
               acao = "";
             }
-            visitasHtml += '<div class="visita">';
-            visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>';
-            visitasHtml += '<span>Ação: ' + acao + '</span><br>';
-            visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>';
-            visitasHtml += '</div><br>';
+            visitasHtml += '<div class="visita">'
+            visitasHtml += '<span>Data da Visita: ' + visita.data + '</span><br>'
+            visitasHtml += '<span>Ação: ' + acao + '</span><br>'
+            visitasHtml += '<span>Entrevistador: ' + visita.entrevistador + '</span><br>'
+            visitasHtml += '</div><br>'
           });
           $('#data_visita').html(visitasHtml);
         } else if (response.data_visita) {
