@@ -15,7 +15,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png" />
   <link rel="stylesheet" href="/TechSUAS/css/cadunico/style-painel_entrevistador.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -34,7 +35,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   <h1></h1>
   <div class="tudo">
     <div class="container">
-    <form id="cadastroForm" enctype="multipart/form-data">
+      <form id="cadastroForm" enctype="multipart/form-data">
         <div class="ocult2">
           <div id="codfamiliar_print" class="ocult"></div>
           <div id="familia_show" class="ocult"></div>
@@ -45,7 +46,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           <div class="bloc1">
             <div>
               <label for="codfamiliar">Código familiar:</label>
-              <input type="text" name="cod_fam" id="codfamiliar" onchange="buscarDadosFamily()" required />
+              <input type="text" name="cod_fam" id="codfamiliar" onchange="buscarDadosFamily(); tratarCodigo();"
+                required />
             </div>
             <div id="cont_data">
               <label for="data_entrevista">Data da Entrevista:</label>
@@ -74,7 +76,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           </div>
           <div class="observ">
             <div><label for="resumo">Observação:</label></div>
-            <div><textarea name="resumo" id="resumo" placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
+            <div><textarea name="resumo" id="resumo"
+                placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
           </div>
           <br><input type="hidden" name="tipo_documento_hidden" id="tipo_documento_hidden" value=".pdf">
         </div>
@@ -98,8 +101,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           </div>
           <div class="upl">
             <label for="arquivo">Arquivo:</label>
-            <input type="file" id="arquivo" name="arquivo" required>
+            <input type="file" id="arquivo" name="arquivo" required onchange="mostrarNomeArquivo()">
+            <span id="nomeArquivo" hidden style="display: none; margin-top: 10px; display: block;"></span>
             <label for="" class="coment">Arraste ou selecione o arquivo</label>
+            <!-- Para mostrar o nome do arquivo -->
           </div>
         </div>
         <div class="btn">
@@ -185,11 +190,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           </div>
           <div class="bloco2">
             <nav>
-              <a href="https://cadunico.dataprev.gov.br/portal/" target="_blank" class="pcadunico">PORTAL CADASTRO ÚNICO</a>
+              <a href="https://cadunico.dataprev.gov.br/portal/" target="_blank" class="pcadunico">PORTAL CADASTRO
+                ÚNICO</a>
 
-              <a href="https://falemds.centralit.com.br/formulario/" target="_blank" class="pcadunico">FORMULÁRIO ELETRÔNICO DO MDS</a>
+              <a href="https://falemds.centralit.com.br/formulario/" target="_blank" class="pcadunico">FORMULÁRIO
+                ELETRÔNICO DO MDS</a>
 
-              <a href="https://www.mds.gov.br/mds-sigpbf-web/carregarTelaLogin.jsf;jsessionid=fdL4CJM3HzqgPmqgvb3i9aKrL02hrOuEBCb9dQo9.susigpbfpd01" target="_blank" class="sigpbf">SIGPBF</a>
+              <a href="https://www.mds.gov.br/mds-sigpbf-web/carregarTelaLogin.jsf;jsessionid=fdL4CJM3HzqgPmqgvb3i9aKrL02hrOuEBCb9dQo9.susigpbfpd01"
+                target="_blank" class="sigpbf">SIGPBF</a>
 
             </nav>
           </div>
@@ -205,7 +213,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             </nav>
 
             <nav>
-              <a type="button" onclick="filtro_cadastros()"id="btn_filtrar">
+              <a type="button" onclick="filtro_cadastros()" id="btn_filtrar">
                 Filtros Famílias
               </a>
             </nav>
@@ -219,8 +227,44 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   $conn_1->close();
   ?>
   <script>
-      $(document).ready(function() {
-      $('#cadastroForm').on('submit', function(event) {
+    function mostrarNomeArquivo() {
+      var inputFile = document.getElementById('arquivo');
+      var nomeArquivo = document.getElementById('nomeArquivo');
+      var inputCodFam = document.getElementById('codfamiliar'); // Obtém o input para o código familiar
+
+      // Verifica se o arquivo foi selecionado
+      if (inputFile.files && inputFile.files[0]) {
+        var fileName = inputFile.files[0].name; // Obtém o nome do arquivo
+        nomeArquivo.textContent = 'Arquivo selecionado: ' + fileName; // Exibe o nome do arquivo no span
+        nomeArquivo.style.display = 'block'; // Mostra o nome do arquivo
+        inputCodFam.value = fileName; // Preenche o campo de código familiar com o nome do arquivo
+
+        // Chama a função para tratar o valor do código familiar (remover caracteres não numéricos)
+        tratarCodigo();
+      } else {
+        nomeArquivo.style.display = 'none'; // Oculta o nome do arquivo se nenhum arquivo for selecionado
+        inputCodFam.value = ''; // Limpa o campo de código familiar se nenhum arquivo for selecionado
+      }
+    }
+
+    function tratarCodigo() {
+      var campo = document.getElementById('codfamiliar');
+      var valor = campo.value;
+
+      // Remover caracteres não numéricos, como traços, espaços, etc.
+      valor = valor.replace(/\D/g, ''); // \D remove tudo o que não é número
+
+      // Atualizar o campo com o valor tratado
+      campo.value = valor;
+    }
+
+
+  </script>
+
+
+  <script>
+    $(document).ready(function () {
+      $('#cadastroForm').on('submit', function (event) {
         event.preventDefault(); // Impede o envio padrão do formulário
 
         // Cria um objeto FormData com os dados do formulário
@@ -232,7 +276,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           data: formData,
           contentType: false,
           processData: false,
-          success: function(response) {
+          success: function (response) {
             // Exibe o alerta de sucesso usando SweetAlert2
             Swal.fire({
               title: 'Sucesso!',
@@ -245,7 +289,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
               }
             });
           },
-          error: function(xhr, status, error) {
+          error: function (xhr, status, error) {
             // Exibe uma mensagem de erro se algo der errado
             Swal.fire({
               title: 'Erro!',
@@ -257,7 +301,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
         });
       });
     });
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const targets = [
         document.getElementById('codfamiliar_print'),
         document.getElementById('familia_show')
@@ -281,7 +325,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
       targets.forEach(target => {
         // Observador de mutações para monitorar mudanças no conteúdo
-        const observer = new MutationObserver(function(mutationsList) {
+        const observer = new MutationObserver(function (mutationsList) {
           for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
               toggleVisibility(target);
