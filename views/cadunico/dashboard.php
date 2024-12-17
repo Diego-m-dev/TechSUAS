@@ -15,37 +15,33 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png" />
   <link rel="stylesheet" href="/TechSUAS/css/cadunico/style-painel_entrevistador.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <script src="/TechSUAS/js/cadastro_unico.js"></script>
+
   <title>Painel do Entrevistador - TechSUAS</title>
 </head>
 
 <body>
-  <!-- <div class="img">
-    <h1 class="titulo-com-imagem">
-      <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/h1-painel_entrevistador.svg" alt="Título com imagem">
-    </h1>
-  </div> -->
+
   <h1></h1>
   <div class="tudo">
     <div class="container">
-    <form id="cadastroForm" enctype="multipart/form-data">
-        <div class="ocult2">
-          <div id="codfamiliar_print" class="ocult"></div>
-          <div id="familia_show" class="ocult"></div>
-        </div>
+      <form id="cadastroForm" enctype="multipart/form-data" method="POST"
+        action="/TechSUAS/controller/cadunico/salvar_dados_painel">
 
-        <!--FORMULARIO PARA IDENTIFICAÇÃO DA ENTREVISTA-->
+        <!-- Identificação da Entrevista -->
         <div class="bloc">
           <div class="bloc1">
             <div>
               <label for="codfamiliar">Código familiar:</label>
-              <input type="text" name="cod_fam" id="codfamiliar" onchange="buscarDadosFamily()" required />
+              <input type="text" maxlength="11" name="cod_fam" id="codfamiliar"
+                oninput="buscarDadosFamily(); tratarCodigo();" required />
             </div>
             <div id="cont_data">
               <label for="data_entrevista">Data da Entrevista:</label>
@@ -58,6 +54,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           </div>
         </div>
 
+        <!-- Situação do Benefício e Observações -->
         <div class="bloc2">
           <div class="situacao">
             <label for="sit_beneficio">Selecione a situação do benefício:</label>
@@ -69,21 +66,20 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
               <option value="FIM DE RESTRIÇÃO ESPECIFICA">FIM DE RESTRIÇÃO ESPECIFICA</option>
               <option value="CANCELADO">CANCELADO</option>
               <option value="BLOQUEADO">BLOQUEADO</option>
-              <option value="NÃO TEM BENEFÍCIO">NÃO TEM BENEFÍCIO</option>
             </select>
           </div>
           <div class="observ">
             <div><label for="resumo">Observação:</label></div>
-            <div><textarea name="resumo" id="resumo" placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
+            <div><textarea name="resumo" id="resumo"
+                placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
           </div>
-          <br><input type="hidden" name="tipo_documento_hidden" id="tipo_documento_hidden" value=".pdf">
+          <input type="hidden" name="tipo_documento_hidden" id="tipo_documento_hidden" value=".pdf">
         </div>
 
-        <!--FORMULÁRIO PARA UPLOAD DOS ARQUIVOS-->
+        <!-- Upload de Arquivos -->
         <div class="upload">
           <div>
             <label for="tipo_documento">Tipo de Documento:</label>
-            <br>
             <select name="tipo_documento[]" id="tipo_documento" multiple required>
               <option value="" disabled hidden>Selecione o(s) tipo(s)</option>
               <option value="Cadastro">Cadastro</option>
@@ -94,214 +90,137 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
               <option value="Parecer visitas">Parecer visitas</option>
               <option value="Documento externo">Documento externo</option>
             </select>
-            <br>
           </div>
           <div class="upl">
             <label for="arquivo">Arquivo:</label>
-            <input type="file" id="arquivo" name="arquivo" required>
+            <input type="file" id="arquivo" name="arquivo" required onchange="mostrarNomeArquivo()">
+            <span id="nomeArquivo" hidden></span>
             <label for="" class="coment">Arraste ou selecione o arquivo</label>
           </div>
+
         </div>
+
         <div class="btn">
           <button type="submit">Cadastrar</button>
           <div id="success-icon" style="display: none;">
-            <span class="material-symbols-outlined">
-              check
-            </span>
+            <span class="material-symbols-outlined">check</span>
           </div>
-          <br><button type="button" onclick="voltaMenu()"><i class="fas fa-arrow-left"></i>Voltar ao menu</button>
+          <button type="button" onclick="voltaMenu()"><i class="fas fa-arrow-left"></i> Voltar ao menu</button>
         </div>
       </form>
-
     </div>
 
+    <!-- Botões de acesso rápido -->
     <div class="btns_tudo">
-
-      <!--BOTÕES PARA FÁCIL ACESSO AOS FORMULÁRIO E DECLARAÇÕES-->
       <div class="btns">
         <div><label for="">Botões de fácil acesso:</label></div>
         <div class="nav">
-          <div class=bloco1>
+          <div class="bloco1">
             <nav>
-
-              <a type="button" id="btn_residencia">
-                <i class="fas fa-home icon"></i> Termo de Declaração de Residência
-              </a>
-
-
-              <a type="button" id="btn_dec_renda">
-                <i class="fas fa-file-invoice-dollar icon"></i> Termo de Declaração de Renda
-              </a>
-
-
-              <a type="button" id="btn_fc_familia">
-                <i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Familia
-              </a>
-
-
-              <a type="button" id="btn_fc_pessoa">
-                <i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Pessoa
-              </a>
-
+              <a type="button" id="btn_residencia"><i class="fas fa-home icon"></i> Termo de Declaração de
+                Residência</a>
+              <a type="button" id="btn_dec_renda"><i class="fas fa-file-invoice-dollar icon"></i> Termo de Declaração de
+                Renda</a>
+              <a type="button" id="btn_fc_familia"><i class="fas fa-user-minus icon"></i> Ficha de Exclusão de
+                Familia</a>
+              <a type="button" id="btn_fc_pessoa"><i class="fas fa-user-minus icon"></i> Ficha de Exclusão de Pessoa</a>
             </nav>
           </div>
           <div class="bloco2">
             <nav>
-              <a type="button" id="btn_dec_cad">
-                <i class="material-symbols-outlined">assignment_add</i> Declaração Cadastro Único
-              </a>
-
-
-              <a type="button" id="btn_encamnhamento">
-                <i class="material-symbols-outlined">export_notes</i> Encaminhamentos
-              </a>
-
-
-              <a type="button" id="btn_des_vol">
-                <i class="material-symbols-outlined">contract_delete</i> Desligamento Voluntário
-              </a>
-
-
-              <a type="button" id="btn_troca">
-                <i class="material-symbols-outlined">quick_reference</i> Troca de RF - C.E.F.
-              </a>
+              <a type="button" id="btn_dec_cad"><i class="material-symbols-outlined">assignment_add</i> Declaração
+                Cadastro Único</a>
+              <a type="button" id="btn_encamnhamento"><i class="material-symbols-outlined">export_notes</i>
+                Encaminhamentos</a>
+              <a type="button" id="btn_des_vol"><i class="material-symbols-outlined">contract_delete</i> Desligamento
+                Voluntário</a>
+              <a type="button" id="btn_troca"><i class="material-symbols-outlined">quick_reference</i> Troca de RF -
+                C.E.F.</a>
             </nav>
-          </div>
-        </div>
-      </div>
-      <div class="btns">
-        <div><label for="">Links de fácil acesso:</label></div>
-        <div class="nav">
-          <div class=bloco1>
-            <nav>
-
-              <a href="https://www.beneficiossociais.caixa.gov.br" target="_blank">SIBEC</a>
-
-              <a href="http://cadastrounico.caixa.gov.br" target="_blank" class="cadunico">CADASTRO ÚNICO</a>
-
-              <a href="https://cecad.cidadania.gov.br/painel03.php" target="_blank" class="cecad">CECAD</a>
-
-            </nav>
-          </div>
-          <div class="bloco2">
-            <nav>
-              <a href="https://cadunico.dataprev.gov.br/portal/" target="_blank" class="pcadunico">PORTAL CADASTRO ÚNICO</a>
-
-              <a href="https://falemds.centralit.com.br/formulario/" target="_blank" class="pcadunico">FORMULÁRIO ELETRÔNICO DO MDS</a>
-
-              <a href="https://www.mds.gov.br/mds-sigpbf-web/carregarTelaLogin.jsf;jsessionid=fdL4CJM3HzqgPmqgvb3i9aKrL02hrOuEBCb9dQo9.susigpbfpd01" target="_blank" class="sigpbf">SIGPBF</a>
-
-            </nav>
-          </div>
-        </div>
-        <div class="nav">
-          <div class="btn_operacao">
-            <div><label for="">Botões de operações rápidas:</label></div>
-
-            <nav>
-              <a type="button" id="btn_beneficios">
-                Registrar situação do benefício
-              </a>
-            </nav>
-
-            <nav>
-              <a type="button" onclick="filtro_cadastros()"id="btn_filtrar">
-                Filtros Famílias
-              </a>
-            </nav>
-
           </div>
         </div>
       </div>
     </div>
   </div>
-  <?php
-  $conn_1->close();
-  ?>
+
+  <?php $conn_1->close(); ?>
+
   <script>
-      $(document).ready(function() {
-      $('#cadastroForm').on('submit', function(event) {
+    // Exibe o nome do arquivo após o upload
+    function mostrarNomeArquivo() {
+      var inputFile = document.getElementById('arquivo');
+      var nomeArquivo = document.getElementById('nomeArquivo');
+      var inputCodFam = document.getElementById('codfamiliar');
+
+      if (inputFile.files && inputFile.files[0]) {
+        var fileName = inputFile.files[0].name;
+        nomeArquivo.textContent = 'Arquivo selecionado: ' + fileName;
+        nomeArquivo.style.display = 'block';
+        inputCodFam.value = fileName;
+        tratarCodigo();
+      } else {
+        nomeArquivo.style.display = 'none';
+        inputCodFam.value = '';
+      }
+    }
+
+    function tratarCodigo() {
+      var campo = document.getElementById('codfamiliar');
+      var valor = campo.value;
+      valor = valor.replace(/\D/g, '');
+      if (valor.length > 11) valor = valor.substring(0, 11);
+      campo.value = valor;
+    }
+
+    $(document).ready(function () {
+      $('#cadastroForm').on('submit', function (event) {
         event.preventDefault(); // Impede o envio padrão do formulário
 
-        // Cria um objeto FormData com os dados do formulário
+        // Captura os dados do formulário
         var formData = new FormData(this);
 
+        // Configuração do AJAX
         $.ajax({
-          url: '/TechSUAS/controller/cadunico/salvar_dados_painel', // URL para onde os dados serão enviados
-          type: 'POST',
-          data: formData,
-          contentType: false,
-          processData: false,
-          success: function(response) {
-            // Exibe o alerta de sucesso usando SweetAlert2
+          url: $(this).attr('action'), // URL do backend
+          type: $(this).attr('method'), // Método HTTP (POST)
+          data: formData, // Dados do formulário
+          processData: false, // Necessário para envio de arquivos
+          contentType: false, // Impede que o jQuery defina o cabeçalho `Content-Type`
+          beforeSend: function () {
             Swal.fire({
-              title: 'Sucesso!',
-              text: 'Os dados foram cadastrados com sucesso.',
-              icon: 'success',
-              confirmButtonText: 'Ok'
-            }).then((result) => {
-              if (result.isConfirmed) {
-                location.reload(); // Recarrega a página atual
+              icon: 'info',
+              title: 'Aguarde...',
+              text: 'Enviando os dados...',
+              allowOutsideClick: false,
+              didOpen: () => {
+                Swal.showLoading();
               }
             });
           },
-          error: function(xhr, status, error) {
-            // Exibe uma mensagem de erro se algo der errado
+          success: function (response) {
+            // Feedback ao usuário após sucesso
             Swal.fire({
-              title: 'Erro!',
-              text: 'Ocorreu um erro ao tentar cadastrar os dados.',
-              icon: 'error',
-              confirmButtonText: 'Ok'
+              icon: 'success',
+              title: 'Sucesso!',
+              text: 'Os dados foram enviados com sucesso!',
             });
-          }
+
+            // Opcional: Limpar o formulário após envio
+            $('#cadastroForm')[0].reset();
+          },
+          error: function (xhr, status, error) {
+            // Exibe mensagem de erro detalhada
+            Swal.fire({
+              icon: 'error',
+              title: 'Erro ao enviar os dados!',
+              text: `Status: ${xhr.status} - ${xhr.statusText}`,
+            });
+            console.error('Erro:', xhr.responseText || error);
+          },
         });
       });
     });
-    document.addEventListener('DOMContentLoaded', function() {
-      const targets = [
-        document.getElementById('codfamiliar_print'),
-        document.getElementById('familia_show')
-      ]
 
-      // Função para alternar visibilidade
-      function toggleVisibility(target) {
-        const ocult2 = document.querySelector('.ocult2');
-        if (target.innerHTML.trim() !== '') {
-          target.classList.remove('ocult');
-          target.classList.add('visible');
-          ocult2.classList.remove('ocult'); // Mostra a div ocult2 se houver conteúdo
-        } else {
-          target.classList.remove('visible');
-          target.classList.add('ocult');
-          if (Array.from(targets).every(t => t.innerHTML.trim() === '')) {
-            ocult2.classList.add('ocult'); // Oculta a div ocult2 se todos os alvos estiverem vazios
-          }
-        }
-      }
-
-      targets.forEach(target => {
-        // Observador de mutações para monitorar mudanças no conteúdo
-        const observer = new MutationObserver(function(mutationsList) {
-          for (const mutation of mutationsList) {
-            if (mutation.type === 'childList') {
-              toggleVisibility(target);
-            }
-          }
-        });
-
-        // Configurações do observer: observar mudanças nos filhos da div
-        const config = {
-          childList: true,
-          subtree: true
-        };
-
-        // Inicia o observer
-        observer.observe(target, config);
-
-        // Verificação inicial para o caso de a div já ter conteúdo no carregamento
-        toggleVisibility(target);
-      });
-    });
   </script>
 
 </body>
