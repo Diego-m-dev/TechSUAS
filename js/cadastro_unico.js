@@ -271,7 +271,7 @@ $(document).ready(function () {
       title: "FICHA DE EXCLUSÃO DE FAMILIA",
       html: `
             <h4>INFORME O NIS</h4>
-            <form method="POST" action="/TechSUAS/views/cadunico/forms/Ficha_de_Exclusão_de_familia" id="form_fc_pessoa">
+            <form method="POST" action="/TechSUAS/views/cadunico/forms/ficha_exc_familia" id="form_fc_pessoa">
                 <label> NIS:
                     <input type="text" name="nis_exc_pessoa"/>
                 </label>
@@ -293,7 +293,7 @@ $(document).ready(function () {
       title: "FICHA DE EXCLUSÃO DE PESSOA",
       html: `
             <h4>INFORME O NIS</h4>
-            <form method="POST" action="/TechSUAS/views/cadunico/forms/Ficha_de_Exclusão_de_Pessoa" id="form_fc_pessoa">
+            <form method="POST" action="/TechSUAS/views/cadunico/forms/ficha_exc_pessoa" id="form_fc_pessoa">
                 <label> NIS:
                     <input type="text" name="nis_exc_pessoa"/>
                 </label>
@@ -303,8 +303,10 @@ $(document).ready(function () {
       confirmButtonText: 'Enviar',
       cancelButtonText: 'Cancelar'
     }).then((result) => {
-
-      
+      if (result.isConfirmed) {
+        const form = document.getElementById("form_fc_pessoa")
+        form.submit()
+      }
     })
   })
 })
