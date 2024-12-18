@@ -47,7 +47,7 @@ $sql_declar->execute();
             $cod_familiar_formatado = substr_replace(str_pad($cod_familiar, 11, "0", STR_PAD_LEFT), '-', 9, 0);
 
             $sql_rf = "SELECT num_nis_pessoa_atual FROM tbl_tudo WHERE cod_familiar_fam = '$cod_familiar' AND cod_parentesco_rf_pessoa = '1'";
-            $resultado_rf = $conn->query($sql_rf) or die("Erro " . $conn - error);
+            $resultado_rf = $conn->query($sql_rf) or die("Erro " . $conn->error);
 
             if ($resultado_rf->num_rows > 0) {
                 $row = $resultado_rf->fetch_assoc();
@@ -177,6 +177,13 @@ $sql_declar->execute();
             textoMotivo.textContent = "Texto do motivo selecionado será exibido aqui.";
         }
     }
+
+
+        var dataExclusao = document.querySelector("input#dataExclusao")
+        var dateHoje = new Date()
+        var dataFormatada = dateHoje.toLocaleDateString('pt-BR')
+        dataExclusao.value = dataFormatada
+
 
     function showParecer() {
         var parecer = document.getElementById('parecer').value; // Obtém o valor do elemento parecer
