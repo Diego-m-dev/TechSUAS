@@ -115,7 +115,6 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
               header("location:/TechSUAS/views/concessao/index");
               exit();
 
-
             }elseif ($_SESSION['funcao'] == "3") {
 
               if ($_SESSION['name_sistema'] == "CONCESSAO"){
