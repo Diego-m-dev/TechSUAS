@@ -41,6 +41,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
 
         $_SESSION['name_sistema'] = $dados['name_sistema'];
         $_SESSION['sistema_id'] = $dados['sistema_id'];
+        $_SESSION['lc_cad'] = $dados['local_cadastro'];
         $_SESSION['user_usuario'] = $dados['usuario'];
         $_SESSION['cargo_usuario'] = $dados['cargo'];
         $_SESSION['municipio'] = $dados['municipio'];
@@ -111,6 +112,9 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
                 }
 
 
+            } elseif ($_SESSION['funcao'] == "1" && $_SESSION['name_sistema'] == "PEIXE") {
+              header("location:/TechSUAS/peixe/logado/index");
+              exit();
             } elseif ($_SESSION['funcao'] == "1" && $_SESSION['name_sistema'] == "CONCESSAO"){
               header("location:/TechSUAS/views/concessao/index");
               exit();
@@ -126,6 +130,8 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
               } elseif ($_SESSION['name_sistema'] == "CADUNICO") {
                 header("location:/TechSUAS/views/cadunico/dashboard");
                 exit();
+              } elseif ($_SESSION['name_sistema'] == "PEIXE"){
+                header("location:/TechSUAS/peixe/logado/index");
               } else {
                 header("location:/TechSUAS/views/recpcao/index");
                 exit();
