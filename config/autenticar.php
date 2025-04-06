@@ -106,7 +106,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
                 </script>
                 <?php
                 } else {
-                    header("location:/TechSUAS/views/cadunico/index");
+                    header("location:/TechSUAS/views/cadunico/dashboard");
                     exit();
                 }
 
@@ -124,7 +124,7 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
                 header("location:/TechSUAS/views/cadunico/descarte");
                 exit();
               } elseif ($_SESSION['name_sistema'] == "CADUNICO") {
-                header("location:/TechSUAS/views/cadunico/index");
+                header("location:/TechSUAS/views/cadunico/dashboard");
                 exit();
               } else {
                 header("location:/TechSUAS/views/recpcao/index");
