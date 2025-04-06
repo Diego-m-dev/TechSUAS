@@ -1,9 +1,9 @@
 <?php
 // Conecte-se ao seu banco de dados MySQL usando as credenciais adequadas.
-$host = '89.117.7.52';
-$usuario = 'u198416735_acesso';
+$host = 'srv1898.hstgr.io';
+$usuario = 'u444556286_acesso';
 $senha = '9+A$=XeE';
-$banco = 'u198416735_acesso';
+$banco = 'u444556286_acesso';
 $port = 3306;
 
 $raiz_dom = "/TechSUAS/";
