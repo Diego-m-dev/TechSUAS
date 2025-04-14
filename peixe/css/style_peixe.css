@@ -1,0 +1,256 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+/* Configuração Geral */
+body {
+    font-family: "Inter", sans-serif;
+    background-image: url(../img/fundo_peixe.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: hidden;
+    height: auto;
+}
+
+h1 {
+    color: #13294b;
+    text-align: center;
+}
+
+.paragr {
+    margin-top: 10px;
+}
+
+table {
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    position: center;
+}
+
+/* Reset de margem */
+* {
+    margin-top: 0;
+}
+.bloco-1 {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.bloco {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.bloco-2 {
+    width: 100%;
+    height: 100%;
+    margin-left: 20px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    line-height: 2;
+    max-height: 300px; /* Altura máxima para a caixa de rolagem */
+    overflow-y: auto; /* Habilita a rolagem vertical */
+    border: 1px solid #13294b; /* Borda opcional para melhor visualização */
+    padding: 10px; /* Espaçamento interno opcional */
+    scrollbar-color: #13294b #f1f1f1;
+}
+
+/* Imagens */
+img {
+    width: 100%;
+    max-height: 120px;
+    justify-content: center;
+}
+
+/* Rodapé */
+footer {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: auto;
+}
+
+footer img {
+    position: fixed;
+    width: 100%;
+    max-height: 120px;
+    right: 0;
+    bottom: 0;
+    text-align: center;
+}
+
+/* Seção Apelido */
+.apelido {
+    display: flex;
+    justify-content: flex-end;
+}
+
+tr:nth-child(even) {
+    background-color: #d9e3f8;
+}
+
+td {
+
+    font-size: 12px;
+}
+tr:hover {
+    background-color: #f7e8e8;
+}
+
+#grafico {
+    width: 100%;
+    height: 500px;
+    position: relative;
+    margin: 0 auto;
+}
+
+th {
+    background-color: #13294b;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+
+/* Títulos */
+h3 {
+    display: flex;
+    font-size: 15px;
+    color: #13294b;
+    text-align: center;
+    white-space: nowrap;
+    padding: 1px 10px;
+    border-radius: 5px;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+/* Corpo do Conteúdo */
+.corpo {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    align-content: space-between;
+    background-color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 18px;
+    line-height: 3;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, 
+                rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+
+/* Formulários */
+input,
+select,
+option,
+label {
+    font-size: 16px;
+    font-weight: 700;
+    background-color: #ffffff;
+    color: #13294b;
+    padding: 1px 2px;
+    border-radius: 5px;
+    border-style: outset;
+}
+
+/* Botões */
+.btn {
+    padding-top: 15px;
+}
+
+/* Seções de Consulta */
+.consul, .cansult, .consul2 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+    align-content: flex-end;
+}
+
+.consul2 {
+    justify-content: flex-end;
+}
+
+/* Botão de Menu */
+.menu-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    font-size: 12px;
+    color: #f0f0f0;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    font-size: medium;
+    z-index: 1;
+    white-space: nowrap;
+    user-select: none;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px, 
+                rgba(0, 0, 0, 0.05) 0px 5px 10px;
+    width: 350px;
+    height: 50px;
+    margin-bottom: 25px;
+    margin-left: 30px;
+}
+
+
+/* Efeitos do Botão de Menu */
+.menu-button::after,
+.menu-button::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    transition: all .4s;
+    z-index: -99999;
+}
+
+.menu-button::before {
+    width: 100%;
+    height: 100%;
+    background: #13294b;
+    border-radius: 5px;
+    transform: translate(0%, 0%);
+}
+
+.menu-button::after {
+    width: 20px;
+    background: #ffffff15;
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border-radius: 50px;
+    transform: translate(5px, 5px);
+}
+
+.menu-button::before {
+    width: 110%;
+    height: 110%;
+    transform: translate(5%, 20%);
+}
+
+.menu-button:hover::after {
+    width: 100%;
+    height: 100%;
+    transform: translate(0, 0);
+    border-radius: 5px;
+}
+
+.swal2-wide {
+    width: 90%;
+}
+
+.menu-button:active::after {
+    transform: translate(0, 5%);
+    transition: 0s;
+}
+
+/* Modo de Impressão */
+@media print {
+    body {
+        background-color: #ffffff;
+    }
+}
