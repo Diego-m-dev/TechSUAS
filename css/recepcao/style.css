@@ -101,6 +101,35 @@ a {
     border-bottom: 2px solid #fff;
 }
 
+.swal2-wide {
+    width: 90%;
+}
+
+.editable-field {
+    border: none;
+}
+
+.editable-field {
+    background-color: transparent;
+    width: auto;
+    text-transform: uppercase;
+    font-weight: bold;
+    /* border: 1px solid #000; */
+    padding: 1px 10px;
+    border-radius: 5px;
+}
+
+.animated {
+    animation: example 2s infinite;
+    width: 70%;
+}
+
+.menu-sem {
+    width: 60%;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
  .cont-btns .material-symbols-outlined {
     font-size: 18px;
     text-align: center;

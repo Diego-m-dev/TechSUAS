@@ -3,10 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
 // Verifica permissões de acesso
-if ($_SESSION['funcao'] != '0' || $_SESSION['name_sistema'] != "RECEPCAO") {
-    echo '<script>window.history.back()</script>';
-    exit();
-}
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -26,6 +23,7 @@ if ($_SESSION['funcao'] != '0' || $_SESSION['name_sistema'] != "RECEPCAO") {
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="/TechSUAS/js/cpfvalid.js"></script>
+    <script src="/TechSUAS/js/visitas_recepcao.js"></script>
     <title>Recepção</title>
 </head>
 
@@ -48,6 +46,13 @@ if ($_SESSION['funcao'] != '0' || $_SESSION['name_sistema'] != "RECEPCAO") {
                     </button>
                 </div>
 
+                <div class="btns">
+                    <button type="button" id="menu-button" onclick="visitas_recepcao()">
+                        <span class="material-symbols-outlined">assignment_turned_in</span>
+                        VISITAS
+                    </button>
+                </div>
+
                 <div class="bt">
                     <button type="button" class="menu-button" id="menu-button">
                         <span class="material-symbols-outlined">group</span>
@@ -61,6 +66,12 @@ if ($_SESSION['funcao'] != '0' || $_SESSION['name_sistema'] != "RECEPCAO") {
                         CADASTRO DE USUÁRIOS
                     </button>
                 </div>
+                <div class="bt">
+                    <a class="menu-button" id="menu-button" type="button" href="/TechSUAS/views/cadunico/descarte.php">
+                        <span class="material-symbols-outlined">quick_reference_all</span>
+                        DESCARTES
+                    </a>
+                 </div>
 
             </div>
         </div>
@@ -131,7 +142,8 @@ if ($_SESSION['funcao'] != '0' || $_SESSION['name_sistema'] != "RECEPCAO") {
                         <div class="form-group">
                             <label for="tipo">SOLICITAÇÃO</label>
                             <select name="tipo" id="tipo">
-                                <option value="1">NIS</option>
+                                <option value="" desabled select>SELECIONE</option>
+                                <option value="1">FOLHA RESUMO</option>
                                 <option value="2">DECLARAÇÃO CADÚNICO</option>
                                 <option value="3">ENTREVISTA</option>
                             </select>
@@ -171,5 +183,3 @@ if ($_SESSION['funcao'] != '0' || $_SESSION['name_sistema'] != "RECEPCAO") {
 </body>
 
 </html>
-<?php
-$conn_1->close();
