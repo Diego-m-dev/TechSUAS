@@ -1445,7 +1445,7 @@ function chamarPainel(senha, id, acaoCadu, cod_familiar_fam, nom_pessoa) {
           var nomePainel = nom_pessoa
         }
 
-        const socket = new WebSocket("ws://localhost:8080")
+        const socket = new WebSocket("wss://painel-chamadas-production.up.railway.app")
         socket.onopen = () => {
           socket.send(JSON.stringify({
             senha: senha,

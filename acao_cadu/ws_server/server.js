@@ -1,9 +1,10 @@
-// server.js
-
 const WebSocket = require('ws')
-const wss = new WebSocket.Server({ port: 8080 })
 
-console.log("Servidor WebSocket escutando na porta 8080")
+// Railway define a porta no ambiente, senão usa 8080 localmente
+const PORT = process.env.PORT || 8080
+const wss = new WebSocket.Server({ port: PORT })
+
+console.log(`Servidor WebSocket escutando na porta ${PORT}`)
 
 wss.on('connection', socket => {
     console.log('🔌 Novo painel conectado')
@@ -11,7 +12,7 @@ wss.on('connection', socket => {
     socket.on('message', msg => {
         console.log(`📢 Mensagem recebida: ${msg}`)
 
-        // envia a mensagem para todos os paineis conectados
+        // envia para todos conectados
         wss.clients.forEach(client => {
             if (client.readyState === WebSocket.OPEN) {
                 client.send(msg)
