@@ -486,21 +486,21 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                 :ref_pbf_
                         )";
 
-                    $dat_cadastramento_fam = !empty($linha[2]) ? convertDate($linha[2]) : null;
-                    $dat_atual_fam = !empty($linha[3]) ? convertDate($linha[3]) : null;
-                    $dta_entrevista_fam = !empty($linha[6]) ? convertDate($linha[6]) : null;
-                    $dta_nasc_pessoa = !empty($linha[82]) ? convertDate($linha[82]) : null;
-                    $dta_emissao_cart_trab_pessoa = !empty($linha[111]) ? convertDate($linha[111]) : null;
-                    $dta_emissao_ident_pessoa = !empty($linha[106]) ? convertDate($linha[106]) : null;
+                    //$dat_cadastramento_fam = !empty($linha[2]) ? convertDate($linha[2]) : null;
+                    //$dat_atual_fam = !empty($linha[3]) ? convertDate($linha[3]) : null;
+                    //$dta_entrevista_fam = !empty($linha[6]) ? convertDate($linha[6]) : null;
+                    //$dta_nasc_pessoa = !empty($linha[82]) ? convertDate($linha[82]) : null;
+                    //$dta_emissao_cart_trab_pessoa = !empty($linha[111]) ? convertDate($linha[111]) : null;
+                    //$dta_emissao_ident_pessoa = !empty($linha[106]) ? convertDate($linha[106]) : null;
 
                 $import_data = $pdo->prepare($query);
                 $import_data->bindValue(':cd_ibge', ($linha[0] ?? "NULL"));
                 $import_data->bindValue(':cod_familiar_fam', str_pad(($linha[1] ?? "NULL"), 11, '0', STR_PAD_LEFT));
-                $import_data->bindValue(':dat_cadastramento_fam', $dat_cadastramento_fam);
-                $import_data->bindValue(':dat_atual_fam', $dat_atual_fam);
+                $import_data->bindValue(':dat_cadastramento_fam', ($linha[2] ?? "NULL"));
+                $import_data->bindValue(':dat_atual_fam', ($linha[3] ?? "NULL"));
                 $import_data->bindValue(':cod_est_cadastral_fam', ($linha[4] ?? "NULL"));
                 $import_data->bindValue(':cod_forma_coleta_fam', ($linha[5] ?? "NULL"));
-                $import_data->bindValue(':dta_entrevista_fam', $dta_entrevista_fam);
+                $import_data->bindValue(':dta_entrevista_fam', ($linha[6] ?? "NULL"));
                 $import_data->bindValue(':nom_localidade_fam', ($linha[7] ?? "NULL"));
                 $import_data->bindValue(':nom_tip_logradouro_fam', ($linha[8] ?? "NULL"));
                 $import_data->bindValue(':nom_titulo_logradouro_fam', ($linha[9] ?? "NULL"));
@@ -576,7 +576,7 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                 $import_data->bindValue(':num_nis_pessoa_atual', ($linha[79] ?? "NULL"));
                 $import_data->bindValue(':nom_apelido_pessoa', ($linha[80] ?? "NULL"));
                 $import_data->bindValue(':cod_sexo_pessoa', ($linha[81] ?? "NULL"));
-                $import_data->bindValue(':dta_nasc_pessoa', $dta_nasc_pessoa);
+                $import_data->bindValue(':dta_nasc_pessoa', ($linha[82] ?? "NULL"));
                 $import_data->bindValue(':cod_parentesco_rf_pessoa', ($linha[83] ?? "NULL"));
                 $import_data->bindValue(':cod_raca_cor_pessoa', ($linha[84] ?? "NULL"));
                 $import_data->bindValue(':nom_completo_mae_pessoa', ($linha[85] ?? "NULL"));
@@ -600,12 +600,12 @@ if (isset($_POST['csv_tbl']) && isset($_FILES['arquivoCSV'])) {
                 $import_data->bindValue(':num_cpf_pessoa', ($linha[103] ?? "NULL"));
                 $import_data->bindValue(':num_identidade_pessoa', ($linha[104] ?? "NULL"));
                 $import_data->bindValue(':cod_complemento_pessoa', ($linha[105] ?? "NULL"));
-                $import_data->bindValue(':dta_emissao_ident_pessoa', $dta_emissao_ident_pessoa);
+                $import_data->bindValue(':dta_emissao_ident_pessoa', ($linha[106] ?? "NULL"));
                 $import_data->bindValue(':sig_uf_ident_pessoa', ($linha[107] ?? "NULL"));
                 $import_data->bindValue(':sig_orgao_emissor_pessoa', ($linha[108] ?? "NULL"));
                 $import_data->bindValue(':num_cart_trab_prev_soc_pessoa', ($linha[109] ?? "NULL"));
                 $import_data->bindValue(':num_serie_trab_prev_soc_pessoa', ($linha[110] ?? "NULL"));
-                $import_data->bindValue(':dta_emissao_cart_trab_pessoa', $dta_emissao_cart_trab_pessoa);
+                $import_data->bindValue(':dta_emissao_cart_trab_pessoa', ($linha[111] ?? "NULL"));
                 $import_data->bindValue(':sig_uf_cart_trab_pessoa', ($linha[112] ?? "NULL"));
                 $import_data->bindValue(':num_titulo_eleitor_pessoa', ($linha[113] ?? "NULL"));
                 $import_data->bindValue(':num_zona_tit_eleitor_pessoa', ($linha[114] ?? "NULL"));

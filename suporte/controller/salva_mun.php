@@ -75,26 +75,11 @@ if ($_SESSION['setor'] != "SUPORTE") {
     $salva_dados->bindValue(":vice_prefeito", ($nome_vice ?? "NULL"));
 
     if ($salva_dados->execute()) {
-    ?>
-      <script>
-        Swal.fire({
-        icon: "success",
-        title: "CADASTRADO",
-        text: "Dados salvo com sucesso!",
-        confirmButtonText: 'OK',
-        }).then((result) => {
-          if (result.isConfirmed) {
-            window.location.href = "/TechSUAS/suporte/municipios";
-          }
-        })
-      </script>
-    <?php
-
+      header("location:/TechSUAS/suporte/municipios");
     } else {
       echo "erro " . $pdo_1 - error;
     }
   }
-  $conn_1->close();
 ?>
 </body>
 </html>

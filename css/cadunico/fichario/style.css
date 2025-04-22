@@ -1,0 +1,117 @@
+body {
+    background-image: url('/TechSUAS/img/cadunico/background_cad.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+}
+* {
+    margin-top: 0px;
+}
+img {
+    display: flex;
+    width: 100%;
+    max-height: 120px
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 120px;
+}
+
+.card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+label {
+    font-weight: bold;
+}
+
+input[type="text"] {
+    padding: 5px;
+    margin-right: 10px;
+    border-radius: 5px;
+}
+
+input[type="text"] {
+    border: 1px solid #ccc;
+}
+
+button,a {
+    font-size: 14px;
+    border-radius: 5px;
+    padding: 3px 25px;
+    border: none;
+    font-weight: 500;
+    background-color: #13294b;
+    color: white;
+    cursor: pointer;
+    text-transform: capitalize;
+    text-decoration: none;
+}
+
+a:hover,
+button:hover{
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}
+
+.listar_cadastros, .listar__dados_cadastros {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 4px;
+    font-size: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #13294b;
+    color: #fff;
+}
+
+#mensagem {
+    text-align: center;
+    color: #999;
+    border: 1px solid #ddd;
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    box-sizing: border-box;
+}
+
+#mensagem.success {
+    color: green;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.icon-btn:hover {
+    color: #0056b3;
+}

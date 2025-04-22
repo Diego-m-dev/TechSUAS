@@ -1,6 +1,10 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -8,13 +12,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
     <title>TechSUAS - login</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <link rel="icon" href="" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" href="/TechSUAS/cadunico/css/login.css">
     <link rel="shortcut icon" href="/TechSUAS/img/geral/logo.png" type="image/x-icon">
+    <link rel="icon" href="" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
@@ -48,11 +50,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $smtp->bind_param("sssssssssss", $nome_completo, $apelido, $senha_hashed, $cpf, $data_nascimento, $telefone, $email, $cargo, $id_cargo, $acesso, $nome_user);
 
     if ($smtp->execute()) {
-      $gtsgpkgptgdlkfnafsrfueinradkfj_jforfa_afsjnkjbuyrfao = $_SESSION['nome_bd'];
-        $stmt = $pdo->query("SHOW TABLES LIKE 'averenda'");
-      $table_check = $stmt->fetchColumn() > 0;
-
-    if (!$table_check){
       if ($_SESSION['funcao'] == "1" && $_SESSION['name_sistema'] == "CADUNICO") {
       require_once "create_bd.php";
       foreach ($sql_create as $sql_pass) {
@@ -64,7 +61,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pdo->exec($sql_pass);
       }
     }
-  }
         ?>
         <script>
         Swal.fire({
@@ -74,7 +70,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         confirmButtonText: 'OK',
         }).then((result) => {
             if (result.isConfirmed) {
-                window.location.href = "/TechSUAS/";
+                window.location.href = "/TechSUAS/config/logout.php";
             }
         });
         </script>

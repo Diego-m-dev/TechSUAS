@@ -1,7 +1,6 @@
 <?php
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 
 ?>
@@ -48,8 +47,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
         <input type="number" name="quant_termos" class="quantidades" id="quant_termos">
       </div>
 
-      <label for="">Observação:</label>
-      <textarea name="obs_ret" id=""></textarea>
+      
   </div>
     <button type="submit">Salvar</button>
   </form>

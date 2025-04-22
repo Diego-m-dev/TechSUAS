@@ -102,7 +102,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
             $smtp_item->close();
             $conn->close();
         }
-  $conn_1->close();
+    $conn_1->close();
         ?>
         <script>
             $(document).ready(function() {

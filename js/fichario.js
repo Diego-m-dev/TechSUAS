@@ -85,5 +85,7 @@ function criarTabela(pastasPorGaveta) {
 
 // Exemplo de chamada inicial para teste (substitua pela chamada adequada no seu código)
 document.addEventListener('DOMContentLoaded', function() {
+
   mudaArmario()
+
 })

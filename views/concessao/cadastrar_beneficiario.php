@@ -145,7 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['beneficio'])) {
           echo "<script>
           Swal.fire({
               icon: 'info',
-              html: `<h3>RESPONSÁVEL NÃO CADASTRADO</h3>
+              html: `<h1>RESPONSÁVEL NÃO CADASTRADO</h1>
               <p>Cadastre o Responsável!</p>`,
               confirmButtonText: 'OK',
           }).then((result) => {

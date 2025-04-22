@@ -52,6 +52,8 @@ if ($dados && is_array($dados) && array_key_exists('setor', $dados)) {
         $_SESSION['acesso'] = $dados['acesso'];
         $_SESSION['setor'] = $dados['setor'];
         $_SESSION['cpf'] = $dados['cpf'];
+        $_SESSION['acao_cadu'] = false;
+        $_SESSION['guichê'] = false;
 
         if ($dados['acesso'] == 1) {
             header("location:/TechSUAS/views/geral/primeiro_acesso");

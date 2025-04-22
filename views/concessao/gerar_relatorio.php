@@ -197,7 +197,7 @@ $stmt_dados->close();
             // Tratamento de erro se a preparação da consulta falhar
             die("ERRO ao preparar a consulta: " . $conn->error);
         }
-    } elseif ($_SESSION['nome_usuario'] == "LUIZ HENRIQUE MORAES MANSO") {
+    } elseif ($_SESSION['nome_usuario'] == "THAMIRES DA SILVA TAVARES") {
         ?>
         <!--
 
@@ -260,7 +260,7 @@ foreach ($valor_total_mes as $total_concessao_mes) {
 
         $sql_mes = $conn->real_escape_string($_POST['mes_pg']);
         $sql_ano = $conn->real_escape_string($_POST['ano']);
-        $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? AND nome_item = 'ATAÚDE' ORDER BY nome_item ASC, nome_resp ASC";
+        $sql_dados = "SELECT * FROM concessao_historico WHERE mes_pag = ? AND ano_form = ? AND nome_item = 'ATAÚDE' AND situacao_concessao != 'CANCELADA' ORDER BY nome_item ASC, nome_resp ASC";
 
         if ($stmt_dados = $conn->prepare($sql_dados)) {
             $stmt_dados->bind_param("ss", $sql_mes, $sql_ano);

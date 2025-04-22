@@ -10,8 +10,39 @@ body {
     font-size: 14px;
 }
 
-* {
-    margin-top: 0px;
+h3 {
+    font-size: 18px;
+    color: #13294b;
+    text-align: center;
+}
+
+#ultimo_registro {
+    text-align: right;
+    color: #13294b;
+}
+
+#li1 {
+    text-align: left;
+    background-color: #ffffff;
+}
+
+#td_btn {
+    text-align: center;
+}
+
+#li2 {
+    text-align: center;
+    background-color: #ffffff;
+}
+#li3 {
+    text-align: right;
+    background-color: #ffffff;
+}
+
+#table_last {
+    position: absolute;
+    right: 10px;
+    bottom: 15px;
 }
 
 img {
@@ -20,13 +51,169 @@ img {
     max-height: 120px
 }
 
+  /* Botão de Menu */
+  .menu-btn {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: #13294b;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background 0.3s;
+  }
+  .menu-btn:hover {
+    background: #0f1e38;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    left: -260px;
+    top: 0;
+    width: 260px;
+    height: 100%;
+    background: #e6e2f7;
+    color: #13294b;
+    padding: 20px;
+    transition: 0.3s;
+    overflow-y: auto;
+  }
+  .sidebar.active {
+    left: 0;
+  }
+  .sidebar::-webkit-scrollbar {
+    width: 8px;
+  }
+  .sidebar::-webkit-scrollbar-thumb {
+    background: #13294b;
+    border-radius: 4px;
+  }
+
+  /* Botão Fechar */
+  .close-btn {
+    background: #13294b;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  .close-btn:hover {
+    background: #0f1e38;
+  }
+
+  /* Seções do menu */
+  .section-btn {
+    background: #13294b;
+    color: white;
+    padding: 8px;
+    border-radius: 5px;
+    width: 84%;
+    text-align: left;
+    font-weight: bold;
+    margin: 5px 0;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  .section-btn:hover {
+    background: #1e4278;
+  }
+
+  .btn_separado {
+    background: #13294b;
+    color: white;
+    text-align: left;
+    padding: 8px;
+    border-radius: 5px;
+    width: 75%;
+    margin: 5px 0;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+
+  .conteiner {
+    margin: 20px;
+    padding: 20px;
+  }
+
+  /* Itens das seções */
+  .section-content {
+    display: none;
+    padding: 5px;
+  }
+  .section-content a {
+    display: block;
+    padding: 8px;
+    background: #f8f8ff;
+    color: #13294b;
+    text-decoration: none;
+    border-radius: 4px;
+    margin: 5px 0;
+    transition: 0.3s;
+  }
+  .section-content a:hover {
+    background: #3b82f6;
+    color: white;
+  }
+
+  /* Links úteis */
+  .sidebar a {
+    display: block;
+    padding: 8px;
+    color: #13294b;
+    text-decoration: none;
+    border-radius: 5px;
+  }
+  .sidebar a:hover {
+    background: #3b82f6;
+    color: white;
+  }
+  
 .bloc1,
 .bloc2,
 .upload,
 .btn {
     display: flex;
     flex-direction: row;
+    height: 100%;
 }
+
+.tabelinha {
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    text-align: left;
+    border-radius: 3PX;
+
+}
+td {
+    padding: 0;
+}
+
+th {
+    background-color: #f4f4f4;
+    text-align: center;
+    padding: 2px;
+}
+
+
+
+.bloc2 {
+    flex-direction: row-reverse;
+}
+
 
 .observ,
 #data_entre,
@@ -36,7 +223,7 @@ img {
 
 textarea {
     height: 55px;
-    width: 350px;
+    width: 500px;
     border-radius: 5px;
 }
 
@@ -67,29 +254,20 @@ textarea {
     flex-direction: column;
     width: min-content;
 }
-.nav {
-    text-align: center;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    margin: 10px 0;
-    gap: 5px;
-}
+
 nav{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     margin-left: 5px;
-    
 }
+
 .nav a {
     flex: 1;
     color: #fff;
     text-decoration: none;
     padding: 5px 10px;
     border-radius: 5px;
-    font-size: 12px;
     background-color: #13294b;
     transition: background-color 0.3s, transform 0.2s;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
@@ -125,7 +303,6 @@ a {
 
 .btns {
     text-align: center;
-
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
@@ -172,11 +349,13 @@ a:hover {
 }
 
 .ocult2 {
-    width: 95%;
+    width: 100%;
+    height: 100%;
+    margin-left: 20px;
     margin-bottom: 10px;
     border-radius: 5px;
     line-height: 2;
-    max-height: 200px; /* Altura máxima para a caixa de rolagem */
+    max-height: 400px; /* Altura máxima para a caixa de rolagem */
     overflow-y: auto; /* Habilita a rolagem vertical */
     border: 1px solid #13294b; /* Borda opcional para melhor visualização */
     padding: 10px; /* Espaçamento interno opcional */
@@ -189,6 +368,7 @@ option,
 label,
 /* span, */
 #familia_show,
+#arquivo_show,
 #data_entrevista,
 #codfamiliar_print,
 #data_entre {
@@ -199,7 +379,7 @@ label,
     border-style: outset;
 }
 
-.ocult {
+.ocult .ocult1 {
     display: none;
 }
 

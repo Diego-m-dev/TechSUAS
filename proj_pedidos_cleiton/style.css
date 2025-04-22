@@ -5,6 +5,7 @@ body{
     background-attachment: fixed;
     overflow: hidden;
     font-family: "Inter", sans-serif;
+    color: #13294b;
 }
 * {
     margin-top: 0px;

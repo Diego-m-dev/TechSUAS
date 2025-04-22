@@ -49,7 +49,14 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
 <?php
   }
 ?>
-
+                    <div class="btn">
+                        <a class="menu-button" id="cadastrar_contrato" onclick="location.href='cadastro_pessoa';">
+                            <span class="material-symbols-outlined">
+                            person_add
+                            </span>
+                            Cadastrar Responsável
+                        </a>
+                    </div>
                     <div class="btn">
                         <a class="menu-button" id="cadastrar_contrato" onclick="location.href='cadastro_item';">
                             <span class="material-symbols-outlined">
@@ -59,7 +66,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.p
                         </a>
                     </div>
                     <div class="btn">
-                        <a class="menu-button" id="cadastrar_contrato" onclick="window.location.href='/TechSUAS/views/concessao/impressao_capa'">
+                        <a class="menu-button" id="cadastrar_contrato" onclick="window.location.href='consultar'">
                             <span class="material-symbols-outlined">
                             content_paste_search
                             </span>

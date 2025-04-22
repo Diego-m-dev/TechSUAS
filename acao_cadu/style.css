@@ -1,0 +1,220 @@
+body, html {
+    background-color: #13294b;
+    color: white;
+    height: 100%;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2vh;
+    box-sizing: border-box;
+}
+
+h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.ultima-senha {
+    font-size: 7rem;
+    font-weight: bold;
+    color: #00ffcc;
+}
+
+.lista-anteriores {
+    font-size: 2rem;
+    margin-top: 30px;
+}
+
+.item-anterior {
+    margin: 10px 0;
+}
+
+input {
+    width: 90%;
+    max-width: 600px;
+    height: 12vh;
+    text-align: center;
+    font-size: 6vh;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    box-shadow: 0 0 10px #00000055;
+    margin-top: 2vh;
+}
+
+
+.bl1 {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 4vh;
+}
+
+#teclado_numerico {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    width: 90%;
+    max-width: 400px;
+    margin-top: 40px;
+}
+
+.btn_teclas {
+    width: 100%;
+    padding: 20px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    background-color: #f0f0f0;
+    color: #13294b;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn_teclas:hover {
+    background-color: #bcb9b9;
+    transform: scale(1.05);
+}
+
+.btn_teclas:active {
+    background-color: #ccc;
+    transform: scale(0.95);
+}
+
+#n0 {
+    grid-column: span 2;
+}
+
+#backspace {
+    background-color: #ff4c4c;
+    color: white;
+}
+
+#backspace:hover {
+    background-color: #ff2b2b;
+}
+
+.tipo-atendimento {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+h2 {
+    text-align: center;
+}
+.btn_atendimento {
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    border-radius: 12px;
+}
+
+.btn_atendimento img {
+    background-color: #ffffff;
+    height: 120px;
+    width: 250px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    transition: transform 0.2s ease;
+}
+
+.btn_atendimento:hover img {
+    transform: scale(1.1);
+}
+
+.tipo-acao {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.btn_acao {
+    background-color: #ffffff;
+    color: #13294b;
+    height: 120px;
+    width: 250px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border: none;
+    padding: 20px 40px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.btn_acao:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.senha-exibida {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #13294b;
+    border: 2px dashed #fff;
+    border-radius: 15px;
+    padding: 30px 50px;
+    margin: 30px auto;
+    width: fit-content;
+    box-shadow: 0 0 10px #ffffff55;
+}
+
+#btnImprimir {
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+#btnImprimir:hover {
+    background-color: #2563eb;
+}
+
+/* Responsividade extra para tablets em landscape e celulares */
+@media (max-width: 768px) {
+    input {
+        font-size: 5vh;
+        height: 10vh;
+    }
+
+    .btn_teclas {
+        font-size: 4.5vh;
+    }
+
+    #teclado_numerico {
+        grid-gap: 2vw;
+        max-width: 90%;
+    }
+}
+
+@keyframes vibrar {
+    0% { transform: translateX(0); }
+    20% { transform: translateX(-5px); }
+    40% { transform: translateX(5px); }
+    60% { transform: translateX(-5px); }
+    80% { transform: translateX(5px); }
+    100% { transform: translateX(0); }
+}
+  
+.input-invalido {
+    animation: vibrar 0.3s ease;
+    border: 2px solid red !important;
+    box-shadow: 0 0 5px red;
+}
+  

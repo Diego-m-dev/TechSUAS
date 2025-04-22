@@ -50,7 +50,7 @@ if ($_SESSION['funcao'] != '1' && $_SESSION['funcao'] != '0') {
     <input type="file" id="arquivoCSV" accept=".csv" required>
     <br>
     <button type="button" id="processCSV">Processar CSV</button>
-    <button type="button" onclick="voltaMenu()">Voltar</button>
+    <button type="button" onclick="voltaMenu()">Ir Para O Menu</button>
 </form>
 
 <!-- Pré-visualização -->

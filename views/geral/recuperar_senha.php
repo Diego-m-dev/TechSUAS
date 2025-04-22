@@ -86,10 +86,10 @@ if (empty($_POST['cpf_user'])) {
   $message = "Olá,\n\n";
   $message .= "Você está recebendo este email porque uma solicitação de recuperação de senha foi feita para sua conta.\n\n";
   $message .= "Para redefinir sua senha, clique no link abaixo:\n";
-  $message .= "http://localhost/nova_senha.php?token=$token\n\n";
+  $message .= "http://tech-suas.com/TechSUAS/views/geral/nova_senha?token=$token\n\n";
   $message .= "Se você não fez essa solicitação, ignore este email.\n\n";
   $message .= "Atenciosamente,\n";
-  $message .= "Equipe de Suporte.\n";
+  $message .= "Suporte DDV.\n";
 
   $headers = 'From: cadunico@tech-suas.com' . "\r\n" .
             'Reply-To: cadunico@tech-suas.com' . "\r\n" .

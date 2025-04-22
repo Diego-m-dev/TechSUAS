@@ -27,9 +27,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <div class="form-container">
         <form action="">
             <label for="armario">ARMÁRIO</label>
+                <a href="/TechSUAS/views/fichario/form_fichario"><i class="fas fa-arrow-left"></i>Voltar</a>
             <input type="text" name="armario">
         </form>
-        <a href="/TechSUAS/views/fichario/form_fichario"><i class="fas fa-arrow-left"></i>Voltar</a>
     </div>
 
     <?php
@@ -53,7 +53,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         }
         $conn->close();
     }
-    $conn_1->close();
     ?>
 
 </body>

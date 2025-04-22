@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Gerador de Ofício</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    input { width: 100%; padding: 5px; margin-bottom: 10px; }
+    .entry { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; }
+    button { margin-top: 10px; padding: 10px 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+  <h2>Formulário - Entrega do Peixe (2 vias)</h2>
+
+  <div class="entry">
+    <label>ROTA: <input type="text" id="rota"></label>
+    <label>MOTORISTA: <input type="text" id="motorista"></label>
+    <label>LOCAL: <input type="text" id="local"></label>
+    <label>RESPONSÁVEL PELO RECEBIMENTO: <input type="text" id="responsavel"></label>
+    <label>KG DE INSCRITO: <input type="number" step="0.01" id="inscrito"></label>
+    <label>KG EXCEDENTE: <input type="number" step="0.01" id="excedente"></label>
+    <label>TOTAL DE CAIXAS: <input type="number" id="caixas"></label>
+  </div>
+
+  <button onclick="gerarPDF()">Gerar PDF</button>
+
+  <script>
+    function labelValor(label, valor, x, y, doc) {
+      doc.setFont("helvetica", "normal");
+      doc.text(`${label}: `, x, y);
+      const labelWidth = doc.getTextWidth(`${label}: `);
+      doc.setFont("helvetica", "bold");
+      doc.text(`${valor}`, x + labelWidth, y);
+      doc.setFont("helvetica", "normal");
+    }
+
+    async function gerarPDF() {
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+
+      const formData = {
+        rota: document.getElementById("rota").value,
+        motorista: document.getElementById("motorista").value,
+        local: document.getElementById("local").value,
+        responsavel: document.getElementById("responsavel").value,
+        inscrito: document.getElementById("inscrito").value,
+        excedente: document.getElementById("excedente").value,
+        caixas: document.getElementById("caixas").value
+      };
+
+      for (let i = 0; i < 2; i++) {
+        const offsetY = i === 0 ? 20 : 150;
+        let y = offsetY;
+
+        // Título
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(20);
+        doc.text("AÇÃO DE SEGURANÇA ALIMENTAR E NUTRICIONAL", 15, y); y += 8;
+        doc.text("ENTREGA DO PEIXE – CAVALINHA EM POSTAS - 2025", 15, y); y += 10;
+
+        // Conteúdo com valores em negrito
+        doc.setFontSize(14);
+        labelValor("ROTA", formData.rota, 10, y, doc); y += 7;
+        labelValor("MOTORISTA", formData.motorista, 10, y, doc); y += 7;
+        labelValor("LOCAL", formData.local, 10, y, doc); y += 7;
+        labelValor("RESPONSÁVEL PELO RECEBIMENTO", formData.responsavel, 10, y, doc); y += 7;
+        labelValor("KG DE INSCRITO", formData.inscrito, 10, y, doc); y += 7;
+        labelValor("KG EXCEDENTE", formData.excedente, 10, y, doc); y += 7;
+        labelValor("TOTAL DE CAIXAS", formData.caixas, 10, y, doc); y += 7;
+        labelValor("DATA", "16 de abril de 2025", 10, y, doc); y += 14;
+
+        doc.text('___________________________________________________', 10, y); y += 7;
+        doc.text(`ASSINATURA DO RESPONSÁVEL`, 10, y);
+      }
+
+      doc.save(`OFICIO_ENTREGA_PEIXE_${formData.local}.pdf`);
+    }
+  </script>
+</body>
+</html>
