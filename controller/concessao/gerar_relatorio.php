@@ -65,7 +65,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Se a solicitação não for POST, retorne um erro
     echo json_encode(array('error' => 'Método de solicitação incorreto'));
 }
- 
-// Fechar conexão
 $conn->close();
 ?>

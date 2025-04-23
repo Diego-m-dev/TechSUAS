@@ -17,10 +17,11 @@
 
 <body>
     <?php
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
-    include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_concessao.php';
 
+    
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $dt_pg = $_POST['dt_pg'];
         $mes_pg = $_POST['mes_pg'];
@@ -31,8 +32,10 @@
         $situacao = $_POST['situacao'];
         $id_hist = $_POST['id_hist'];
 
+
         $valor_unitario = floatval(str_replace(',', '.', str_replace('.', '', $valor_unitario_)));
         $valor_total = floatval(str_replace(',', '.', str_replace('.', '', $valor_total_)));
+
 
         $smtp = $conn->prepare("UPDATE concessao_historico SET nome_item=?, qtd_item=?, valor_uni=?, valor_total=?, mes_pag=?, pg_data=?, situacao_concessao=? WHERE id_hist=?");
         $smtp->bind_param("ssssssss", $itens_conc, $quantidade, $valor_unitario, $valor_total, $mes_pg, $dt_pg, $situacao, $id_hist);
@@ -42,55 +45,39 @@
                 <script>
                     Swal.fire({
                         icon: "info",
-                        html: `<h1>CANCELADO</h1><p>Concessão CANCELADA com sucesso.</p>`,
+                        html: `<h1>CANCELADO</h1>
+                            <p>Concessão CANCELADA com sucesso.</p>`,
                         confirmButtonText: 'OK',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            window.location.href = "/TechSUAS/views/concessao/consultar";
+                            window.location.href = "/TechSUAS/views/concessao/consultar"
                         }
-                    });
+                    })
                 </script>
-    <?php
+                <?php
                 exit();
             } else {
-                // Usar consulta preparada para prevenir SQL Injection
-                $smtp_historico = $conn->prepare("SELECT * FROM concessao_historico WHERE id_hist = ?");
-                $smtp_historico->bind_param("s", $id_hist);
-                $smtp_historico->execute();
-                $resultado_historico = $smtp_historico->get_result();
-
-                if ($resultado_historico->num_rows > 0) {
-                    $dados_hist = $resultado_historico->fetch_assoc();
+                $smtp_historico = $conn->query("SELECT * FROM concessao_historico WHERE id_hist LIKE '$id_hist'");
+                if ($smtp_historico->num_rows > 0) {
+                    $dados_hist = $smtp_historico->fetch_assoc();
                     $cpf_pessoa = $dados_hist['cpf_resp'];
-
-                    $smtp_resp = $conn->prepare("SELECT * FROM concessao_tbl WHERE cpf_pessoa = ?");
-                    $smtp_resp->bind_param("s", $cpf_pessoa);
-                    $smtp_resp->execute();
-                    $resultado_resp = $smtp_resp->get_result();
-                    $dados_resp = $resultado_resp->fetch_assoc();
+                    $smtp_resp = $conn->query("SELECT * FROM concessao_tbl WHERE cpf_pessoa LIKE '$cpf_pessoa'");
+                    $dados_resp = $smtp_resp->fetch_assoc();
 
                     $cpf_benef1 = $dados_hist['cpf_benef'];
                     $cpf_benef = preg_replace('/[^0-9]/', '', $cpf_benef1);
-
-                    $smtp_benef = $conn->prepare("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa = ?");
-                    $smtp_benef->bind_param("s", $cpf_benef);
-                    $smtp_benef->execute();
-                    $resultado_benef = $smtp_benef->get_result();
-
-                    if ($resultado_benef->num_rows > 0) {
-                        $dados_benef = $resultado_benef->fetch_assoc();
+                    $smtp_benef = $conn->query("SELECT * FROM tbl_tudo WHERE num_cpf_pessoa LIKE '$cpf_benef'");
+                    if ($smtp_benef->num_rows > 0) {
+                        $dados_benef = $smtp_benef->fetch_assoc();
                         $naturalidade = $dados_benef['nom_ibge_munic_nasc_pessoa'];
                         $nome_mae_benef = $dados_benef['nom_completo_mae_pessoa'];
                     } else {
-                        $smtp_benef_sem_cad = $conn->prepare("SELECT * FROM beneficiario WHERE cpf_beneficio = ?");
-                        $smtp_benef_sem_cad->bind_param("s", $cpf_benef1);
-                        $smtp_benef_sem_cad->execute();
-                        $resultado_benef_sem_cad = $smtp_benef_sem_cad->get_result();
-                        $dados_benef_sem_cad = $resultado_benef_sem_cad->fetch_assoc();
+                        $smtp_benef_sem_cad = $conn->query("SELECT * FROM beneficiario WHERE cpf_beneficio LIKE '$cpf_benef1'");
+                        $dados_benef_sem_cad = $smtp_benef_sem_cad->fetch_assoc();
                         $naturalidade = $dados_benef_sem_cad['naturalidade'];
                         $nome_mae_benef = $dados_benef_sem_cad['nome_mae_benef'];
                     }
-    ?>
+                ?>
                     <div class="titulo">
                         <div class="tech">
                             <p>TechSUAS-Concessão</p>
@@ -108,10 +95,12 @@
                             <p>(Amparada pela Lei Municipal nº 1.978, de 01 de novembro de 2017)</p>
                         </div>
                         <div class="form">
-                            <p><?php echo "Formulário nº " . $dados_hist['num_form'] . '/' . $dados_hist['ano_form']; ?></p>
+                            <p><?php
+                                echo  "Formulário nº " . $dados_hist['num_form'] . '/' . $dados_hist['ano_form'];
+                                ?></p>
                         </div>
                         <div class="cab1">
-                            <div class="cab11" style="text-align: justify; text-indent: 1cm;">
+                            <div class="cab11" style="text-align: justify;" style="text-indent: 1cm;">
                                 <p>Considerando a Lei nº 8.742, de 07 de dezembro de 1973 - Lei Orgânica da Assistência Social, em seu Art. 22;</p>
                                 <p>Considerando a Lei Municipal n° 1.978, 01 de novembro de 2017 e Pela Resolução CMAS n° 13/2017;</p>
                                 <p>Considerando a solicitação do Benefício Eventual feita pelo(a) usuário(a) abaixo qualificado(a), e por ele(a) se enquadrar no perfil para acesso a Concessão de Benefício Eventual e apresentar os documentos necessários, conforme anexo;</p>
@@ -198,22 +187,24 @@
 
                         <div class="cab2">
                             <p>_________________________________________________________________________<br>ASSINATURA DO RESPONSÁVEL:</p>
-                            <p>____________________________________________________________<br>MARTHONY DORNELAS SANTANA<br>SECRETÁRIO DE ASSISTÊNCIA SOCIAL<br>PORTARIA 143/2023</p>
+                            <p>____________________________________________________________<br>MARTHONY DORNELAS SANTANA<br>SECRETÁRIO DE ASSISTÊNCIA SOCIAL<br>PORTARIA 012/2025</p>
                         </div>
+                    </div>
                     </div>
 
                     <script>
-                        window.print();
+                        window.print()
                         setTimeout(function() {
                             Swal.fire({
                                 icon: "success",
-                                html: `<h1>SALVO</h1><p>Dados salvos com sucesso!</p>`,
+                                html: `<h1>SALVO</h1>
+                        <p>Dados salvos com sucesso!</p>`,
                                 confirmButtonText: 'OK',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = "/TechSUAS/views/concessao/consultar";
+                                    window.location.href = "/TechSUAS/views/concessao/consultar"
                                 }
-                            });
+                            })
                         }, 1500);
                     </script>
     <?php
@@ -225,9 +216,8 @@
         }
         $smtp->close();
     }
-    $conn->close();
-    $conn_1->close();
     ?>
+    
 </body>
 
 </html>

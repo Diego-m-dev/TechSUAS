@@ -15,7 +15,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -40,10 +39,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             </div>
             <div class="btns">
                 <div class="bt">
-                    <button type="button" class="menu-button" onclick="relatorios()">
-                        <span class="material-symbols-outlined">
-                          quick_reference_all</span> 
-                          Gerar Relatórios
+                    <button type="button" class="menu-button" id="btn_benef">
+                        <span class="material-symbols-outlined">quick_reference_all</span> Consultar Benefício
                     </button>
                 </div>
 
@@ -56,9 +53,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
                 <div class="bt">
                     <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/filtros';">
-                      <span class="material-symbols-outlined">
-                        search_insights</span>
-                      Consultar Famílias
+                        <span class="material-symbols-outlined">
+                            search_insights</span>
+                        Consultar Famílias
                     </button>
                 </div>
 
@@ -72,18 +69,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 </div>
 
                 <div class="bt">
-                    <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/cadastrar_user';">
+                    <button class="menu-button" onclick="location.href='/TechSUAS/views/geral/cadastro_user';">
                       <span></span>
                         Cadastrar Operadores
                     </button>
                 </div>
-
-                <!-- <div class="bt">
-                    <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/area_gestao/ponto_eletronico/ponto_eletronico';">
-                      <span></span>
-                        Importar Ponto
-                    </button>
-                </div> -->
 
                 <div class="bt">
                     <button class="menu-button" onclick="location.href='/TechSUAS/views/cadunico/visitas/accompany_visits';">
@@ -109,18 +99,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 
             <div class="cont-a">
                 <button class="menu-button" onclick="unipessoal()">LISTA DO PUBLICO UNIPESSOAL</button>
-                <button class="menu-button" onclick="excluir()">CONSULTAR POR ANO</button>
-                <button class="menu-button" onclick="semrf()">CADASTROS SEM RESPONSAVEL FAMILIAR</button>
-                <button class="menu-button" onclick="semcpf()">CADASTROS SEM CPF</button>
+                <button class="menu-button" onclick="uploads()">UPLOADs SEM CADASTROS NO MUNICÍPIO</button>
+                <a href="#" class="modal-trigger">CADASTROS SEM RESPONSAVEL FAMILIAR </a>
+                <a href="#" class="modal-trigger">CADASTROS SEM CPF </a>
                 <a href="#" class="modal-trigger">VISITAS RELIZADAS SEM RELATORIO</a>
-                <button class="menu-button" onclick="pontoEletrico()">PONTO ELETRÔNICO</button>
+                <a href="#" class="modal-trigger">AVERIGUAÇÕES (UNIPESSOAIS - RENDA - P3)</a>
             </div>
         </div>
 
-
             </div>
         </div>
-
 
         <?php
 
@@ -237,7 +225,19 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
         ?>
     </div>
     <script>
+        $(document).ready(function() {
+            $('#btn_benef').on('click', function() {
+                $('#simples').hide();
+                $('#beneficio').show();
+                $('#entrevistadores').hide();
+            });
 
+            $('#btn_entrevistadores').on('click', function() {
+                $('#simples').hide();
+                $('#beneficio').hide();
+                $('#entrevistadores').show();
+            });
+        });
 
         var modal = document.getElementById("myModal");
         var closeButtons = document.querySelectorAll(".close");

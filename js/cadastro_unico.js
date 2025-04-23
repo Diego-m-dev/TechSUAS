@@ -727,6 +727,8 @@ function buscarDadosFamily() {
   // Limpa o campo de exibição e conteúdo da tabela
   $('#codfamiliar_print').text('')
   $('#familia_show').html('')
+  $('#arquivo_show').html('')
+
 
   // Obtém o código de família e formata
   var familia = $("#codfamiliar").val()
@@ -750,30 +752,180 @@ function buscarDadosFamily() {
     success: function (response) {
       // console.log(response)
       if (response.encontrado) {
+        // Se a família foi encontrada, exibe os dados
         $('#codfamiliar_print').html(`<span style="font-size: 10px;">Código Familiar:</span> <span style="font-size: 16px;"><strong>${ajustandoCod}</strong></span> => <span style="font-size: 10px;">Ultima Atualização:</span> <span style="font-size: 16px;"><strong>${response.data_entrevista}</strong></span> => <span style="font-size: 10px;">Fichário:</span> <span style="font-size: 16px;"><strong>${response.fichario}</strong></span>.`)
 
         if (response.dados_familia) {
           var dados_familiap = response.dados_familia
           var visitasHtml = ''
-          visitasHtml += '<table>'
-          visitasHtml += '<tr><th>NIS</th><th></th><th>NOME</th><th></th><th>PARENTESCO</th></tr>'
+          visitasHtml += '<table class="tabelinha">'
+          visitasHtml += '<tr><th colspan="3">COMPOSIÇÃO FAMILIAR</th></tr>'
+          visitasHtml += '<tr><th>NIS</th><th>NOME</th><th>PARENTESCO</th></tr>'
           dados_familiap.forEach(function (familia_show) {
             visitasHtml += '<tr>'
-            visitasHtml += '<td><span>' + familia_show.nis_atual + '</span></td><td></td>'
-            visitasHtml += '<td><span>' + familia_show.nome + '</span></td><td></td>'
+            visitasHtml += '<td><span>' + familia_show.nis_atual + '</span></td>'
+            visitasHtml += '<td><span>' + familia_show.nome + '</span></td>'
             visitasHtml += '<td><span>' + familia_show.parentesco + '</span></td>'
             visitasHtml += '</tr>'
           })
+
           visitasHtml += '</table>'
           $('#familia_show').html(visitasHtml)
         }
+
       } else {
         $('#codfamiliar_print').html('<span style="color: red;"><strong>' + `Não foi encontrado nenhuma informação referente ao código ${ajustandoCod}` + ' <strong></span>')
         $('#familia_show').html('') // Limpa a tabela se não encontrar dados
       }
+
+      if (response.arquivos === "Nenhum arquivo encontrado.") {
+        $('#arquivo_show').html('<span style="color: red;"><strong>Nenhum arquivo encontrado.</strong></span>')
+      } else {
+        console.log(response.arquivos)
+        var arquivo = response.arquivos
+        var linkHtml = ''
+        linkHtml += '<table class="tabelinha">'
+        linkHtml += '<tr><th colspan="4">ARQUIVOS SALVOS</th></tr>'
+        linkHtml += '<tr><th>DATA ENTREVISTA</th><th>TIPO</th><th>AÇÕES</th></tr>'
+        arquivo.forEach(function (arquivo_show) {
+          linkHtml += '<tr>'
+          linkHtml += '<td><span>'+ arquivo_show.data_entrevista +'</span></td>'
+          linkHtml += '<td><span>'+ arquivo_show.tipo_documento +'</span></td>'
+          linkHtml += `<td id="td_btn">
+                    <input type="hidden" id="caminho_id" value="${arquivo_show.caminho_arquivo}"> 
+                          <a id="printArquivo" href="${arquivo_show.caminho_arquivo}" target="_blank" style="color: green; font-size: 16px; margin-right: 18px;">
+                            <i class="fa fa-download"></i>
+                          </a>
+                          <a id="editarArquivo" onclick="editarArquivo('${arquivo_show.id}', '${arquivo_show.data_entrevista}', '${arquivo_show.tipo_documento}')">
+                            <i class="fas fa-edit"></i>
+                          </a>
+                          <a id="excluirArquivo" onclick="excluirArquivo('${arquivo_show.id}', '${arquivo_show.caminho_arquivo}')" style="color: red; margin-left: 18px;">
+                            <i class="fas fa-trash-alt"></i>
+                          </a>
+                      </td>`
+          linkHtml += '</tr>'
+        })
+        linkHtml += '</table>'
+        $('#arquivo_show').html(linkHtml)
+      }
     }
   })
 }
+
+function editarArquivo(id, dataEntre, tipo_doc) {
+
+  var cod_fam = document.querySelector('input#codfamiliar').value
+
+  // formatando a data
+    let partesData = dataEntre.split("/");
+    let dataFormatada = partesData.length === 3 ? `${partesData[2]}-${partesData[1]}-${partesData[0]}` : "";
+  
+  Swal.fire({
+    title: 'EDITAR ARQUIVO',
+    html: `
+      <p><label>${id}</label></p>
+    <input id="codfam" type="number" name="codfam" placeholder="Código Familiar Aqui" value="${cod_fam}"/><br><br>
+    <label>
+    Data da Entrevista:
+    <input id="dataEntre" type="date" name="dataEntre" value="${dataFormatada}"/>
+    </label><br><br>
+            <select name="tipo_documento" id="tipo_documento" required>
+              <option value="" disabled selected hidden>Selecione o tipo</option>
+              <option value="Cadastro" ${tipo_doc === 'Cadastro' ? 'selected' : ''}>Cadastro</option>
+              <option value="Atualização" ${tipo_doc === 'Atualização' ? 'selected' : ''}>Atualização</option>
+              <option value="Assinatura" ${tipo_doc === 'Assinatura' ? 'selected' : ''}>Assinatura</option>
+              <option value="Fichas exclusão" ${tipo_doc === 'Fichas exclusão' ? 'selected' : ''}>Fichas exclusão</option>
+              <option value="Relatórios" ${tipo_doc === 'Relatórios' ? 'selected' : ''}>Relatórios</option>
+              <option value="Parecer visitas" ${tipo_doc === 'Parecer visitas' ? 'selected' : ''}>Parecer visitas</option>
+              <option value="Documento externo" ${tipo_doc === 'Documento externo' ? 'selected' : ''}>Documento externo</option>
+            </select>
+    `,
+    showCancelButton: true,
+    confirmButtonText: 'Enviar',
+    cancelButtonText: 'Cancelar'
+  }).then((result7) => {
+    if (result7.isConfirmed) {
+
+      var tipo_documento = Swal.getPopup().querySelector('#tipo_documento')
+      var dataEntre = Swal.getPopup().querySelector('#dataEntre')
+      var codfam = Swal.getPopup().querySelector('#codfam')
+      
+      $.ajax({
+        type: 'POST',
+        url: '/TechSUAS/controller/cadunico/edit_file_bd.php',
+        data: {
+          tipo_documento: tipo_documento.value,
+          dataEntre: dataEntre.value,
+          codfam: codfam.value,
+          id: id
+        },
+        dataType: 'json',
+        success: function(response) {
+          if (response.concluido) {
+            Swal.fire({
+            icon: 'success',
+            text: response.resposta
+            })
+            buscarDadosFamily()
+          }
+
+        }
+      })
+
+    } else {
+      Swal.fire("Operação cancelada", "", "info")
+    }
+  })
+}
+
+function excluirArquivo(delet, caminho_id ) {
+  Swal.fire({
+    title: 'Excluir arquivo',
+    text: 'Você tem certeza que deseja excluir o arquivo?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sim',
+    cancelButtonText: 'Não'
+  }).then((resultQ) => {
+    if (resultQ.isConfirmed) {
+      $.ajax({
+        type: 'POST',
+        url: '/TechSUAS/controller/cadunico/exclui_file_server.php',
+        data: {
+          id: delet,
+          caminho: caminho_id
+        },
+        dataType: 'json',
+        success: function (response) {
+          Swal.fire({
+            title: response.title,
+            text: response.mensagem,
+            icon: response.icon,
+            confirmButtonText: 'OK'
+          }).then((resultT) => {
+            if (resultT.isConfirmed) {
+              location.reload();
+            }
+          })
+        }
+      })
+    } else {
+      Swal.fire("Operação cancelada", "", "info")
+    }
+  })
+  var caminho_id = document.getElementById('caminho_id').value
+}
+
+$(document).ready(function () {
+  fetch('/TechSUAS/controller/cadunico/buscar_ultimo.php')
+  .then(response => response.json())
+  .then(response => {
+    if (response.encontrado) {
+      $('#ultimo_registro').html(response.concatenado)
+    }
+
+  })
+})
 
 
 //FUNÇÃO PARA MUDAR DE SELECT PARA INPUT 
@@ -994,6 +1146,21 @@ function solicitaForm() {
 }
 $(document).ready(function () {
   $('#btn_filtrar').click(function () {
+
+    const loadingHtml = `
+    <div id="loadingSpinner" style="text-align: center;">
+      <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+      <p>Carregando...</p>
+    </div>
+   `;
+
+    Swal.fire({
+      html: loadingHtml,
+      width: '400px',
+      showConfirmButton: false,
+      allowOutsideClick: false
+    })
+
     fetch("/TechSUAS/views/cadunico/area_gestao/filtro_idoso_crianca")
     .then(response => {
       if (!response.ok) {
@@ -1002,8 +1169,10 @@ $(document).ready(function () {
       return response.json();
     })
     .then(data => {
-      console.log('Dados recebidos', data);
+      // console.log('Dados recebidos', data);
       dados = data; // Armazena os dados recebidos globalmente
+      // Carrega os dados na tabela
+      carregarDados(dados)
     })
     .catch(error => {
       console.error('Erro ao buscar dados:', error);
@@ -1011,6 +1180,25 @@ $(document).ready(function () {
     })
   })
 })
+
+function carregarDados(data) {
+  Swal.fire({
+    title: 'FILTROS',
+    html: `
+    <h1>EM MANUTENÇÃO</h1>
+    `,
+  showCancelButton: true,
+  confirmButtonText: 'OK',
+  cancelButtonText: 'Cancelar',
+  didOpen: () => {
+      document.getElementById('cod_fam').addEventListener('input', function () {
+        cod_fam = document.getElementById('cod_fam').value
+        resultadoFiltro = document.getElementById('resultadoFiltro')
+      })
+    }
+  })
+}
+
 
 $(document).ready(function (){
   $('#btn_beneficios').click(function () {
@@ -1038,3 +1226,236 @@ $(document).ready(function (){
     })
   })
 })
+
+function peixinho() {
+  window.location.href = "/TechSUAS/peixe/logado/index"
+}
+
+function uploads() {
+  fetch("/TechSUAS/controller/cadunico/area_gestor/uploads_sem_fam.php")
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro na requisição: ' + response.status);
+        }
+        return response.json()
+      })
+      .then(salvo => {
+        console.log(salvo)
+      })
+}
+
+function areaVisitas() {
+  window.location.href = "/TechSUAS/views/cadunico/visitas/index"
+}
+
+function filtroFamilia() {
+  alert("Em desenvolvimento!")
+}
+
+function atendimento_acao_cadu() {
+    Swal .fire({
+      title: 'AÇÃO CADUNICO MAIS PERTO DE VOCÊ',
+      html: `
+      <label>Selecione um guichê</label>
+        <select id="lc_cadastro" class="form-select" name="lc_cadastro" autocomplete="off" required>
+          <option value="" data-default disabled selected>Selecione</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+      </select>
+      `,
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+    })
+    .then((result) => {
+      if (result.isConfirmed) {
+        const lc_cadastro = document.getElementById('lc_cadastro').value
+
+        $.ajax({
+          type: 'POST',
+          url: '/TechSUAS/controller/cadunico/dashboard/atendimento_acao_cadu.php',
+          data: {
+            lc_cadastro: lc_cadastro
+            },
+          dataType: 'json',
+          success: function(responsavel) {
+            if (responsavel.alteracao === true) {
+              location.reload()
+            } else {
+              alert('Erro ao enviar ação')
+            }
+          }
+        })
+      } else {
+        Swal.fire('Ação cancelada', '', 'info')
+      }
+    })
+}
+
+function chamaProximo(acaoCadu) {
+  fetch("/TechSUAS/acao_cadu/controller/busca_proximo.php")
+    .then(revil => {
+      if (!revil.ok) {
+        throw new Error('Erro na requisição: ' + revil.status);
+      }
+      return revil.json();
+    })
+    .then(dados => {
+      // Ordena: prioridade primeiro, depois por ordem de chegada
+      dados.sort((a, b) => {
+        if (a.tipo === "PRIORIDADE" && b.tipo !== "PRIORIDADE") return -1;
+        if (a.tipo !== "PRIORIDADE" && b.tipo === "PRIORIDADE") return 1;
+        return new Date(a.created_at) - new Date(b.created_at);
+      })
+
+      // Monta as linhas da tabela
+      const linhasTabela = dados.map(dado => `
+        <tr>
+          <td>${dado.programa}</td>
+          <td>${dado.tipo}</td>
+          <td><strong>${dado.senha}</strong></td>
+          <td>
+            <button class="chamar-btn" title="Chamar"
+              data-senha="${dado.senha}"
+              data-id="${dado.id}" 
+              data-guiche="${acaoCadu}" 
+              data-cod="${dado.cod_familiar_fam}" 
+              data-nome="${dado.nom_pessoa?.replace(/"/g, '&quot;') ?? ''}">
+              <i class="fas fa-bullhorn"></i>
+            </button>
+
+            <button id="presente" title="Presente" onclick="alterarStatus(${dado.id}, '${dado.nom_pessoa?.replace(/"/g, '&quot;') ?? ''}', '${dado.cod_familiar_fam}', '${dado.senha}', this)">
+              <i class="fas fa-check-circle"></i>
+            </button>
+
+            <button id="ausente" title="Cancelar" onclick="alterarStatus(${dado.id}, '${dado.nom_pessoa?.replace(/"/g, '&quot;') ?? ''}', '${dado.cod_familiar_fam}', '${dado.senha}', this)">
+              <i class="fas fa-user-slash"></i>
+            </button>
+          </td>
+        </tr>
+      `).join('')
+
+      // Monta a tabela completa
+      const tabelaHTML = `
+        <div style="overflow-x:auto;">
+          <table style="width:100%; border-collapse: collapse;">
+            <thead>
+              <tr style="background-color: #eee;">
+                <th style="padding: 8px; border: 1px solid #ccc;">PROGRAMA</th>
+                <th style="padding: 8px; border: 1px solid #ccc;">TIPO</th>
+                <th style="padding: 8px; border: 1px solid #ccc;">SENHA</th>
+                <th style="padding: 8px; border: 1px solid #ccc;">AÇÃO</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${linhasTabela}
+            </tbody>
+          </table>
+        </div>
+      `
+
+      // Exibe no SweetAlert2
+      Swal.fire({
+        title: 'Fila de Atendimento',
+        html: tabelaHTML,
+        width: '800px',
+        showConfirmButton: false
+      })
+      // Adiciona evento aos botões
+        document.querySelectorAll('.chamar-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const senha = btn.getAttribute('data-senha')
+            const id = btn.dataset.id
+            const guiche = btn.dataset.guiche
+            const cod = btn.dataset.cod
+            const nome = btn.dataset.nome
+            chamarPainel(senha, id, guiche, cod, nome)
+          })
+        })
+
+    })
+    .catch(error => {
+      Swal.fire('Erro', error.message, 'error')
+    })
+}
+
+function alterarStatus(id, nom_pessoa, cod_familiar_fam, senha, button) {
+
+  let acao_efeito = (button.id === "ausente") ? "AUSENTE" : "PRESENTE"
+
+  $.ajax({
+    type: "POST",
+    url: "/TechSUAS/acao_cadu/controller/alterar_dados_2.php",
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify({
+      acao: acao_efeito,
+      id: id
+    }),
+    success: function(data) {
+      
+      console.log('Resposta do servidor:', data);
+      if (data.status === 'sucesso') {
+        document.getElementById('codfamiliar').value = cod_familiar_fam;
+        let mensagem;
+        if (!nom_pessoa) {
+          mensagem = `Não encontrei o nome, chame pela: <strong>${senha}</strong>`;
+        } else {
+          mensagem = `<p><strong>${nom_pessoa}</strong></p><p>Senha: <strong>${senha}</strong></p>`;
+        }
+    
+        Swal.fire({
+          icon: 'success',
+          title: 'PRÓXIMO',
+          html: mensagem,
+        });
+    
+        $('#codfamiliar').focus();
+      }
+    },
+    error: function(xhr, status, error) {
+      console.error('Erro AJAX:', status, error);
+      console.log('Resposta completa:', xhr.responseText);
+    }
+  })
+}
+
+// Função que será chamada ao clicar em "Chamar" (pode ser ajustada depois)
+function chamarPainel(senha, id, acaoCadu, cod_familiar_fam, nom_pessoa) {
+  console.log("Chamando ID:", id, "Ação CADU:", acaoCadu)
+  
+  $.ajax({
+    type: "POST",
+    url: "/TechSUAS/acao_cadu/controller/alterar_dados.php",
+    dataType: "json",
+    contentType: "application/json",
+    data: JSON.stringify({
+      id: id,
+      guiche: acaoCadu
+    }),
+    success: function(data) {
+      if (data.status === 'sucesso') {
+
+        if (!nom_pessoa) {
+          var nomePainel = ''
+
+        } else {
+          var nomePainel = nom_pessoa
+        }
+
+        const socket = new WebSocket("wss://painel-chamadas-production.up.railway.app")
+        socket.onopen = () => {
+          socket.send(JSON.stringify({
+            senha: senha,
+            nome: nomePainel,
+            guiche: acaoCadu
+          }))
+          socket.close()
+        }
+
+      }
+    }
+  })
+}

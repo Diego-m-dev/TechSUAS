@@ -13,7 +13,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <link rel="website icon" type="png" href="/TechSUAS/img/geral/logo.png">
-    <link rel="stylesheet" href="/TechSUAS/css/fichario_dig/style_fichario_fisico.css">
+    <link rel="stylesheet" href="/TechSUAS/css//cadunico/fichario/style_fichario_fisico.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -28,7 +28,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
 <body>
     <div class="img">
         <h1 class="titulo-com-imagem">
-            <img class="titulo-com-imagem" src="/TechSUAS/img/fichario/h1-fichario_fisico.svg" alt="Título com imagem">
+            <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/fichario/h1-fichario_fisico.svg" alt="Título com imagem">
         </h1>
     </div>
     <div class="container">
@@ -157,7 +157,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             $verifica_cadastro->execute();
             $verifica_cadastro->store_result();
 
-            // Verifica se o armário já existe no banco de dados
+            // Verifica se o nome de usuário já existe no banco de dados
             $stmt = $conn->prepare("SELECT codfam FROM fichario WHERE arm_gav_pas = ?");
             $stmt->bind_param("s", $arm_gav_pas);
             $stmt->execute();
@@ -210,7 +210,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 exit();
             }
 
-            // Verifica se o codigo familiar já existe no banco de dados
+            // Verifica se o nome de codigo já existe no banco de dados
             $verifica_fichario = $conn->prepare("SELECT codfam FROM fichario WHERE codfam = ?");
             $verifica_fichario->bind_param("s", $ajustando_cod);
             $verifica_fichario->execute();
@@ -235,7 +235,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                 exit();
             }
 
-            $sql_insert = "INSERT INTO fichario (codfam, arm_gav_pas, operador, arm, gav, pas) VALUES ('$ajustando_cod', '$arm_gav_pas', '$operador', '$arm', '$gav', '$pasta')";
+    $print_id = 'S';
+            $sql_insert = "INSERT INTO fichario (codfam, arm_gav_pas, operador, arm, gav, pas, print_id) VALUES ('$ajustando_cod', '$arm_gav_pas', '$operador', '$arm', '$gav', '$pasta', '$print_id')";
 
             if ($conn->query($sql_insert) === true) {
             ?>

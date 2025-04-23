@@ -1,0 +1,10 @@
+<input type="text" id="videoId" placeholder="Digite o ID do vídeo do YouTube">
+<button onclick="salvarVideo()">Salvar</button>
+
+<script>
+function salvarVideo() {
+  const id = document.getElementById('videoId').value.trim()
+  localStorage.setItem('videoYoutubeID', id)
+  alert('ID salvo com sucesso!')
+}
+</script>

@@ -32,14 +32,16 @@ $sql_declar->execute();
     echo 'Código familiar: '. $dados_declar['cod_familiar_fam']. '<br>';
     echo 'Responsável familiar: '. $dados_declar['nom_pessoa']. '<br>';
     echo 'NIS: '. $_POST['cpf_declar']. '<br>';
+  } else {
+    echo 'NIS não encontrado';
   }
   ?>
 <br>
 <form action="" method="post">
 
-<input type="hidden" name="rf_name" value="<?php echo $dados_declar['nom_pessoa']; ?>">
-<input type="hidden" name="cod_fam" value="<?php echo $dados_declar['cod_familiar_fam']; ?>">
-<input type="hidden" name="nis" value="<?php echo $_POST['cpf_declar']; ?>">
+<input type="hidden" name="rf_name" value="<?php echo $dados_declar['nom_pessoa']; ?>"/>
+<input type="hidden" name="cod_fam" value="<?php echo $dados_declar['cod_familiar_fam']; ?>"/>
+<input type="hidden" name="nis" value="<?php echo $_POST['cpf_declar']; ?>"/>
 
   <label for="sit_beneficio">Selecione a situação do benefício:</label>
     <select name="sit_beneficio" id="sit_beneficio" required>
@@ -59,9 +61,9 @@ $sql_declar->execute();
     <?php
     if (!isset($_POST['cpf_declar'])) {
 
-    } else {
+      } else {
 
-    }
+      }
     ?>
 </body>
 </html>

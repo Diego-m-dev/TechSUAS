@@ -1,63 +1,10 @@
 <?php
 $sql_create = [
-/*
--- phpMyAdmin SQL Dump
--- version 5.1.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1:3306
--- Generation Time: Dec 04, 2024 at 10:52 PM
--- Server version: 10.11.10-MariaDB
--- PHP Version: 7.2.34
-*/
 
-'SET @IGNORE_TEMP_TRIGGERS = 0;',
-'SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";',
-'START TRANSACTION;',
-'SET time_zone = "+00:00";',
+// Table structure for table `averenda`
 
-
-'SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT;',
-'SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS;',
-'SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION;',
-'SET NAMES utf8mb4;',
-
-/*
---
--- Database: `u198416735_saobentodouna`
---
-
-
---
--- Procedures
---
-*/
-
-'DROP PROCEDURE IF EXISTS `atualizar_status_familia`',
-'CREATE PROCEDURE `atualizar_status_familia` ()  BEGIN
-    UPDATE status_familia
-    SET status = "inativo";
-
-    INSERT INTO status_familia (cod_familiar, status, data_atualizacao, nome_pess)
-    SELECT cod_familiar_fam, "ativo", dat_atual_fam, nom_pessoa
-    FROM tbl_tudo
-    WHERE cod_parentesco_rf_pessoa = 1
-    ON DUPLICATE KEY UPDATE 
-        status = VALUES(status), 
-        data_atualizacao = VALUES(data_atualizacao);
-END;',
-
-/*
--- --------------------------------------------------------
-
---
--- Table structure for table `averenda`
---
-*/
-
-'DROP TABLE IF EXISTS `averenda`;',
-'CREATE TABLE IF NOT EXISTS `averenda` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+"CREATE TABLE `averenda` (
+  `id` int(11) NOT NULL,
   `co_ibge` varchar(255) NOT NULL,
   `no_munic` varchar(255) NOT NULL,
   `in_processo` varchar(255) DEFAULT NULL,
@@ -110,53 +57,13 @@ END;',
   `in_bpc_pcd` tinyint(1) DEFAULT NULL,
   `in_fam_transferida` tinyint(1) DEFAULT NULL,
   `in_situacao_pes` varchar(255) DEFAULT NULL,
-  `in_situacao_fam` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+  `in_situacao_fam` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
-/*
--- --------------------------------------------------------
+// Table structure for table `cadastro_forms`
 
---
--- Table structure for table `cadastros_excluidos`
---
-*/
-
-'DROP TABLE IF EXISTS `cadastros_excluidos`;',
-'CREATE TABLE IF NOT EXISTS `cadastros_excluidos` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_familiar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `nis_pessoa` varchar(11) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `data_exclusao` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
-
-/*
---
--- Triggers `cadastros_excluidos`
---
-*/
-
-'DROP TRIGGER IF EXISTS `after_insert_cadastros_excluidos`;',
-'CREATE TRIGGER `after_insert_cadastros_excluidos` AFTER INSERT ON `cadastros_excluidos` FOR EACH ROW BEGIN
-    -- Verificar se a variável de sessão IGNORE_TEMP_TRIGGERS está ativada
-    IF @IGNORE_TEMP_TRIGGERS = 0 THEN
-        DELETE FROM tbl_tudo 
-        WHERE cod_familiar_fam = NEW.cod_familiar;
-    END IF;
-END;',
-
-/*
--- --------------------------------------------------------
-
---
--- Table structure for table `cadastro_forms`
---
-*/
-
-'DROP TABLE IF EXISTS `cadastro_forms`;',
-'CREATE TABLE IF NOT EXISTS `cadastro_forms` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+"CREATE TABLE `cadastro_forms` (
+  `id` int(11) NOT NULL,
   `cod_familiar_fam` varchar(50) NOT NULL,
   `data_entrevista` date NOT NULL,
   `tipo_documento` varchar(100) NOT NULL,
@@ -169,111 +76,13 @@ END;',
   `sit_beneficio` varchar(100) NOT NULL,
   `operador` varchar(100) NOT NULL,
   `criacao` timestamp NULL DEFAULT current_timestamp(),
-  `modificacao` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+  `modificacao` timestamp NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;;",
 
-/*
--- --------------------------------------------------------
+// Table structure for table `fichario`
 
---
--- Table structure for table `calculo_horas`
---
-*/
-
-'DROP TABLE IF EXISTS `calculo_horas`;',
-'CREATE TABLE IF NOT EXISTS `calculo_horas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nis` bigint(20) NOT NULL,
-  `data_registro` date NOT NULL,
-  `hora_entrada` time DEFAULT NULL,
-  `hora_pausa` time DEFAULT NULL,
-  `hora_volta` time DEFAULT NULL,
-  `hora_saida` time DEFAULT NULL,
-  `hora_pass` time DEFAULT NULL,
-  `hora_pass1` time DEFAULT NULL,
-  `dif_hora_entrada` time DEFAULT NULL,
-  `dif_hora_pausa` time DEFAULT NULL,
-  `dif_hora_volta` time DEFAULT NULL,
-  `dif_hora_saida` time DEFAULT NULL,
-  `tempo_extra` time DEFAULT NULL,
-  `registro_ponto` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
-
-/*
--- --------------------------------------------------------
-
---
--- Table structure for table `carga_horaria`
---
-*/
-
-'DROP TABLE IF EXISTS `carga_horaria`;',
-'CREATE TABLE IF NOT EXISTS `carga_horaria` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nis` bigint(20) NOT NULL,
-  `dia_semana` varchar(8) NOT NULL,
-  `hora_entrada` time DEFAULT NULL,
-  `hora_pausa` time DEFAULT NULL,
-  `hora_volta` time DEFAULT NULL,
-  `hora_saida` time DEFAULT NULL,
-  `hora_pass` time DEFAULT NULL,
-  `hora_pass1` time DEFAULT NULL,
-  `horas_diaria` int(11) DEFAULT NULL,
-  `banco_hora` time DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
-
-/*
--- --------------------------------------------------------
-
---
--- Table structure for table `carga_justify`
---
-*/
-'DROP TABLE IF EXISTS `carga_justify`;',
-'CREATE TABLE IF NOT EXISTS `carga_justify` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `nis` bigint(20) NOT NULL,
-  `data_just` date NOT NULL,
-  `justify` varchar(255) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
-
-/*
--- --------------------------------------------------------
-
---
--- Table structure for table `descartes`
---
-*/
-
-'DROP TABLE IF EXISTS `descartes`;',
-'CREATE TABLE IF NOT EXISTS `descartes` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `codfam` varchar(11) NOT NULL,
-  `data_entrevista` date NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `operador` varchar(100) NOT NULL,
-  `tipo` varchar(255) NOT NULL,
-  `status` varchar(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
-
-/*
--- --------------------------------------------------------
-
---
--- Table structure for table `fichario`
---
-*/
-
-'DROP TABLE IF EXISTS `fichario`;',
-'CREATE TABLE IF NOT EXISTS `fichario` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+"CREATE TABLE `fichario` (
+  `id` int(11) NOT NULL,
   `codfam` varchar(11) NOT NULL,
   `arm_gav_pas` varchar(13) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
@@ -281,39 +90,25 @@ END;',
   `arm` int(2) NOT NULL,
   `gav` int(2) NOT NULL,
   `pas` int(3) NOT NULL,
-  `print_id` varchar(1) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+  `print_id` varchar(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;;",
 
-/*
--- --------------------------------------------------------
+// Table structure for table `ficharios`
 
---
--- Table structure for table `ficharios`
---
-*/
-
-'DROP TABLE IF EXISTS `ficharios`;',
-'CREATE TABLE IF NOT EXISTS `ficharios` (
+"CREATE TABLE `ficharios` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `arm` varchar(2) NOT NULL,
   `gav` varchar(2) NOT NULL,
   `pas` varchar(3) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`),
-  UNIQUE KEY `unique_arm_gav_pas` (`arm`,`gav`,`pas`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+  UNIQUE KEY `unique_arm_gav_pas` (`arm`, `gav`, `pas`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
-/*
--- --------------------------------------------------------
 
---
--- Table structure for table `folha_pag`
---
-*/
+// Table structure for table `folha_pag`
 
-'DROP TABLE IF EXISTS `folha_pag`;',
-'CREATE TABLE IF NOT EXISTS `folha_pag` (
+"CREATE TABLE `folha_pag` (
   `prog` varchar(4) NOT NULL,
   `ref_folha` varchar(6) NOT NULL,
   `uf` varchar(2) NOT NULL,
@@ -348,19 +143,12 @@ END;',
   `cep` varchar(9) NOT NULL,
   `telefone1` varchar(12) NOT NULL,
   `telefone2` varchar(12) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
-/*
--- --------------------------------------------------------
+// Table structure for table `historico_parecer_visita`
 
---
--- Table structure for table `historico_parecer_visita`
---
-*/
-
-'DROP TABLE IF EXISTS `historico_parecer_visita`;',
-'CREATE TABLE IF NOT EXISTS `historico_parecer_visita` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+"CREATE TABLE `historico_parecer_visita` (
+  `id` int(11) NOT NULL,
   `id_visitas` int(11) NOT NULL,
   `numero_parecer` varchar(5) NOT NULL,
   `ano_parecer` varchar(4) NOT NULL,
@@ -378,103 +166,37 @@ END;',
   `referencia_localizacao` text NOT NULL,
   `situacao` varchar(50) NOT NULL,
   `resumo_visita` text NOT NULL,
-  `created_at` timestamp NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+  `created_at` timestamp NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
-/*
--- --------------------------------------------------------
+// Table structure for table `membros_familia`
 
---
--- Table structure for table `membros_familia`
---
-*/
-
-'DROP TABLE IF EXISTS `membros_familia`;',
-'CREATE TABLE IF NOT EXISTS `membros_familia` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+"CREATE TABLE `membros_familia` (
+  `id` int(11) NOT NULL,
   `parecer_id` int(11) NOT NULL,
   `parentesco` varchar(50) NOT NULL,
   `nome_completo` varchar(100) NOT NULL,
   `nis` varchar(50) NOT NULL,
-  `data_nascimento` varchar(40) NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `parecer_id` (`parecer_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+  `data_nascimento` varchar(40) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
-/*
--- --------------------------------------------------------
+// Table structure for table `solicita`
 
---
--- Table structure for table `ponto_eletronico`
---
-*/
-
-'DROP TABLE IF EXISTS `ponto_eletronico`;',
-'CREATE TABLE IF NOT EXISTS `ponto_eletronico` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `registro` bigint(20) NOT NULL,
-  `nis` bigint(20) NOT NULL,
-  `data_registro` date NOT NULL,
-  `hora_registro` time NOT NULL,
-  `tipo_registro` enum("inclusao","abertura","outro") DEFAULT "outro",
-  `codigo_final` varchar(10) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `registro` (`registro`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
-
-/*
--- --------------------------------------------------------
-
---
--- Table structure for table `solicita`
---
-*/
-
-'DROP TABLE IF EXISTS `solicita`;',
-'CREATE TABLE IF NOT EXISTS `solicita` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+"CREATE TABLE `solicita` (
+  `id` int(11) NOT NULL,
   `cpf` varchar(15) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `cod_fam` varchar(20) NOT NULL,
   `status` varchar(55) NOT NULL,
   `tipo` int(10) NOT NULL,
   `nis` varchar(15) NOT NULL,
-  `data_solicitacao` timestamp NOT NULL DEFAULT current_timestamp(),
-  `modify_date` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
+  `data_solicitacao` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;",
 
-/*
--- --------------------------------------------------------
+// Table structure for table `tbl_tudo`
 
---
--- Table structure for table `status_familia`
---
-*/
-
-'DROP TABLE IF EXISTS `status_familia`;',
-'CREATE TABLE IF NOT EXISTS `status_familia` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cod_familiar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `status` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-  `data_atualizacao` timestamp NULL DEFAULT current_timestamp(),
-  `nome_pess` varchar(255) NOT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `cod_familiar` (`cod_familiar`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;',
-
-/*
--- --------------------------------------------------------
-
---
--- Table structure for table `tbl_tudo`
---
-*/
-
-'DROP TABLE IF EXISTS `tbl_tudo`;',
-'CREATE TABLE IF NOT EXISTS `tbl_tudo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+"CREATE TABLE `tbl_tudo` (
+  `id` int(11) NOT NULL,
   `cd_ibge` bigint(20) DEFAULT NULL,
   `cod_familiar_fam` varchar(11) DEFAULT NULL,
   `dat_cadastramento_fam` varchar(10) DEFAULT NULL,
@@ -548,7 +270,7 @@ END;',
   `ic_envo_sms_contato_2_fam` varchar(10) DEFAULT NULL,
   `cod_cta_energ_unid_consum_fam` varchar(20) DEFAULT NULL,
   `ind_parc_mds_fam` decimal(3,0) DEFAULT NULL,
-  `ref_cad` varchar(10) DEFAULT NULL,
+  `ref_cad` decimal(8,0) DEFAULT NULL,
   `ref_pbf` decimal(8,0) DEFAULT NULL,
   `cod_familiar_fam_` varchar(11) DEFAULT NULL,
   `cod_est_cadastral_memb` decimal(1,0) DEFAULT NULL,
@@ -680,38 +402,13 @@ END;',
   `ind_dinh_nao_resp_memb` decimal(1,0) DEFAULT NULL,
   `ind_atend_nenhum_memb` decimal(1,0) DEFAULT NULL,
   `ref_cad_` decimal(8,0) DEFAULT NULL,
-  `ref_pbf_` decimal(8,0) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+  `ref_pbf_` decimal(8,0) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
-/*
---
--- Triggers `tbl_tudo`
---
-*/
+// Table structure for table `unipessoal`
 
-'DROP TRIGGER IF EXISTS `after_insert_tbl_tudo`;',
-
-'CREATE TRIGGER `after_insert_tbl_tudo` AFTER INSERT ON `tbl_tudo` FOR EACH ROW BEGIN
-  IF @IGNORE_TEMP_TRIGGERS = 0 THEN
-    DELETE FROM tbl_tudo
-    WHERE cod_familiar_fam IN (
-        SELECT cod_familiar FROM cadastros_excluidos
-    );
-    END IF;
-END;',
-
-/*
--- --------------------------------------------------------
-
---
--- Table structure for table `unipessoal`
---
-*/
-
-'DROP TABLE IF EXISTS `unipessoal`;',
-'CREATE TABLE IF NOT EXISTS `unipessoal` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+"CREATE TABLE `unipessoal` (
+  `id` int(11) NOT NULL,
   `co_ibge` varchar(255) NOT NULL,
   `no_munic` varchar(255) NOT NULL,
   `in_processo` varchar(255) DEFAULT NULL,
@@ -750,43 +447,129 @@ END;',
   `in_bpc_pcd` tinyint(1) DEFAULT NULL,
   `in_fam_transferida` tinyint(1) DEFAULT NULL,
   `in_situacao` varchar(255) DEFAULT NULL,
-  `in_situacao_detalhe` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+  `in_situacao_detalhe` varchar(255) DEFAULT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
 
-/*
--- --------------------------------------------------------
+// Table structure for table `visitas_feitas`
 
---
--- Table structure for table `visitas_feitas`
---
-*/
-
-'DROP TABLE IF EXISTS `visitas_feitas`;',
-
-'CREATE TABLE IF NOT EXISTS `visitas_feitas` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+"CREATE TABLE `visitas_feitas` (
+  `id` int(11) NOT NULL,
   `cod_fam` varchar(255) NOT NULL,
   `nome` varchar(255) NOT NULL,
   `data` varchar(255) NOT NULL,
   `acao` varchar(255) NOT NULL,
   `parecer_tec` text NOT NULL,
   `entrevistador` varchar(255) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;",
+
+"ALTER TABLE `averenda`
+  ADD PRIMARY KEY (`id`);",
+
+"ALTER TABLE `cadastro_forms`
+  ADD PRIMARY KEY (`id`);",
+
+"ALTER TABLE `fichario`
+  ADD PRIMARY KEY (`id`);",
+
+"ALTER TABLE `historico_parecer_visita`
+  ADD PRIMARY KEY (`id`);",
+
+"ALTER TABLE `membros_familia`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `parecer_id` (`parecer_id`);",
+
+"ALTER TABLE `solicita`
+  ADD PRIMARY KEY (`id`);",
+
+"ALTER TABLE `tbl_tudo`
+  ADD PRIMARY KEY (`id`);",
+
+"ALTER TABLE `unipessoal`
+  ADD PRIMARY KEY (`id`);",
+
+"ALTER TABLE `visitas_feitas`
+  ADD PRIMARY KEY (`id`);",
+
+"ALTER TABLE `averenda`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `cadastro_forms`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `fichario`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `historico_parecer_visita`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `membros_familia`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `solicita`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `tbl_tudo`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `unipessoal`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+"ALTER TABLE `visitas_feitas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
+
+
+// Table structure for table `status_familia`
+
+  "CREATE TABLE status_familia (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    cod_familiar VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL UNIQUE,
+    status VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+    data_atualizacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+DELIMITER //
+
+CREATE PROCEDURE atualizar_status_familia()
+BEGIN
+    -- Temporarily mark all families as inactive
+    UPDATE status_familia
+    SET status = 'inativo', data_atualizacao = NOW();
+
+    -- Update families that are still active
+    INSERT INTO status_familia (cod_familiar, status, data_atualizacao, nom_pess)
+    SELECT cod_familiar_fam, 'ativo', dat_atual_fam, nom_pessoa
+    FROM tbl_tudo
+    WHERE cod_parentesco_rf_pessoa = 1
+    ON DUPLICATE KEY UPDATE 
+        status = VALUES(status), 
+        data_atualizacao = VALUES(data_atualizacao);
+
+END //
+DELIMITER;
+
+CREATE EVENT IF NOT EXISTS atualizar_status_familia_event
+ON SCHEDULE EVERY 1 DAY
+DO
+CALL atualizar_status_familia();
+
+SET GLOBAL event_scheduler = ON;
+
+CALL atualizar_status_familia();",
+
+"CREATE TABLE `descartes` (
+  `id` int(11) NOT NULL,
+  `codfam` varchar(11) NOT NULL,
+  `data_entrevista` date NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;',
+  `operador` varchar(100) NOT NULL,
+  `tipo` varchar(255) NOT NULL,
+  `status` varchar(1) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
-/*
---
--- Events
---
-*/
+ALTER TABLE `descartes`
+  ADD PRIMARY KEY (`id`);
+  
+  ALTER TABLE `descartes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;",
 
-'DROP EVENT IF EXISTS `atualizar_status_familia_event`',
-'CREATE  EVENT `atualizar_status_familia_event` ON SCHEDULE EVERY 1 DAY STARTS "2024-07-26 16:30:12" ON COMPLETION NOT PRESERVE ENABLE DO CALL atualizar_status_familia();',
-'COMMIT;',
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
 ];

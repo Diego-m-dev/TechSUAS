@@ -16,90 +16,11 @@ $(document).ready(function() {
   })
 })
 
-function folhadeponto() {
-    window.location.href = "/TechSUAS/views/cadunico/area_gestao/ponto_eletronico/folha_ponto"
-}
-function importeponto() {
-  window.location.href = "/TechSUAS/views/cadunico/area_gestao/ponto_eletronico/ponto_eletronico"
-}
-
-function pontoEletrico() {
-  window.location.href = "/TechSUAS/views/cadunico/area_gestao/ponto_eletronico/index"
-}
-
 function sempre_maiusculo(elemento) {
   // Converte o texto do campo para maiúsculas
   elemento.value = elemento.value.toUpperCase();
 }
 
-function mudainfocabecalho() {
-  var entrevistador = document.getElementById('entrevistador').value
-  $('#infoCabec').text(`NIS: ${entrevistador} `)
-  $('#printButton').html("<button type='button' onclick='imprimirPagina()'>Imprimir</button>")
-}
-
-function justificativa() {
-  Swal.fire({
-    html: `
-      <h2>Justificativa</h2>
-
-        <label> DATA:
-          <input type="date" name="dataAusencia" id="dataAusencia"/>
-        </label>
-
-        <label> NIS:
-          <input type="text" name="nis_entrevistador" id="nis_entrevistador"/>
-        </label>
-
-        <label> Justificativa:
-          <textarea id="justificativa" name="justificativa"></textarea>
-        </label>
-
-    `,
-
-    showCancelButton: true,
-    confirmButtonText: 'Enviar',
-    cancelButtonText: 'Cancelar'
-
-  }).then((result) => {
-    if (result.isConfirmed) {
-
-      var dataAusencia = document.getElementById('dataAusencia').value
-      var nis_entrevistador = document.getElementById('nis_entrevistador').value
-      var justificativa = document.getElementById('justificativa').value
-
-      // console.log(`${dataAusencia} => ${nis_entrevistador} => ${justificativa}`)
-      $.ajax({
-        type: 'POST',
-        url: '/TechSUAS/controller/cadunico/area_gestor/justify.php',
-        data: {
-
-          dataAusencia: dataAusencia,
-          nis_entrevistador: nis_entrevistador,
-          justificativa: justificativa
-
-        },
-        dataType: 'json',
-        success: function (response) {
-          console.log(response)
-          if (response.salvo == true) {
-
-            Swal.fire({
-              icon: "success"
-            })
-
-          } else {
-
-            Swal.fire({
-              icon: "error"
-            })
-
-          }
-        }
-      })
-    }
-  })
-}
 
 
 // Variável global para armazenar os dados da tabela
@@ -213,6 +134,10 @@ function atualizarPaginacao() {
   document.getElementById('previous-page').disabled = (paginaAtual === 1);
   document.getElementById('next-page').disabled = (paginaAtual === totalPaginas);
 }
+
+// Inicializa a primeira carga de dados
+aplicarFiltrosForm();
+
 
 function criarTabelaGeral() {
   let tabela = document.getElementById('tabelaGeral')
@@ -417,9 +342,9 @@ function aplicarFiltros() {
       (filtroSexo === '' || (row[10] && row[10].toLowerCase().includes(filtroSexo.toLowerCase()))) &&
       (filtroParent === '' || (row[11] && row[11].toLowerCase().includes(filtroParent.toLowerCase()))) &&
       (filtronome_pess === '' || (row[1] && row[1].toLowerCase().includes(filtronome_pess.toLowerCase()))) &&
-      (filtro_renda_per === '' || (row[16] !== null && row[16] !== undefined && parseFloat(row[16]) < filtro_renda_per_num)) &&
-      (filtroanoatual === '' || (row[15] && row[15] === filtroanoatual)) &&
-      (filtro_mes === '' || (row[17] && row[17] === filtro_mes)) &&
+      (filtro_renda_per === '' || (row[15] !== null && row[15] !== undefined && parseFloat(row[15]) < filtro_renda_per_num)) &&
+      (filtroanoatual === '' || (row[14] && row[14] === filtroanoatual)) &&
+      (filtro_mes === '' || (row[16] && row[16] === filtro_mes)) &&
       (filtroIdade === '' || (row[4] && row[4] === filtroIdade)) &&
       (filtrocpf === '' || (row[13] && row[13] === filtrocpf))
   })
@@ -707,309 +632,12 @@ function criarTabelaExcluir(dados) {
 
       // Exibir SweetAlert com a tabela
       Swal.fire({
-        title: 'CADASTROS PARA EXCLUIR',
+        title: 'CADASTROS SEM RF',
         html: table,
         width: '800px', // Largura da janela SweetAlert
         showCloseButton: true,
         showConfirmButton: false
       })
     }
-  })
-}
-
-function semcpf() {
-  fetch("/TechSUAS/controller/cadunico/area_gestor/semcpf")
-  .then(response => {
-    if (!response.ok) {
-      throw new Error('Erro na requisição: ' + response.status)
-    }
-    return response.json()
-  })
-  .then(data => {
-    // console.log('Dados recebidos', data)
-    criarTabelasemrf(data); // Chama a função para criar a tabela com os dados recebidos
-  })
-  .catch(error => {
-    console.log('Erro ao buscar dados:', error)
-  })
-}
-
-
-
-function cadastroCargaHoraria() {
-  var cpf_servidor = document.getElementById('cpf_servidor').value
-
-  $.ajax({
-    type: 'POST',
-    url: '/TechSUAS/controller/cadunico/area_gestor/carga_horaria.php',
-    data: {
-      cpf_servidor: cpf_servidor 
-    },
-    dataType: 'json',
-    success: function (response) {
-      console.log(response)
-      if (response.encontrado) {
-        Swal.fire({
-          title: "CARGA HORÁRIA",
-          html: `<p>Você pode cadastrar a carga horária de ${response.dados_servidor} abaixo:</p>
-          
-            <label> Carga horára diária:
-              <select name="carga_hora_diaria" id="carga_hora_diaria" >
-                <option value="" disabled selected hidden>Selecione</option>
-                <option value="6">6 horas diária</option>
-                <option value="8">8 horas diária</option>
-                <option value="0">Plantão</option>
-              </select>
-                <input type="hidden" name="plantonista" id="plantonista" />
-            </label>
-            <input type="hidden" name="nis_servidor" id="nis_servidor" value="${response.nis_servidor}">
-            <label>Horários:
-    <table border="1">
-      <tr>
-        <th>Horários</th>
-        <th>DOM <input type="checkbox" name="dom" value="domingo"></th>
-        <th>SEG <input type="checkbox" name="seg" value="segunda"></th>
-        <th>TER <input type="checkbox" name="ter" value="terça"></th>
-        <th>QUA <input type="checkbox" name="qua" value="quarta"></th>
-        <th>QUI <input type="checkbox" name="qui" value="quinta"></th>
-        <th>SEX <input type="checkbox" name="sex" value="sexta"></th>
-        <th>SAB <input type="checkbox" name="sab" value="sabado"></th>
-      </tr>
-      <tr>
-        <td>1º</td>
-        <td><input type="text" class="horas" name="primdom" id="primdom"></td>
-        <td><input type="text" class="horas" name="primseg" id="primseg"></td>
-        <td><input type="text" class="horas" name="primter" id="primter"></td>
-        <td><input type="text" class="horas" name="primqua" id="primqua"></td>
-        <td><input type="text" class="horas" name="primqui" id="primqui"></td>
-        <td><input type="text" class="horas" name="primsex" id="primsex"></td>
-        <td><input type="text" class="horas" name="primsab" id="primsab"></td>
-
-      </tr>
-      <tr>
-        <td>2º</td>
-        <td><input type="text" class="horas" name="segundom" id="segundom"></td>
-        <td><input type="text" class="horas" name="segunseg" id="segunseg"></td>
-        <td><input type="text" class="horas" name="segunter" id="segunter"></td>
-        <td><input type="text" class="horas" name="segunqua" id="segunqua"></td>
-        <td><input type="text" class="horas" name="segunqui" id="segunqui"></td>
-        <td><input type="text" class="horas" name="segunsex" id="segunsex"></td>
-        <td><input type="text" class="horas" name="segunsab" id="segunsab"></td>
-      </tr>
-      <tr>
-        <td>3º</td>
-        <td><input type="text" class="horas" name="tercdom" id="tercdom"></td>
-        <td><input type="text" class="horas" name="tercseg" id="tercseg"></td>
-        <td><input type="text" class="horas" name="tercter" id="tercter"></td>
-        <td><input type="text" class="horas" name="tercqua" id="tercqua"></td>
-        <td><input type="text" class="horas" name="tercqui" id="tercqui"></td>
-        <td><input type="text" class="horas" name="tercsex" id="tercsex"></td>
-        <td><input type="text" class="horas" name="tercsab" id="tercsab"></td>
-      </tr>
-      <tr>
-        <td>4º</td>
-        <td><input type="text" class="horas" name="quartdom" id="quartdom"></td>
-        <td><input type="text" class="horas" name="quartseg" id="quartseg"></td>
-        <td><input type="text" class="horas" name="quartter" id="quartter"></td>
-        <td><input type="text" class="horas" name="quartqua" id="quartqua"></td>
-        <td><input type="text" class="horas" name="quartqui" id="quartqui"></td>
-        <td><input type="text" class="horas" name="quartsex" id="quartsex"></td>
-        <td><input type="text" class="horas" name="quartsab" id="quartsab"></td>
-      </tr>
-
-      <tr>
-        <td>H/d</td>
-        <td><input type="number" name="horadiadom" id="horadiadom"></td>
-        <td><input type="number" name="horadiaseg" id="horadiaseg"></td>
-        <td><input type="number" name="horadiater" id="horadiater"></td>
-        <td><input type="number" name="horadiaqua" id="horadiaqua"></td>
-        <td><input type="number" name="horadiaqui" id="horadiaqui"></td>
-        <td><input type="number" name="horadiasex" id="horadiasex"></td>
-        <td><input type="number" name="horadiasab" id="horadiasab"></td>
-
-      </tr>
-    </table>
-            </label>
-
-          `,
-          showCancelButton: true,
-          confirmButtonText: 'Enviar',
-          cancelButtonText: 'Cancelar',
-
-          didOpen: () => {
-            $('.horas').mask('00:00')
-            
-          }
-
-        })
-        .then((result) => {
-            // const form_horario = document.getElementById("form_horario")
-            // form_horario.submit()
-          if (result.isConfirmed) {
-            var nis_servidor = document.getElementById('nis_servidor').value
-            
-            // Captura todos os horários preenchidos na tabela
-            var horarios = []
-            var diasSemana = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sab']
-
-            for (let i = 1; i <= 1; i++) { // Para cada linha (1º, 2º, 3º, 4º)
-              diasSemana.forEach((dia) => {
-                var entrada = document.getElementById(`prim${dia}`)?.value || null
-                var pausa = document.getElementById(`segun${dia}`)?.value || null
-                var volta = document.getElementById(`terc${dia}`)?.value || null
-                var saida = document.getElementById(`quart${dia}`)?.value || null
-                var horadia = document.getElementById(`horadia${dia}`)?.value || null
-        
-                // Adiciona cada linha de horários no array
-                horarios.push({
-                  dia_semana: dia,
-                  hora_entrada: entrada,
-                  hora_pausa: pausa,
-                  hora_volta: volta,
-                  hora_saida: saida,
-                  horas_diaria: horadia
-                })
-              })
-            }
-            $.ajax({
-              type: 'POST',
-              url: '/TechSUAS/controller/cadunico/area_gestor/salvar_carga_horaria.php',
-              data: {
-                nis_servidor: nis_servidor,
-                horarios: JSON.stringify(horarios) // Envia como JSON string
-              },
-              dataType: 'json',
-              success: function (resposta) {
-                console.log(resposta)
-                if(resposta.entregue) {
-                  Swal.fire ({
-                    icon: "success",
-                    title: "SALVO",
-                    text: "Dados salvos com sucesso!",
-                    confirmButtonText: 'OK'
-                  }).then((resulti) =>{
-                    if(resulti.isConfirmed){
-                      window.location.href = "/TechSUAS/views/cadunico/area_gestao/index"
-                    }
-                  })
-                }
-              }
-            })
-          }
-        })
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "ERRO"
-        })
-      }
-    }
-  })
-}
-
-function buscaPonto() {
-  var nis_servidor = document.getElementById('entrevistador').value
-  var mes_servidor = document.getElementById('calendario').value
-  var ano_servidor = document.getElementById('ano').value
-
-  $.ajax({
-    type: 'POST',
-    url: '/TechSUAS/controller/cadunico/area_gestor/buscaPonto.php',
-    data:{
-      nis_servidor: nis_servidor,
-      mes_servidor: mes_servidor,
-      ano_servidor: ano_servidor
-    },
-    dataType: 'json',
-    success: function (response) {
-      console.log(response.dados_servidor)
-      if (response.dados_servidor) {
-        var dados_totais = response.dados_servidor
-        var dadosHTML = ''
-
-        dadosHTML += "<button type='button' onclick='addHoras()'>Adicionar horário</button>"
-
-
-        dadosHTML += "<table border='1'>"
-        dadosHTML += "<tr>"
-        dadosHTML += "<th>DATA</th>"
-        dadosHTML += "<th>Entrada</th>"
-        dadosHTML += "<th>Pausa</th>"
-        dadosHTML += "<th>Retorno</th>"
-        dadosHTML += "<th>Saída</th>"
-        dadosHTML += "<th>Justificativa</th>"
-        dadosHTML += "<th> </th>"
-        dadosHTML += "<tr>"
-
-        dados_totais.forEach(function (dadosEss){
-          dadosHTML += `<tr>`
-          dadosHTML += `<td> ${dadosEss.data_registro} </td>`
-          dadosHTML += `<td> ${dadosEss.hora_entrada} </td>`
-          dadosHTML += `<td> ${dadosEss.hora_pausa} </td>`
-          dadosHTML += `<td> ${dadosEss.hora_volta} </td>`
-          dadosHTML += `<td> ${dadosEss.hora_saida} </td>`
-          dadosHTML += `<td> </td>`
-          dadosHTML += `<td><input type='hidden' name='registro' id='registro' value='${dadosEss.registro_ponto}'/>
-                            <input type='hidden' name='nisEntre' id='nisEntre' value='${dadosEss.nisEntre}'/>
-
-                            <button type='button' onclick='editeHoras()'>Edit</button></td>`
-          dadosHTML += `</tr>`
-        })
-        dadosHTML += "</table>"
-        $('#informacoes').html(dadosHTML)
-      }
-
-    }
-  })
-
-}
-
-function editeHoras() {
-  var registro = document.getElementById('registro').value
-  var nisEntre = document.getElementById('nisEntre').value
-  console.log(nisEntre)
-  Swal.fire({
-    html: `<h3>CORRIGIR HORÁRIO</h3>
-    <form method="POST" action="/TechSUAS/controller/cadunico/area_gestor/editPonto.php" id="form_editPonto">
-      <label> Horárois:
-        Entr.<input type="time" name="entre_h" placeholder="Entrada"/>
-        Paus.<input type="time" name="pausa_h" placeholder="Pausa"/>
-        Retu.<input type="time" name="return_h" placeholder="Retorno"/>
-        Said.<input type="time" name="saida_h" placeholder="Saída"/>
-      </label>
-      <label> Justificativa:
-        <input type="text" name="justify" placeholder="Justificativa"/>
-        <input type="hidden" name="data">
-      </label>
-      <input type='hidden' name='nis' id='nis' value='${nisEntre}'/>
-      <input type='hidden' name='nis' id='nis' value='${nisEntre}'/>
-    </form>
-    `
-  }).then((result) =>{
-    if (result.isConfirmed) {
-      const form_editPonto = document.getElementById('form_editPonto')
-      form_editPonto.submit()
-    }
-  })
-}
-
-function addHoras() {
-  Swal.fire({
-    html: `<h3>ADICIONAR HORÁRIO</h3>
-    <form method="POST" action="/TechSUAS/views/cadunico/area_gestor/" id="form_fc_pessoa">
-      <label>Data:
-        <input type="date" name="data_registro"/>
-      </label><br>
-      <label> Horárois:
-        Entr.<input type="time" name="entre_h" placeholder="Entrada"/>
-        Paus.<input type="time" name="pausa_h" placeholder="Pausa"/>
-        Retu.<input type="time" name="return_h" placeholder="Retorno"/>
-        Said.<input type="time" name="saida_h" placeholder="Saída"/>
-      </label>
-      <label> Justificativa:
-        <input type="text" name="justify" placeholder="Justificativa"/>
-      </label>
-    </form>
-    `
   })
 }

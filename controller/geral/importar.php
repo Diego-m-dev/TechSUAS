@@ -2,6 +2,10 @@
 // Configuração do banco de dados
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 
+// Limpar a tabela 'tbl_tudo'
+    $plasdfe = $pdo->prepare("TRUNCATE tbl_tudo");
+    $plasdfe->execute();
+
 // Obtém os dados enviados via POST
 $data = json_decode(file_get_contents('php://input'), true);
 file_put_contents('debug_log.txt', print_r($data, true), FILE_APPEND);

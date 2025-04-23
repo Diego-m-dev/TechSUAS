@@ -161,6 +161,7 @@ $consultaSetores = $conn->query("SELECT caracteristica FROM concessao_itens");
             <?php
     echo 'Nome: ' . $conc['nome_benef'] . '<br>';
     echo 'NIS: ' . $conc['nis_benef'] . '<br>';
+    echo 'CPF: ' . $conc['cpf_benef'] . '<br>';
     echo 'Endereço: ' . $conc['endereco'] . '<br>';
     echo 'Renda Media: R$ ' . $conc['renda_media'] . ',00<br>';
 
@@ -220,7 +221,7 @@ $(document).ready(function() {
 
     // Anexa a função aos eventos de alteração de entrada
     $(".quantidade, .valor-unitario").on("input", calcularTotal);
-})
+});
 
 // Função para formatar valor monetário
 function formatCurrency(value) {
@@ -340,7 +341,7 @@ document.getElementByClass("valor_total").innerText = dados.valor_total === 0 ? 
 
     <div class="cab2">
         <p>_________________________________________________________________________<br>ASSINATURA DO RESPONSÁVEL:</p>
-        <p>____________________________________________________________<br>MARTHONY DORNELA SANTANA<br>SECRETÁRIO DE ASSISTÊNCIA SOCIAL<br>PORTARIA 143/2023</p>
+        <p>____________________________________________________________<br>MARTHONY DORNELA SANTANA<br>SECRETÁRIO DE ASSISTÊNCIA SOCIAL<br>PORTARIA 012/2025</p>
     </div>
     </div>
 </div>

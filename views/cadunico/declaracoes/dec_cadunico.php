@@ -6,8 +6,8 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
 //REQUISIÇÃO PARA DADOS DOS USUÁRIOS CREDENCIADOS COM ACESSO ADMINISTRATIVO
 $setorizado = $_SESSION['setor'];
-    $sql_user = "SELECT nome, id_cargo FROM operadores WHERE funcao = '1' AND setor = '$setorizado'";
-    $sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn_1 ->error);
+    $sql_user = "SELECT * FROM operadores WHERE funcao = '1' AND setor = '$setorizado'";
+    $sql_user_query = $conn_1->query($sql_user) or die("ERRO ao consultar! " . $conn_1 - error);
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +121,7 @@ $setorizado = $_SESSION['setor'];
                     </div>
                     <div class="assinatura">
                         <p class="signature-line"></p>
-                        <p><?php echo $dados_user['nome']; ?><br><?php echo $dados_user['id_cargo']; ?></p>
+                        <p><?php echo $_SESSION['nome_usuario']; ?><br><?php echo $_SESSION['id_cargo']; ?></p>
                     </div>
                     <?php
                     }
@@ -214,8 +214,8 @@ $setorizado = $_SESSION['setor'];
                 </div>
                 <div class="assinatura">
                     <p class="signature-line"></p>
-                    <p><?php echo $_SESSION['funcao'] == 1 ? $_SESSION['nome_usuario'] : $dados_user['nome']; ?><br>
-                    <?php echo $_SESSION['funcao'] == 1 ? $_SESSION['id_cargo'] : $dados_user['id_cargo']; ?></p>
+                    <p><?php echo  $_SESSION['nome_usuario']; ?><br>
+                    <?php echo $_SESSION['id_cargo']; ?></p>
                 </div>
                 <?php
                 }

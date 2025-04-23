@@ -1,0 +1,13 @@
+{
+    "build": {
+      "builder": "NIXPACKS"
+    },
+    "deploy": {
+      "startCommand": "node server.js"
+    },
+    "plugins": [],
+    "expose": {
+      "ports": [8080]
+    }
+  }
+  

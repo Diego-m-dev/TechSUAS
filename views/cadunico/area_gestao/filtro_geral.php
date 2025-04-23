@@ -43,12 +43,11 @@ while ($b = $stmt_dt_atual_query->fetch_assoc()) {
 </head>
 
 <body>
-  <div class="img">
-    <h1 class="titulo-com-imagem">
-      <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/area_gestor/h1-filtro_geral.svg" alt="Título com imagem">
-    </h1>
-  </div>
-
+    <div class="img">
+        <h1 class="titulo-com-imagem">
+            <img class="titulo-com-imagem" src="/TechSUAS/img/cadunico/area_gestor/h1-filtro_geral.svg" alt="Título com imagem">
+        </h1>
+    </div>
     <div class="container">
         <div class="blocs">
             <div class="bloc">
@@ -68,7 +67,6 @@ while ($b = $stmt_dt_atual_query->fetch_assoc()) {
                         <option value="10">Gênero</option>
                         <option value="11">Parentesco</option>
                         <option value="12">Telefone</option>
-                        <option value="13">Ultima Atualização</option>
                     </select>
                 </div>
                 <div>

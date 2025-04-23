@@ -24,7 +24,7 @@ if (isset($_GET['token'])) {
 
             echo "<script>
                     alert('Senha redefinida com sucesso!');
-                    window.location.href = '/login';
+                    window.location.href = '/';
                   </script>";
             exit();
         }
@@ -43,21 +43,20 @@ if (isset($_GET['token'])) {
 <head>
     <meta charset="UTF-8">
     <title>Redefinir Senha</title>
-
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" href="/TechSUAS/css/geral/login.css">
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/TechSUAS/css/geral/p-acesso.css">
     <link rel="shortcut icon" href="/TechSUAS/img/geral/logo.png" type="image/x-icon">
     <link rel="icon" href="" type="image/x-icon">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
-
 </head>
 <body>
-		<div id="position-form">
-			<form method="POST">
-				<label for="nova_senha">Nova Senha:</label>
-					<input type="password" name="nova_senha" id="nova_senha" required>
-					<button type="submit">Redefinir Senha</button>
-			</form>
+    <div id="position-form">
+        <form method="POST">
+            <label for="nova_senha">Nova Senha:</label>
+            <input type="password" name="nova_senha" id="nova_senha" required>
+            <button type="submit">Redefinir Senha</button>
+        </form>
     </div>
 </body>
 </html>

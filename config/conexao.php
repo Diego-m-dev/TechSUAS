@@ -2,7 +2,7 @@
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 
 if (isset($_SESSION['municipio'])) {
-    $host = '89.117.7.52';
+    $host = 'srv1898.hstgr.io';
     $usuario_bd = $_SESSION['user_bd'];
     $senha_bd = $_SESSION['pass_bd'];
     $banco = $_SESSION['nome_bd'];

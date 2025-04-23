@@ -1,0 +1,73 @@
+body {
+    background-image: url('/TechSUAS/img/cadunico/background_cad.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    overflow: auto;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+}
+
+* {
+    margin-top: 0px;
+}
+
+img {
+    display: flex;
+    width: 100%;
+    max-height: 120px
+}
+
+.btns {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0px;
+}
+
+.container {
+    background-color: #ffffff;
+    border-radius: 10px;
+    margin: 20px;
+}
+
+table {
+    border-radius: 5px;
+    width: 100%;
+    color: #13294b;
+}
+
+td.check {
+    text-align: center;
+}
+
+td {
+    padding: 5px;
+    border-radius: 3px;
+}
+
+th {
+    font-size: 16px;
+    position: sticky;
+    top: 0;
+    background-color: #ffffff;
+    border-radius: 3px;
+}
+
+button,
+a {
+    background-color: #13294b;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    text-decoration: none;
+}
+
+button:hover,
+a:hover {
+    background-color: #3b82f6;
+    box-shadow: 0 0 0 1px #3b83f65f;
+    color: #fff;
+}

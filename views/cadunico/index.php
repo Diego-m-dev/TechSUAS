@@ -105,7 +105,43 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/css_ind.php';
     </div>
     <div class="calend">
       <div class="calendendario">
-        <img class="calendario" src="/TechSUAS/img/cadunico/calend.svg" alt="Calendário">
+        
+        <table>
+            <thead>
+              <tr>
+                <th colspan="13">CALENDÁRIO DE PAGAMENTO 2025</th>
+              </tr>
+                <tr>
+                    <th>FINAL DO NIS</th>
+                    <th>JAN</th>
+                    <th>FEV</th>
+                    <th>MAR</th>
+                    <th>ABR</th>
+                    <th>MAI</th>
+                    <th>JUN</th>
+                    <th>JUL</th>
+                    <th>AGO</th>
+                    <th>SET</th>
+                    <th>OUT</th>
+                    <th>NOV</th>
+                    <th>DEZ</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>20</td><td>17</td><td>18</td><td>15</td><td>19</td><td>16</td><td>18</td><td>18</td><td>17</td><td>20</td><td>14</td><td>10</td></tr>
+                <tr><td>2</td><td>21</td><td>18</td><td>19</td><td>16</td><td>20</td><td>17</td><td>21</td><td>19</td><td>18</td><td>21</td><td>17</td><td>11</td></tr>
+                <tr><td>3</td><td>22</td><td>19</td><td>20</td><td>17</td><td>21</td><td>18</td><td>22</td><td>20</td><td>19</td><td>22</td><td>18</td><td>12</td></tr>
+                <tr><td>4</td><td>23</td><td>20</td><td>21</td><td>22</td><td>22</td><td>20</td><td>23</td><td>21</td><td>22</td><td>23</td><td>19</td><td>15</td></tr>
+                <tr><td>5</td><td>24</td><td>21</td><td>24</td><td>23</td><td>23</td><td>23</td><td>24</td><td>22</td><td>23</td><td>24</td><td>21</td><td>16</td></tr>
+                <tr><td>6</td><td>27</td><td>24</td><td>25</td><td>24</td><td>26</td><td>24</td><td>25</td><td>24</td><td>25</td><td>27</td><td>24</td><td>17</td></tr>
+                <tr><td>7</td><td>28</td><td>25</td><td>26</td><td>25</td><td>27</td><td>25</td><td>26</td><td>25</td><td>26</td><td>28</td><td>25</td><td>18</td></tr>
+                <tr><td>8</td><td>29</td><td>26</td><td>27</td><td>28</td><td>28</td><td>26</td><td>29</td><td>27</td><td>29</td><td>29</td><td>26</td><td>19</td></tr>
+                <tr><td>9</td><td>30</td><td>27</td><td>28</td><td>29</td><td>29</td><td>27</td><td>30</td><td>28</td><td>30</td><td>30</td><td>27</td><td>22</td></tr>
+                <tr><td>0</td><td>31</td><td>28</td><td>31</td><td>30</td><td>30</td><td>30</td><td>31</td><td>30</td><td>31</td><td>31</td><td>28</td><td>23</td></tr>
+            </tbody>
+        </table>
+
+        <!-- <img class="calendario" src="/TechSUAS/img/cadunico/calend.svg" alt="Calendário"> -->
       </div>
     </div>
   </div>
@@ -115,7 +151,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/css_ind.php';
 
   </div>
   <!-- FOOTER DA PAGINA -->
-  <?php include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/footer.php'; ?>
+  <!-- <?php //include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/footer.php'; ?> -->
 
   <div class="drop-all">
     <div class="menu-drop">
@@ -141,5 +177,3 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/css_ind.php';
 </body>
 
 </html>
-<?php
-$conn_1->close();

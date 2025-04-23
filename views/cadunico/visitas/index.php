@@ -101,14 +101,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
   $totalRegistros = $row['total_visitas'];
   $numero_parecer = $totalRegistros;
 
-  $sql = "SELECT
-      COUNT(CASE WHEN cod_forma_coleta_fam = 2 THEN 1 END) AS quant_visit_cad,
+  $sql = "
+  SELECT 
+    COUNT(CASE WHEN cod_forma_coleta_fam = 2 THEN 1 END) AS quant_visit_cad,
     COUNT(*) AS quant_cad,
     ROUND(
       (COUNT(CASE WHEN cod_forma_coleta_fam = 2 THEN 1 END) / COUNT(*)) * 100, 2
     ) AS porcento
   FROM tbl_tudo
-  WHERE cod_parentesco_rf_pessoa = 1";
+  WHERE cod_parentesco_rf_pessoa = 1
+";
 
 $query = $pdo->query($sql);
 $row = $query->fetch(PDO::FETCH_ASSOC);
