@@ -188,7 +188,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
                                 <td>
                                     <form action="/TechSUAS/controller/cadunico/parecer/reprint_visita" method="post" style="display:inline;">
                                         <input type="hidden" name="id_visita" value="<?php echo $dados_hist_feito['id_visitas']; ?>">
-                                        <button type="submit">IMPRIMIR</button>
+                                        <button type="submit" id="print_parecer">IMPRIMIR</button>
                                     </form>
                                 </td>
                             </tr>

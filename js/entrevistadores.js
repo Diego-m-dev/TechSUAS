@@ -109,7 +109,7 @@ function aplicarFiltrosentrevist() {
       (filtroSexo === '' || (row[10] && row[10].toLowerCase().includes(filtroSexo.toLowerCase()))) &&
       (filtroParent === '' || (row[11] && row[11].toLowerCase().includes(filtroParent.toLowerCase()))) &&
       (filtronome_pess === '' || (row[1] && row[1].toLowerCase().includes(filtronome_pess.toLowerCase()))) &&
-      (filtro_renda_per === '' || (row[17] !== null && row[17] !== undefined && parseFloat(row[17]) > filtro_renda_per_num)) &&
+      (filtro_renda_per === '' || (row[17] !== null && row[17] !== undefined && parseFloat(row[17]) < filtro_renda_per_num)) &&
       (filtroanoatual === '' || (row[16] && row[16] === filtroanoatual)) &&
       (filtro_mes === '' || (row[18] && row[18] === filtro_mes)) &&
       (filtroIdade === '' || (row[4] && row[4] === filtroIdade)) &&

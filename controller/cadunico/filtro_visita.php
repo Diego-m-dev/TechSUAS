@@ -69,7 +69,7 @@ $solicitacao_sql = "SELECT
     '</strong>'
   ),
   YEAR(dat_atual_fam),
-  CONCAT('R$ ',vlr_renda_media_fam, ',00') AS vlr_renda_media,
+  vlr_renda_media_fam,
   MONTH(dat_atual_fam),
   cod_local_domic_fam
   ";

@@ -75,7 +75,7 @@ if ($_SESSION['funcao'] != '1') {
     </table>
 
     <?php
-    $sql_acomp_visit = "SELECT cod_fam, data, acao, entrevistador FROM visitas_feitas";
+    $sql_acomp_visit = "SELECT cod_fam, DATE_FORMAT(data, '%d/%m/%Y') AS data, acao, entrevistador FROM visitas_feitas ORDER BY data DESC";
     $sql_query_acomp_visit = $conn->query($sql_acomp_visit);
 
     if (!$sql_query_acomp_visit) {
@@ -113,9 +113,7 @@ if ($_SESSION['funcao'] != '1') {
 
             const filteredData = data.filter(row => {
                 const nameMatches = nameFilter ? row[3].toLowerCase().includes(nameFilter) : true;
-                const dateMatches = startDateFilter && endDateFilter 
-                    ? (row[1] >= startDateFilter && row[1] <= endDateFilter) 
-                    : true;
+                const dateMatches = startDateFilter && endDateFilter ? (row[1] >= startDateFilter && row[1] <= endDateFilter) : true;
                 const statusMatches = statusFilter ? row[2] == statusFilter : true;
                 const codigoFamiliarMatches = codigoFamiliar ? row[0] == codigoFamiliar : true;
 
