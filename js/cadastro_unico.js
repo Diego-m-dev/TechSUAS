@@ -2,10 +2,6 @@ function relatorios() {
   window.location.href = '/TechSUAS/views/cadunico/area_gestao/relatorio'
 }
 
-function relatorio_entrevistadores() {
-  window.location.href = '/TechSUAS/views/cadunico/area_gestao/relatorio_entrevistadores'
-}
-
 function filtro_cadastros() {
   window.location.href = '/TechSUAS/views/cadunico/filtro_geral_cad'
 }
@@ -781,7 +777,6 @@ function buscarDadosFamily() {
       if (response.arquivos === "Nenhum arquivo encontrado.") {
         $('#arquivo_show').html('<span style="color: red;"><strong>Nenhum arquivo encontrado.</strong></span>')
       } else {
-        console.log(response.arquivos)
         var arquivo = response.arquivos
         var linkHtml = ''
         linkHtml += '<table class="tabelinha">'
@@ -812,9 +807,17 @@ function buscarDadosFamily() {
   })
 }
 
+function notification() {
+  window.location.href = '/TechSUAS/views/cadunico/upload_c_erro'
+}
+
 function editarArquivo(id, dataEntre, tipo_doc) {
 
-  var cod_fam = document.querySelector('input#codfamiliar').value
+  // Agora encontra o input de codfamiliar dentro da mesma linha
+  const cod_fam_input = document.querySelector('input#codfamiliar')
+  const cod_fam = cod_fam_input ? cod_fam_input.value : document.querySelector('input#codfamiliar-up').value
+
+
 
   // formatando a data
     let partesData = dataEntre.split("/");
@@ -838,6 +841,7 @@ function editarArquivo(id, dataEntre, tipo_doc) {
               <option value="Relatórios" ${tipo_doc === 'Relatórios' ? 'selected' : ''}>Relatórios</option>
               <option value="Parecer visitas" ${tipo_doc === 'Parecer visitas' ? 'selected' : ''}>Parecer visitas</option>
               <option value="Documento externo" ${tipo_doc === 'Documento externo' ? 'selected' : ''}>Documento externo</option>
+              <option value="Termos" ${tipo_doc === 'Termos' ? 'selected' : ''}>Termos</option>
             </select>
     `,
     showCancelButton: true,
@@ -1233,15 +1237,51 @@ function peixinho() {
 
 function uploads() {
   fetch("/TechSUAS/controller/cadunico/area_gestor/uploads_sem_fam.php")
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Erro na requisição: ' + response.status);
-        }
-        return response.json()
-      })
-      .then(salvo => {
-        console.log(salvo)
-      })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.status);
+      }
+      return response.json()
+    })
+    .then(salvo => {
+      if (salvo.encontrado) {
+        
+        var arquivo = salvo.dadosFich
+        var table_linkHtml = ''
+        table_linkHtml += '<table class="tabelas">'
+        table_linkHtml += '<tr><th>CÓD.FAMILIAR</th><th>DATA DA ENTREVISTA</th><th>TIPO</th><th>OPERADOR</th><th>AÇÕES</th></tr>'
+        arquivo.forEach(function (arquivo_show) {
+          table_linkHtml += '<tr>'
+          table_linkHtml += '<td><span>'+ arquivo_show.cod_familiar_fam +'</span></td>' //código familliar
+          table_linkHtml += '<td><span>'+ arquivo_show.data_entrevista +'</span></td>'  //data da entrevista
+          table_linkHtml += '<td><span>'+ arquivo_show.tipo_documento +'</span></td>'   //tipo
+          table_linkHtml += '<td><span>'+ arquivo_show.operador +'</span></td>'         //operador
+          table_linkHtml += `<td id="td_btn">
+              <input type="hidden" id="caminho_id" value="${arquivo_show.caminho_arquivo}">
+              <input type="hidden" id="codfamiliar-up" value="${arquivo_show.cod_familiar_fam}">
+                    <a id="printArquivo" href="${arquivo_show.caminho_arquivo}" target="_blank" style="color: green; font-size: 16px; margin-right: 18px;">
+                      <i class="fa fa-download"></i>
+                    </a>
+                    <a id="editarArquivo" onclick="editarArquivo('${arquivo_show.id}', '${arquivo_show.data_entrevista}', '${arquivo_show.tipo_documento}')">
+                      <i class="fas fa-edit"></i>
+                    </a>
+                    <a id="excluirArquivo" onclick="excluirArquivo('${arquivo_show.id}', '${arquivo_show.caminho_arquivo}')" style="color: red; margin-left: 18px;">
+                      <i class="fas fa-trash-alt"></i>
+                    </a>
+                </td>` 
+          table_linkHtml += '</tr>'
+        })
+        table_linkHtml += '</table>'
+
+        Swal.fire({
+        title: "Arquivos Sem Famílias Ativas",
+        html:`
+          ${table_linkHtml}
+        `,
+        width: '80%'
+        })
+      }
+    })
 }
 
 function areaVisitas() {
@@ -1268,6 +1308,15 @@ function atendimento_acao_cadu() {
       showCancelButton: true,
       confirmButtonText: 'Enviar',
       cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        var lc_cadastro = document.getElementById('lc_cadastro').value
+
+        if (!lc_cadastro) {
+          Swal.showValidationMessage('Escolha um Guichê')
+          return false;
+        }
+        return lc_cadastro
+      }
     })
     .then((result) => {
       if (result.isConfirmed) {
@@ -1445,7 +1494,12 @@ function chamarPainel(senha, id, acaoCadu, cod_familiar_fam, nom_pessoa) {
           var nomePainel = nom_pessoa
         }
 
-        const socket = new WebSocket("wss://painel-chamadas-production.up.railway.app")
+        const host = window.location.hostname === "localhost"
+        ? "ws://localhost:8080"
+        : "wss://painel-chamadas-production.up.railway.app";
+      
+      const socket = new WebSocket(host);
+      
         socket.onopen = () => {
           socket.send(JSON.stringify({
             senha: senha,
@@ -1458,4 +1512,29 @@ function chamarPainel(senha, id, acaoCadu, cod_familiar_fam, nom_pessoa) {
       }
     }
   })
+}
+
+function abrirConfiguradorPlaylist() {
+  Swal.fire({
+    title: 'Editar Playlist',
+    html: '<iframe src="/TechSUAS/acao_cadu/configurador.html" width="100%" height="400px" frameborder="0"></iframe>',
+    showCloseButton: true,
+    showConfirmButton: false,
+    width: 600
+  })
+}
+
+// Escuta a mensagem enviada pelo configurador
+window.addEventListener('message', (event) => {
+  if (event.data.tipo === 'atualizarPlaylist') {
+    atualizarPlaylist()
+  }
+})
+
+function atualizarPlaylist() {
+  listaVideos = JSON.parse(localStorage.getItem('listaVideos')) || ['MylQJmtrl6k']
+  indiceAtual = 0
+  if (player && typeof player.loadVideoById === 'function') {
+    player.loadVideoById(listaVideos[indiceAtual])
+  }
 }
