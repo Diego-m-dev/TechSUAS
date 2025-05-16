@@ -35,7 +35,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
     </div>
     <h1>REGISTRO DE INFORMAÇÕES COMPLEMENTARES DE VISITA DOMICILIAR</h1>
     <div class="tudo">
-        
+        <p>De acordo com o Art. 25 da Portaria MC nº 810, de 14 de setembro de 2022, a exclusão de uma família do Cadastro Único pode ocorrer apenas em situações claramente previstas, como o falecimento de todos os membros da família, a recusa em fornecer informações para a atualização cadastral, comprovada má-fé na prestação de dados, decisão judicial, ou ainda a desatualização do cadastro por um período superior a 48 meses, entre outras hipóteses. Além disso, o processo deve ser acompanhado de documentos comprobatórios, como relatórios circunstanciados ou a Ficha de Exclusão de Família, conforme exigido pela normativa.</p>
         <?php
 
         $id_visita = $_POST["id_visita"];
@@ -55,12 +55,27 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
                 $num_parecer = $dadosv['numero_parecer'];
                 $ano_parecer = $dadosv['ano_parecer'];
                 $carimbo = $dadosv['created_at'];
-                $date = new DateTime($carimbo);
+
+                $formatdata = DateTime::createFromFormat('Y-m-d H:i:s', $carimbo);
+                $formatterdata = new IntlDateFormatter(
+                    'pt_BR', // Localidade
+                    IntlDateFormatter::FULL, // Estilo da data
+                    IntlDateFormatter::NONE, // Estilo do tempo
+                    'America/Sao_Paulo', // Fuso horário
+                    IntlDateFormatter::GREGORIAN // Calendário
+                );
+                $formatterdata->setPattern('d \'de\' MMMM \'de\' y');
+
+                    if ($formatterdata) {
+                        $data_formatada = $formatterdata->format($formatdata);
+                    } else {
+                        $data_formatada = "Data inválida.";
+                    }
         ?>
                 <!-- INICIA O FORMULÁRIO PARA CONFERIR OS DADOS E POSTERIORMENTE IMPRIMIR -->
                 <label for="">Nº Documento:</label>
                 <span><?php echo $num_parecer . '/' . $ano_parecer; ?></span><br>
-                <span class="cidade_data"><?php echo $cidade; ?><?php echo $data_formatada_extenso; ?>.</span>
+                <span class="cidade_data"><?php echo $cidade; ?><?php echo $data_formatada; ?>.</span>
 
                 <div class="cidade_data">
                     <p style="text-align: left;"><?php  ?></p>.
@@ -78,7 +93,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
                 echo 'Data da visita: <span id="data_entrevista">' . $data . '</span><br>';
 
                 //RENDA PERCAPITA FORMATADA E EXIBIDA
-                echo 'Renda per capita da família: <span id="renda_per_capita"> ' . $dadosv['renda_per_capita'] . '</span>';
+                echo 'Renda per capita da família: <span id="renda_per_capita"> ' . $dadosv['renda_per_capita'] . ' (dado do V7)</span>';
                 ?>
                 <!--ENDEREÇO DA FAMÍLIA-->
                 <h4>ENDEREÇO DA FAMÍLIA</h4>
@@ -122,7 +137,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
     <?php
                 $id_parecer = $dadosv['id'];
                 $sql_membro_familia = "SELECT * FROM membros_familia WHERE parecer_id LIKE '$id_parecer' ORDER BY id ASC";
-                $sql_membro_familia_query = $conn->query($sql_membro_familia) or die("ERRO ao consultar! " . $conn - error);
+                $sql_membro_familia_query = $conn->query($sql_membro_familia) or die("ERRO ao consultar! " . $conn ->error);
 
                 if ($sql_membro_familia_query->num_rows == 0) {
                     //NENHUM MEMBRO FAMILIAR ENCONTRADO
@@ -158,9 +173,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/controller/cadunico/declarac
 <div class="assinatura">_______________________________________________________________________<br>Assinatura do Entrevistador</div><br><br>
 <div class="assinatura">_______________________________________________________________________<br>Assinatura do Responsável</div>
 
+
+
 <script>
     window.print()
-    setTimeout(function() {
+    /*setTimeout(function() {
         window.location.href = "/TechSUAS/views/cadunico/visitas/buscarvisita";
-    }, 3000);
+    }, 5000);*/
 </script>
