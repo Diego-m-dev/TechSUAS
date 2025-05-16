@@ -1,5 +1,4 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 
@@ -35,7 +34,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <div class="cont-btns">
 
       <div class="bt">
-        <button type="button" class="menu-button" onclick="relatorio_entrevistadores()">
+        <button type="button" class="menu-button" onclick="location.href = '/TechSUAS/views/cadunico/area_gestao/relatorio_entrevistadores'">
               Relatórios de Entrevistadores
         </button>
       </div>

@@ -1,8 +1,30 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
+
+  $data5yearsago = new DateTime();
+  $data5yearsago->modify('-5 years');
+  $data5yearsagoFormatada = $data5yearsago->format('Y-m-d');
+    $stmt_up_5 = $pdo->prepare("SELECT id FROM cadastro_forms WHERE data_entrevista < :data5yearsago");
+    $stmt_up_5->bindValue(":data5yearsago", $data5yearsagoFormatada);
+    $stmt_up_5->execute();
+
+  $stmt_up = $pdo->prepare("SELECT c.id,
+            c.cod_familiar_fam
+    FROM cadastro_forms c
+    LEFT JOIN tbl_tudo t ON t.cod_familiar_fam = c.cod_familiar_fam
+    WHERE t.cod_familiar_fam IS NULL AND c.certo != 1 AND YEAR(data_entrevista) < 2021 AND (c.operador = :operador OR c.operador = :cpfOperador)
+    GROUP BY c.id
+    ORDER BY c.criacao ASC
+    ");
+    $cpf_limpo = preg_replace('/\D/', '', $_SESSION['cpf']);
+    $operador = $_SESSION['nome_usuario'];
+    $stmt_up->execute(array(
+      'operador' => $operador,
+      'cpfOperador' => $cpf_limpo
+    ));
+
 ?>
 
 <!DOCTYPE html>
@@ -27,13 +49,36 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 </head>
 
 <body>
+  
   <div class="conteiner">
+    <?php 
+    if ($stmt_up->rowCount() > 0) {
+      ?>
+    <a id="notification" onclick="notification()" style="color: red;">
+      <span class="material-symbols-outlined">
+        notification_important
+      </span>
+    </a>
+      <?php
+    }
+
+    if ($stmt_up_5->rowCount() > 0) {
+      ?>
+    <a id="notification" onclick="notification()" style="color: red;">
+      <span class="material-symbols-outlined">
+        notification_important
+      </span>
+    </a>
+      <?php
+    }
+    ?>
+
     <form id="cadastroForm" enctype="multipart/form-data">
 
         <!--FORMULARIO PARA IDENTIFICAÇÃO DA ENTREVISTA-->
         <div class="bloc">
           <div class="bloc1">
-  
+
             <label for="arquivo">Arquivo:</label>
             <input type="file" id="arquivo" name="arquivo" accept="application/pdf" onchange="exibir()" required>
 <hr>
@@ -124,10 +169,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   <nav>
     <button class="section-btn" onclick="toggleSection('declaracoes')">Fichas e Declarações</button>
     <div id="declaracoes" class="section-content">
-      <a id="btn_residencia"><i class="fas fa-home icon"></i> Declaração de Residência</a>
-      <a id="btn_dec_renda"><i class="fas fa-file-invoice-dollar icon"></i> Declaração de Renda</a>
-      <a id="btn_fc_familia"><i class="fas fa-user-minus icon"></i> Exclusão de Família</a>
-      <a id="btn_fc_pessoa"><i class="fas fa-user-minus icon"></i> Exclusão de Pessoa</a>
+      <a id="btn_residencia"><i class="fas fa-home icon"></i>Declaração de Residência</a>
+      <a id="btn_dec_renda"><i class="fas fa-file-invoice-dollar icon"></i>Declaração de Renda</a>
+      <a id="btn_fc_familia"><i class="fas fa-user-minus icon"></i>Exclusão de Família</a>
+      <a id="btn_fc_pessoa"><i class="fas fa-user-minus icon"></i>Exclusão de Pessoa</a>
     </div>
   </nav>
 
@@ -168,7 +213,13 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   <nav>
     <button class="section-btn" onclick="toggleSection('formularios')">ATIVIDADE EXTERNA</button>
     <div id="formularios" class="section-content">
-      <a id="btn_atendimento_acao" onclick="atendimento_acao_cadu()"><i class="material-symbols-outlined">assignment_add</i>Atendimento</a>
+      <a id="btn_atendimento_acao" onclick="atendimento_acao_cadu()">
+        <i class="material-symbols-outlined">assignment_add</i>
+        Atendimento
+      </a>
+      <a id="btn_control_playlist" onclick="abrirConfiguradorPlaylist()">
+        <i class="material-symbols-outlined">playlist_play</i> Playlist YouTube
+      </a>
     </div>
   </nav>
 </div>
@@ -231,7 +282,7 @@ function exibir() {
                 confirmButtonText: 'Ok'
               }).then((result) => {
                 if (result.isConfirmed) {
-                  location.reload(); // Recarrega a página atual
+                  location.reload() // Recarrega a página atual
                 }
               })
             } else {
@@ -254,11 +305,11 @@ function exibir() {
               text: 'Ocorreu um erro ao tentar cadastrar os dados.',
               icon: 'error',
               confirmButtonText: 'Ok'
-            });
+            })
           }
-        });
-      });
-    });
+        })
+      })
+    })
 
     document.addEventListener('DOMContentLoaded', function() {
       const targets = [
