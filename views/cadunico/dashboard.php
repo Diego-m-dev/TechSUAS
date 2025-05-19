@@ -49,12 +49,17 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 </head>
 
 <body>
+  <!-- Botão de menu flutuante -->
+  <button class="menu-toggle" onclick="toggleMenu()" aria-label="Abrir/Fechar menu">☰</button>
   
   <div class="conteiner">
+    <!-- Título discreto -->
+    <h1 class="page-title">PAINEL DO ENTREVISTADOR</h1>
+    
     <?php 
     if ($stmt_up->rowCount() > 0) {
       ?>
-    <a id="notification" onclick="notification()" style="color: red;">
+    <a id="notification" onclick="notification()" aria-label="Notificações importantes">
       <span class="material-symbols-outlined">
         notification_important
       </span>
@@ -64,7 +69,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
     if ($stmt_up_5->rowCount() > 0) {
       ?>
-    <a id="notification" onclick="notification()" style="color: red;">
+    <a id="notification" onclick="notification()" aria-label="Notificações importantes">
       <span class="material-symbols-outlined">
         notification_important
       </span>
@@ -78,93 +83,105 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
         <!--FORMULARIO PARA IDENTIFICAÇÃO DA ENTREVISTA-->
         <div class="bloc">
           <div class="bloc1">
-
-            <label for="arquivo">Arquivo:</label>
-            <input type="file" id="arquivo" name="arquivo" accept="application/pdf" onchange="exibir()" required>
-<hr>
+            <div class="form-group">
+              <label for="arquivo">Arquivo:</label>
+              <input type="file" id="arquivo" name="arquivo" accept="application/pdf" onchange="exibir()" required>
+            </div>
+            
+            <div class="form-group">
               <label for="codfamiliar">Código familiar:</label>
               <input type="text" name="cod_fam" id="codfamiliar" onchange="buscarDadosFamily()" required />
-<hr>
+            </div>
+            
+            <div class="form-group">
               <label for="data_entrevista">Data da Entrevista:</label>
               <input type="date" id="data_entrevista_hoje" name="data_entrevista_hoje">
-<hr>
-              <label for="sit_beneficio">Selecione a situação do benefício:</label>
-            <select name="sit_beneficio" id="sit_beneficio" required>
-              <option value="" disabled selected hidden>Escolha</option>
-              <option value="APENAS UPLOAD">APENAS UPLOAD</option>
-              <option value="BENEFICIO NORMALIZADO">BENEFÍCIO NORMALIZADO</option>
-              <option value="NÃO TEM BENEFÍCIO">NÃO TEM BENEFÍCIO</option>
-              <option value="FIM DE RESTRIÇÃO ESPECIFICA">FIM DE RESTRIÇÃO ESPECIFICA</option>
-              <option value="CANCELADO">CANCELADO</option>
-              <option value="BLOQUEADO">BLOQUEADO</option>
-            </select>
-<hr>
+            </div>
+            
+            <div class="form-group">
+              <label for="sit_beneficio">Situação do benefício:</label>
+              <select name="sit_beneficio" id="sit_beneficio" required>
+                <option value="" disabled selected hidden>Escolha</option>
+                <option value="APENAS UPLOAD">APENAS UPLOAD</option>
+                <option value="BENEFICIO NORMALIZADO">BENEFÍCIO NORMALIZADO</option>
+                <option value="NÃO TEM BENEFÍCIO">NÃO TEM BENEFÍCIO</option>
+                <option value="FIM DE RESTRIÇÃO ESPECIFICA">FIM DE RESTRIÇÃO ESPECIFICA</option>
+                <option value="CANCELADO">CANCELADO</option>
+                <option value="BLOQUEADO">BLOQUEADO</option>
+              </select>
+            </div>
+            
+            <div class="form-group">
               <label for="tipo_documento">Tipo de Documento:</label>
-            <select name="tipo_documento" id="tipo_documento" required>
-              <option value="" disabled selected hidden>Selecione o tipo</option>
-              <option value="Cadastro">Cadastro</option>
-              <option value="Atualização">Atualização</option>
-              <option value="Assinatura">Assinatura</option>
-              <option value="Fichas exclusão">Fichas exclusão</option>
-              <option value="Relatórios">Relatórios</option>
-              <option value="Parecer visitas">Parecer visitas</option>
-              <option value="Documento externo">Documento externo</option>
-              <option value="Termos">Termos</option>
-            </select>
-
-        </div>
-
-        <div class="ocult2">
-          <div id="codfamiliar_print" class="ocult"></div>
-          <div id="familia_show" class="ocult"></div>
-          <div id="arquivo_show" class="ocult"></div>
-          <div>
-            <iframe id="pdfViewer" width="100%" height="100px" style="display: none;"></iframe>
+              <select name="tipo_documento" id="tipo_documento" required>
+                <option value="" disabled selected hidden>Selecione o tipo</option>
+                <option value="Cadastro">Cadastro</option>
+                <option value="Atualização">Atualização</option>
+                <option value="Assinatura">Assinatura</option>
+                <option value="Fichas exclusão">Fichas exclusão</option>
+                <option value="Relatórios">Relatórios</option>
+                <option value="Parecer visitas">Parecer visitas</option>
+                <option value="Documento externo">Documento externo</option>
+                <option value="Termos">Termos</option>
+              </select>
+            </div>
           </div>
-        </div>
 
-
-      </div><!-- Fecha a div bloc -->
+          <div class="ocult2">
+            <div id="codfamiliar_print" class="ocult"></div>
+            <div id="familia_show" class="ocult"></div>
+            <div id="arquivo_show" class="ocult"></div>
+            <div class="pdf-container">
+              <iframe id="pdfViewer" width="100%" height="300px"></iframe>
+            </div>
+          </div>
+        </div><!-- Fecha a div bloc -->
+        
+        <!-- Área de observação com exibição condicional -->
         <div class="observ">
-            <label for="resumo">Observação:</label>
-              <div><textarea name="resumo" id="resumo" placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea></div>
+          <div class="observ-header" onclick="toggleObservacao()">OBSERVAÇÃO</div>
+          <div class="observ-content" id="observ-content">
+            <textarea name="resumo" id="resumo" placeholder="Se houve alguma observação durante a entrevista registre-a."></textarea>
+          </div>
         </div> <!-- Fecha a div observ -->
 
-        <div id="ultimas_feita"></div>
+        <div id="ultimas_feita" class="fadeIn"></div>
 
         <div class="bloc">
           <div class="btn">
-              <button type="submit">Cadastrar</button>
+            <button type="submit">Cadastrar</button>
             <div id="success-icon" style="display: none;">
-              <span class="material-symbols-outlined">
-                check
-              </span>
+              <span class="material-symbols-outlined">check</span>
             </div> <!-- Fecha a div success-icon -->
           </div> <!-- Fecha a div btn -->
+          
           <div class="btn">
-        <?php
-        if ($_SESSION['acao_cadu'] === true) {
-
-          ?>
-          <script>
+            <?php
+            if ($_SESSION['acao_cadu'] === true) {
+              ?>
+              <script>
                 const acaoCadu = "<?php echo $_SESSION['guiche']; ?>";
-          </script>
-            <button type="button" onclick="chamaProximo(acaoCadu)">Chamar</button>
-          <?php
-        }
-        ?>
-      </div> <!-- Fecha a div btn -->
-
+              </script>
+              <button type="button" onclick="chamaProximo(acaoCadu)">Chamar</button>
+              <?php
+            }
+            ?>
+          </div> <!-- Fecha a div btn -->
         </div> <!-- Fecha a div bloc -->
       </form>
     </div> <!-- Fecha a div container -->
 
+    <!-- Ícone para últimos registros -->
+    <div class="registro-icon" aria-label="Ver últimos registros">
+      <span class="material-symbols-outlined">history</span>
+    </div>
+    
+    <!-- Conteúdo dos últimos registros (aparece no hover) -->
     <div id="ultimo_registro"></div>
 
 <!-- Menu Lateral -->
 <div id="sidebar" class="sidebar">
-  <h3>AÇÃO RÁPIDA:</h3>
-  <button class="close-btn" onclick="toggleMenu()">☰</button>
+  <h3>MENU</h3>
 
   <nav>
     <button class="section-btn" onclick="toggleSection('declaracoes')">Fichas e Declarações</button>
@@ -204,10 +221,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   </nav>
 
   <nav>
-    <br><button class="btn_separado" type="button" onclick="voltaMenu()">Menu navegação</button>
-    <br><button class="btn_separado" type="button" onclick="peixinho()" style="margin-top: 3px;">Cadastro Peixe</button>
-    <br><button class="btn_separado" type="button" id="solicitaFormButton" onclick="solicitaForm()">Solicitar Formulário</button>
-    <br><button class="btn_separado" type="button" onclick="areaVisitas()">Visitas</button>
+    <button class="btn_separado" type="button" onclick="voltaMenu()">Menu navegação</button>
+    <button class="btn_separado" type="button" onclick="peixinho()">Cadastro Peixe</button>
+    <button class="btn_separado" type="button" id="solicitaFormButton" onclick="solicitaForm()">Solicitar Formulário</button>
+    <button class="btn_separado" type="button" onclick="areaVisitas()">Visitas</button>
   </nav>
 
   <nav>
@@ -230,37 +247,111 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   $conn->close();
   ?>
   <script>
+    // Função para exibir o PDF quando um arquivo for selecionado
+    function exibir() {
+      const fileInput = document.getElementById("arquivo");
+      const file = fileInput.files[0]; // Obtém o arquivo selecionado
 
-function exibir() {
-    const fileInput = document.getElementById("arquivo");
-    const file = fileInput.files[0]; // Obtém o arquivo selecionado
-
-    if (file && file.type === "application/pdf") {
+      if (file && file.type === "application/pdf") {
         const fileURL = URL.createObjectURL(file); // Cria uma URL temporária para o arquivo
         document.getElementById("pdfViewer").src = fileURL; // Define a URL no iframe
         document.getElementById("pdfViewer").style.display = "block"; // Exibe o iframe
-    } else {
+        
+        // Exibe a div ocult2 quando um arquivo é selecionado
+        document.querySelector('.ocult2').classList.remove('ocult');
+      } else if (file) {
         alert("Por favor, selecione um arquivo PDF.");
         document.getElementById("pdfViewer").style.display = "none"; // Esconde o iframe se não for PDF
+      }
     }
-}
 
-  function toggleMenu() {
-    document.getElementById("sidebar").classList.toggle("active");
-  }
-
-  function toggleSection(sectionId) {
-    var section = document.getElementById(sectionId);
-    if (section.style.display === "block") {
-      section.style.display = "none";
-    } else {
-      section.style.display = "block";
+    // Função para alternar o menu lateral
+    function toggleMenu() {
+      document.getElementById("sidebar").classList.toggle("active");
     }
-  }
 
+    // Função para alternar seções do menu
+    function toggleSection(sectionId) {
+      var section = document.getElementById(sectionId);
+      if (section.style.display === "block") {
+        section.style.display = "none";
+      } else {
+        section.style.display = "block";
+      }
+    }
+    
+    // Função para alternar a visibilidade do campo de observação
+    function toggleObservacao() {
+      const header = document.querySelector('.observ-header');
+      const content = document.getElementById('observ-content');
+      
+      header.classList.toggle('active');
+      content.classList.toggle('active');
+    }
 
+    // Configurações ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+      // Menu começa fechado por padrão (não ativa o sidebar)
+      
+      // Configura a data atual no campo de data
+      const today = new Date();
+      const formattedDate = today.toISOString().split('T')[0];
+      document.getElementById('data_entrevista_hoje').value = formattedDate;
+      
+      // Observador para os elementos que mostram dados
+      const targets = [
+        document.getElementById('codfamiliar_print'),
+        document.getElementById('familia_show')
+      ];
 
-      $(document).ready(function() {
+      // Função para alternar visibilidade
+      function toggleVisibility(target) {
+        const ocult2 = document.querySelector('.ocult2');
+        if (target.innerHTML.trim() !== '') {
+          target.classList.remove('ocult');
+          target.classList.add('visible');
+          ocult2.classList.remove('ocult'); // Mostra a div ocult2 se houver conteúdo
+        } else {
+          target.classList.remove('visible');
+          target.classList.add('ocult');
+          
+          // Verifica se há um PDF exibido
+          const pdfViewer = document.getElementById('pdfViewer');
+          const hasPdf = pdfViewer.style.display === 'block' && pdfViewer.src;
+          
+          // Só oculta a div ocult2 se não houver conteúdo em nenhum alvo e não houver PDF
+          if (Array.from(targets).every(t => t.innerHTML.trim() === '') && !hasPdf) {
+            ocult2.classList.add('ocult');
+          }
+        }
+      }
+
+      targets.forEach(target => {
+        // Observador de mutações para monitorar mudanças no conteúdo
+        const observer = new MutationObserver(function(mutationsList) {
+          for (const mutation of mutationsList) {
+            if (mutation.type === 'childList') {
+              toggleVisibility(target);
+            }
+          }
+        });
+
+        // Configurações do observer: observar mudanças nos filhos da div
+        const config = {
+          childList: true,
+          subtree: true
+        };
+
+        // Inicia o observer
+        observer.observe(target, config);
+
+        // Verificação inicial para o caso de a div já ter conteúdo no carregamento
+        toggleVisibility(target);
+      });
+    });
+
+    // Configuração do formulário AJAX
+    $(document).ready(function() {
       $('#cadastroForm').on('submit', function(event) {
         event.preventDefault(); // Impede o envio padrão do formulário
 
@@ -302,7 +393,7 @@ function exibir() {
             // Exibe uma mensagem de erro se algo der errado
             Swal.fire({
               title: 'Erro!',
-              text: 'Ocorreu um erro ao tentar cadastrar os dados.',
+              text: `Ocorreu um erro ao tentar cadastrar os dados. ${xhr} - ${status} - ${error}`,
               icon: 'error',
               confirmButtonText: 'Ok'
             })
@@ -310,53 +401,6 @@ function exibir() {
         })
       })
     })
-
-    document.addEventListener('DOMContentLoaded', function() {
-      const targets = [
-        document.getElementById('codfamiliar_print'),
-        document.getElementById('familia_show')
-      ]
-
-      // Função para alternar visibilidade
-      function toggleVisibility(target) {
-        const ocult2 = document.querySelector('.ocult2');
-        if (target.innerHTML.trim() !== '') {
-          target.classList.remove('ocult');
-          target.classList.add('visible');
-          ocult2.classList.remove('ocult'); // Mostra a div ocult2 se houver conteúdo
-        } else {
-          target.classList.remove('visible');
-          target.classList.add('ocult');
-          if (Array.from(targets).every(t => t.innerHTML.trim() === '')) {
-            ocult2.classList.add('ocult'); // Oculta a div ocult2 se todos os alvos estiverem vazios
-          }
-        }
-      }
-
-      targets.forEach(target => {
-        // Observador de mutações para monitorar mudanças no conteúdo
-        const observer = new MutationObserver(function(mutationsList) {
-          for (const mutation of mutationsList) {
-            if (mutation.type === 'childList') {
-              toggleVisibility(target);
-            }
-          }
-        });
-
-        // Configurações do observer: observar mudanças nos filhos da div
-        const config = {
-          childList: true,
-          subtree: true
-        };
-
-        // Inicia o observer
-        observer.observe(target, config);
-
-        // Verificação inicial para o caso de a div já ter conteúdo no carregamento
-        toggleVisibility(target);
-      });
-    });
-
   </script>
 
 </body>
