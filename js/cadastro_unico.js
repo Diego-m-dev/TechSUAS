@@ -777,6 +777,7 @@ function buscarDadosFamily() {
       if (response.arquivos === "Nenhum arquivo encontrado.") {
         $('#arquivo_show').html('<span style="color: red;"><strong>Nenhum arquivo encontrado.</strong></span>')
       } else {
+        console.log(response.arquivos)
         var arquivo = response.arquivos
         var linkHtml = ''
         linkHtml += '<table class="tabelinha">'
