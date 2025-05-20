@@ -130,7 +130,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
           <div class="ocult2">
             <div id="codfamiliar_print" class="ocult"></div>
             <div id="familia_show" class="ocult"></div>
-            <div id="arquivo_show" class="ocult"></div>
+            <div id="arquivo_show"></div>
             <div class="pdf-container">
               <iframe id="pdfViewer" width="100%" height="300px"></iframe>
             </div>
