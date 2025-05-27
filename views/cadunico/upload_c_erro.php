@@ -3,8 +3,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 
-
-    $stmt_up = $pdo->prepare("SELECT c.id,
+  $stmt_up = $pdo->prepare("SELECT c.id,
             c.cod_familiar_fam AS cod_familiar,
             DATE_FORMAT(c.data_entrevista, '%d/%m/%Y') AS data_entrevista,
             c.tipo_documento,
@@ -14,7 +13,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             t.cod_familiar_fam
     FROM cadastro_forms c
     LEFT JOIN tbl_tudo t ON t.cod_familiar_fam = c.cod_familiar_fam
-    WHERE t.cod_familiar_fam IS NULL AND c.certo != 1 AND YEAR(data_entrevista) < 2021 AND (c.operador = :operador OR c.operador = :cpfOperador)
+    WHERE t.cod_familiar_fam IS NULL AND c.certo != 1 AND (c.operador = :operador OR c.operador = :cpfOperador)
     GROUP BY c.id
     ORDER BY c.criacao ASC
     ");
@@ -23,13 +22,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
       'operador' => $_SESSION['nome_usuario'],
       'cpfOperador' => $cpf_limpo
     ));
-
-      $data5yearsago = new DateTime();
-      $data5yearsago->modify('-5 years');
-        $data5yearsagoFormatada = $data5yearsago->format('Y-m-d');
-    $stmt_up_5 = $pdo->prepare("SELECT id FROM cadastro_forms WHERE data_entrevista < :data5yearsago");
-    $stmt_up_5->bindValue(":data5yearsago", $data5yearsagoFormatada);
-    $stmt_up_5->execute();
 
     ?>
 <!DOCTYPE html>
@@ -57,14 +49,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
 <body>
 
-<?php
-    if ($_SESSION['funcao'] == 1) {
-        ?>
-            <button type="button" onclick="excluir_arquivos()">EXCLUIR ARQUIVOS COM MAIS DE 5 ANOS</button>
-        <?php
-    }
-?>
-
 <table border="1" width="90%">
     <tr>
         <th>Seq.</th>
@@ -76,28 +60,42 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 
     <?php
     $seq = 0;
-    if ($stmt_up->rowCount() > 0 || $stmt_up_5->rowCount() > 0) {
+    if ($stmt_up->rowCount() > 0) {
         while ($abbc = $stmt_up->fetch(PDO::FETCH_ASSOC)) {
             $seq ++;
             ?>
-    <tr>
+    <tr class="destaque">
         <td><?php echo $seq; ?></td>
-        <td><?php echo $abbc['cod_familiar']; ?></td>
+        <td style="display: flex; align-items: center; gap: 5px;">
+			<pre id="copy_code"><?php echo $abbc['cod_familiar_fam']; ?></pre>
+				<a onclick='copiarTexto(this)' style="cursor: pointer;">
+            		<i class="material-symbols-outlined">content_copy</i>
+    			</a>
+        </td>
         <td><?php echo $abbc['data_entrevista']; ?></td>
         <td><?php echo $abbc['tipo_documento']; ?></td>
         <td>
-            <a id="printArquivo" href="<?php echo $abbc['caminho_arquivo']?>" target="_blank" style="color: green; font-size: 16px; margin-right: 18px;">
-                <i class="fa fa-download"></i>
+            <!-- Ícone para visualizar PDF -->
+            <a onclick="mostrarPDF('<?php echo $seq; ?>', '<?php echo $abbc['caminho_arquivo']; ?>')" style="color: green; font-size: 16px; margin-right: 18px; cursor: pointer;">
+                <i class="fa fa-eye"></i>
             </a>
-            <a id="editarArquivo" onclick="editarArquivo('<?php echo $abbc['id']; ?>', '<?php echo $abbc['data_entrevista']; ?>', '<?php echo $abbc['tipo_documento']; ?>', '<?php echo $abbc['cod_familiar_fam']; ?>')" style="cursor: poiter;">
+
+            <!-- Outros ícones -->
+            <a onclick="editarArquivo('<?php echo $abbc['id']; ?>', '<?php echo $abbc['data_entrevista']; ?>', '<?php echo $abbc['tipo_documento']; ?>', '<?php echo $abbc['cod_familiar_fam']; ?>')" style="cursor: pointer;">
                 <i class="fas fa-edit"></i>
             </a>
-            <a id="excluirArquivo" onclick="excluirArquivo('<?php echo $abbc['id']; ?>', '<?php echo $abbc['caminho_arquivo']?>')" style="color: red; margin-left: 18px; cursor: pointer;">
+            <a onclick="excluirArquivo('<?php echo $abbc['id']; ?>', '<?php echo $abbc['caminho_arquivo']?>')" style="color: red; margin-left: 18px; cursor: pointer;">
                 <i class="fas fa-trash-alt"></i>
             </a>
-            <a id="certo" onclick="certo('<?php echo $abbc['id']; ?>')" style="color: blue; margin-left: 18px; cursor: pointer;">
+            <a onclick="certo('<?php echo $abbc['id']; ?>')" style="color: blue; margin-left: 18px; cursor: pointer;">
                 <i class="material-symbols-outlined">task_alt</i>
             </a>
+        </td>
+
+    </tr>
+    <tr id="linhaPDF_<?php echo $seq; ?>" style="display: none;">
+        <td colspan="5">
+            <iframe id="iframePDF_<?php echo $seq; ?>" width="100%" height="500px" style="border: 1px solid #ccc;"></iframe>
         </td>
     </tr>
             <?php
