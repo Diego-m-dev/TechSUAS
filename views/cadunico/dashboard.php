@@ -10,11 +10,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     $stmt_up_5->bindValue(":data5yearsago", $data5yearsagoFormatada);
     $stmt_up_5->execute();
 
-  $stmt_up = $pdo->prepare("SELECT c.id,
-            c.cod_familiar_fam
+  $stmt_up = $pdo->prepare("SELECT c.id
     FROM cadastro_forms c
     LEFT JOIN tbl_tudo t ON t.cod_familiar_fam = c.cod_familiar_fam
-    WHERE t.cod_familiar_fam IS NULL AND c.certo != 1 AND YEAR(data_entrevista) < 2021 AND (c.operador = :operador OR c.operador = :cpfOperador)
+    WHERE t.cod_familiar_fam IS NULL AND c.certo != 1 AND (c.operador = :operador OR c.operador = :cpfOperador)
     GROUP BY c.id
     ORDER BY c.criacao ASC
     ");
@@ -65,22 +64,22 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
       </span>
     </a>
       <?php
-    }
-
-    if ($stmt_up_5->rowCount() > 0) {
+    } elseif ($stmt_up_5->rowCount() > 0 && $_SESSION['funcao'] == 1) {
       ?>
-    <a id="notification" onclick="notification()" aria-label="Notificações importantes">
+    <a id="notification" onclick="notification_5years()" aria-label="Notificações importantes">
       <span class="material-symbols-outlined">
         notification_important
       </span>
     </a>
       <?php
+    } else {
+      # code...
     }
     ?>
 
     <form id="cadastroForm" enctype="multipart/form-data">
 
-        <!--FORMULARIO PARA IDENTIFICAÇÃO DA ENTREVISTA-->
+      <!--FORMULARIO PARA IDENTIFICAÇÃO DA ENTREVISTA-->
         <div class="bloc">
           <div class="bloc1">
             <div class="form-group">
@@ -200,6 +199,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
       <a id="btn_encamnhamento"><i class="material-symbols-outlined">export_notes</i> Encaminhamentos</a>
       <a id="btn_des_vol"><i class="material-symbols-outlined">contract_delete</i> Desligamento Voluntário</a>
       <a id="btn_troca"><i class="material-symbols-outlined">quick_reference</i> Troca de RF - C.E.F.</a>
+      <a id="relatorio_entrevistador"><i class="material-symbols-outlined">analytics</i>Relatório Mensal</a>
     </div>
   </nav>
 
