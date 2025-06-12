@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
+include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 ?>
 
 
@@ -68,7 +68,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
             </div>
             <div class="btn">
                 <button type="submit">Enviar</button>
-                <a href="index">
+                <a href="/TechSUAS/views/cadunico/dashboard">
                     <i class="fas fa-arrow-left"></i> Voltar
                 </a>
             </div>
