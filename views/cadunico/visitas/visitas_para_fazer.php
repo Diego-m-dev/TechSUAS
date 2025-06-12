@@ -80,7 +80,7 @@ foreach ($anos as $ano) {
     <label>Fitre a localidade:</label>
         <input name="localidade" class="busca2" placeholder="Qual localdade" type="text">
             <button type="submit" id="buscar">Buscar</button>
-            <a href="index">
+            <a href="/TechSUAS/views/cadunico/dashboard">
                 <span class="fas fa-arrow-left"></span>
                 Voltar
             </a>
