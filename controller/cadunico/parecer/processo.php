@@ -1,5 +1,4 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 
@@ -59,10 +58,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     </script>
 <?php
         } else {
-            echo "ERRO no envio dos DADOS: ".   $smtp->error;
-        }
-        $smtp->close();
-        $conn->close();
+            echo "ERRO no envio dos DADOS: " . $smtp->error;
+				}
+$smtp->close();
+$conn->close();
 
 ?>
 </body>

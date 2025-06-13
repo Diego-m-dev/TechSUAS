@@ -34,25 +34,33 @@
   </div> <!-- Fecha a div conteiner -->
     <script>
 let somPermitido = false;
-let player
+let player; // ✅ Declarado uma única vez
+let listaVideos = JSON.parse(localStorage.getItem('listaVideos')) || ['MylQJmtrl6k'];
+let indiceAtual = 0;
 
 document.addEventListener('click', () => {
   somPermitido = true;
   if (player && typeof player.unMute === 'function') {
-    player.unMute()
-    player.setVolume(100)
+    player.unMute();
+    player.setVolume(100);
   }
-})
+});
 
-// Carrega API do YouTube
-const tag = document.createElement('script')
-tag.src = "https://www.youtube.com/iframe_api"
-const firstScriptTag = document.getElementsByTagName('script')[0]
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
+// Carrega a API do YouTube
+const tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+const firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-// Quando a API estiver pronta, cria o player
+// YouTube vai chamar essa função quando a API estiver pronta
 function onYouTubeIframeAPIReady() {
-  const videoId = localStorage.getItem('videoYoutubeID') || 'MylQJmtrl6k'
+  tocarVideoAtual();
+}
+
+function tocarVideoAtual() {
+  if (!listaVideos.length) return;
+
+  const videoId = listaVideos[indiceAtual];
 
   player = new YT.Player('videoYoutube', {
     height: '315',
@@ -66,18 +74,49 @@ function onYouTubeIframeAPIReady() {
       rel: 0
     },
     events: {
-      onReady: (event) => {
-        event.target.mute()
-        event.target.playVideo()
+      onReady: event => {
+        event.target.mute();
+        event.target.playVideo();
+      },
+      onStateChange: event => {
+        if (event.data === YT.PlayerState.ENDED) {
+          proximoVideo();
+        }
       }
     }
-  })
+  });
 }
 
-const socket = new WebSocket('ws://localhost:8080');
+function proximoVideo() {
+  indiceAtual = (indiceAtual + 1) % listaVideos.length;
+  player.loadVideoById(listaVideos[indiceAtual]);
+}
+
+onStateChange: event => {
+  if (event.data === YT.PlayerState.ENDED) {
+    proximoVideo()
+  }
+
+  // Se o vídeo estiver no estado de "unstarted" por muito tempo, pular
+  if (event.data === -1) {
+    setTimeout(() => {
+      const estadoAtual = player.getPlayerState()
+      if (estadoAtual === -1) {
+        console.warn('Vídeo inválido, pulando...')
+        proximoVideo()
+      }
+    }, 3000) // Espera 3 segundos antes de pular
+  }
+}
+
+const host = window.location.hostname === "localhost"
+  ? "ws://localhost:8080"
+  : "wss://painel-chamadas-production.up.railway.app";
+
+const socket = new WebSocket(host);
 
 socket.onopen = () => {
-  console.log("✅ Conectado ao servidor WebSocket");
+  console.log("✅ Conectado ao servidor WebSocket localhost:");
 };
 
 socket.onmessage = async (event) => {

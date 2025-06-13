@@ -147,11 +147,11 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     ?>
     <script>
         document.getElementById('selecionarTodos').addEventListener('click', function() {
-            var checkboxes = document.querySelectorAll('input[name="excluir[]"]');
+            var checkboxes = document.querySelectorAll('input[name="excluir[]"]')
             for (var checkbox of checkboxes) {
-                checkbox.checked = this.checked;
+                checkbox.checked = this.checked
             }
-        });
+        })
     </script>
 </body>
 </html>

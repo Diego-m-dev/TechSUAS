@@ -6,11 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-      <form id="cadastroForm" action="/TechSUAS/controller/cadunico/dashboard/atendimento_acao_cadu.php" method="POST">
-      <input type="hidden" name="lc_cadastro" value="1"/>
-      <?php
-      print_r($_SESSION['acao_cadu']);
-      ?>
+      <form id="cadastroForm" action="/TechSUAS/controller/recepcao/salva_visita.php" method="POST">
+      <!-- <input type="hidden" name="lc_cadastro" value="1"/> -->
+      <input class="menu-sem" type="text" name="nome_rf" value="TESTE DA SILVA"/>
+      <input class="menu-sem" type="hidden" name="codfam" value="123-TESTE"/>
+      <input class="menu-sem" type="text" name="endereco" value= "RUA TESTE"/>
+      <textarea name="obs" id="obs" placeholder="Descreva a situação" style="width: 90%;">TESTE 1, 2, 3... TESTANDO</textarea>
+
+
+
       <!-- <input type="hidden" name="programa" value="CADUNICO"/>
       <input type="hidden" name="tipo" value="COMUM"/> -->
       

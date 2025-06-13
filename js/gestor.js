@@ -641,3 +641,20 @@ function criarTabelaExcluir(dados) {
     }
   })
 }
+
+function direcionar() {
+
+  Swal.fire({
+      text: 'Você pretende um relatório:',
+      showCancelButton: true,
+      confirmButtonText: 'Mensal',
+      cancelButtonText: 'Completo',
+  })
+  .then((result) => {
+    if (result.isConfirmed) {
+      location.href = '/TechSUAS/views/cadunico/area_gestao/relatorio_entrevistadores?escolha=mensal'
+    } else {
+      location.href = '/TechSUAS/views/cadunico/area_gestao/relatorio_entrevistadores?escolha=anual'
+    }
+  })
+}

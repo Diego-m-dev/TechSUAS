@@ -262,6 +262,51 @@ $(document).ready(function () {
     })
   })
 
+  //gerar relatório mensal do entrevistador.
+
+$('#relatorio_entrevistador').click(function () {
+  const meses = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"]
+  fetch("/TechSUAS/controller/cadunico/declaracao/relatorio_individual_entrevistadores.php")
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Erro na requisição: ' + response.status)
+      }
+      return response.json()
+    })
+    .then(data => {
+      if (data.encontrado) {
+        const mesName = meses[data.mes - 1]
+        var atualizacoes = data.totais - data.totais_inc
+        Swal.fire({
+
+          title: `Você Realizou em ${mesName}`,
+          html: `
+          ${data.totais} entrevistas.<br>
+          ${data.totais_inc} inclusões e ${atualizacoes} atualizações.<br><br>
+          Um total de ${data.totais_geral} cadastros.<br>
+          ${data.totais_up} cadastros salvos.<br>
+
+          `
+
+        })
+        .then((saldo) => {
+          if (saldo.isConfirmed) {
+            Swal.fire('BOA!', 'SEGUIREMOS PARA OUTRA PÁGINA', 'success')
+          } else {
+            Swal.fire('PAROU!', 'CANCELAREMOS AQUI', 'warning')
+          }
+        })
+      } else {
+        Swal.fire('Nenhum dado encontrado!')
+      }
+    })
+    .catch(error => {
+      console.error('Erro ao buscar dados:', error)
+      Swal.fire('Erro!', 'Houve um problema ao carregar os dados.', 'error')
+    })
+})
+
+
   $('#btn_fc_familia').click(function () {
     Swal.fire({
       title: "FICHA DE EXCLUSÃO DE FAMILIA",
@@ -583,13 +628,13 @@ $(document).ready(function () {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        const form = document.getElementById("form_familia");
-        form.target = "_blank";
-        form.submit();
+        const form = document.getElementById("form_familia")
+        form.target = "_blank"
+        form.submit()
       }
-    });
-  });
-});
+    })
+  })
+})
 
 
 
@@ -812,6 +857,11 @@ function notification() {
   window.location.href = '/TechSUAS/views/cadunico/upload_c_erro'
 }
 
+function notification_5years() {
+  window.location.href = '/TechSUAS/views/cadunico/upload_5years'
+}
+
+
 function editarArquivo(id, dataEntre, tipo_doc) {
 
   // Agora encontra o input de codfamiliar dentro da mesma linha
@@ -1031,7 +1081,7 @@ function solicitaForm() {
     width: '400px',
     showConfirmButton: false,
     allowOutsideClick: false
-  });
+  })
 
   // Desabilita o botão para evitar múltiplos cliques
   button.disabled = true;
@@ -1149,6 +1199,8 @@ function solicitaForm() {
       button.disabled = false;
     });
 }
+
+
 $(document).ready(function () {
   $('#btn_filtrar').click(function () {
 
@@ -1157,7 +1209,7 @@ $(document).ready(function () {
       <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
       <p>Carregando...</p>
     </div>
-   `;
+  `;
 
     Swal.fire({
       html: loadingHtml,
@@ -1237,7 +1289,21 @@ function peixinho() {
 }
 
 function uploads() {
-  fetch("/TechSUAS/controller/cadunico/area_gestor/uploads_sem_fam.php")
+  const loadingHtml = `
+    <div id="loadingSpinner" style="text-align: center;">
+      <i class="fas fa-spinner fa-spin" style="font-size: 24px;"></i>
+      <p>Carregando...</p>
+    </div>
+  `
+
+  Swal.fire({
+    html: loadingHtml,
+    width: '400px',
+    showConfirmButton: false,
+    allowOutsideClick: false
+  })
+
+  fetch("/TechSUAS/controller/cadunico/area_gestor/uploads_sem_fam")
     .then(response => {
       if (!response.ok) {
         throw new Error('Erro na requisição: ' + response.status);
@@ -1537,5 +1603,186 @@ function atualizarPlaylist() {
   indiceAtual = 0
   if (player && typeof player.loadVideoById === 'function') {
     player.loadVideoById(listaVideos[indiceAtual])
+  }
+}
+
+function registrarVisita() {
+  Swal.fire({
+    title: "Registrar Visitas",
+    html: `
+                <label>CÓDIGO FAMILIAR:
+                  <input type="text" id="W-codfamiliar" placeholder="Digite o CÓDIGO FAMILIAR">
+                </label>
+                <label>DATA DA VISITA:
+                  <input type="date" id="data_visita" name="data_visita">
+                </label>
+                  <label>AÇÃO DA VISITA:
+                <select name="acao_visita" id="acao_visita">
+                    <option value="" disabled selected hidden>Selecione a ação da visita.</option>
+                    <option value="1">ATUALIZAÇÃO REALIZADA</option>
+                    <option value="5">ATUALIZAÇÃO NÃO REALIZADA</option>
+                    <option value="2">NÃO LOCALIZADO</option>
+                    <option value="3">FALECIMENTO DO RESPONSÁVEL FAMILIAR</option>
+                    <option value="4">A FAMÍLIA RECUSOU ATUALIZAR</option>
+                </select>
+                </label>
+                <label for="message" class="tituloparecer">PARECER TÉCNICO:
+                  <textarea rows="7" name="parecer" id="parecerEntrevistador" placeholder="Faça um breve resumo de como foi a visita."></textarea>
+                </label>
+          `,
+          preConfirm: () => {
+      const codigoFamiliar = document.getElementById('W-codfamiliar').value.trim()
+      const data_visita = document.getElementById('data_visita').value.trim()
+      const parecerEntrevistador = document.getElementById('parecerEntrevistador').value.trim()
+      const acao_visita = document.getElementById('acao_visita').value.trim()
+
+      if (!codigoFamiliar || !data_visita || !parecerEntrevistador || !acao_visita) {
+        Swal.showValidationMessage("Por favor, preencha todos os campos.");
+        return false;
+      }
+
+      return {
+        codigoFamiliar,
+        data_visita,
+        parecerEntrevistador,
+        acao_visita
+      };
+
+          },
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+
+  })
+  .then((resumo) =>{
+
+    if (resumo.isConfirmed && resumo.value) {
+      const { codigoFamiliar, data_visita, parecerEntrevistador, acao_visita } = resumo.value
+      $.ajax({
+        type: 'POST',
+        url: "/TechSUAS/controller/cadunico/parecer/processo_visita",
+        dataType: 'JSON',
+        data: {
+          codFam: codigoFamiliar,
+          datVis: data_visita,
+          parEnt: parecerEntrevistador,
+          acaVis: acao_visita
+        },
+        success: function (retarne) {
+          if (retarne.salvo) {
+            Swal.fire("Sucesso", "Dados salvo com sucesso!", 'success').then(() => {
+            registrarVisita()
+            })
+          } else {
+            Swal.fire("Error", retarne.msg || "Não foi possível enviar os dados.", 'error')
+          }
+        }
+      })
+    } else {
+      Swal.fire("Operação cancelada", "", "info")
+    }
+
+  })
+}
+
+function visitasAgendades() {
+  fetch("/TechSUAS/controller/cadunico/parecer/visitas_agendadas.php")
+  .then(response => response.json())
+  .then(dados_agend => {
+    if (dados_agend.recebido) {
+        let table = `<table border="1">
+        <tr>
+          <th style="font-size: 12px;">
+            <label class="urg">
+              <input type="checkbox" id="selecionarTodos">
+              <!--<span class="checkmark"></span>-->
+            </label>
+          </th>
+          <th style="font-size: 12px;">Nome</th>
+          <th style="font-size: 12px;">Endereço</th>
+          <th style="font-size: 12px;">Descrição</th>
+          <th style="font-size: 12px;">Data</th>
+        </tr>
+        `
+        let sequencia = 0
+        dados_agend.arquivos.forEach(item => {
+          sequencia += 1
+          table += `
+          <tr>
+            <td style="font-size: 14px;">${sequencia}
+                <label class="urg">
+                  <input type="checkbox" name="excluir[]" data-nis="${item.id}">
+                  <!--<span class="checkmark"></span>-->
+                </label>
+            </td>
+            <td style="font-size: 12px;">${item.nome}</td>
+            <td style="font-size: 12px;">${item.endereco}</td>
+            <td style="font-size: 12px;">${item.parecer_rec}</td>
+            <td style="font-size: 12px;">${item.dat}</td>
+          </tr>
+`
+        })
+
+      Swal.fire({
+        html: table,
+        width: '95%',
+        didOpen: () => {
+            const todosSelect = document.getElementById('selecionarTodos')
+            const checkboxes = document.querySelectorAll('input[name="excluir[]"]')
+            selecionarTodosCheckbox(todosSelect, checkboxes)
+        },
+        showCancelButton: true,
+        confirmButtonText: 'Imprimir',
+        cancelButtonText: 'Cancelar',
+      })
+      .then((printVisit) => {
+        if (printVisit.isConfirmed) {
+          const checkboxesSelected = document.querySelectorAll('input[name="excluir[]"]:checked')
+          const checkedSelect = []
+
+          checkboxesSelected.forEach(checkboxA => {
+            checkedSelect.push(checkboxA.dataset.nis)
+          })
+
+        if (checkedSelect.length === 0) {
+          Swal.fire("Nenhum item selecionado", "", "warning");
+          return;
+        }
+
+        // Criar um formulário
+        const formularioF = document.createElement('form')
+        formularioF.method = 'POST'
+        formularioF.action = '/TechSUAS/views/cadunico/visitas/imprimir_visitasAgendadas.php'
+        formularioF.target = '_blank'
+
+        const inputHidden = document.createElement('input')
+        inputHidden.type = 'hidden'
+        inputHidden.name = 'selecionados[]'
+
+        inputHidden.value = JSON.stringify(checkedSelect)
+        formularioF.appendChild(inputHidden)
+
+        document.body.appendChild(formularioF)
+          formularioF.submit()
+        document.body.removeChild(formularioF)
+
+        } else {
+          Swal.fire("Operação cancelada", "", "info")
+        }
+
+      })
+    } else {
+      Swal.fire('Nenhum dado recebido', dados_agend.msg, 'warning')
+    }
+  })
+}
+
+function selecionarTodosCheckbox(a, b) {
+  if (a) {
+    a.addEventListener('click', function () {
+      for (const checkbox of b) {
+        checkbox.checked = this.checked
+      }
+    })
   }
 }

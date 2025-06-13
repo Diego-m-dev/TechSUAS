@@ -99,7 +99,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
             <div class="cont-a">
                 <button class="menu-button" onclick="unipessoal()">LISTA DO PUBLICO UNIPESSOAL</button>
                 <button class="menu-button" onclick="uploads()">UPLOADs SEM CADASTROS NO MUNICÍPIO</button>
-                <a href="#" class="modal-trigger">CADASTROS SEM RESPONSAVEL FAMILIAR </a>
+                <a href="/TechSUAS/controller/cadunico/area_gestor/excluir_excluidos" >ATUALIZAR BASE</a>
                 <a href="#" class="modal-trigger">CADASTROS SEM CPF </a>
                 <a href="#" class="modal-trigger">VISITAS RELIZADAS SEM RELATORIO</a>
                 <a href="#" class="modal-trigger">AVERIGUAÇÕES (UNIPESSOAIS - RENDA - P3)</a>

@@ -3,7 +3,7 @@ function visitas_recepcao() {
     Swal.fire({
         title: 'CADASTRO VISITAS',
         html: `
-                <input id="codfam" type="text" name="codfam" placeholder="Digite o CPF aqui" onblur="validarCPF(this)"/> <br><br>
+            <input id="codfam" type="text" name="codfam" placeholder="Digite o CPF aqui" onblur="validarCPF(this)"/> <br><br>
         `,
         showCancelButton: true,
         confirmButtonText: 'Buscar',
@@ -61,6 +61,19 @@ function visitas_recepcao() {
                         ${table}
 
                         `,
+                        preConfirm: () => {
+                            var obs = document.getElementById('obs').value ? document.getElementById('obs').value : null
+
+                                    if (!obs) {
+                                        Swal.showValidationMessage('É obrigatório descrever uma observação.')
+                                        return false
+                                    }
+
+                                    return {
+                                        obs
+                                    }
+                        
+                        },
                         customClass: {
                             popup: 'animated',
                         },
@@ -100,13 +113,28 @@ function visitas_recepcao() {
                     Swal.fire({
                         title: `Não foi possível encontrar o CPF: ${cpf_pessoa}`,
                         html:`
-                            <input class="menu-sem" type="text" id="nome_rf" placeholder="Nome completo:"/>
-                            <input class="menu-sem" type="hidden" id="codfam" value="${codfam}"/>
-                            <input class="menu-sem" type="text" id="endereco" placeholder="Endereço: detalhe ao máximo, proximidades e apelidos"/>
-                            <textarea name="obs" id="obs" placeholder="Descreva a situação" style="width: 90%;"></textarea>
+                                <input class="menu-sem" type="text" id="nome_rf" placeholder="Nome completo:"/>
+                                <input class="menu-sem" type="hidden" id="codfam" value="${codfam}"/>
+                                <input class="menu-sem" type="text" id="endereco" placeholder="Endereço: detalhe ao máximo, proximidades e apelidos"/>
+                                <textarea name="obs" id="obs" placeholder="Descreva a situação" style="width: 90%;"></textarea>
                         `,
                         customClass: {
                             popup: 'animated',
+                        },
+                        preConfirm: () => {
+                            var nome = document.getElementById('nome_rf').value ? document.getElementById('nome_rf').value : null
+                            var endereco = document.getElementById('endereco').textContent ? document.querySelector('endereco').textContent : null
+                            var obs = document.getElementById('obs').value ? document.getElementById('obs').value : null
+
+                                    if (!nome || !endereco || !obs) {
+                                        Swal.showValidationMessage('É obrigatório descrever uma observação.')
+                                        return false
+                                    }
+
+                                    return {
+                                        nome, endereco, obs
+                                    }
+                        
                         },
                         showCancelButton: true,
                         confirmButtonText: 'Salvar',
@@ -115,8 +143,8 @@ function visitas_recepcao() {
                         .then((result1) => {
                             if (result1.isConfirmed) {
                                 var cod_familiar = document.getElementById('codfam').value
-                                var nomeRF = document.getElementById('nome_rf').value
-                                var endereco = document.getElementById('endereco').value
+                                var nomeRF = document.getElementById('nome_rf').value.toUpperCase()
+                                var endereco = document.getElementById('endereco').value.toUpperCase()
                                 var obs = document.getElementById('obs').value
                                 //console.log(`${cod_familiar} - ${nomeRF} - ${endereco} - ${obs} - `)
                                 $.ajax({

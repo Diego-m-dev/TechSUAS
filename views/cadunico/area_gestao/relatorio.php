@@ -34,7 +34,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
     <div class="cont-btns">
 
       <div class="bt">
-        <button type="button" class="menu-button" onclick="location.href = '/TechSUAS/views/cadunico/area_gestao/relatorio_entrevistadores'">
+        <button type="button" class="menu-button" onclick="direcionar()">
               Relatórios de Entrevistadores
         </button>
       </div>
@@ -48,6 +48,12 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.ph
       <div class="bt">
         <button type="button" class="menu-button" >
               Relatório de Atendimento
+        </button>
+      </div>
+
+      <div class="bt">
+        <button type="button" class="menu-button" onclick="location.href = '/TechSUAS/views/cadunico/upload_5years'">
+              Relatório de Fichário
         </button>
       </div>
 

@@ -1,39 +1,48 @@
 <?php
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/sessao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
-include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/models/cadunico/submit_model.php';
 
 $operador = $_SESSION['nome_usuario'];
 
 header('Content-Type: application/json'); // Define o tipo de conteúdo como JSON
 
-$response = array('salvo' => false); // Inicialmente definido como não encontrado
+$response = array('encontrado' => false); // Inicialmente definido como não encontrado
 
     try {
-
-        // Inserir dados no banco de dados
-        $stmt = $pdo->prepare("
+      $data5yearsago = new DateTime();
+			$data5yearsago->modify('-5 years');
+  		$data5yearsagoFormatada = $data5yearsago->format('Y-m-d');
+        $stmt = $pdo->prepare("SELECT c.id,
+                                    c.cod_familiar_fam,
+                                    DATE_FORMAT(c.data_entrevista, '%d/%m/%Y') AS data_entrevista,
+                                    c.tipo_documento,
+                                    c.caminho_arquivo,
+                                    c.operador,
+                                    c.sit_beneficio
+                            FROM cadastro_forms c
+                            LEFT JOIN tbl_tudo t ON t.cod_familiar_fam = c.cod_familiar_fam
+                            WHERE (t.cod_familiar_fam IS NULL AND c.certo != 1) OR (c.data_entrevista < :data5yearsago)
+                                GROUP BY c.id
+                                ORDER BY c.criacao ASC
         ");
-    $stmt->bindParam(':operador', $operador, PDO::FETCH_ASSOC);
-    $stmt->execute( );
+    $stmt->execute(array(':data5yearsago' => $data5yearsagoFormatada));
 
-    $registros = $stmt->fetch(PDO::FETCH_ASSOC);
+    $dadosFicharios = array();
 
-        if ($registros) {
+        if ($stmt->rowCount() > 0) {
             $response['encontrado'] = true;
-            $response['concatenado'] = '<table id="table_last">
-            <tr>
-                <th>Ultimo registro:</th>
-            </tr>' . '
-            <tr>
-                <td id="li1"><li>Código familiar: <strong>' . $registros['cod_familiar_fam'] . '</strong></li></td></tr>
-            <tr>
-                <td id="li1"><li>Data da Entrevista: <strong>' . $registros['data_entrevista'] . '</strong> </li></td></tr>
-            <tr>
-                <td id="li1"><li>Tipo: <strong>' . $registros['tipo_documento'] . '</strong></li></td>
-            </tr>
-        </table>';
 
+            while ($registros = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                $dadosFicharios [] = array(
+                    'id' => $registros['id'],
+                    'cod_familiar_fam' => $registros['cod_familiar_fam'],
+                    'data_entrevista' => $registros['data_entrevista'],
+                    'tipo_documento' => $registros['tipo_documento'],
+                    'caminho_arquivo' => $registros['caminho_arquivo'],
+                    'operador' => $registros['operador'],
+                    'sit_beneficio' => $registros['sit_beneficio']
+                );
+            }
+            $response['dadosFich'] = $dadosFicharios;
             echo json_encode($response);
     
         } else {

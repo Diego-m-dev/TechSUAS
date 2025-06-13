@@ -204,6 +204,17 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   </nav>
 
   <nav>
+    <button class="section-btn" onclick="toggleSection('visitas')">Visitas</button>
+    <div id="visitas" class="section-content">
+      <a href="/TechSUAS/views/cadunico/visitas/buscarvisita"><span class="material-symbols-outlined">description</span>Gerar Relatórios</a>
+      <a href="/TechSUAS/views/cadunico/visitas/visitas_para_fazer"><span class="material-symbols-outlined">family_restroom</span>Buscar Famílias (ano,mes,localidade)</a>
+      <a href="/TechSUAS/views/cadunico/visitas/visitas_para_fazer_data"><span class="material-symbols-outlined">filter_alt</span>Filtrar Famílias - Visitas</a>
+      <a id="registrar_visita" onclick="registrarVisita()"><span class="material-symbols-outlined">checkbook</span>Registrar Visitas</a>
+      <a id="visitas_agendadas" onclick="visitasAgendades()"><span class="material-symbols-outlined">calendar_month</span>Visitas Agendadas</a>
+    </div>
+  </nav>
+
+  <nav>
     <button class="section-btn" onclick="toggleSection('links')">Links Úteis</button>
     <div id="links" class="section-content">
       <a href="https://www.beneficiossociais.caixa.gov.br" target="_blank">SIBEC</a>
@@ -224,7 +235,6 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     <button class="btn_separado" type="button" onclick="voltaMenu()">Menu navegação</button>
     <button class="btn_separado" type="button" onclick="peixinho()">Cadastro Peixe</button>
     <button class="btn_separado" type="button" id="solicitaFormButton" onclick="solicitaForm()">Solicitar Formulário</button>
-    <button class="btn_separado" type="button" onclick="areaVisitas()">Visitas</button>
   </nav>
 
   <nav>
@@ -242,6 +252,28 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
 </div>
 
   </div>
+
+  <div class="drop-all">
+    <div class="menu-drop">
+        <button class="logout" type="button" name="drop">
+            <span class="material-symbols-outlined">settings</span>
+        </button>
+        <div class="drop-content">
+            <a title="Sair" href="/TechSUAS/config/logout">
+                <span title="Sair" class="material-symbols-outlined">logout</span>
+            </a>
+            <a title="Alterar Usuário" href="/TechSUAS/views/geral/conta">
+                <span class="material-symbols-outlined">manage_accounts</span>
+            </a>
+            <?php if ($_SESSION['funcao'] == '0') { ?>
+                <a title="Suporte" href="/TechSUAS/config/back">
+                    <span class="material-symbols-outlined">rule_settings</span>
+                </a>
+            <?php } ?>
+        </div>
+    </div>
+</div>
+
   <?php
   $conn_1->close();
   $conn->close();

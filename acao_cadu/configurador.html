@@ -1,10 +1,132 @@
-<input type="text" id="videoId" placeholder="Digite o ID do vídeo do YouTube">
-<button onclick="salvarVideo()">Salvar</button>
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Configurar Playlist</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f2f2f2;
+      padding: 30px;
+    }
+    .playlist-container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    input {
+      width: 80%;
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 15px;
+      border: none;
+      background-color: #2e89ff;
+      color: white;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #176de5;
+    }
+    .video-list {
+      margin-top: 20px;
+    }
+    .video-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      background: #f9f9f9;
+      padding: 10px;
+      border-radius: 8px;
+    }
+    .video-item img {
+      width: 100px;
+      height: 56px;
+      object-fit: cover;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+    .video-title {
+      flex: 1;
+      font-size: 14px;
+    }
+    .remove-btn {
+      background: transparent;
+      color: #f44336;
+      cursor: pointer;
+      border: none;
+    }
+    .remove-btn i {
+      font-size: 24px;
+    }
+  </style>
+</head>
+<body>
+  <div class="playlist-container">
+    <h2>Configurar Playlist do YouTube</h2>
+    <input type="text" id="videoInput" placeholder="Cole apenas o ID do vídeo">
+    <button onclick="adicionarVideo()">Adicionar</button>
 
-<script>
-function salvarVideo() {
-  const id = document.getElementById('videoId').value.trim()
-  localStorage.setItem('videoYoutubeID', id)
-  alert('ID salvo com sucesso!')
-}
-</script>
+    <div class="video-list" id="videoList"></div>
+  </div>
+
+  <script>
+    let listaVideos = JSON.parse(localStorage.getItem('listaVideos')) || [];
+
+    function salvarLista() {
+      localStorage.setItem('listaVideos', JSON.stringify(listaVideos));
+      renderizarLista();
+    }
+
+    function adicionarVideo() {
+      const input = document.getElementById("videoInput");
+      const id = input.value.trim();
+
+
+      if (listaVideos.some(video => video.id === id)) {
+        alert("Esse vídeo já está na lista.");
+        return;
+      }
+
+      listaVideos.push({ id });
+      salvarLista();
+      input.value = '';
+    }
+
+    function removerVideo(index) {
+      listaVideos.splice(index, 1);
+      salvarLista();
+    }
+
+    function renderizarLista() {
+      const list = document.getElementById("videoList");
+      list.innerHTML = "";
+      listaVideos.forEach((video, i) => {
+        const thumbnail = `https://img.youtube.com/vi/${video.id}/default.jpg`;
+        list.innerHTML += `
+          <div class="video-item">
+            <img src="${thumbnail}" alt="Thumb">
+            <div class="video-title">ID: ${video.id}</div>
+            <button class="remove-btn" onclick="removerVideo(${i})">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        `;
+      });
+    }
+
+    renderizarLista();
+  </script>
+</body>
+</html>

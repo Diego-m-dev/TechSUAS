@@ -50,10 +50,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $extensao = pathinfo($_FILES['arquivo']['name'], PATHINFO_EXTENSION);
             $novoNomeArquivo = uniqid() . '.' . $extensao;
             $caminhoCompleto = $uploadDir . $novoNomeArquivo;
-            
-            if (!move_uploaded_file($_FILES['arquivo']['tmp_name'], $caminhoCompleto)) {
-                throw new Exception("Erro ao fazer upload do arquivo.");
+
+            if ($_FILES['arquivo']['error'] !== UPLOAD_ERR_OK) {
+                throw new Exception("Erro no upload: código " . $_FILES['arquivo']['error']);
             }
+
+            if (!is_dir($uploadDir) || !is_writable($uploadDir)) {
+                throw new Exception("Diretório de upload inválido ou sem permissão: " . $uploadDir);
+            }
+
+            if (!move_uploaded_file($_FILES['arquivo']['tmp_name'], $caminhoCompleto)) {
+                throw new Exception("Erro ao mover o arquivo para o destino final.");
+            }
+
             
             $caminho_arquivo = '/TechSUAS/upload_cad/' . $novoNomeArquivo; // Caminho salvo no banco
         }

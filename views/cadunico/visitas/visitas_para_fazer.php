@@ -100,15 +100,15 @@ foreach ($anos as $ano) {
         var hasContent = false;
         var contentCount = 0; // Contador para linhas com conteúdo
 
-        for (var i = 0; i < table.rows.length; i++) {
-            if (table.rows[i].cells[0].textContent.trim() !== "") {
-                contentCount++; // Incrementa o contador se a primeira célula tiver conteúdo
-                if (contentCount >= 2) { // Verifica se já há pelo menos duas linhas com conteúdo
-                    hasContent = true;
-                    break;
-                }
-            }
-        }   
+		for (var i = 0; i < table.rows.length; i++) {
+			if (table.rows[i].cells[0].textContent.trim() !== "") {
+				contentCount++; // Incrementa o contador se a primeira célula tiver conteúdo
+				if (contentCount >= 2) { // Verifica se já há pelo menos duas linhas com conteúdo
+					hasContent = true;
+					break;
+				}
+			}
+		}
 
         // Exibe ou oculta o botão de acordo com a presença de conteúdo (mínimo 2 linhas)
         if (hasContent) {
@@ -118,8 +118,7 @@ foreach ($anos as $ano) {
         }
     </script>
     <?php
-      $conn_1->close();
+    	$conn_1->close();
     ?>
 </body>
-
 </html>

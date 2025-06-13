@@ -3,6 +3,10 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 
+  $data5yearsago = new DateTime();
+  $data5yearsago->modify('-5 years');
+  $data5yearsagoFormatada = $data5yearsago->format('Y-m-d');
+
   $stmt_up = $pdo->prepare("SELECT c.id,
             c.cod_familiar_fam AS cod_familiar,
             DATE_FORMAT(c.data_entrevista, '%d/%m/%Y') AS data_entrevista,
@@ -13,14 +17,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             t.cod_familiar_fam
     FROM cadastro_forms c
     LEFT JOIN tbl_tudo t ON t.cod_familiar_fam = c.cod_familiar_fam
-    WHERE t.cod_familiar_fam IS NULL AND c.certo != 1 AND (c.operador = :operador OR c.operador = :cpfOperador)
+    WHERE (t.cod_familiar_fam IS NULL AND c.certo != 1 AND (c.operador = :operador OR c.operador = :cpfOperador)) OR (c.data_entrevista < :data5yearsago AND c.operador = :2operador)
     GROUP BY c.id
     ORDER BY c.criacao ASC
     ");
     $cpf_limpo = preg_replace('/\D/', '', $_SESSION['cpf']);
     $stmt_up->execute(array(
       'operador' => $_SESSION['nome_usuario'],
-      'cpfOperador' => $cpf_limpo
+      'cpfOperador' => $cpf_limpo,
+			':data5yearsago' => $data5yearsagoFormatada,
+			':2operador' => $_SESSION['nome_usuario']
     ));
 
     ?>
@@ -67,17 +73,17 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     <tr class="destaque">
         <td><?php echo $seq; ?></td>
         <td style="display: flex; align-items: center; gap: 5px;">
-			<pre id="copy_code"><?php echo $abbc['cod_familiar_fam']; ?></pre>
+			<pre id="copy_code"><?php echo $abbc['cod_familiar']; ?></pre>
 				<a onclick='copiarTexto(this)' style="cursor: pointer;">
-            		<i class="material-symbols-outlined">content_copy</i>
+          	<i class="material-symbols-outlined">content_copy</i>
     			</a>
         </td>
         <td><?php echo $abbc['data_entrevista']; ?></td>
         <td><?php echo $abbc['tipo_documento']; ?></td>
         <td>
-            <!-- Ícone para visualizar PDF -->
+          <!-- Ícone para visualizar PDF -->
             <a onclick="mostrarPDF('<?php echo $seq; ?>', '<?php echo $abbc['caminho_arquivo']; ?>')" style="color: green; font-size: 16px; margin-right: 18px; cursor: pointer;">
-                <i class="fa fa-eye"></i>
+              <i class="fa fa-eye"></i>
             </a>
 
             <!-- Outros ícones -->
@@ -101,7 +107,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             <?php
         }
     } else {
-        header("location:/TechSUAS/views/cadunico/dashboard");
+        //header("location:/TechSUAS/views/cadunico/dashboard");
         exit;
     }
 ?>

@@ -212,6 +212,11 @@ button:active {
   border: 1px solid #d1d5db;
 }
 
+.material-symbols-outlined {
+  font-size: 20px;
+  vertical-align: middle;
+}
+
 .observ-header:hover {
   background-color: var(--bg-dark);
 }
