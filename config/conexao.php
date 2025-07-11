@@ -31,8 +31,6 @@ try {
         throw new Exception("Falha na conexão com o banco de dados: " . $conn->connect_error);
     }
 
-    // Operações com PDO e mysqli aqui
-
 } catch (Exception $e) {
     error_log($e->getMessage(), 3, '/path/to/your/logs/error.log');
     die("Erro ao conectar com o banco de dados! Por favor, tente novamente mais tarde.");
