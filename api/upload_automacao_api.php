@@ -1,29 +1,37 @@
 <?php
-    $host = 'srv1898.hstgr.io';
-    $usuario_bd = "u444556286_sbu";
-    $senha_bd = "@ddvSBU33";
-    $banco = "u444556286_sbu";
-    $port = 3306;
-// upload_automacao_api.php
+// Configurações do banco
+$host = 'srv1898.hstgr.io';
+$usuario_bd = "u444556286_sbu";
+$senha_bd = "@ddvSBU33";
+$banco = "u444556286_sbu";
+$port = 3306;
 
-file_put_contents(__DIR__ . '/debug_upload.txt', print_r($_POST, true));
+// Caminho do arquivo de log
+$logFile = __DIR__ . '/debug_upload.txt';
+function log_debug($msg) {
+    global $logFile;
+    file_put_contents($logFile, "[" . date('Y-m-d H:i:s') . "] " . $msg . PHP_EOL, FILE_APPEND);
+}
+
+log_debug("=== Nova requisição recebida ===");
+log_debug("POST: " . print_r($_POST, true));
+log_debug("FILES: " . print_r($_FILES, true));
 
 header('Content-Type: application/json');
 
 // Token de segurança
-define('TOKEN_SEGURANCA', '#uploadTech@2025!'); // Altere para um valor forte e secreto
+define('TOKEN_SEGURANCA', '#uploadTech@2025!'); // Alterar para algo seguro
 
 // Verificação do token
 $token = $_POST['token'] ?? $_REQUEST['token'] ?? null;
-
 if ($token !== TOKEN_SEGURANCA) {
     http_response_code(403);
     echo json_encode(['erro' => 'Acesso não autorizado.']);
+    log_debug("Falha na autenticação: token inválido.");
     exit;
 }
-// fim verificação token
 
-// Conexão com o banco (sem sessão)
+// Conexão com o banco usando apenas PDO
 try {
     $pdo = new PDO("mysql:dbname=$banco;host=$host;port=$port", $usuario_bd, $senha_bd, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -31,19 +39,12 @@ try {
         PDO::ATTR_EMULATE_PREPARES => false,
         PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4",
     ]);
-
-    // Conexão mysqli
-    $conn = new mysqli($host, $usuario_bd, $senha_bd, $banco, $port);
-
-    // Verifique a conexão mysqli.
-    if ($conn->connect_error) {
-        throw new Exception("Falha na conexão com o banco de dados: " . $conn->connect_error);
-    }
+    log_debug("Conexão PDO estabelecida com sucesso.");
 } catch (Exception $e) {
     file_put_contents(__DIR__ . '/erro_detalhado.txt', $e->getMessage());
-
     http_response_code(500);
     echo json_encode(['erro' => 'Erro na conexão com o banco: ' . $e->getMessage()]);
+    log_debug("Erro na conexão com o banco: " . $e->getMessage());
     exit;
 }
 
@@ -63,29 +64,29 @@ try {
     $ajustando_cod = str_pad($cpf_limpo, 11, '0', STR_PAD_LEFT);
     $data_entrevista = $_POST['data_entrevista_hoje'];
 
-        $sit_beneficio_map = [
-            1 => 'APENAS UPLOAD',
-            2 => 'BENEFICIO NORMALIZADO',
-            3 => 'NÃO TEM BENEFÍCIO',
-            4 => 'FIM DE RESTRIÇÃO ESPECIFICA',
-            5 => 'CANCELADO',
-            6 => 'BLOQUEADO'
-        ];
-        $sit_beneficio = $sit_beneficio_map[$_POST['sit_beneficio']] ?? null;
+    $sit_beneficio_map = [
+        1 => 'APENAS UPLOAD',
+        2 => 'BENEFICIO NORMALIZADO',
+        3 => 'NÃO TEM BENEFÍCIO',
+        4 => 'FIM DE RESTRIÇÃO ESPECIFICA',
+        5 => 'CANCELADO',
+        6 => 'BLOQUEADO'
+    ];
+    $sit_beneficio = $sit_beneficio_map[$_POST['sit_beneficio']] ?? null;
 
-        $tipo_doc_maps = [
-            1 => 'Cadastro',
-            2 => 'Atualização',
-            3 => 'Assinatura',
-            4 => 'Fichas exclusão',
-            5 => 'Relatórios',
-            6 => 'Parecer visitas',
-            7 => 'Documento externo',
-            8 => 'Termos'
-        ];
-        $tipo_doc = $tipo_doc_maps[$_POST['tipo_documento']] ?? null;
+    $tipo_doc_maps = [
+        1 => 'Cadastro',
+        2 => 'Atualização',
+        3 => 'Assinatura',
+        4 => 'Fichas exclusão',
+        5 => 'Relatórios',
+        6 => 'Parecer visitas',
+        7 => 'Documento externo',
+        8 => 'Termos'
+    ];
+    $tipo_doc = $tipo_doc_maps[$_POST['tipo_documento']] ?? null;
 
-    $obs_familia = $_POST['resumo'] ?? null;
+    $obs_familia = $_POST['resumo'] ?? '';
     $operador = $_POST['operador'] ?? 'FORMA AUTOMATICA';
 
     // Validação de arquivo
@@ -98,13 +99,11 @@ try {
         throw new Exception("Apenas arquivos PDF são permitidos.");
     }
 
-    // Verificar duplicidade
-    $stmt_dp = $conn->prepare("SELECT cod_familiar_fam FROM cadastro_forms WHERE cod_familiar_fam = ? AND data_entrevista = ? AND tipo_documento = ?");
-    $stmt_dp->bind_param('sss', $ajustando_cod, $data_entrevista, $tipo_doc);
-    $stmt_dp->execute();
-    $stmt_dp->store_result();
-
-    if ($stmt_dp->num_rows > 0) {
+    // Verificar duplicidade usando apenas PDO
+    $stmt_dp = $pdo->prepare("SELECT COUNT(*) FROM cadastro_forms 
+                              WHERE cod_familiar_fam = :cod AND data_entrevista = :data AND tipo_documento = :tipo");
+    $stmt_dp->execute([':cod' => $ajustando_cod, ':data' => $data_entrevista, ':tipo' => $tipo_doc]);
+    if ($stmt_dp->fetchColumn() > 0) {
         throw new Exception("Já existe um registro com esses dados.");
     }
 
@@ -112,6 +111,7 @@ try {
     $uploadDir = $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/upload_cad/';
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0775, true);
+        log_debug("Diretório criado: $uploadDir");
     }
 
     $novoNome = uniqid("upload_", true) . ".pdf";
@@ -142,12 +142,13 @@ try {
     $response['mensagem'] = 'Upload e inserção bem-sucedidos.';
     echo json_encode($response);
 
+    log_debug("Upload e inserção bem-sucedidos. Arquivo: $caminho_arquivo");
+    $pdo = null;
+
 } catch (Exception $e) {
     file_put_contents(__DIR__ . '/erro_detalhado.txt', $e->getMessage());
-
     http_response_code(400);
     $response['erro'] = $e->getMessage();
     echo json_encode($response);
+    log_debug("Erro: " . $e->getMessage());
 }
-
-$conn->close();
