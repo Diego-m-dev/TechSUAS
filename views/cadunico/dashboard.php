@@ -3,27 +3,41 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/conexao.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/permissao_cadunico.php';
 include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php';
 
-  $data5yearsago = new DateTime();
-  $data5yearsago->modify('-5 years');
-  $data5yearsagoFormatada = $data5yearsago->format('Y-m-d');
-    $stmt_up_5 = $pdo->prepare("SELECT id FROM cadastro_forms WHERE data_entrevista < :data5yearsago");
-    $stmt_up_5->bindValue(":data5yearsago", $data5yearsagoFormatada);
-    $stmt_up_5->execute();
+$cpf_limpo = preg_replace('/\D/', '', $_SESSION['cpf']);
+$operador = $_SESSION['nome_usuario'];
 
-  $stmt_up = $pdo->prepare("SELECT c.id
+// Preparar datas
+$data5yearsago = (new DateTime())->modify('-5 years')->format('Y-m-d');
+
+// Consultas mais rápidas: removido GROUP BY e adicionados LIMITs corretos
+$sql_pendentes = "
+    SELECT c.id
     FROM cadastro_forms c
     LEFT JOIN tbl_tudo t ON t.cod_familiar_fam = c.cod_familiar_fam
-    WHERE t.cod_familiar_fam IS NULL AND c.certo != 1 AND (c.operador = :operador OR c.operador = :cpfOperador)
-    GROUP BY c.id
+    WHERE t.cod_familiar_fam IS NULL
+      AND c.certo != 1
+      AND (c.operador = :operador OR c.operador = :cpfOperador)
     ORDER BY c.criacao ASC
-    ");
-    $cpf_limpo = preg_replace('/\D/', '', $_SESSION['cpf']);
-    $operador = $_SESSION['nome_usuario'];
-    $stmt_up->execute(array(
-      'operador' => $operador,
-      'cpfOperador' => $cpf_limpo
-    ));
+    LIMIT 1
+";
+$stmt_up = $pdo->prepare($sql_pendentes);
+$stmt_up->execute([
+    'operador' => $operador,
+    'cpfOperador' => $cpf_limpo
+]);
 
+// Checar notificação 5 anos só se a primeira consulta não tiver resultado
+$stmt_up_5 = null;
+if ($stmt_up->rowCount() === 0 && $_SESSION['funcao'] == 1) {
+    $sql_5anos = "
+        SELECT id
+        FROM cadastro_forms
+        WHERE data_entrevista < :data5yearsago
+        LIMIT 1
+    ";
+    $stmt_up_5 = $pdo->prepare($sql_5anos);
+    $stmt_up_5->execute(['data5yearsago' => $data5yearsago]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -43,6 +57,9 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <script src="/TechSUAS/js/cadastro_unico.js"></script>
+  <script src="/TechSUAS/js/entrevistadores.js"></script>
+  <script src="/TechSUAS/js/visitas_recepcao.js"></script>
+
 
   <title>Painel do Entrevistador - TechSUAS</title>
 </head>
@@ -130,6 +147,7 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
             <div id="codfamiliar_print" class="ocult"></div>
             <div id="familia_show" class="ocult"></div>
             <div id="arquivo_show"></div>
+            <div id="visitas_show"></div>
             <div class="pdf-container">
               <iframe id="pdfViewer" width="100%" height="300px"></iframe>
             </div>
@@ -183,39 +201,42 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
   <h3>MENU</h3>
 
   <nav>
-    <button class="section-btn" onclick="toggleSection('declaracoes')">Fichas e Declarações</button>
-    <div id="declaracoes" class="section-content">
-      <a id="btn_residencia"><i class="fas fa-home icon"></i>Declaração de Residência</a>
-      <a id="btn_dec_renda"><i class="fas fa-file-invoice-dollar icon"></i>Declaração de Renda</a>
+    <button class="section-btn" onclick="toggleSection('termos')">FICHAS/TERMOS</button>
+    <div id="termos" class="section-content">
+      <a id="btn_residencia"><i class="fas fa-home icon"></i>Residência</a>
+      <a id="btn_dec_renda"><i class="fas fa-file-invoice-dollar icon"></i>Renda</a>
       <a id="btn_fc_familia"><i class="fas fa-user-minus icon"></i>Exclusão de Família</a>
       <a id="btn_fc_pessoa"><i class="fas fa-user-minus icon"></i>Exclusão de Pessoa</a>
+      <a id="btn_des_vol"><i class="material-symbols-outlined">contract_delete</i>Desligamento Voluntário</a>
     </div>
   </nav>
 
   <nav>
-    <button class="section-btn" onclick="toggleSection('termos')">Documentos</button>
-    <div id="termos" class="section-content">
-      <a id="btn_dec_cad"><i class="material-symbols-outlined">assignment_add</i> Declaração do Cadastro Único</a>
-      <a id="btn_encamnhamento"><i class="material-symbols-outlined">export_notes</i> Encaminhamentos</a>
-      <a id="btn_des_vol"><i class="material-symbols-outlined">contract_delete</i> Desligamento Voluntário</a>
-      <a id="btn_troca"><i class="material-symbols-outlined">quick_reference</i> Troca de RF - C.E.F.</a>
+    <button class="section-btn" onclick="toggleSection('declaracao')">DOC-EXTERNOS</button>
+    <div id="declaracao" class="section-content">
+      <a id="btn_dec_cad"><i class="material-symbols-outlined">assignment_add</i>Declaração do Cadastro Único</a>
+      <a id="btn_encamnhamento"><i class="material-symbols-outlined">export_notes</i>Encaminhamentos</a>
+      <a id="btn_troca"><i class="material-symbols-outlined">quick_reference</i>Troca de RF - C.E.F.</a>
       <a id="relatorio_entrevistador"><i class="material-symbols-outlined">analytics</i>Relatório Mensal</a>
     </div>
   </nav>
 
   <nav>
-    <button class="section-btn" onclick="toggleSection('visitas')">Visitas</button>
+    <button class="section-btn" onclick="toggleSection('visitas')">VISITAS</button>
     <div id="visitas" class="section-content">
       <a href="/TechSUAS/views/cadunico/visitas/buscarvisita"><span class="material-symbols-outlined">description</span>Gerar Relatórios</a>
       <a href="/TechSUAS/views/cadunico/visitas/visitas_para_fazer"><span class="material-symbols-outlined">family_restroom</span>Buscar Famílias (ano,mes,localidade)</a>
-      <a href="/TechSUAS/views/cadunico/visitas/visitas_para_fazer_data"><span class="material-symbols-outlined">filter_alt</span>Filtrar Famílias - Visitas</a>
-      <a id="registrar_visita" onclick="registrarVisita()"><span class="material-symbols-outlined">checkbook</span>Registrar Visitas</a>
-      <a id="visitas_agendadas" onclick="visitasAgendades()"><span class="material-symbols-outlined">calendar_month</span>Visitas Agendadas</a>
+      <a href="/TechSUAS/views/cadunico/visitas/visitas_para_fazer_data"><span class="material-symbols-outlined">filter_alt</span>Filtrar Famílias</a>
+      <a id="registro_visitas" onclick="visitas_recepcao()"><span class="material-symbols-outlined">real_estate_agent</span>À Realizar</a>
+      <a id="registrar_visita" onclick="registrarVisita()"><span class="material-symbols-outlined">checkbook</span>Registrar</a>
+      <a id="visitas_agendadas" onclick="visitasAgendades()"><span class="material-symbols-outlined">calendar_month</span>Agendadas</a>
+      <a id="visitas_bpc" onclick="visitas_bpc()"><span class="material-symbols-outlined">account_child_invert</span>BPC</a>
+      <a id="veiculos" onclick="alert('Em desenvolvimento!')"><span class="material-symbols-outlined">traffic_jam</span>Veículo</a>
     </div>
   </nav>
 
   <nav>
-    <button class="section-btn" onclick="toggleSection('links')">Links Úteis</button>
+    <button class="section-btn" onclick="toggleSection('links')">LINKS ÚTEIS</button>
     <div id="links" class="section-content">
       <a href="https://www.beneficiossociais.caixa.gov.br" target="_blank">SIBEC</a>
       <a href="http://cadastrounico.caixa.gov.br" target="_blank">Cadastro Único</a>
@@ -226,14 +247,32 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     </div>
   </nav>
 
+  <?php
+  if ($_SESSION['funcao'] == 1) {
+  ?>
   <nav>
-    <button class="btn_separado" id="btn_beneficios">Pendências</button>
+    <button class="section-btn" onclick="toggleSection('area_gestor')">AREA GESTOR</button>
+    <div id="area_gestor" class="section-content">
+      <a href="/TechSUAS/views/cadunico/area_gestao/index">Painel do Gestor</a>
+      
+    </div>
+  </nav>
+  <nav>
+    <!-- <button class="btn_separado" id="btn_beneficios">Pendências</button> -->
     <button class="btn_separado" onclick="filtroFamilia()">Filtros Famílias</button>
   </nav>
+  <?php
+  }
+  ?>
 
   <nav>
     <button class="btn_separado" type="button" onclick="voltaMenu()">Menu navegação</button>
-    <button class="btn_separado" type="button" onclick="peixinho()">Cadastro Peixe</button>
+    <button class="btn_separado" type="button" onclick="mensagem()">Mensagem</button>
+    <?php
+    if ($mesNumber >= 1 && $mesNumber <= 3) {
+      ?><button class="btn_separado" type="button" onclick="peixinho()">Cadastro Peixe</button><?php
+    }
+    ?>
     <button class="btn_separado" type="button" id="solicitaFormButton" onclick="solicitaForm()">Solicitar Formulário</button>
   </nav>
 
@@ -242,12 +281,16 @@ include_once $_SERVER['DOCUMENT_ROOT'] . '/TechSUAS/config/data_mes_extenso.php'
     <div id="formularios" class="section-content">
       <a id="btn_atendimento_acao" onclick="atendimento_acao_cadu()">
         <i class="material-symbols-outlined">assignment_add</i>
-        Atendimento
+          Atendimento
       </a>
       <a id="btn_control_playlist" onclick="abrirConfiguradorPlaylist()">
-        <i class="material-symbols-outlined">playlist_play</i> Playlist YouTube
+        <i class="material-symbols-outlined">playlist_play</i>
+          Playlist YouTube
       </a>
     </div>
+  </nav>
+  <nav>
+    <a href="/TechSUAS/views/cadunico/api_upload" target="_blank">Baixar API de Upload</a>
   </nav>
 </div>
 
