@@ -13,6 +13,7 @@ if (isset($_SESSION['municipio'])) {
 
 $raiz_dom = "/TechSUAS/";
 date_default_timezone_set('America/Sao_Paulo');
+define('DOCUMENT_SECRET_KEY', 'sua-chave-secreta-bem-segura-aqui');
 
 try {
     // Conexão PDO
